@@ -16,7 +16,6 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var tableView = UITableView()
     let searchButton = UIButton()
-    //    var bookResults = [Book]()
     var isbnImage = String()
     
     override func viewDidLoad() {
@@ -83,34 +82,38 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func searchButtonFunc(sender: UIButton!) {
         
-        BookDataStore.shared.getBookResults(with: searchBookTitle.text!, authorQuery: searchAuthorTextField.text!) { (results) in
+        let queue = OperationQueue()
+        queue.name = "Download Image"
+        queue.qualityOfService = .userInitiated
+        queue.maxConcurrentOperationCount = 1
+        
+        let request = BookDataStore.shared.getBookResults(with: searchBookTitle.text!, authorQuery: searchAuthorTextField.text!) { (success) in
             
-            OperationQueue.main.addOperation {
-                self.tableView.reloadData()
+            if success == true && queue.operationCount == 0{
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             }
-            
         }
+        
+        queue.addOperation {request}
         
     }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         return BookDataStore.shared.bookArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "bookResult", for: indexPath) as! SearchBookResultsTableViewCell
         
-        //        cell.titleLabel.text = "Title: "
-        //        cell.authorLabel.text = "Author "
-        
-        cell.bookTitleLabel.text = BookDataStore.shared.bookArray[indexPath.row].title
-        cell.bookAuthorLabel.text = BookDataStore.shared.bookArray[indexPath.row].author
-        
         OperationQueue.main.addOperation {
+            cell.bookTitleLabel.text = BookDataStore.shared.bookArray[indexPath.row].title
+            cell.bookAuthorLabel.text = BookDataStore.shared.bookArray[indexPath.row].author
             cell.bookImage.image = BookDataStore.shared.bookArray[indexPath.row].bookCover
         }
-        
         
         return cell
     }

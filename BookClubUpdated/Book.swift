@@ -19,12 +19,9 @@ class Book {
     let bookCoverLink: String?
     let bookCoverLinkDict: [String:String]?
     let linkToPass: String?
-
-    let volume: [String: Any]
-        let description: String?
-//        let isbn: String
-//        let isbnArray: [[String:String]]
     
+    let volume: [String: Any]
+    let description: String?
     
     init(dict: [String: Any]) {
         self.volume = dict["volumeInfo"] as! [String: Any]
@@ -39,14 +36,8 @@ class Book {
         guard let link = linkToPass else {return}
         
         OpenBookSourceAPI.downloadBookImage(with: link) { (image) in
-               self.bookCover = image
+            self.bookCover = image
         }
-
-        
-        //        self.isbnArray = (volume["industryIdentifiers"] as? [[String:String]])!
-        //        self.isbn = isbnArray[0]["identifier"]!
-        
-        
     }
     
     enum BookFeelings {

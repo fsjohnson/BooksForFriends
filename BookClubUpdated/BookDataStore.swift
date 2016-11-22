@@ -31,9 +31,10 @@ class BookDataStore {
     }
     
     
-    func getBookResults(with searchQuery: String, authorQuery: String, completion: @escaping ([Book]) -> Void) {
-        bookArray.removeAll()
+    func getBookResults(with searchQuery: String, authorQuery: String, completion: @escaping (Bool) -> Void) {
         
+        bookArray.removeAll()
+
         OpenBookSourceAPI.APICall(with: searchQuery, authorName: authorQuery) { (searchResults) in
             for searchResult in searchResults {
                 let book = Book(dict: searchResult)
@@ -44,7 +45,9 @@ class BookDataStore {
                 return first.title < second.title
             })
             
-            completion(self.bookArray)
+            if self.bookArray.count > 0 {
+                completion(true)
+            }
         }
     }
     

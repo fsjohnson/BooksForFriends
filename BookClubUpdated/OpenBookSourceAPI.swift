@@ -63,24 +63,24 @@ class OpenBookSourceAPI {
     }
 
     class func downloadBookImage(with urlString: String, with completion: @escaping (UIImage) -> Void) {
-        
-        print("INSIDE DOWNLOAD\n\n\n")
+
         let searchCoverURL = URL(string: urlString)
         
         guard let unwrappedCoverURL = searchCoverURL else {return}
         print(unwrappedCoverURL)
-        
-        let session = URLSession.shared
-        let request = URLRequest(url: unwrappedCoverURL)
-        
-        let task = session.dataTask(with: request) { (data, response, error) in
-            
-            guard let unwrappedData = data else {return}
-            guard let image = UIImage(data: unwrappedData) else {return}
+
+        do {
+            let imageData = try Data(contentsOf: unwrappedCoverURL)
+            guard let image = UIImage(data: imageData) else {return}
             completion(image)
-        }
-        
-        task.resume()
+
+        } catch {}
+
     }
     
 }
+
+
+
+
+
