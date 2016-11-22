@@ -18,8 +18,8 @@ class OpenBookSourceAPI {
     class func searchTitles(with searchTitle: String, completion: @escaping ([[String: Any]]) -> Void) {
         
         BookDataStore.shared.generateProperSearch(with: searchTitle) { (title) in
-            let searchTitleURL = URL(string: "https://www.googleapis.com/books/v1/volumes?q=intitle:harry+potter+and+the+prisoner+of+azkaban+inauthor:rowling&key=\(Constants.apiKey)")
-            
+            let searchTitleURL = URL(string: "https://www.googleapis.com/books/v1/volumes?q=intitle:\(title)+inauthor:Tolkien&key=\(Constants.apiKey)")
+        
             let session: URLSession = URLSession.shared
             guard let unwrappedURL = searchTitleURL else { return }
             

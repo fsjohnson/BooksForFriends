@@ -15,7 +15,7 @@ class SearchBookResultsTableViewCell: UITableViewCell {
     var bookImage = UIImageView()
     let titleLabel = UILabel()
     let authorLabel = UILabel()
-    
+
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: "bookResult")
@@ -77,11 +77,18 @@ class SearchBookResultsTableViewCell: UITableViewCell {
         stackView.addArrangedSubview(bookTitleLabel)
         stackView.addArrangedSubview(bookAuthorLabel)
         stackView.translatesAutoresizingMaskIntoConstraints = false;
-        stackView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.90)
+        bookTitleLabel.adjustsFontSizeToFitWidth = true
+        bookAuthorLabel.adjustsFontSizeToFitWidth = true
+        bookAuthorLabel.font = UIFont(name: "Helvetica-LightOblique", size: 14)
+        bookTitleLabel.numberOfLines = 0
+        bookTitleLabel.lineBreakMode = .byWordWrapping
+
         
         self.addSubview(stackView)
         stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         stackView.leftAnchor.constraint(equalTo: titleStackView.rightAnchor, constant: 10).isActive = true
+        stackView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.70).isActive = true
+        stackView.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 1.0).isActive = true
         
         // book image
         

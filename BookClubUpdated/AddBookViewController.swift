@@ -100,8 +100,8 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "bookResult", for: indexPath) as! SearchBookResultsTableViewCell
         
-        cell.titleLabel.text = "Title: "
-        cell.authorLabel.text = "Author "
+//        cell.titleLabel.text = "Title: "
+//        cell.authorLabel.text = "Author "
         
         cell.bookTitleLabel.text = bookResults[indexPath.row].title
         cell.bookAuthorLabel.text = bookResults[indexPath.row].author
