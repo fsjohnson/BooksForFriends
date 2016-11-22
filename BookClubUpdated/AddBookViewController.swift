@@ -71,21 +71,16 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
     func searchButtonFunc(sender: UIButton!) {
         
         BookDataStore.shared.getBookResults(with: searchBookTitle.text!) { (results) in
-            print("RESULTS: \(results)")
             for result in results {
                 self.bookResults.append(result)
             }
             OperationQueue.main.addOperation {
                 self.tableView.reloadData()
             }
-            
-            print("COUNT: \(self.bookResults.count)")
         }
             
     }
-    
-    
-    
+
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return bookResults.count

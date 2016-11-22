@@ -18,7 +18,7 @@ class OpenBookSourceAPI {
     class func searchTitles(with searchTitle: String, completion: @escaping ([[String: Any]]) -> Void) {
         
         BookDataStore.shared.generateProperSearch(with: searchTitle) { (title) in
-            let searchTitleURL = URL(string: "https://openlibrary.org/search.json?title=\(title)&author=Tolkien")
+            let searchTitleURL = URL(string: "https://www.googleapis.com/books/v1/volumes?q=intitle:me+before+you+inauthor:moyes&key=\(Constants.apiKey)")
             
             let session: URLSession = URLSession.shared
             guard let unwrappedURL = searchTitleURL else { return }
@@ -35,10 +35,11 @@ class OpenBookSourceAPI {
                 if httpResponse.statusCode == 200 {
                     if let unwrappedData = data {
                         do {
-                            let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [String: AnyObject]
+                            let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [String: Any]
                             
-                            guard let bookInfo = responseJSON["docs"] as? [[String: Any]] else {return}
                             
+                            guard let bookInfo = responseJSON["items"] as? [[String: Any]] else {return}
+                                                    
                             completion(bookInfo)
                             
                         } catch {}
@@ -56,10 +57,10 @@ class OpenBookSourceAPI {
     }
     
     
-    class func downloadBookImage(with isbn: String, with completion: @escaping (UIImage) -> Void) {
+    class func downloadBookImage(with urlString: String, with completion: @escaping (UIImage) -> Void) {
         
             print("INSIDE DOWNLOAD\n\n\n")
-            let searchCoverURL = URL(string: "https://covers.openlibrary.org/b/ISBN/\(isbn)-L.jpg")
+            let searchCoverURL = URL(string: urlString)
             
             guard let unwrappedCoverURL = searchCoverURL else {return}
             print(unwrappedCoverURL)

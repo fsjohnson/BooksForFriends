@@ -14,22 +14,36 @@ class Book {
     let title: String
     let author: String
     let authorArray: [String]
-    let isbnArray: [String]
     var recommend: Bool?
-    let isbn: String
     var bookCover: UIImage?
+    let bookCoverLink: String
+    let bookCoverLinkDict: [String:String]
+    let linkToPass: String
+
+    let volume: [String: Any]
+    //    let description: String
+    //    let isbn: String
+    //    let isbnArray: [[String:String]]
     
     
     init(dict: [String: Any]) {
-        self.title = dict["title"] as! String
-        self.authorArray = dict["author_name"] as! [String]
+        self.volume = dict["volumeInfo"] as! [String: Any]
+        self.title = volume["title"] as! String
+        self.authorArray = volume["authors"] as! [String]
         self.author = authorArray[0]
-        self.isbnArray = (dict["isbn"] as? [String])!
-        self.isbn = (isbnArray[0])
+        self.bookCoverLinkDict = (volume["imageLinks"] as? [String:String])!
+        self.bookCoverLink = bookCoverLinkDict["thumbnail"]!
+        self.linkToPass = bookCoverLink.replacingOccurrences(of: "http", with: "https")
         
-        OpenBookSourceAPI.downloadBookImage(with: isbn) { (image) in
+        
+        OpenBookSourceAPI.downloadBookImage(with: linkToPass) { (image) in
             self.bookCover = image
         }
+
+        
+        //        self.isbnArray = (volume["industryIdentifiers"] as? [[String:String]])!
+        //        self.isbn = isbnArray[0]["identifier"]!
+        //        self.description = volume["description"] as! String
         
     }
     

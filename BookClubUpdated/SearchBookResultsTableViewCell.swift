@@ -93,6 +93,7 @@ class SearchBookResultsTableViewCell: UITableViewCell {
         bookImage.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.25).isActive = true
         bookImage.contentMode = UIViewContentMode.scaleAspectFit
 
+
         
     }
 

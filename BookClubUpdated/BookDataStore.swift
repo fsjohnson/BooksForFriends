@@ -35,13 +35,14 @@ class BookDataStore {
                 let book = Book(dict: searchResult)
                 print(book.author)
                 print(book.title)
-                print(book.isbn)
                 self.bookArray.append(book)
                 self.searchCount = self.bookArray.count
             }
             
             completion(self.bookArray)
         }
+        
+        print(bookArray)
         
     }
     
