@@ -33,7 +33,8 @@ class BookDataStore {
     
     func getBookResults(with searchQuery: String, authorQuery: String, completion: @escaping ([Book]) -> Void) {
         bookArray.removeAll()
-        OpenBookSourceAPI.searchTitles(with: searchQuery, authorName: authorQuery) { (searchResults) in
+        
+        OpenBookSourceAPI.APICall(with: searchQuery, authorName: authorQuery) { (searchResults) in
             for searchResult in searchResults {
                 let book = Book(dict: searchResult)
                 self.bookArray.append(book)

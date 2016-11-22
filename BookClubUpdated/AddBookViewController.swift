@@ -16,7 +16,7 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var tableView = UITableView()
     let searchButton = UIButton()
-//    var bookResults = [Book]()
+    //    var bookResults = [Book]()
     var isbnImage = String()
     
     override func viewDidLoad() {
@@ -88,26 +88,11 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
             OperationQueue.main.addOperation {
                 self.tableView.reloadData()
             }
-//            for result in results {
-//                
-//                if self.bookResults.count == 0 {
-//                    self.bookResults.append(result)
-//                } else {
-//                    for book in self.bookResults {
-//                        if book.title != result.title {
-//                            self.bookResults.append(result)
-//                            break
-//                        }
-//                    }
-//                }
             
-            }
-            
-        
-//        }
+        }
         
     }
-
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return BookDataStore.shared.bookArray.count
@@ -116,8 +101,8 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "bookResult", for: indexPath) as! SearchBookResultsTableViewCell
         
-//        cell.titleLabel.text = "Title: "
-//        cell.authorLabel.text = "Author "
+        //        cell.titleLabel.text = "Title: "
+        //        cell.authorLabel.text = "Author "
         
         cell.bookTitleLabel.text = BookDataStore.shared.bookArray[indexPath.row].title
         cell.bookAuthorLabel.text = BookDataStore.shared.bookArray[indexPath.row].author
