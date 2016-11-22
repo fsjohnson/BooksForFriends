@@ -11,11 +11,12 @@ import UIKit
 class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
+    @IBOutlet weak var searchAuthorTextField: UITextField!
     @IBOutlet weak var searchBookTitle: UITextField!
     
     var tableView = UITableView()
     let searchButton = UIButton()
-    var bookResults = [Book]()
+//    var bookResults = [Book]()
     var isbnImage = String()
     
     override func viewDidLoad() {
@@ -31,13 +32,13 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         self.view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.90).isActive = true
+        tableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.80).isActive = true
         tableView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1.0).isActive = true
         tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
         
-        //Textfield
+        //Search Title Textfield
         
         
         searchBookTitle.translatesAutoresizingMaskIntoConstraints = false
@@ -47,6 +48,18 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         searchBookTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
         searchBookTitle.layer.borderWidth = 2.0
         searchBookTitle.layer.borderColor = UIColor.black.cgColor
+        
+        
+        //Search Author Textfield
+        
+        
+        searchAuthorTextField.translatesAutoresizingMaskIntoConstraints = false
+        searchAuthorTextField.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05).isActive = true
+        searchAuthorTextField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.70).isActive = true
+        searchAuthorTextField.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        searchAuthorTextField.topAnchor.constraint(equalTo: searchBookTitle.bottomAnchor, constant: 0).isActive = true
+        searchAuthorTextField.layer.borderWidth = 2.0
+        searchAuthorTextField.layer.borderColor = UIColor.black.cgColor
         
         
         //Search message button
@@ -59,7 +72,7 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         searchButton.addTarget(self, action: #selector(searchButtonFunc), for: .touchUpInside)
         
         searchButton.translatesAutoresizingMaskIntoConstraints = false
-        searchButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05).isActive = true
+        searchButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.10).isActive = true
         searchButton.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         searchButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.30).isActive = true
         searchButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
@@ -70,31 +83,34 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func searchButtonFunc(sender: UIButton!) {
         
-        BookDataStore.shared.getBookResults(with: searchBookTitle.text!) { (results) in
-            for result in results {
-                
-                if self.bookResults.count == 0 {
-                    self.bookResults.append(result)
-                } else {
-                    for book in self.bookResults {
-                        if book.title != result.title {
-                            self.bookResults.append(result)
-                            break
-                        }
-                    }
-                }
-                
-            }
+        BookDataStore.shared.getBookResults(with: searchBookTitle.text!, authorQuery: searchAuthorTextField.text!) { (results) in
+            
             OperationQueue.main.addOperation {
                 self.tableView.reloadData()
             }
-        }
+//            for result in results {
+//                
+//                if self.bookResults.count == 0 {
+//                    self.bookResults.append(result)
+//                } else {
+//                    for book in self.bookResults {
+//                        if book.title != result.title {
+//                            self.bookResults.append(result)
+//                            break
+//                        }
+//                    }
+//                }
             
+            }
+            
+        
+//        }
+        
     }
 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return bookResults.count
+        return BookDataStore.shared.bookArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -103,12 +119,13 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
 //        cell.titleLabel.text = "Title: "
 //        cell.authorLabel.text = "Author "
         
-        cell.bookTitleLabel.text = bookResults[indexPath.row].title
-        cell.bookAuthorLabel.text = bookResults[indexPath.row].author
+        cell.bookTitleLabel.text = BookDataStore.shared.bookArray[indexPath.row].title
+        cell.bookAuthorLabel.text = BookDataStore.shared.bookArray[indexPath.row].author
         
         OperationQueue.main.addOperation {
-            cell.bookImage.image = self.bookResults[indexPath.row].bookCover
+            cell.bookImage.image = BookDataStore.shared.bookArray[indexPath.row].bookCover
         }
+        
         
         return cell
     }

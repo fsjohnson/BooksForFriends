@@ -18,32 +18,33 @@ class BookDataStore {
     var bookArray = [Book]()
     var imageArray = [UIImage]()
     var searchTitle = String()
-    var searchCount = Int()
+    var searchAuthor = String()
     
-    
-    func generateProperSearch(with searchQuery: String, completion:(String) -> Void) {
+    func generateProperSearch(with searchQuery: String, authorQuery: String, completion:(String, String) -> Void) {
         
         self.searchTitle = searchQuery.replacingOccurrences(of: " ", with: "+")
-        completion(searchTitle)
+        let authorArray = authorQuery.components(separatedBy: " ")
+        self.searchAuthor = String(describing: authorArray.last!)
+        print(searchTitle)
+        print(searchAuthor)
+        completion(searchTitle, searchAuthor)
     }
     
     
-    func getBookResults(with searchQuery: String, completion: @escaping ([Book]) -> Void) {
-        
-        OpenBookSourceAPI.searchTitles(with: searchQuery) { (searchResults) in
+    func getBookResults(with searchQuery: String, authorQuery: String, completion: @escaping ([Book]) -> Void) {
+        bookArray.removeAll()
+        OpenBookSourceAPI.searchTitles(with: searchQuery, authorName: authorQuery) { (searchResults) in
             for searchResult in searchResults {
                 let book = Book(dict: searchResult)
-                print(book.author)
-                print(book.title)
                 self.bookArray.append(book)
-                self.searchCount = self.bookArray.count
             }
+            
+            self.bookArray.sort(by: { (first, second) -> Bool in
+                return first.title < second.title
+            })
             
             completion(self.bookArray)
         }
-        
-        print(bookArray)
-        
     }
     
 }

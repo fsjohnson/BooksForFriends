@@ -11,19 +11,19 @@ import UIKit
 
 class OpenBookSourceAPI {
     
-    //replace lord+of+the+rings with search text field from AddBookVC
+
     //"https://openlibrary.org/search.json?title=lilac+girls&author=kelly"
     
+    //let searchTitleURL = URL(string: "https://www.googleapis.com/books/v1/volumes?q=intitle:\(title)+inauthor:\(author)&key=\(Constants.apiKey)")
     
-    class func searchTitles(with searchTitle: String, completion: @escaping ([[String: Any]]) -> Void) {
+    
+    class func searchTitles(with searchTitle: String, authorName: String, completion: @escaping ([[String: Any]]) -> Void) {
         
-        BookDataStore.shared.generateProperSearch(with: searchTitle) { (title) in
-            let searchTitleURL = URL(string: "https://www.googleapis.com/books/v1/volumes?q=intitle:\(title)+inauthor:Tolkien&key=\(Constants.apiKey)")
-        
+        BookDataStore.shared.generateProperSearch(with: searchTitle, authorQuery: authorName) { (title, author) in
+            let searchTitleURL = URL(string: "https://www.googleapis.com/books/v1/volumes?q=intitle:\(title)&key=\(Constants.apiKey)")
+                    
             let session: URLSession = URLSession.shared
             guard let unwrappedURL = searchTitleURL else { return }
-            
-            print(unwrappedURL)
             
             
             let task = session.dataTask(with: unwrappedURL) { (data, response, error) in

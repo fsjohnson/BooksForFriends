@@ -39,7 +39,7 @@ class Book {
         guard let link = linkToPass else {return}
         
         OpenBookSourceAPI.downloadBookImage(with: link) { (image) in
-            self.bookCover = image
+               self.bookCover = image
         }
 
         
