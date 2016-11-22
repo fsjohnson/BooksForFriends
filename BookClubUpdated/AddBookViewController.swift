@@ -72,7 +72,18 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         BookDataStore.shared.getBookResults(with: searchBookTitle.text!) { (results) in
             for result in results {
-                self.bookResults.append(result)
+                
+                if self.bookResults.count == 0 {
+                    self.bookResults.append(result)
+                } else {
+                    for book in self.bookResults {
+                        if book.title != result.title {
+                            self.bookResults.append(result)
+                            break
+                        }
+                    }
+                }
+                
             }
             OperationQueue.main.addOperation {
                 self.tableView.reloadData()
