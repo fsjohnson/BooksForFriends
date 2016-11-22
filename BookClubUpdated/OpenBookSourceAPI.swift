@@ -11,12 +11,6 @@ import UIKit
 
 class OpenBookSourceAPI {
     
-    
-    //"https://openlibrary.org/search.json?title=lilac+girls&author=kelly"
-    
-    //let searchTitleURL = URL(string: "https://www.googleapis.com/books/v1/volumes?q=intitle:\(title)+inauthor:\(author)&key=\(Constants.apiKey)")
-    
-    
     class func searchTitles(with searchTitle: String, authorName: String, completion: (String) -> Void) {
         
         var urlToPass = String()
@@ -31,7 +25,6 @@ class OpenBookSourceAPI {
                 urlToPass = "https://www.googleapis.com/books/v1/volumes?q=intitle:\(title)+inauthor:\(author)&key=\(Constants.apiKey)"
             }
             
-            print(urlToPass)
             completion(urlToPass)
             
         }
@@ -68,9 +61,7 @@ class OpenBookSourceAPI {
             task.resume()
         }
     }
-    
-    
-    
+
     class func downloadBookImage(with urlString: String, with completion: @escaping (UIImage) -> Void) {
         
         print("INSIDE DOWNLOAD\n\n\n")
