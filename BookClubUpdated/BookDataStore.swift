@@ -41,9 +41,9 @@ class BookDataStore {
                 self.bookArray.append(book)
             }
             
-            self.bookArray.sort(by: { (first, second) -> Bool in
-                return first.title < second.title
-            })
+//            self.bookArray.sort(by: { (first, second) -> Bool in
+//                return first.title < second.title
+//            })
             
             if self.bookArray.count > 0 {
                 completion(true)

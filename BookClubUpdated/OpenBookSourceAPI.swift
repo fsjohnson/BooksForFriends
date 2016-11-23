@@ -19,10 +19,10 @@ class OpenBookSourceAPI {
             
             if author == "" {
                 
-                urlToPass = "https://www.googleapis.com/books/v1/volumes?q=intitle:\(title)&key=\(Constants.apiKey)"
+                urlToPass = "https://www.googleapis.com/books/v1/volumes?q=intitle:\(title)&langRestrict:en&printType=books&key=\(Constants.apiKey)"
             } else {
                 
-                urlToPass = "https://www.googleapis.com/books/v1/volumes?q=intitle:\(title)+inauthor:\(author)&key=\(Constants.apiKey)"
+                urlToPass = "https://www.googleapis.com/books/v1/volumes?q=intitle:\(title)+inauthor:\(author)&langRestrict:en&printType=books&key=\(Constants.apiKey)"
             }
             
             completion(urlToPass)

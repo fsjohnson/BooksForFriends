@@ -18,6 +18,8 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
     let searchButton = UIButton()
     var isbnImage = String()
     
+    let indicator: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x:0 ,y: 0, width: 50, height: 50))
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,7 +27,6 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.dataSource = self
         tableView.register(SearchBookResultsTableViewCell.self, forCellReuseIdentifier: "bookResult")
         tableView.rowHeight = 100
-        
         
         //TableView
         
@@ -77,10 +78,25 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         searchButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
         
         
+        activityIndicator()
+        
     }
     
     
+    func activityIndicator() {
+        
+        indicator.color = UIColor .magenta
+        indicator.hidesWhenStopped = true
+        indicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        indicator.center = self.view.center
+        self.view.addSubview(indicator)
+    }
+    
+    
+    
     func searchButtonFunc(sender: UIButton!) {
+        
+        indicator.startAnimating()
         
         let queue = OperationQueue()
         queue.name = "Download Image"
@@ -92,11 +108,13 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
             if success == true && queue.operationCount == 0{
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
+                    self.indicator.stopAnimating()
+                    self.indicator.hidesWhenStopped = true
                 }
             }
         }
         
-        queue.addOperation {request}
+        queue.addOperation { request }
         
     }
     
@@ -113,6 +131,7 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
             cell.bookTitleLabel.text = BookDataStore.shared.bookArray[indexPath.row].title
             cell.bookAuthorLabel.text = BookDataStore.shared.bookArray[indexPath.row].author
             cell.bookImage.image = BookDataStore.shared.bookArray[indexPath.row].bookCover
+            
         }
         
         return cell
@@ -139,3 +158,22 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
      */
     
 }
+
+
+extension UIViewController {
+    
+    func presentAlertWithTitle(title: String, message : String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let OKAction = UIAlertAction(title: "OK", style: .cancel) {
+            (action: UIAlertAction) in print("Youve pressed OK Button")
+        }
+        alertController.addAction(OKAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+}
+
+
+
+
+
+
