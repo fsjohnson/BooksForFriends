@@ -49,6 +49,7 @@ class AddCommentAndRatingViewController: UIViewController {
         guard let userUniqueKey = FIRAuth.auth()?.currentUser?.uid else {return}
         let ratingString = String(ratingSlider.value)
         guard let comments = commentsTextField.text else {return}
+
         
         FirebaseMethods.addBookToPreviouslyRead(rating: ratingString, comment: comments, userBook: bookToAdd) {
             FirebaseMethods.combineDuplicateChecks(with: bookToAdd, completion: { (doesExist, bookID) in
@@ -59,14 +60,24 @@ class AddCommentAndRatingViewController: UIViewController {
                     }))
                     self.present(alert, animated: true, completion: nil)
                 } else if doesExist == true {
-                    let alert = UIAlertController(title: "Oops!", message: "You have already read \(self.passedTitle)", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                        self.dismiss(animated: true, completion: nil)
-                        
-                    }))
                     
-                    self.present(alert, animated: true, completion: nil)
-                    
+                    FirebaseMethods.checkIfAlreadyAddedAsPreviousRead(with: bookID, userUniqueKey: userUniqueKey, completion: { (doesExist) in
+                        if doesExist == false {
+                            let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                                self.dismiss(animated: true, completion: nil)
+                            }))
+                            self.present(alert, animated: true, completion: nil)
+                        } else if doesExist == true {
+                            let alert = UIAlertController(title: "Oops!", message: "You have already read \(self.passedTitle)", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                                self.dismiss(animated: true, completion: nil)
+                                
+                            }))
+                            
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                    })
                 }
             })
         }
