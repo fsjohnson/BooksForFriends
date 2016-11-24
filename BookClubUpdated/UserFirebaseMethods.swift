@@ -1,0 +1,182 @@
+//
+//  UsersFirebaseMethods.swift
+//  BookClubUpdated
+//
+//  Created by Felicity Johnson on 11/24/16.
+//  Copyright © 2016 FJ. All rights reserved.
+//
+
+import Foundation
+import Firebase
+
+class UserFirebaseMethods {
+    
+    //MARK: - Sign Up & Log In Funcs
+    
+    static func signInButton(email: String, password: String, completion: @escaping (Bool) -> () ) {
+        
+        FIRAuth.auth()?.signIn(withEmail: email, password: password) { (user, error) in
+            if let error = error {
+                print(error.localizedDescription)
+                completion(false)
+            } else {
+                completion(true)
+            }
+        }
+    }
+    
+    
+    static func signUpButton(email: String, password: String, name: String, username: String, completion: @escaping (Bool) -> () ) {
+        
+        let ref = FIRDatabase.database().reference().root
+        
+        if email != "" && password != "" {
+            FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user, error) in
+                if error == nil {
+                    let userDictionary = ["email": email, "name": name, "username": username, "uniqueKey": (user?.uid)!]
+                    
+                    ref.child("users").child((user?.uid)!).setValue(userDictionary)
+                    completion(true)
+                    
+                } else {
+                    print(error?.localizedDescription ?? "")
+                    completion(false)
+                }
+            })
+        }
+    }
+    
+    
+    //MARK: - Retrieve users
+    
+    
+    static func retrieveAllUsers(with completion: @escaping ([User?])-> Void) {
+        
+        let userRef = FIRDatabase.database().reference().child("users")
+        var usersArray = [User]()
+        
+        userRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let userRawInfo = snapshot.value as? [String:Any] else {return}
+            
+            for userValue in userRawInfo {
+                
+                print(userValue)
+                
+                guard
+                    let userInfo = userValue.value as? [String: Any],
+                    let name = userInfo["name"] as?  String,
+                    let username = userInfo["username"] as? String,
+                    let email = userInfo["email"] as? String,
+                    let uniqueKey = userInfo["uniqueKey"] as? String
+                    else { print("\n\n\n\n\n\(userRawInfo)\n\n\n\n"); return }
+                
+                let user = User(name: name, email: email, uniqueKey: uniqueKey, username: username)
+                usersArray.append(user)
+            }
+            completion(usersArray)
+        })
+    }
+    
+    static func retrieveSpecificUser(with uniqueID: String, completion: @escaping (User?)-> Void) {
+        
+        let userRef = FIRDatabase.database().reference().child("users").child(uniqueID)
+        
+        
+        userRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            let userInfoRaw = snapshot.value as? [String:Any]
+            
+            guard
+                let userInfo = userInfoRaw,
+                let name = userInfo["name"] as?  String,
+                let username = userInfo["username"] as? String,
+                let email = userInfo["email"] as? String,
+                let uniqueKey = userInfo["uniqueKey"] as? String
+                else { print("\n\n\n\n\n\(userInfoRaw)\n\n\n\n"); return }
+            
+            
+            let user = User(name: name, email: email, uniqueKey: uniqueKey, username: username)
+            completion(user)
+        })
+    }
+    
+    //MARK: - Add & remove follower
+    
+    static func addFollower(with userUniqueKey: String, completion: () -> Void) {
+        
+        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
+        
+        let ref = FIRDatabase.database().reference().child("users").child(currentUser).child("followers")
+        
+        ref.updateChildValues([userUniqueKey: true])
+        completion()
+    }
+    
+    
+    static func removeFollower(with userUniqueKey: String, completion: () -> Void) {
+        
+        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
+        
+        let ref = FIRDatabase.database().reference().child("users").child(currentUser).child("followers")
+        
+        ref.updateChildValues([userUniqueKey: false])
+        completion()
+    }
+    
+    //MARK: - Add & remove following
+    
+    static func addFollowing(with userUniqueKey: String, completion: () -> Void) {
+        
+        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
+        
+        let ref = FIRDatabase.database().reference().child("users").child(currentUser).child("following")
+        
+        ref.updateChildValues([userUniqueKey: true])
+        completion()
+        
+    }
+    
+    
+    static func removeFollowing(with userUniqueKey: String, completion: () -> Void) {
+        
+        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
+        
+        let ref = FIRDatabase.database().reference().child("users").child(currentUser).child("following")
+        
+        ref.updateChildValues([userUniqueKey: false])
+        completion()
+    }
+    
+    
+    // MARK: - Check that not already following user
+    
+    static func prohibitDuplicateFollowing(of uniqueUserID: String, completion: @escaping (Bool) -> Void) {
+        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
+        let ref = FIRDatabase.database().reference().child("users").child(currentUser).child("following")
+        var followingIDArray = String()
+        var completionToPass = Bool()
+        
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            print(snapshot)
+            
+            if !snapshot.hasChildren() {
+                completionToPass = false
+            } else {
+                guard let snapshotValue = snapshot.value as? [String: Any] else {return}
+                
+                for snap in snapshotValue {
+                    followingIDArray.append(snap.key)
+                }
+                
+                if followingIDArray.contains(uniqueUserID) {
+                    completionToPass = true
+                } else {
+                    completionToPass = false
+                }
+
+            }
+            print("ALREADY FOLLOWING? \(completionToPass)")
+            completion(completionToPass)
+        })
+    }
+    
+}

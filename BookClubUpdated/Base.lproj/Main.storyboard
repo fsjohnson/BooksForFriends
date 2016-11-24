@@ -34,11 +34,80 @@
                             <outlet property="delegate" destination="SJ6-Q4-3V9" id="AIg-zR-9fO"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Book My Friends Read" id="iGf-4p-RD9"/>
+                    <navigationItem key="navigationItem" title="Book My Friends Read" id="iGf-4p-RD9">
+                        <barButtonItem key="rightBarButtonItem" title="Find Friend" id="yfQ-J4-dYc">
+                            <connections>
+                                <segue destination="Usx-En-JRb" kind="presentation" identifier="findFriends" id="R08-q3-V2F"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VFU-j9-Efz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1399" y="-1111"/>
+        </scene>
+        <!--Find Friends Table View Controller-->
+        <scene sceneID="lO6-ci-F6J">
+            <objects>
+                <tableViewController id="Usx-En-JRb" customClass="FindFriendsTableViewController" customModule="BookClubUpdated" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="0Dy-Ww-quq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="GGl-pC-Vkf">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="Usx-En-JRb" id="kuW-EX-mlt"/>
+                            </connections>
+                        </searchBar>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="searchResults" id="iRT-mi-YS3" customClass="SearchFriendsTableViewCell" customModule="BookClubUpdated" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iRT-mi-YS3" id="9ez-cm-Hoe">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bit-yc-2h9">
+                                            <rect key="frame" x="325" y="0.5" width="30" height="43.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                            <state key="normal" title="+"/>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="Bit-yc-2h9" secondAttribute="trailing" constant="20" id="5Fi-0y-g4c"/>
+                                        <constraint firstItem="Bit-yc-2h9" firstAttribute="centerY" secondItem="9ez-cm-Hoe" secondAttribute="centerY" id="Bz6-En-x7p"/>
+                                        <constraint firstItem="Bit-yc-2h9" firstAttribute="height" secondItem="9ez-cm-Hoe" secondAttribute="height" id="wUk-7D-5qV"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="addFollowing" destination="Bit-yc-2h9" id="QZE-jx-ZlA"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Usx-En-JRb" id="aCx-96-3Cd"/>
+                            <outlet property="delegate" destination="Usx-En-JRb" id="a8F-Vz-9L4"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="searchDisplayController" destination="WsO-Cm-wkV" id="wQl-iJ-mbp"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dwF-C1-VlT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="WsO-Cm-wkV">
+                    <connections>
+                        <outlet property="delegate" destination="Usx-En-JRb" id="B2s-nV-g3j"/>
+                        <outlet property="searchBar" destination="GGl-pC-Vkf" id="XjE-TX-Sea"/>
+                        <outlet property="searchContentsController" destination="Usx-En-JRb" id="R1p-Zv-z0T"/>
+                        <outlet property="searchResultsDataSource" destination="Usx-En-JRb" id="XRG-qT-xJi"/>
+                        <outlet property="searchResultsDelegate" destination="Usx-En-JRb" id="2yV-fK-Rpv"/>
+                    </connections>
+                </searchDisplayController>
+            </objects>
+            <point key="canvasLocation" x="2213.5999999999999" y="-1111.3943028485758"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="PzW-hz-Due">
@@ -108,10 +177,70 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <segue destination="yhH-Yx-6bO" kind="presentation" identifier="followingSegue" id="yHq-Pt-PgU"/>
+                        <segue destination="rcH-At-f36" kind="presentation" identifier="followersSegue" id="I0j-2K-j1E"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3z1-x3-YRA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1399.2" y="548.27586206896558"/>
+        </scene>
+        <!--Following Table View Controller-->
+        <scene sceneID="wCp-fN-FMw">
+            <objects>
+                <tableViewController id="yhH-Yx-6bO" customClass="FollowingTableViewController" customModule="BookClubUpdated" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Z89-TE-peK">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="followingCell" id="LHg-b6-Go7">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LHg-b6-Go7" id="SuF-oX-Skp">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="yhH-Yx-6bO" id="2YZ-aZ-opV"/>
+                            <outlet property="delegate" destination="yhH-Yx-6bO" id="vTl-6b-yXf"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="51S-QU-oWp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="897" y="1313"/>
+        </scene>
+        <!--Followers Table View Controller-->
+        <scene sceneID="j9S-ht-I5K">
+            <objects>
+                <tableViewController id="rcH-At-f36" customClass="FollowersTableViewController" customModule="BookClubUpdated" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="CCn-Nr-GTI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="followerCell" id="xQv-SE-uxd">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xQv-SE-uxd" id="skZ-HR-6gC">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="rcH-At-f36" id="FAd-wr-yWa"/>
+                            <outlet property="delegate" destination="rcH-At-f36" id="Qz4-5m-5S4"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ukb-KX-C9l" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1985" y="1313"/>
         </scene>
         <!--Add Book View Controller-->
         <scene sceneID="QcJ-yo-d3b">

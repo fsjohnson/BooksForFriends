@@ -38,8 +38,8 @@ class LoginViewController: UIViewController {
     
     var emailTextField: UITextField!
     var passwordTextField: UITextField!
-    var firstnameTextField: UITextField!
-    var lastnameTextField: UITextField!
+    var nameTextField: UITextField!
+    var usernameTextField: UITextField!
     
     var loginButton: UIButton!
     var newuserButton: UIButton!
@@ -88,7 +88,7 @@ extension LoginViewController {
         guard let password = passwordTextField.text else {return}
         
         if email != "" && password != "" {
-            FirebaseMethods.signInButton(email: email, password: password) { success in
+            UserFirebaseMethods.signInButton(email: email, password: password) { success in
                 if success {
                     self.performSegue(withIdentifier: "landingSegue", sender: self)
                 } else {
@@ -123,11 +123,11 @@ extension LoginViewController {
     func signupButtonAction(_ sender: UIButton) {
         guard let email = emailTextField.text else {return}
         guard let password = passwordTextField.text else {return}
-        guard let firstName = firstnameTextField.text else {return}
-        guard let lastName = lastnameTextField.text else {return}
+        guard let name = nameTextField.text else {return}
+        guard let username = usernameTextField.text else {return}
         
-        if email != "" && password != "" && firstName != "" && lastName != "" {
-            FirebaseMethods.signUpButton(email: email, password: password, firstName: firstName, lastName: lastName) { success in
+        if email != "" && password != "" && name != "" && username != "" {
+            UserFirebaseMethods.signUpButton(email: email, password: password, name: name, username: username) { success in
                 if success {
                     self.performSegue(withIdentifier: "landingSegue", sender: self)
                 } else {
@@ -169,8 +169,8 @@ extension LoginViewController {
 extension LoginViewController {
     
     func animateForSignup() {
-        self.firstnameTextField.isHidden = false
-        self.lastnameTextField.isHidden = false
+        self.nameTextField.isHidden = false
+        self.usernameTextField.isHidden = false
         self.signupButton.isHidden = false
         self.cancelButton.isHidden = false
         self.newuserButton.isUserInteractionEnabled = false
@@ -179,8 +179,8 @@ extension LoginViewController {
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1, animations: {
                 self.emailTextField.center = NewUserViewPosition.emailPosition
                 self.passwordTextField.center = NewUserViewPosition.passwordPosition
-                self.firstnameTextField.center = NewUserViewPosition.firstnamePosition
-                self.lastnameTextField.center = NewUserViewPosition.lastnamePosition
+                self.nameTextField.center = NewUserViewPosition.firstnamePosition
+                self.usernameTextField.center = NewUserViewPosition.lastnamePosition
                 
                 self.loginButton.center = NewUserViewPosition.loginPosition
                 self.newuserButton.center = NewUserViewPosition.newuserPosition
@@ -191,8 +191,8 @@ extension LoginViewController {
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.33, animations: {
                 self.emailTextField.transform = CGAffineTransform.init(scaleX: 1.1, y: 1)
                 self.passwordTextField.transform = CGAffineTransform.init(scaleX: 1.1, y: 1)
-                self.firstnameTextField.transform = CGAffineTransform.init(scaleX: 1.2, y: 1)
-                self.lastnameTextField.transform = CGAffineTransform.init(scaleX: 1.2, y: 1)
+                self.nameTextField.transform = CGAffineTransform.init(scaleX: 1.2, y: 1)
+                self.usernameTextField.transform = CGAffineTransform.init(scaleX: 1.2, y: 1)
                 
                 self.loginButton.transform = CGAffineTransform.init(scaleX: 1.1, y: 1)
                 self.newuserButton.transform = CGAffineTransform.init(scaleX: 1.1, y: 1)
@@ -202,8 +202,8 @@ extension LoginViewController {
             UIView.addKeyframe(withRelativeStartTime: 0.33, relativeDuration: 0.33, animations: {
                 self.emailTextField.transform = CGAffineTransform.init(scaleX: 0.9, y: 1)
                 self.passwordTextField.transform = CGAffineTransform.init(scaleX: 0.9, y: 1)
-                self.firstnameTextField.transform = CGAffineTransform.init(scaleX: 0.8, y: 1)
-                self.lastnameTextField.transform = CGAffineTransform.init(scaleX: 0.8, y: 1)
+                self.nameTextField.transform = CGAffineTransform.init(scaleX: 0.8, y: 1)
+                self.usernameTextField.transform = CGAffineTransform.init(scaleX: 0.8, y: 1)
                 
                 self.loginButton.transform = CGAffineTransform.init(scaleX: 0.9, y: 1)
                 self.newuserButton.transform = CGAffineTransform.init(scaleX: 0.9, y: 1)
@@ -213,8 +213,8 @@ extension LoginViewController {
             UIView.addKeyframe(withRelativeStartTime: 0.66, relativeDuration: 0.33, animations: {
                 self.emailTextField.transform = CGAffineTransform.init(scaleX: 1, y: 1)
                 self.passwordTextField.transform = CGAffineTransform.init(scaleX: 1, y: 1)
-                self.firstnameTextField.transform = CGAffineTransform.init(scaleX: 1, y: 1)
-                self.lastnameTextField.transform = CGAffineTransform.init(scaleX: 1, y: 1)
+                self.nameTextField.transform = CGAffineTransform.init(scaleX: 1, y: 1)
+                self.usernameTextField.transform = CGAffineTransform.init(scaleX: 1, y: 1)
                 
                 self.loginButton.transform = CGAffineTransform.init(scaleX: 1, y: 1)
                 self.newuserButton.transform = CGAffineTransform.init(scaleX: 1, y: 1)
@@ -240,8 +240,8 @@ extension LoginViewController {
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1, animations: {
                 self.emailTextField.center = LoginViewPosition.emailPosition
                 self.passwordTextField.center = LoginViewPosition.passwordPosition
-                self.firstnameTextField.center = LoginViewPosition.firstnamePosition
-                self.lastnameTextField.center = LoginViewPosition.lastnamePosition
+                self.nameTextField.center = LoginViewPosition.firstnamePosition
+                self.usernameTextField.center = LoginViewPosition.lastnamePosition
                 
                 self.loginButton.center = LoginViewPosition.loginPosition
                 self.newuserButton.center = LoginViewPosition.newuserPosition
@@ -252,8 +252,8 @@ extension LoginViewController {
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.33, animations: {
                 self.emailTextField.transform = CGAffineTransform.init(scaleX: 0.9, y: 1)
                 self.passwordTextField.transform = CGAffineTransform.init(scaleX: 0.9, y: 1)
-                self.firstnameTextField.transform = CGAffineTransform.init(scaleX: 0.8, y: 1)
-                self.lastnameTextField.transform = CGAffineTransform.init(scaleX: 0.8, y: 1)
+                self.nameTextField.transform = CGAffineTransform.init(scaleX: 0.8, y: 1)
+                self.usernameTextField.transform = CGAffineTransform.init(scaleX: 0.8, y: 1)
                 
                 self.loginButton.transform = CGAffineTransform.init(scaleX: 1, y: 1)
                 self.newuserButton.transform = CGAffineTransform.init(scaleX: 1, y: 1)
@@ -263,8 +263,8 @@ extension LoginViewController {
             UIView.addKeyframe(withRelativeStartTime: 0.33, relativeDuration: 0.33, animations: {
                 self.emailTextField.transform = CGAffineTransform.init(scaleX: 1.1, y: 1)
                 self.passwordTextField.transform = CGAffineTransform.init(scaleX: 1.1, y: 1)
-                self.firstnameTextField.transform = CGAffineTransform.init(scaleX: 1.2, y: 1)
-                self.lastnameTextField.transform = CGAffineTransform.init(scaleX: 1.2, y: 1)
+                self.nameTextField.transform = CGAffineTransform.init(scaleX: 1.2, y: 1)
+                self.usernameTextField.transform = CGAffineTransform.init(scaleX: 1.2, y: 1)
                 
                 self.loginButton.transform = CGAffineTransform.init(scaleX: 1, y: 1)
                 self.newuserButton.transform = CGAffineTransform.init(scaleX: 1, y: 1)
@@ -274,8 +274,8 @@ extension LoginViewController {
             UIView.addKeyframe(withRelativeStartTime: 0.66, relativeDuration: 0.33, animations: {
                 self.emailTextField.transform = CGAffineTransform.init(scaleX: 1, y: 1)
                 self.passwordTextField.transform = CGAffineTransform.init(scaleX: 1, y: 1)
-                self.firstnameTextField.transform = CGAffineTransform.init(scaleX: 0, y: 1)
-                self.lastnameTextField.transform = CGAffineTransform.init(scaleX: 0, y: 1)
+                self.nameTextField.transform = CGAffineTransform.init(scaleX: 0, y: 1)
+                self.usernameTextField.transform = CGAffineTransform.init(scaleX: 0, y: 1)
                 
                 self.loginButton.transform = CGAffineTransform.init(scaleX: 1, y: 1)
                 self.newuserButton.transform = CGAffineTransform.init(scaleX: 1, y: 1)
@@ -283,8 +283,8 @@ extension LoginViewController {
                 self.cancelButton.transform = CGAffineTransform.init(scaleX: 0, y: 1)
             })
         }) { (success) in
-            self.firstnameTextField.isHidden = true
-            self.lastnameTextField.isHidden = true
+            self.nameTextField.isHidden = true
+            self.usernameTextField.isHidden = true
             self.signupButton.isHidden = true
             self.cancelButton.isHidden = true
             self.newuserButton.isUserInteractionEnabled = true
@@ -305,13 +305,13 @@ extension LoginViewController {
     func setPositions() {
         emailTextField.center = LoginViewPosition.emailPosition
         passwordTextField.center = LoginViewPosition.passwordPosition
-        firstnameTextField.center = LoginViewPosition.firstnamePosition
-        lastnameTextField.center = LoginViewPosition.lastnamePosition
+        nameTextField.center = LoginViewPosition.firstnamePosition
+        usernameTextField.center = LoginViewPosition.lastnamePosition
         
-        firstnameTextField.transform = CGAffineTransform.init(scaleX: 0.0, y: 1)
-        lastnameTextField.transform = CGAffineTransform.init(scaleX: 0.0, y: 1)
-        firstnameTextField.isHidden = true
-        lastnameTextField.isHidden = true
+        nameTextField.transform = CGAffineTransform.init(scaleX: 0.0, y: 1)
+        usernameTextField.transform = CGAffineTransform.init(scaleX: 0.0, y: 1)
+        nameTextField.isHidden = true
+        usernameTextField.isHidden = true
         
         loginButton.center = LoginViewPosition.loginPosition
         newuserButton.center = LoginViewPosition.newuserPosition
@@ -329,23 +329,23 @@ extension LoginViewController {
         let borderWidth: CGFloat = 2
         let borderColor = UIColor.blue.cgColor
         
-        firstnameTextField = UITextField(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width * 0.6, height: self.view.frame.size.height * 0.06))
-        firstnameTextField.layer.cornerRadius = 4
-        firstnameTextField.layer.borderWidth = borderWidth
-        firstnameTextField.layer.borderColor = borderColor
-        firstnameTextField.autocorrectionType = .no
-        firstnameTextField.backgroundColor = UIColor.blue
-        firstnameTextField.attributedPlaceholder = NSAttributedString(string: "Enter First Name")
-        self.view.addSubview(firstnameTextField)
+        nameTextField = UITextField(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width * 0.6, height: self.view.frame.size.height * 0.06))
+        nameTextField.layer.cornerRadius = 4
+        nameTextField.layer.borderWidth = borderWidth
+        nameTextField.layer.borderColor = borderColor
+        nameTextField.autocorrectionType = .no
+        nameTextField.backgroundColor = UIColor.blue
+        nameTextField.attributedPlaceholder = NSAttributedString(string: "Enter Name")
+        self.view.addSubview(nameTextField)
         
-        lastnameTextField = UITextField(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width * 0.6, height: self.view.frame.size.height * 0.06))
-        lastnameTextField.layer.cornerRadius = 4
-        lastnameTextField.layer.borderWidth = borderWidth
-        lastnameTextField.layer.borderColor = borderColor
-        lastnameTextField.autocorrectionType = .no
-        lastnameTextField.backgroundColor = UIColor.blue
-        lastnameTextField.attributedPlaceholder = NSAttributedString(string: "Enter Last Name")
-        self.view.addSubview(lastnameTextField)
+        usernameTextField = UITextField(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width * 0.6, height: self.view.frame.size.height * 0.06))
+        usernameTextField.layer.cornerRadius = 4
+        usernameTextField.layer.borderWidth = borderWidth
+        usernameTextField.layer.borderColor = borderColor
+        usernameTextField.autocorrectionType = .no
+        usernameTextField.backgroundColor = UIColor.blue
+        usernameTextField.attributedPlaceholder = NSAttributedString(string: "Enter Desired Username")
+        self.view.addSubview(usernameTextField)
         
         emailTextField = UITextField(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width * 0.6, height: self.view.frame.size.height * 0.06))
         emailTextField.backgroundColor = UIColor.blue

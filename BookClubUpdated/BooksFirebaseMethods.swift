@@ -11,41 +11,6 @@ import Firebase
 
 class FirebaseMethods {
     
-    //MARK: - Sign Up & Log In Funcs
-    
-    static func signInButton(email: String, password: String, completion: @escaping (Bool) -> () ) {
-        
-        FIRAuth.auth()?.signIn(withEmail: email, password: password) { (user, error) in
-            if let error = error {
-                print(error.localizedDescription)
-                completion(false)
-            } else {
-                completion(true)
-            }
-        }
-    }
-    
-    
-    static func signUpButton(email: String, password: String, firstName: String, lastName: String, completion: @escaping (Bool) -> () ) {
-        
-        let ref = FIRDatabase.database().reference().root
-        
-        if email != "" && password != "" {
-            FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user, error) in
-                if error == nil {
-                    let userDictionary = ["email": email, "firstName": firstName, "lastName": lastName, "uniqueKey": (user?.uid)!]
-                    
-                    ref.child("users").child((user?.uid)!).setValue(userDictionary)
-                    completion(true)
-                    
-                } else {
-                    print(error?.localizedDescription ?? "")
-                    completion(false)
-                }
-            })
-        }
-    }
-    
     //MARK: - Download books from Firebase
     
     static func downloadBooksFromFirebase(with completion: @escaping ([String], [String], [String]) -> Void) {
