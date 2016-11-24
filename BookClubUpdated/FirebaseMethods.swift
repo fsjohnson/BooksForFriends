@@ -42,8 +42,6 @@ class FirebaseMethods {
                     print(error?.localizedDescription ?? "")
                     completion(false)
                 }
-                
-                
             })
         }
     }
@@ -73,7 +71,6 @@ class FirebaseMethods {
                 userBookTitleArray.append(title)
                 userBookAuthorArray.append(author)
                 userBookSynopsisArray.append(synopsis)
-                
             }
             
             completion(userBookTitleArray, userBookAuthorArray, userBookSynopsisArray)
@@ -92,11 +89,9 @@ class FirebaseMethods {
         
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
             guard let snapshotValue = snapshot.value as? [String: Any] else {print("Snapshot Value: \(snapshot.value) not working"); return}
-            print("SNAPSHOT: \(snapshotValue)")
             for snap in snapshotValue {
                 bookIDToPass = snap.key
             }
-            
             
             if !snapshot.hasChildren() {
                 completionToPass = false
@@ -114,8 +109,86 @@ class FirebaseMethods {
                 completion(completionToPass, bookIDToPass)
                 
             }
+        })
+    }
+    
+    
+    static func downloadUsersPreviousReads(with userUniqueKey: String, completion: @escaping ([String])-> Void) {
+        let userRef = FIRDatabase.database().reference().child("users").child(userUniqueKey).child("previousReads")
+        let bookRef = FIRDatabase.database().reference().child("books")
+        var bookIDArray = [String]()
+        var completionToPass = Bool()
+        var userIDArray = [String]()
+        
+        
+        bookRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            print(snapshot)
+            guard let snapshotValue = snapshot.value as? [String: Any] else {return}
+            
+            for snap in snapshotValue {
+                guard let snapArray = snap.value as? [String: Any] else {return}
+                print(snapArray["readByUsers"])
+                guard let usersArray = snapArray["readByUsers"] as? [String: Any] else {return}
+                print(usersArray)
+                
+                for user in usersArray {
+                    userIDArray.append(user.key)
+                }
+                
+            }
+            print("PASSED ID ARRAY: \(userIDArray)")
+            completion(userIDArray)
             
         })
+    }
+    
+    
+    static func checkIfAlreadyAddedAsPreviousRead(with userUniqueKey: String, completion: @escaping (Bool) -> Void) {
+        
+        var completionToPass = Bool()
+        
+        
+        FirebaseMethods.downloadUsersPreviousReads(with: userUniqueKey) { (userIDArray) in
+            if userIDArray.contains(userUniqueKey) {
+                completionToPass = true
+            } else {
+                completionToPass = false
+            }
+            
+            print(completionToPass)
+            completion(completionToPass)
+        }
+    }
+    
+    
+    
+    static func combineDuplicateChecks(with userBook: UserBook, completion: @escaping (Bool, String) -> Void) {
+        
+        let bookUniqueKey = FIRDatabase.database().reference().childByAutoId().key
+        guard let usersUniqueKey = FIRAuth.auth()?.currentUser?.uid else {return}
+        var completionToPass = Bool()
+        
+        let bookRef = FIRDatabase.database().reference().child("books")
+        let usersRef = FIRDatabase.database().reference().child("users").child(usersUniqueKey).child("previousReads")
+        
+        FirebaseMethods.downloadBooksFromFirebase { (titleArray, authorArray, synopsisArray) in
+            FirebaseMethods.checkIfBookExistsOnFirebase(with: titleArray, userBookAuthorArray: authorArray, userBookSynopsisArray: synopsisArray, book: userBook, completion: { (doesExist, bookID) in
+                
+                print("BOOK ID: \(bookID)")
+                
+                if doesExist == false {
+                    completionToPass = false
+                    
+                } else if doesExist == true {
+                    
+                    completionToPass = true
+                }
+                
+                print(completionToPass)
+                completion(completionToPass, bookID)
+            })
+            
+        }
     }
     
     
@@ -127,26 +200,31 @@ class FirebaseMethods {
         let bookUniqueKey = FIRDatabase.database().reference().childByAutoId().key
         guard let usersUniqueKey = FIRAuth.auth()?.currentUser?.uid else {return}
         
+        
         let bookRef = FIRDatabase.database().reference().child("books")
         let usersRef = FIRDatabase.database().reference().child("users").child(usersUniqueKey).child("previousReads")
         
-        FirebaseMethods.downloadBooksFromFirebase { (titleArray, authorArray, synopsisArray) in
-            FirebaseMethods.checkIfBookExistsOnFirebase(with: titleArray, userBookAuthorArray: authorArray, userBookSynopsisArray: synopsisArray, book: userBook, completion: { (doesExist, bookID) in
-                if doesExist == false {
-                    usersRef.updateChildValues([bookUniqueKey: ["rating": rating, "comment": comment]])
-                    bookRef.updateChildValues([bookUniqueKey: ["title": userBook.title, "author": userBook.author, "synopsis": userBook.synopsis, "readByUsers": [usersUniqueKey: true]]])
-                    
-                    
-                } else if doesExist == true {
-                    usersRef.updateChildValues([bookID: ["rating": rating, "comment": comment]])
-                    bookRef.child(bookID).child("readByUsers").updateChildValues([usersUniqueKey: true])
-                    
-                }
+        FirebaseMethods.combineDuplicateChecks(with: userBook) { (doesExist, bookID) in
+            if doesExist == false {
+                usersRef.updateChildValues([bookUniqueKey: ["rating": rating, "comment": comment]])
+                bookRef.updateChildValues([bookUniqueKey: ["title": userBook.title, "author": userBook.author, "synopsis": userBook.synopsis, "readByUsers": [usersUniqueKey: true]]])
                 
-            })
-            
-            completion()
+            } else if doesExist == true {
+                
+                FirebaseMethods.checkIfAlreadyAddedAsPreviousRead(with: usersUniqueKey, completion: { (doesExist) in
+                    if doesExist == false {
+                        usersRef.updateChildValues([bookID: ["rating": rating, "comment": comment]])
+                        bookRef.child(bookID).child("readByUsers").updateChildValues([usersUniqueKey: true])
+                    }
+                    
+                    
+                    
+                })
+                
+                
+            }
         }
+        completion()
     }
     
 }
