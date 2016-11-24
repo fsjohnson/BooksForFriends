@@ -27,6 +27,10 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.dataSource = self
         tableView.register(SearchBookResultsTableViewCell.self, forCellReuseIdentifier: "bookResult")
         tableView.rowHeight = 100
+
+        var navBar = self.navigationController?.navigationBar
+        self.view.addSubview(navBar!)
+        
         
         //TableView
         
@@ -45,7 +49,7 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         searchBookTitle.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05).isActive = true
         searchBookTitle.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.70).isActive = true
         searchBookTitle.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        searchBookTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
+        searchBookTitle.topAnchor.constraint(equalTo: (navBar?.bottomAnchor)!, constant: 10).isActive = true
         searchBookTitle.layer.borderWidth = 2.0
         searchBookTitle.layer.borderColor = UIColor.black.cgColor
         
@@ -75,7 +79,7 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         searchButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.10).isActive = true
         searchButton.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         searchButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.30).isActive = true
-        searchButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
+        searchButton.topAnchor.constraint(equalTo: (navBar?.bottomAnchor)!, constant: 10).isActive = true
         
         
         activityIndicator()
@@ -137,7 +141,11 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "addRatingAndComment" , sender: self)
+        
+        
+    }
     
     
     
@@ -147,15 +155,32 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     
-    /*
+
      // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
+     
+        if segue.identifier == "addRatingAndComment" {
+            let dest = segue.destination as! AddCommentAndRatingViewController
+            if let indexPath = tableView.indexPathForSelectedRow {
+                
+                guard let bookCoverToPass = BookDataStore.shared.bookArray[indexPath.row].bookCover else {print("no cover"); return}
+                guard let authorToPass = BookDataStore.shared.bookArray[indexPath.row].author else {print("no author"); return}
+                guard let imageLinkToPass = BookDataStore.shared.bookArray[indexPath.row].finalBookCoverLink else {print("no image"); return}
+                guard let synopsisToPass = BookDataStore.shared.bookArray[indexPath.row].synopsis else {print("no synopsis"); return}
+                
+                
+                dest.passedImage = bookCoverToPass
+                dest.passedTitle = BookDataStore.shared.bookArray[indexPath.row].title
+                dest.passedAuthor = authorToPass
+                dest.passedImageLink = imageLinkToPass
+                dest.passedSynopsis = synopsisToPass
+            }
+        }
+        
+        
      }
-     */
+
     
 }
 
@@ -164,9 +189,10 @@ extension UIViewController {
     
     func presentAlertWithTitle(title: String, message : String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let OKAction = UIAlertAction(title: "OK", style: .cancel) {
+        let OKAction = UIAlertAction(title: "OK", style: .default) {
             (action: UIAlertAction) in print("Youve pressed OK Button")
         }
+        
         alertController.addAction(OKAction)
         self.present(alertController, animated: true, completion: nil)
     }

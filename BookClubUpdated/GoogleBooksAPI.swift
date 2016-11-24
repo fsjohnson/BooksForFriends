@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class OpenBookSourceAPI {
+class GoogleBooksAPI {
     
     class func searchTitles(with searchTitle: String, authorName: String, completion: (String) -> Void) {
         
@@ -67,7 +67,6 @@ class OpenBookSourceAPI {
         let searchCoverURL = URL(string: urlString)
         
         guard let unwrappedCoverURL = searchCoverURL else {return}
-        print(unwrappedCoverURL)
 
         do {
             let imageData = try Data(contentsOf: unwrappedCoverURL)
@@ -75,9 +74,7 @@ class OpenBookSourceAPI {
             completion(image)
 
         } catch {}
-
     }
-    
 }
 
 

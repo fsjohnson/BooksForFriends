@@ -8,20 +8,20 @@
 
 import Foundation
 import UIKit
+import Firebase
 
-class Book {
+class SearchedBook {
     
     let title: String
     let author: String?
     let authorArray: [String]?
-    var recommend: Bool?
     var bookCover: UIImage?
     let bookCoverLink: String?
     let bookCoverLinkDict: [String:String]?
-    let linkToPass: String?
+    let finalBookCoverLink: String?
     
     let volume: [String: Any]
-    let description: String?
+    let synopsis: String?
     
     init(dict: [String: Any]) {
         self.volume = dict["volumeInfo"] as! [String: Any]
@@ -30,18 +30,14 @@ class Book {
         self.author = authorArray?[0]
         self.bookCoverLinkDict = volume["imageLinks"] as? [String:String]
         self.bookCoverLink = bookCoverLinkDict?["thumbnail"]
-        self.linkToPass = bookCoverLink?.replacingOccurrences(of: "http", with: "https")
-        self.description = volume["description"] as? String
+        self.finalBookCoverLink = bookCoverLink?.replacingOccurrences(of: "http", with: "https")
+        self.synopsis = volume["description"] as? String
         
-        guard let link = linkToPass else {return}
+        guard let link = finalBookCoverLink else {return}
         
-        OpenBookSourceAPI.downloadBookImage(with: link) { (image) in
+        GoogleBooksAPI.downloadBookImage(with: link) { (image) in
             self.bookCover = image
         }
-    }
-    
-    enum BookFeelings {
-        case hated, indifferent, liked, loved
     }
     
 }

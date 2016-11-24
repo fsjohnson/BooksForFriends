@@ -15,7 +15,7 @@ class BookDataStore {
     private init() {}
     
     var isbn: String?
-    var bookArray = [Book]()
+    var bookArray = [SearchedBook]()
     var imageArray = [UIImage]()
     var searchTitle = String()
     var searchAuthor = String()
@@ -35,9 +35,9 @@ class BookDataStore {
         
         bookArray.removeAll()
 
-        OpenBookSourceAPI.APICall(with: searchQuery, authorName: authorQuery) { (searchResults) in
+        GoogleBooksAPI.APICall(with: searchQuery, authorName: authorQuery) { (searchResults) in
             for searchResult in searchResults {
-                let book = Book(dict: searchResult)
+                let book = SearchedBook(dict: searchResult)
                 self.bookArray.append(book)
             }
             

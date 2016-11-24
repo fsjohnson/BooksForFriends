@@ -6,48 +6,44 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Collection View Controller-->
-        <scene sceneID="lkj-eo-WDH">
+        <!--Book My Friends Read-->
+        <scene sceneID="N82-hX-4KN">
             <objects>
-                <collectionViewController id="DcH-TV-5GL" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Rgs-NM-cEv">
+                <tableViewController storyboardIdentifier="BooksFriendsReadTableViewController" id="SJ6-Q4-3V9" customClass="BooksFriendsReadTableViewController" customModule="BookClubUpdated" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="h88-zH-gI6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Cg8-8W-htg">
-                            <size key="itemSize" width="50" height="50"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="vfy-g2-jry">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="jEc-gT-Gli">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jEc-gT-Gli" id="XTB-2m-cEg">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                </view>
-                            </collectionViewCell>
-                        </cells>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="DcH-TV-5GL" id="enB-0q-er7"/>
-                            <outlet property="delegate" destination="DcH-TV-5GL" id="jb6-HM-eZ8"/>
+                            <outlet property="dataSource" destination="SJ6-Q4-3V9" id="Bf6-bM-0rW"/>
+                            <outlet property="delegate" destination="SJ6-Q4-3V9" id="AIg-zR-9fO"/>
                         </connections>
-                    </collectionView>
-                    <navigationItem key="navigationItem" id="ojJ-5q-6jE"/>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="EoY-OH-vh8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Book My Friends Read" id="iGf-4p-RD9"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VFU-j9-Efz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1399.2" y="-1111.3943028485758"/>
+            <point key="canvasLocation" x="1399" y="-1111"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="PzW-hz-Due">
             <objects>
-                <tabBarController storyboardIdentifier="UINavigationController" id="uzr-Dc-Udk" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="UITabBarController" id="uzr-Dc-Udk" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="I5D-ky-e7A">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -63,7 +59,7 @@
             </objects>
             <point key="canvasLocation" x="-365" y="-295"/>
         </scene>
-        <!--Collection View Controller-->
+        <!--Books I Want To Read-->
         <scene sceneID="84d-vU-RlP">
             <objects>
                 <collectionViewController id="3KZ-Be-9wS" sceneMemberID="viewController">
@@ -92,7 +88,7 @@
                             <outlet property="delegate" destination="3KZ-Be-9wS" id="kGs-kh-Mcq"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="mPR-jh-JCW"/>
+                    <navigationItem key="navigationItem" title="Books I Want To Read" id="mPR-jh-JCW"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wEy-dj-7Mq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -101,12 +97,13 @@
         <!--Books I've Read-->
         <scene sceneID="WYa-Sg-h6M">
             <objects>
-                <viewController id="BPt-Qi-eRE" sceneMemberID="viewController">
+                <viewController id="BPt-Qi-eRE" customClass="UserProfileViewController" customModule="BookClubUpdated" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Books I've Read" id="4ob-kD-zrb">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="WeZ-HA-4ij">
                             <connections>
-                                <segue destination="40l-QF-BTu" kind="show" id="g77-aX-sA5"/>
+                                <action selector="addBookButton:" destination="BPt-Qi-eRE" id="XLo-k5-1Lw"/>
+                                <segue destination="40l-QF-BTu" kind="show" identifier="addBookSegue" id="g77-aX-sA5"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -148,11 +145,95 @@
                     <connections>
                         <outlet property="searchAuthorTextField" destination="DIw-R1-Fam" id="idw-vR-h8c"/>
                         <outlet property="searchBookTitle" destination="WwH-OG-iLt" id="d43-eh-nVk"/>
+                        <segue destination="p49-83-rhL" kind="presentation" identifier="addRatingAndComment" id="G4t-FG-AvW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="puW-bP-Nhn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2228" y="553.67316341829087"/>
+        </scene>
+        <!--Add Comment And Rating View Controller-->
+        <scene sceneID="rDg-PD-EXd">
+            <objects>
+                <viewController id="p49-83-rhL" customClass="AddCommentAndRatingViewController" customModule="BookClubUpdated" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="MT0-Wa-yuA"/>
+                        <viewControllerLayoutGuide type="bottom" id="BU1-II-5By"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="IZw-Jg-whS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Nth-Md-Eeu">
+                                <rect key="frame" x="112" y="92" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Nth-Md-Eeu" secondAttribute="height" multiplier="1:1" id="0C6-9B-NDY"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="oxf-vg-a7b">
+                                <rect key="frame" x="28" y="384" width="319" height="167"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comments: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9qy-h1-RC7">
+                                        <rect key="frame" x="0.0" y="0.0" width="319" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="What did you think about this book?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aG7-jC-Ghi">
+                                        <rect key="frame" x="0.0" y="20.5" width="319" height="146.5"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jX6-lv-yQw">
+                                <rect key="frame" x="28" y="308.5" width="319" height="50.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rating:  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L6w-8s-4Mb">
+                                        <rect key="frame" x="0.0" y="0.0" width="319" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="UEO-k4-KEo">
+                                        <rect key="frame" x="-2" y="20.5" width="323" height="31"/>
+                                    </slider>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="60P-Jn-3pe">
+                                <rect key="frame" x="153.5" y="572" width="67" height="30"/>
+                                <state key="normal" title="Add Book"/>
+                                <connections>
+                                    <action selector="addBookButton:" destination="p49-83-rhL" eventType="touchUpInside" id="8eQ-Cr-m2n"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="jX6-lv-yQw" firstAttribute="centerX" secondItem="IZw-Jg-whS" secondAttribute="centerX" id="7KA-Go-EXC"/>
+                            <constraint firstItem="Nth-Md-Eeu" firstAttribute="width" secondItem="IZw-Jg-whS" secondAttribute="width" multiplier="0.4" id="H3q-hm-4o1"/>
+                            <constraint firstItem="Nth-Md-Eeu" firstAttribute="centerX" secondItem="IZw-Jg-whS" secondAttribute="centerX" id="J81-cf-OuV"/>
+                            <constraint firstItem="oxf-vg-a7b" firstAttribute="width" secondItem="IZw-Jg-whS" secondAttribute="width" multiplier="0.85" id="LA3-LN-Udy"/>
+                            <constraint firstItem="jX6-lv-yQw" firstAttribute="centerY" secondItem="IZw-Jg-whS" secondAttribute="centerY" id="NRg-Dl-jl7"/>
+                            <constraint firstItem="oxf-vg-a7b" firstAttribute="height" secondItem="IZw-Jg-whS" secondAttribute="height" multiplier="0.25" id="Nap-z7-aEJ"/>
+                            <constraint firstItem="60P-Jn-3pe" firstAttribute="top" secondItem="oxf-vg-a7b" secondAttribute="bottom" constant="21" id="Wew-QX-1lW"/>
+                            <constraint firstItem="jX6-lv-yQw" firstAttribute="width" secondItem="oxf-vg-a7b" secondAttribute="width" id="YLK-97-NGi"/>
+                            <constraint firstItem="60P-Jn-3pe" firstAttribute="centerX" secondItem="IZw-Jg-whS" secondAttribute="centerX" id="YeC-hg-mFp"/>
+                            <constraint firstItem="Nth-Md-Eeu" firstAttribute="centerY" secondItem="IZw-Jg-whS" secondAttribute="centerY" multiplier="0.5" id="b1H-Nx-hDI"/>
+                            <constraint firstItem="oxf-vg-a7b" firstAttribute="centerY" secondItem="IZw-Jg-whS" secondAttribute="centerY" multiplier="1.4" id="cfX-1m-M6A"/>
+                            <constraint firstItem="oxf-vg-a7b" firstAttribute="centerX" secondItem="IZw-Jg-whS" secondAttribute="centerX" id="iiG-tD-R9q"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="bookCoverImageView" destination="Nth-Md-Eeu" id="v4v-wv-txC"/>
+                        <outlet property="commentsTextField" destination="aG7-jC-Ghi" id="gcI-7U-1Lt"/>
+                        <outlet property="ratingSlider" destination="UEO-k4-KEo" id="Y34-we-Sh3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LHq-FN-bfx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2959" y="554"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="XKA-Ec-pZP">
@@ -187,7 +268,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="DcH-TV-5GL" kind="relationship" relationship="rootViewController" id="sJF-FO-huv"/>
+                        <segue destination="SJ6-Q4-3V9" kind="relationship" relationship="rootViewController" id="mKY-hx-Ke7"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zW2-2D-6sf" userLabel="First Responder" sceneMemberID="firstResponder"/>
