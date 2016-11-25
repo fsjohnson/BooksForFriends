@@ -19,7 +19,7 @@ class UserProfileViewController: UIViewController {
         let followersFollowingView = FollowersFollowing(frame: CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight))
         view.addSubview(followersFollowingView)
         
-        segueToFollowing()  
+        segueToFollowers()
         
     }
 

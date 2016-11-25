@@ -198,13 +198,28 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="followingCell" id="LHg-b6-Go7">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="followingCell" id="LHg-b6-Go7" customClass="FollowingTableViewCell" customModule="BookClubUpdated" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LHg-b6-Go7" id="SuF-oX-Skp">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="smt-Ob-UIl">
+                                            <rect key="frame" x="319" y="0.0" width="30" height="43.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                            <state key="normal" title="-"/>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="smt-Ob-UIl" firstAttribute="height" secondItem="SuF-oX-Skp" secondAttribute="height" id="MIR-lY-eaj"/>
+                                        <constraint firstItem="smt-Ob-UIl" firstAttribute="centerY" secondItem="SuF-oX-Skp" secondAttribute="centerY" id="sef-3k-VHb"/>
+                                        <constraint firstAttribute="trailing" secondItem="smt-Ob-UIl" secondAttribute="trailing" constant="26" id="vmA-lD-bv0"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="unfollow" destination="smt-Ob-UIl" id="nDk-H2-xn8"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -241,10 +256,11 @@
                             <outlet property="delegate" destination="rcH-At-f36" id="Qz4-5m-5S4"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="XD1-gN-UFj"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ukb-KX-C9l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1756" y="1313"/>
+            <point key="canvasLocation" x="1564" y="1455"/>
         </scene>
         <!--Add Book View Controller-->
         <scene sceneID="QcJ-yo-d3b">
@@ -439,7 +455,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="yhH-Yx-6bO" kind="relationship" relationship="rootViewController" id="RCW-m9-4vo"/>
+                        <segue destination="WjS-Mn-Kr9" kind="relationship" relationship="rootViewController" id="Xlb-Jq-PZX"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V8X-fi-wJr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -447,7 +463,4 @@
             <point key="canvasLocation" x="334" y="546"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="RCW-m9-4vo"/>
-    </inferredMetricsTieBreakers>
 </document>

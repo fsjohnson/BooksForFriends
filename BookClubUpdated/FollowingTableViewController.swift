@@ -44,13 +44,35 @@ class FollowingTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "followingCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "followingCell", for: indexPath) as! FollowingTableViewCell
         
         cell.textLabel?.text = followingArray[indexPath.row].username
+        
+        cell.unfollow.addTarget(self, action: #selector(unFollowButton), for: .touchUpInside)
         
         return cell
     }
     
+    func unFollowButton(sender: UIButton) {
+        _ = sender.tag
+        
+        print("BUTTON TAPPED")
+        
+        let cellContent = sender.superview!
+        let cell = cellContent.superview! as! UITableViewCell
+        guard let indexPath = self.tableView.indexPath(for: cell) else {return}
+        
+        let userUniqueKey = followingArray[indexPath.row].uniqueKey
+        let username = followingArray[indexPath.row].username
+        
+        UserFirebaseMethods.removeFollowing(with: userUniqueKey) {
+            let alert = UIAlertController(title: "Success", message: "You have unfollowed \(username)", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                self.dismiss(animated: true, completion: nil)
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
     
     /*
      // Override to support conditional editing of the table view.

@@ -99,30 +99,8 @@ class UserFirebaseMethods {
         })
     }
     
-    //MARK: - Add & remove follower
     
-    static func addFollower(with userUniqueKey: String, completion: () -> Void) {
-        
-        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
-        
-        let ref = FIRDatabase.database().reference().child("users").child(currentUser).child("followers")
-        
-        ref.updateChildValues([userUniqueKey: true])
-        completion()
-    }
-    
-    
-    static func removeFollower(with userUniqueKey: String, completion: () -> Void) {
-        
-        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
-        
-        let ref = FIRDatabase.database().reference().child("users").child(currentUser).child("followers")
-        
-        ref.updateChildValues([userUniqueKey: false])
-        completion()
-    }
-    
-    //MARK: - Add & remove following
+    //MARK: - Add & remove following / followers
     
     static func addFollowing(with userUniqueKey: String, completion: () -> Void) {
         
@@ -131,6 +109,9 @@ class UserFirebaseMethods {
         let ref = FIRDatabase.database().reference().child("users").child(currentUser).child("following")
         
         ref.updateChildValues([userUniqueKey: true])
+        
+        let followedRef = FIRDatabase.database().reference().child("users").child(userUniqueKey).child("followers")
+        followedRef.updateChildValues([currentUser:true])
         completion()
         
     }
@@ -142,7 +123,11 @@ class UserFirebaseMethods {
         
         let ref = FIRDatabase.database().reference().child("users").child(currentUser).child("following")
         
-        ref.updateChildValues([userUniqueKey: false])
+        ref.child(userUniqueKey).removeValue()
+        
+        let followedRef = FIRDatabase.database().reference().child("users").child(userUniqueKey).child("followers")
+        followedRef.child(currentUser).removeValue()
+        
         completion()
     }
     
@@ -203,6 +188,37 @@ class UserFirebaseMethods {
                     
                     if followingUserIDArray.count == followingUserArray.count {
                         completion(followingUserArray)
+                    }
+                })
+            }
+        })
+    }
+    
+    
+    //MARK: - Retrieve followers 
+    
+    static func retriveFollowers(with completion: @escaping ([User]) -> Void) {
+        
+        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
+        let ref = FIRDatabase.database().reference().child("users").child(currentUser).child("followers")
+        var followersUserArray = [User]()
+        var followersUserIDArray = [String]()
+        
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            print(snapshot)
+            guard let snapshotValue = snapshot.value as? [String: Any] else {return}
+            print(snapshotValue)
+            
+            for snap in snapshotValue {
+                followersUserIDArray.append(snap.key)
+            }
+            
+            for id in followersUserIDArray {
+                UserFirebaseMethods.retrieveSpecificUser(with: id, completion: { (user) in
+                    followersUserArray.append(user!)
+                    
+                    if followersUserIDArray.count == followersUserArray.count {
+                        completion(followersUserArray)
                     }
                 })
             }
