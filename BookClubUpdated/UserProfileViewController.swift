@@ -10,13 +10,17 @@ import UIKit
 
 class UserProfileViewController: UIViewController {
 
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        let viewWidth = view.frame.width
+        let viewHeight = view.frame.height
+        
+        let followersFollowingView = FollowersFollowing(frame: CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight))
+        view.addSubview(followersFollowingView)
+        
+        segueToFollowing()  
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,6 +33,16 @@ class UserProfileViewController: UIViewController {
         performSegue(withIdentifier: "addBookSegue", sender: self)
     }
     
+    
+    func segueToFollowers() {
+        let followersVC = storyboard?.instantiateViewController(withIdentifier: "FollowersTableViewController")
+        self.present(followersVC!, animated: true, completion: nil)
+    }
+    
+    func segueToFollowing() {
+        let followingVC = storyboard?.instantiateViewController(withIdentifier: "FollowingTableViewController")
+        self.present(followingVC!, animated: true, completion: nil)
+    }
 
 
     // MARK: - Navigation
@@ -37,6 +51,14 @@ class UserProfileViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "addBookSegue" {
             let dest = segue.destination as! AddBookViewController
+        }
+        
+        if segue.identifier == "followersSegue" {
+            let dest = segue.destination as! FollowersTableViewController
+        }
+        
+        if segue.identifier == "followingSegue" {
+            let dest = segue.destination as! FollowingTableViewController
         }
     }
 

@@ -172,10 +172,40 @@ class UserFirebaseMethods {
                 } else {
                     completionToPass = false
                 }
-
+                
             }
-            print("ALREADY FOLLOWING? \(completionToPass)")
             completion(completionToPass)
+        })
+    }
+    
+    
+    //MARK: - Retrive following
+    
+    static func retriveFollowingUsers(with completion: @escaping ([User]) -> Void) {
+        
+        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
+        let ref = FIRDatabase.database().reference().child("users").child(currentUser).child("following")
+        var followingUserArray = [User]()
+        var followingUserIDArray = [String]()
+        
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            print(snapshot)
+            guard let snapshotValue = snapshot.value as? [String: Any] else {return}
+            print(snapshotValue)
+            
+            for snap in snapshotValue {
+                followingUserIDArray.append(snap.key)
+            }
+            
+            for id in followingUserIDArray {
+                UserFirebaseMethods.retrieveSpecificUser(with: id, completion: { (user) in
+                    followingUserArray.append(user!)
+                    
+                    if followingUserIDArray.count == followingUserArray.count {
+                        completion(followingUserArray)
+                    }
+                })
+            }
         })
     }
     

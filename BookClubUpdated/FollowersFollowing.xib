@@ -11,12 +11,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FollowersFollowing" customModule="BookClubUpdated" customModuleProvider="target">
             <connections>
-                <outlet property="booksPosted" destination="qxM-YZ-bsO" id="WVi-3H-SF7"/>
-                <outlet property="followersLabel" destination="E7S-og-WTn" id="wA3-Wb-wCV"/>
-                <outlet property="followingLabel" destination="rUh-xT-glJ" id="u17-9k-EVp"/>
+                <outlet property="booksPosted" destination="qxM-YZ-bsO" id="xcf-0o-8wu"/>
+                <outlet property="contentView" destination="1M1-RC-sdh" id="aar-Xv-4Ht"/>
                 <outlet property="numFollowers" destination="E7S-og-WTn" id="tg9-eg-BK6"/>
                 <outlet property="numFollowing" destination="rUh-xT-glJ" id="3Fp-Ns-4l1"/>
-                <outlet property="postsLabel" destination="qxM-YZ-bsO" id="ep6-Dl-4cJ"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
