@@ -15,17 +15,18 @@ class UserBook {
     let title: String
     let author: String?
 //    var bookCover: UIImage?
-//    let finalBookCoverLink: String?
+    let finalBookCoverLink: String = "No image available"
     let synopsis: String?
-//    let comments: String?
+    let comments: String = "No comment posted"
 //    let rating: String?
-//    let bookUniqueKey: String?
+    let bookUniqueKey: String?
     
     
-    init(title: String, author: String, synopsis: String) {
+    init(title: String, author: String, synopsis: String, bookUniqueKey: String?) {
         self.title = title
         self.author = author
         self.synopsis = synopsis
+        self.bookUniqueKey = bookUniqueKey
         
     }
 }

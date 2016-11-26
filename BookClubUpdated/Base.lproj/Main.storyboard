@@ -6,6 +6,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -15,18 +17,54 @@
         <scene sceneID="N82-hX-4KN">
             <objects>
                 <tableViewController storyboardIdentifier="BooksFriendsReadTableViewController" id="SJ6-Q4-3V9" customClass="BooksFriendsReadTableViewController" customModule="BookClubUpdated" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="h88-zH-gI6">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="150" sectionHeaderHeight="28" sectionFooterHeight="28" id="h88-zH-gI6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="jEc-gT-Gli">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="booksPosted" rowHeight="150" id="jEc-gT-Gli" customClass="FriendsBooksPostedTableViewCell" customModule="BookClubUpdated" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jEc-gT-Gli" id="XTB-2m-cEg">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jzc-3G-L0G">
+                                            <rect key="frame" x="234.5" y="9.5" width="131" height="131"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="jzc-3G-L0G" secondAttribute="height" multiplier="1:1" id="Mbz-ZT-OFj"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="csh-Yo-ZZ9">
+                                            <rect key="frame" x="20" y="9.5" width="214.5" height="21"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comments" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BPG-oo-vDq">
+                                            <rect key="frame" x="20" y="126" width="224.5" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="BPG-oo-vDq" firstAttribute="leading" secondItem="XTB-2m-cEg" secondAttribute="leading" constant="20" id="6zv-6K-jup"/>
+                                        <constraint firstItem="jzc-3G-L0G" firstAttribute="centerX" secondItem="XTB-2m-cEg" secondAttribute="centerX" multiplier="1.6" id="CyO-Z8-kIc"/>
+                                        <constraint firstItem="jzc-3G-L0G" firstAttribute="width" secondItem="XTB-2m-cEg" secondAttribute="width" multiplier="0.35" id="HRA-NF-Ksp"/>
+                                        <constraint firstItem="jzc-3G-L0G" firstAttribute="centerY" secondItem="XTB-2m-cEg" secondAttribute="centerY" id="IoB-4i-NKg"/>
+                                        <constraint firstItem="csh-Yo-ZZ9" firstAttribute="top" secondItem="jzc-3G-L0G" secondAttribute="firstBaseline" id="ZNi-4O-bk0"/>
+                                        <constraint firstItem="csh-Yo-ZZ9" firstAttribute="leading" secondItem="XTB-2m-cEg" secondAttribute="leading" constant="20" id="fAO-Fg-5mV"/>
+                                        <constraint firstItem="csh-Yo-ZZ9" firstAttribute="trailing" secondItem="jzc-3G-L0G" secondAttribute="leading" id="lUE-FF-qXr"/>
+                                        <constraint firstItem="BPG-oo-vDq" firstAttribute="baseline" secondItem="jzc-3G-L0G" secondAttribute="baseline" id="nXB-gi-JvT"/>
+                                        <constraint firstItem="BPG-oo-vDq" firstAttribute="trailing" secondItem="jzc-3G-L0G" secondAttribute="leading" constant="10" id="qnI-vB-L6y"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="bookImage" destination="jzc-3G-L0G" id="X5R-2K-Kpx"/>
+                                    <outlet property="commentsLabel" destination="BPG-oo-vDq" id="bq1-6s-iQR"/>
+                                    <outlet property="usernameLabel" destination="csh-Yo-ZZ9" id="DUq-a2-IKK"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -37,14 +75,14 @@
                     <navigationItem key="navigationItem" title="Book My Friends Read" id="iGf-4p-RD9">
                         <barButtonItem key="rightBarButtonItem" title="Find Friend" id="yfQ-J4-dYc">
                             <connections>
-                                <segue destination="Usx-En-JRb" kind="presentation" identifier="findFriends" id="R08-q3-V2F"/>
+                                <segue destination="w0n-dv-Its" kind="presentation" identifier="findFriends" id="R08-q3-V2F"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VFU-j9-Efz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1399" y="-1111"/>
+            <point key="canvasLocation" x="1397.5999999999999" y="-1111.3943028485758"/>
         </scene>
         <!--Find Friends Table View Controller-->
         <scene sceneID="lO6-ci-F6J">
@@ -55,7 +93,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" id="GGl-pC-Vkf">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <rect key="frame" x="0.0" y="64" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
                             <connections>
@@ -92,6 +130,7 @@
                             <outlet property="delegate" destination="Usx-En-JRb" id="a8F-Vz-9L4"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="riH-j3-mAc"/>
                     <connections>
                         <outlet property="searchDisplayController" destination="WsO-Cm-wkV" id="wQl-iJ-mbp"/>
                     </connections>
@@ -107,7 +146,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="2213.5999999999999" y="-1111.3943028485758"/>
+            <point key="canvasLocation" x="3152.8000000000002" y="-1111.3943028485758"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="PzW-hz-Due">
@@ -177,10 +216,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Books I've Read" id="U7c-UA-MJp">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="oSm-xK-zeT"/>
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="oSm-xK-zeT">
+                            <connections>
+                                <action selector="addBookBtn:" destination="WjS-Mn-Kr9" id="h3T-hz-T87"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="40l-QF-BTu" kind="presentation" identifier="addBookSegue" id="tbB-TP-c8X"/>
+                        <segue destination="Se0-J3-hHX" kind="presentation" identifier="addBookSegue" id="tbB-TP-c8X"/>
                         <segue destination="yhH-Yx-6bO" kind="show" identifier="followingSegue" id="2zR-Lo-DzH"/>
                         <segue destination="rcH-At-f36" kind="show" identifier="followersSegue" id="kIc-7N-zNs"/>
                     </connections>
@@ -231,7 +274,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="51S-QU-oWp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-366" y="1313"/>
+            <point key="canvasLocation" x="844" y="1454"/>
         </scene>
         <!--Followers Table View Controller-->
         <scene sceneID="j9S-ht-I5K">
@@ -262,7 +305,7 @@
             </objects>
             <point key="canvasLocation" x="1564" y="1455"/>
         </scene>
-        <!--Add Book View Controller-->
+        <!--Title-->
         <scene sceneID="QcJ-yo-d3b">
             <objects>
                 <viewController id="40l-QF-BTu" customClass="AddBookViewController" customModule="BookClubUpdated" customModuleProvider="target" sceneMemberID="viewController">
@@ -291,6 +334,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Title" id="4i8-Pl-M8r">
+                        <connections>
+                            <outlet property="titleView" destination="Dft-Dp-BjU" id="xeR-SB-fiA"/>
+                        </connections>
+                    </navigationItem>
                     <connections>
                         <outlet property="searchAuthorTextField" destination="DIw-R1-Fam" id="idw-vR-h8c"/>
                         <outlet property="searchBookTitle" destination="WwH-OG-iLt" id="d43-eh-nVk"/>
@@ -299,7 +347,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="puW-bP-Nhn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2228" y="553.67316341829087"/>
+            <point key="canvasLocation" x="3167.1999999999998" y="553.67316341829087"/>
         </scene>
         <!--Add Comment And Rating View Controller-->
         <scene sceneID="rDg-PD-EXd">
@@ -382,7 +430,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LHq-FN-bfx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2959" y="554"/>
+            <point key="canvasLocation" x="3896.8000000000002" y="553.67316341829087"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="XKA-Ec-pZP">
@@ -461,6 +509,42 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V8X-fi-wJr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="334" y="546"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="AEw-xw-lmi">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="w0n-dv-Its" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="pvZ-EP-zc4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Usx-En-JRb" kind="relationship" relationship="rootViewController" id="HYn-QB-kqW"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ojV-LR-fe5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2213.5999999999999" y="-1111.3943028485758"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="fLG-Fy-J8W">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Se0-J3-hHX" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="zwz-2l-aRB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="40l-QF-BTu" kind="relationship" relationship="rootViewController" id="LJ1-ef-kJd"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nvd-21-zFg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2228" y="553.67316341829087"/>
         </scene>
     </scenes>
 </document>

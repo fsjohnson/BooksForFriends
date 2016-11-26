@@ -42,16 +42,16 @@ class FollowersFollowing: UIView {
     
     @IBAction func followingButton(_ sender: Any) {
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "UserProfileViewController")
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let vc = storyboard.instantiateViewController(withIdentifier: "UserProfileViewController")
         
 
     }
     
     @IBAction func followersButton(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "UserProfileViewController")
-        
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let vc = storyboard.instantiateViewController(withIdentifier: "UserProfileViewController")
+//        
         
     }
     

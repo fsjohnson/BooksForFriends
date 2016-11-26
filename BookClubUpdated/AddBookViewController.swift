@@ -20,16 +20,22 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     let indicator: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x:0 ,y: 0, width: 50, height: 50))
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let navigationBarHeight: CGFloat = self.navigationController!.navigationBar.frame.height
+        
+        print("HEIGHT: \(navigationBarHeight)")
+
         
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(SearchBookResultsTableViewCell.self, forCellReuseIdentifier: "bookResult")
         tableView.rowHeight = 100
 
-        var navBar = self.navigationController?.navigationBar
-        self.view.addSubview(navBar!)
+//        var navBar = self.navigationController?.navigationBar
+//        self.view.addSubview(navBar!)
         
         
         //TableView
@@ -49,7 +55,7 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         searchBookTitle.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05).isActive = true
         searchBookTitle.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.70).isActive = true
         searchBookTitle.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        searchBookTitle.topAnchor.constraint(equalTo: (navBar?.bottomAnchor)!, constant: 10).isActive = true
+        searchBookTitle.topAnchor.constraint(equalTo: (view.topAnchor), constant: (navigationBarHeight + 20)).isActive = true
         searchBookTitle.layer.borderWidth = 2.0
         searchBookTitle.layer.borderColor = UIColor.black.cgColor
         
@@ -79,7 +85,7 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         searchButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.10).isActive = true
         searchButton.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         searchButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.30).isActive = true
-        searchButton.topAnchor.constraint(equalTo: (navBar?.bottomAnchor)!, constant: 10).isActive = true
+        searchButton.topAnchor.constraint(equalTo: (view.topAnchor), constant: (navigationBarHeight + 20)).isActive = true
         
         
         activityIndicator()

@@ -19,7 +19,7 @@ class UserProfileViewController: UIViewController {
         let followersFollowingView = FollowersFollowing(frame: CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight))
         view.addSubview(followersFollowingView)
         
-        segueToFollowers()
+//        segueToFollowers()
         
     }
 
@@ -29,9 +29,11 @@ class UserProfileViewController: UIViewController {
     }
     
     
-    @IBAction func addBookButton(_ sender: Any) {
+    @IBAction func addBookBtn(_ sender: Any) {
+        print("BUTTON PRESSED")
         performSegue(withIdentifier: "addBookSegue", sender: self)
     }
+   
     
     
     func segueToFollowers() {
@@ -49,10 +51,7 @@ class UserProfileViewController: UIViewController {
 
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "addBookSegue" {
-            let dest = segue.destination as! AddBookViewController
-        }
-        
+    
         if segue.identifier == "followersSegue" {
             let dest = segue.destination as! FollowersTableViewController
         }
