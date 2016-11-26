@@ -11,17 +11,17 @@ import UIKit
 class BooksFriendsReadTableViewController: UITableViewController {
     
     
-    var booksArray = [UserBook]()
+    var postsArray = [BookPosted]()
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        PostsFirebaseMethods.downloadAllPosts { (postsArray) in
+            self.postsArray = postsArray
+            self.tableView.reloadData()
+        }
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,19 +38,25 @@ class BooksFriendsReadTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return postsArray.count
     }
 
    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "booksPosted", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "booksPosted", for: indexPath) as! FriendsBooksPostedTableViewCell
 
-        // Configure the cell...
+        cell.usernameLabel.text = postsArray[indexPath.row].userUniqueKey
+        cell.commentsLabel.text = postsArray[indexPath.row].comment
+        cell.bookImage.image = postsArray[indexPath.row].bookCover
 
         return cell
     }
     
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "getBookDetails", sender: self)
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -86,14 +92,25 @@ class BooksFriendsReadTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "getBookDetails" {
+            let destinationNavigationController = segue.destination as! UINavigationController
+            let targetController = destinationNavigationController.topViewController as! BookDetailsViewController
+            
+            if let indexPath = tableView.indexPathForSelectedRow {
+                
+                let bookUniqueID = postsArray[indexPath.row].bookUniqueID
+                guard let bookCoverToPass = postsArray[indexPath.row].bookCover else {print("no cover"); return}
+                
+                targetController.passedImage = bookCoverToPass
+                targetController.passedUniqueID = bookUniqueID
+            }
+        }
     }
-    */
+ 
 
 }

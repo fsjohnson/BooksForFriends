@@ -26,7 +26,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jEc-gT-Gli" id="XTB-2m-cEg">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jzc-3G-L0G">
@@ -41,8 +41,8 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comments" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BPG-oo-vDq">
-                                            <rect key="frame" x="20" y="126" width="224.5" height="18"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comments" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BPG-oo-vDq">
+                                            <rect key="frame" x="20" y="9.5" width="224.5" height="134.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -53,6 +53,7 @@
                                         <constraint firstItem="jzc-3G-L0G" firstAttribute="centerX" secondItem="XTB-2m-cEg" secondAttribute="centerX" multiplier="1.6" id="CyO-Z8-kIc"/>
                                         <constraint firstItem="jzc-3G-L0G" firstAttribute="width" secondItem="XTB-2m-cEg" secondAttribute="width" multiplier="0.35" id="HRA-NF-Ksp"/>
                                         <constraint firstItem="jzc-3G-L0G" firstAttribute="centerY" secondItem="XTB-2m-cEg" secondAttribute="centerY" id="IoB-4i-NKg"/>
+                                        <constraint firstItem="BPG-oo-vDq" firstAttribute="top" secondItem="jzc-3G-L0G" secondAttribute="firstBaseline" id="QZd-yb-RCV"/>
                                         <constraint firstItem="csh-Yo-ZZ9" firstAttribute="top" secondItem="jzc-3G-L0G" secondAttribute="firstBaseline" id="ZNi-4O-bk0"/>
                                         <constraint firstItem="csh-Yo-ZZ9" firstAttribute="leading" secondItem="XTB-2m-cEg" secondAttribute="leading" constant="20" id="fAO-Fg-5mV"/>
                                         <constraint firstItem="csh-Yo-ZZ9" firstAttribute="trailing" secondItem="jzc-3G-L0G" secondAttribute="leading" id="lUE-FF-qXr"/>
@@ -79,6 +80,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="b1B-vy-bgO" kind="show" identifier="getBookDetails" id="joU-cs-JeS"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VFU-j9-Efz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -146,7 +150,79 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="3152.8000000000002" y="-1111.3943028485758"/>
+            <point key="canvasLocation" x="3606" y="-1580"/>
+        </scene>
+        <!--Book Details View Controller-->
+        <scene sceneID="2Y0-R8-f7n">
+            <objects>
+                <viewController id="Jcl-oe-RQx" customClass="BookDetailsViewController" customModule="BookClubUpdated" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="869-gf-WFy"/>
+                        <viewControllerLayoutGuide type="bottom" id="Nrt-5h-Wxh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="z5t-Vc-kyO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cnb-m1-AcH">
+                                <rect key="frame" x="112" y="92" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="cnb-m1-AcH" secondAttribute="height" multiplier="1:1" id="RXg-Uw-dM4"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ydl-aU-MlQ">
+                                <rect key="frame" x="18.5" y="266.5" width="338" height="267"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Synopsis: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LGU-Zm-Yyq">
+                                        <rect key="frame" x="0.0" y="0.0" width="338" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vOT-Tt-8Iy">
+                                        <rect key="frame" x="0.0" y="20.5" width="338" height="246.5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="vOT-Tt-8Iy" firstAttribute="top" secondItem="LGU-Zm-Yyq" secondAttribute="bottom" id="BDA-mL-XNq"/>
+                                    <constraint firstItem="vOT-Tt-8Iy" firstAttribute="leading" secondItem="ydl-aU-MlQ" secondAttribute="leading" id="Ryz-bb-z1J"/>
+                                    <constraint firstAttribute="bottom" secondItem="vOT-Tt-8Iy" secondAttribute="bottom" id="TWh-SM-KMA"/>
+                                    <constraint firstAttribute="trailing" secondItem="vOT-Tt-8Iy" secondAttribute="trailing" id="Zth-Fa-wyU"/>
+                                </constraints>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mcv-RE-mR6">
+                                <rect key="frame" x="133" y="587" width="108" height="30"/>
+                                <state key="normal" title="Add to book list"/>
+                                <connections>
+                                    <action selector="addToFutureReads:" destination="Jcl-oe-RQx" eventType="touchUpInside" id="QkM-bZ-cRp"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="mcv-RE-mR6" firstAttribute="top" secondItem="ydl-aU-MlQ" secondAttribute="bottom" multiplier="1.1" id="271-6j-EmE"/>
+                            <constraint firstItem="ydl-aU-MlQ" firstAttribute="centerX" secondItem="z5t-Vc-kyO" secondAttribute="centerX" id="KBn-kF-ShY"/>
+                            <constraint firstItem="mcv-RE-mR6" firstAttribute="centerX" secondItem="z5t-Vc-kyO" secondAttribute="centerX" id="MNN-1A-cz1"/>
+                            <constraint firstItem="ydl-aU-MlQ" firstAttribute="height" secondItem="z5t-Vc-kyO" secondAttribute="height" multiplier="0.4" id="U69-FX-aa0"/>
+                            <constraint firstItem="ydl-aU-MlQ" firstAttribute="centerY" secondItem="z5t-Vc-kyO" secondAttribute="centerY" multiplier="1.2" id="bwo-fz-qsl"/>
+                            <constraint firstItem="cnb-m1-AcH" firstAttribute="centerY" secondItem="z5t-Vc-kyO" secondAttribute="centerY" multiplier="0.5" id="clX-XC-qco"/>
+                            <constraint firstItem="ydl-aU-MlQ" firstAttribute="width" secondItem="z5t-Vc-kyO" secondAttribute="width" multiplier="0.9" id="pU8-45-VTA"/>
+                            <constraint firstItem="cnb-m1-AcH" firstAttribute="width" secondItem="z5t-Vc-kyO" secondAttribute="width" multiplier="0.4" id="vDH-q0-nfW"/>
+                            <constraint firstItem="cnb-m1-AcH" firstAttribute="centerX" secondItem="z5t-Vc-kyO" secondAttribute="centerX" id="yxd-oJ-u0R"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Sdz-5E-qTw"/>
+                    <connections>
+                        <outlet property="bookImageView" destination="cnb-m1-AcH" id="cfw-h6-ZEB"/>
+                        <outlet property="bookSynopsis" destination="vOT-Tt-8Iy" id="rlv-TI-Ozb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UBm-Ei-XNE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3605.5999999999999" y="-833.43328335832086"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="PzW-hz-Due">
@@ -232,7 +308,7 @@
             </objects>
             <point key="canvasLocation" x="1206" y="547"/>
         </scene>
-        <!--Following Table View Controller-->
+        <!--Following-->
         <scene sceneID="wCp-fN-FMw">
             <objects>
                 <tableViewController storyboardIdentifier="FollowingTableViewController" id="yhH-Yx-6bO" customClass="FollowingTableViewController" customModule="BookClubUpdated" customModuleProvider="target" sceneMemberID="viewController">
@@ -270,13 +346,13 @@
                             <outlet property="delegate" destination="yhH-Yx-6bO" id="vTl-6b-yXf"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="gfH-JJ-eM1"/>
+                    <navigationItem key="navigationItem" title="Following" id="gfH-JJ-eM1"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="51S-QU-oWp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="844" y="1454"/>
         </scene>
-        <!--Followers Table View Controller-->
+        <!--Followers-->
         <scene sceneID="j9S-ht-I5K">
             <objects>
                 <tableViewController storyboardIdentifier="FollowersTableViewController" id="rcH-At-f36" customClass="FollowersTableViewController" customModule="BookClubUpdated" customModuleProvider="target" sceneMemberID="viewController">
@@ -299,7 +375,7 @@
                             <outlet property="delegate" destination="rcH-At-f36" id="Qz4-5m-5S4"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="XD1-gN-UFj"/>
+                    <navigationItem key="navigationItem" title="Followers" id="XD1-gN-UFj"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ukb-KX-C9l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -526,7 +602,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ojV-LR-fe5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2213.5999999999999" y="-1111.3943028485758"/>
+            <point key="canvasLocation" x="2642" y="-1580"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fLG-Fy-J8W">
@@ -545,6 +621,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nvd-21-zFg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2228" y="553.67316341829087"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="S4X-mv-V6b">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="b1B-vy-bgO" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="UDd-m1-h9p">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Jcl-oe-RQx" kind="relationship" relationship="rootViewController" id="TVG-UT-8rY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lcr-zE-Po9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2622" y="-832"/>
         </scene>
     </scenes>
 </document>

@@ -12,7 +12,7 @@ import Firebase
 class BooksFirebaseMethods {
     
     
-    // MARK: - Download books from Firebase
+    // MARK: - Check if Firebase children are empty
     
     static func checkIfBooksChildIsEmpty(with completion: @escaping (Bool) -> Void) {
         let bookRef = FIRDatabase.database().reference().child("books")
@@ -57,6 +57,7 @@ class BooksFirebaseMethods {
     }
 
     
+    // MARK: - Download books from Firebase
     
     static func downloadAllBookUniqueIDsOnFirebase(with completion: @escaping ([String], Bool) -> Void) {
         
@@ -103,10 +104,11 @@ class BooksFirebaseMethods {
                     let title = value["title"] as? String,
                     let author = value["author"] as? String,
                     let synopsis = value["synopsis"] as? String,
+                    let finalBookCoverLink = value["imageLink"] as? String,
                     let bookUniqueKey = value["bookUniqueKey"] as? String
                     else {print("error handling \(value)"); return}
                 
-                let userBook = UserBook(title: title, author: author, synopsis: synopsis, bookUniqueKey: bookUniqueKey)
+                let userBook = UserBook(title: title, author: author, synopsis: synopsis, bookUniqueKey: bookUniqueKey, finalBookCoverLink: finalBookCoverLink)
                 userBookArray.append(userBook)
                 
             }
@@ -121,7 +123,6 @@ class BooksFirebaseMethods {
     
     static func downloadPreviousReadsIDArrayForSpecific(user uniqueID: String, completion: @escaping ([String]) -> Void) {
         
-        guard let currentUserID = FIRAuth.auth()?.currentUser?.uid else {print("Couldn't retrieve current user");return}
         let userBookRef = FIRDatabase.database().reference().child("users").child(uniqueID).child("previousReads")
         var previousReadsBookIDArray = [String]()
         
@@ -137,9 +138,7 @@ class BooksFirebaseMethods {
             completion(previousReadsBookIDArray)
         })
     }
-    
-    
-    
+
     
     static func getBookIDFor(userBook book: UserBook, completion: @escaping (String) -> Void) {
         
@@ -220,18 +219,16 @@ class BooksFirebaseMethods {
             completion(completionToPass)
         }
     }
-    
-    
-    
-    
+
     
     // MARK: - Add book to previous reads
     
-    static func addToPreviousReadsWith(userBook: UserBook, comment: String, rating: String, userUniqueID: String, completion: @escaping (Bool) -> Void) {
+    static func addToPreviousReadsWith(userBook: UserBook, comment: String, rating: String, userUniqueID: String, imageLink: String, completion: @escaping (Bool) -> Void) {
         
         let userRef = FIRDatabase.database().reference().child("users").child(userUniqueID).child("previousReads")
         let bookRef = FIRDatabase.database().reference().child("books")
-        let timeStamp = Date().timeIntervalSince1970.description
+        let postRef = FIRDatabase.database().reference().child("posts")
+        
         
         var boolToSend = false
         
@@ -243,8 +240,9 @@ class BooksFirebaseMethods {
                 
                 if doesExist == false {
                     
-                    userRef.updateChildValues([bookID: ["rating": rating, "comment": comment, "timestamp": timeStamp]])
+                    userRef.updateChildValues([bookID: ["rating": rating, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink]])
                     bookRef.child(bookID).child("readByUsers").updateChildValues([userUniqueID: true])
+                    postRef.updateChildValues([bookID: ["rating": rating, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "userUniqueID": userUniqueID]])
                     
                     boolToSend = false
                     
