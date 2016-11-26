@@ -54,12 +54,13 @@ class AddCommentAndRatingViewController: UIViewController {
         let bookRef = FIRDatabase.database().reference().child("books")
         guard let synopsis = bookToAdd.synopsis else {return}
         guard let author = bookToAdd.author else {return}
+        let timeStamp = Date().timeIntervalSince1970.description
         
         
         BooksFirebaseMethods.checkIfBooksChildIsEmpty { (isEmpty) in
             if isEmpty == true {
                 
-                userRef.updateChildValues([bookUniqueKey: ["rating": ratingString, "comment": comment]])
+                userRef.updateChildValues([bookUniqueKey: ["rating": ratingString, "comment": comment, "timestamp": timeStamp]])
                 bookRef.updateChildValues([bookUniqueKey: ["title": bookToAdd.title, "author": author, "synopsis": synopsis, "readByUsers": [userUniqueKey: true], "bookUniqueKey": bookUniqueKey]])
                 
                 let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
@@ -74,7 +75,7 @@ class AddCommentAndRatingViewController: UIViewController {
                     
                     if doesExist == false {
                         
-                        userRef.updateChildValues([bookUniqueKey: ["rating": ratingString, "comment": comment]])
+                        userRef.updateChildValues([bookUniqueKey: ["rating": ratingString, "comment": comment, "timestamp": timeStamp]])
                         bookRef.updateChildValues([bookUniqueKey: ["title": bookToAdd.title, "author": author, "synopsis": synopsis, "readByUsers": [userUniqueKey: true], "bookUniqueKey": bookUniqueKey]])
                         
                         let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
@@ -98,11 +99,12 @@ class AddCommentAndRatingViewController: UIViewController {
                                     self.present(alert, animated: true, completion: nil)
                                     
                                     
-                                    userRef.updateChildValues([bookID: ["rating": ratingString, "comment": comment]])
+                                    userRef.updateChildValues([bookID: ["rating": ratingString, "comment": comment, "timestamp": timeStamp]])
                                     bookRef.child(bookID).child("readByUsers").updateChildValues([userUniqueKey: true])
                                     
                                 } else {
-                                    BooksFirebaseMethods.addToPreviousReadsWith(userBook: bookToAdd, comment: comment, rating: ratingString, completion: { (doesExist) in
+                                    
+                                    BooksFirebaseMethods.addToPreviousReadsWith(userBook: bookToAdd, comment: comment, rating: ratingString, userUniqueID: userUniqueKey, completion: { (doesExist) in
                                         if doesExist == false {
                                             
                                             let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
@@ -123,9 +125,8 @@ class AddCommentAndRatingViewController: UIViewController {
                                             self.present(alert, animated: true, completion: nil)
                                             
                                         }
+
                                     })
-                                    
-                                    
                                 }
                             })
                         })

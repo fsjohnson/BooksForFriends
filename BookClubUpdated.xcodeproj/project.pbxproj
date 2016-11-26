@@ -29,7 +29,6 @@
 		B58291D51DB96CBF0017FF58 /* SearchedBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58291D41DB96CBF0017FF58 /* SearchedBook.swift */; };
 		B58291D71DB973F10017FF58 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58291D61DB973F10017FF58 /* LoginViewController.swift */; };
 		B58291D91DB977950017FF58 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58291D81DB977950017FF58 /* User.swift */; };
-		B5A06E761DE53286003438A4 /* FirebaseMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A06E751DE53286003438A4 /* FirebaseMethods.swift */; };
 		B5A06E781DE5333D003438A4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5A06E771DE5333D003438A4 /* GoogleService-Info.plist */; };
 		B5A881761DE76BF700D90B07 /* FollowersFollowing.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5A881751DE76BF700D90B07 /* FollowersFollowing.xib */; };
 		B5A881781DE76DFE00D90B07 /* FollowersFollowing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A881771DE76DFE00D90B07 /* FollowersFollowing.swift */; };
@@ -67,7 +66,6 @@
 		B58291D41DB96CBF0017FF58 /* SearchedBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchedBook.swift; sourceTree = "<group>"; };
 		B58291D61DB973F10017FF58 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B58291D81DB977950017FF58 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		B5A06E751DE53286003438A4 /* FirebaseMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseMethods.swift; sourceTree = "<group>"; };
 		B5A06E771DE5333D003438A4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B5A881751DE76BF700D90B07 /* FollowersFollowing.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FollowersFollowing.xib; sourceTree = "<group>"; };
 		B5A881771DE76DFE00D90B07 /* FollowersFollowing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowersFollowing.swift; sourceTree = "<group>"; };
@@ -143,7 +141,6 @@
 			isa = PBXGroup;
 			children = (
 				B58291D41DB96CBF0017FF58 /* SearchedBook.swift */,
-				B5A06E751DE53286003438A4 /* FirebaseMethods.swift */,
 				B51480DA1DE8DD2800DD7523 /* BooksFirebaseMethods.swift */,
 			);
 			name = BooksFromAPI;
@@ -399,7 +396,6 @@
 				B5A881781DE76DFE00D90B07 /* FollowersFollowing.swift in Sources */,
 				B51480D61DE87AB900DD7523 /* FriendsBooksPostedTableViewCell.swift in Sources */,
 				B52494561DE5C30400D837C4 /* AddCommentAndRatingViewController.swift in Sources */,
-				B5A06E761DE53286003438A4 /* FirebaseMethods.swift in Sources */,
 				B58291BE1DB96C300017FF58 /* AppDelegate.swift in Sources */,
 				B5A8817D1DE7710200D90B07 /* FollowingTableViewController.swift in Sources */,
 				B50F8A291DE36A24003954F8 /* BookDataStore.swift in Sources */,

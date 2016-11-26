@@ -119,12 +119,11 @@ class BooksFirebaseMethods {
     
     
     
-    static func downloadPreviousReadsIDArrayForCurrentUser(with completion: @escaping ([String]) -> Void) {
+    static func downloadPreviousReadsIDArrayForSpecific(user uniqueID: String, completion: @escaping ([String]) -> Void) {
         
         guard let currentUserID = FIRAuth.auth()?.currentUser?.uid else {print("Couldn't retrieve current user");return}
-        let userBookRef = FIRDatabase.database().reference().child("users").child(currentUserID).child("previousReads")
+        let userBookRef = FIRDatabase.database().reference().child("users").child(uniqueID).child("previousReads")
         var previousReadsBookIDArray = [String]()
-        var boolToPass = false
         
         
         userBookRef.observeSingleEvent(of: .value, with: { (snapshot) in
@@ -144,15 +143,8 @@ class BooksFirebaseMethods {
     
     static func getBookIDFor(userBook book: UserBook, completion: @escaping (String) -> Void) {
         
-        let bookRef = FIRDatabase.database().reference().child("books")
         var bookIDToPass = String()
-        
-        var titleArray = [String]()
-        var authorArray = [String]()
-        var synopsisArray = [String]()
-        
-        
-        
+
         BooksFirebaseMethods.downloadAllBooksOnFirebase { (userBookArray) in
             for userBook in userBookArray {
                 print(userBook)
@@ -213,11 +205,11 @@ class BooksFirebaseMethods {
     }
     
     
-    static func checkIfCurrentUserAlreadyPosted(previousRead bookID: String, completion: @escaping (Bool) -> Void) {
+    static func checkIfCurrentUserAlreadyPosted(previousRead bookID: String, userUniqueID: String, completion: @escaping (Bool) -> Void) {
         
         var completionToPass = false
         
-        BooksFirebaseMethods.downloadPreviousReadsIDArrayForCurrentUser { (bookUniqueIDs) in
+        BooksFirebaseMethods.downloadPreviousReadsIDArrayForSpecific(user: userUniqueID) { (bookUniqueIDs) in
             if bookUniqueIDs.contains(bookID) {
                 completionToPass = true
             } else {
@@ -235,29 +227,24 @@ class BooksFirebaseMethods {
     
     // MARK: - Add book to previous reads
     
-    static func addToPreviousReadsWith(userBook: UserBook, comment: String, rating: String, completion: @escaping (Bool) -> Void) {
+    static func addToPreviousReadsWith(userBook: UserBook, comment: String, rating: String, userUniqueID: String, completion: @escaping (Bool) -> Void) {
         
-        guard let userUniqueKey = FIRAuth.auth()?.currentUser?.uid else {return}
-        //        let bookUniqueKey = FIRDatabase.database().reference().childByAutoId().key
-        //
-        //        guard let synopsis = userBook.synopsis else {return}
-        //        guard let author = userBook.author else {return}
-        
-        let userRef = FIRDatabase.database().reference().child("users").child(userUniqueKey).child("previousReads")
+        let userRef = FIRDatabase.database().reference().child("users").child(userUniqueID).child("previousReads")
         let bookRef = FIRDatabase.database().reference().child("books")
+        let timeStamp = Date().timeIntervalSince1970.description
         
         var boolToSend = false
         
         BooksFirebaseMethods.getBookIDFor(userBook: userBook, completion: { (bookID) in
             print("BOOK ID GENERATED FROM GET BOOK: \(bookID)")
-            BooksFirebaseMethods.checkIfCurrentUserAlreadyPosted(previousRead: bookID, completion: { (doesExist) in
-                
+            
+            BooksFirebaseMethods.checkIfCurrentUserAlreadyPosted(previousRead: bookID, userUniqueID: userUniqueID, completion: { (doesExist) in
                 print("BOOK ID INSIDE COMPLETION: \(bookID)")
                 
                 if doesExist == false {
                     
-                    userRef.updateChildValues([bookID: ["rating": rating, "comment": comment]])
-                    bookRef.child(bookID).child("readByUsers").updateChildValues([userUniqueKey: true])
+                    userRef.updateChildValues([bookID: ["rating": rating, "comment": comment, "timestamp": timeStamp]])
+                    bookRef.child(bookID).child("readByUsers").updateChildValues([userUniqueID: true])
                     
                     boolToSend = false
                     
