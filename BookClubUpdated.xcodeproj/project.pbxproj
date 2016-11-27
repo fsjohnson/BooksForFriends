@@ -17,6 +17,8 @@
 		B51F9F7C1DE9E004006921D3 /* BookPosted.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51F9F7B1DE9E004006921D3 /* BookPosted.swift */; };
 		B51F9F7E1DE9E663006921D3 /* PostsFirebaseMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51F9F7D1DE9E663006921D3 /* PostsFirebaseMethods.swift */; };
 		B51F9F811DEA09D8006921D3 /* BookDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51F9F801DEA09D8006921D3 /* BookDetailsViewController.swift */; };
+		B51F9F831DEA3FE6006921D3 /* BooksUserWantsToReadCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51F9F821DEA3FE5006921D3 /* BooksUserWantsToReadCollectionViewController.swift */; };
+		B51F9F851DEA4796006921D3 /* FutureReadsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51F9F841DEA4796006921D3 /* FutureReadsCollectionViewCell.swift */; };
 		B52472511DE45DDF00BE95FA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52472501DE45DDF00BE95FA /* Constants.swift */; };
 		B52494561DE5C30400D837C4 /* AddCommentAndRatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52494551DE5C30400D837C4 /* AddCommentAndRatingViewController.swift */; };
 		B524945A1DE5EB9C00D837C4 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52494591DE5EB9C00D837C4 /* UserProfileViewController.swift */; };
@@ -55,6 +57,8 @@
 		B51F9F7B1DE9E004006921D3 /* BookPosted.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookPosted.swift; sourceTree = "<group>"; };
 		B51F9F7D1DE9E663006921D3 /* PostsFirebaseMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostsFirebaseMethods.swift; sourceTree = "<group>"; };
 		B51F9F801DEA09D8006921D3 /* BookDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetailsViewController.swift; sourceTree = "<group>"; };
+		B51F9F821DEA3FE5006921D3 /* BooksUserWantsToReadCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooksUserWantsToReadCollectionViewController.swift; sourceTree = "<group>"; };
+		B51F9F841DEA4796006921D3 /* FutureReadsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FutureReadsCollectionViewCell.swift; sourceTree = "<group>"; };
 		B52472501DE45DDF00BE95FA /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B52494551DE5C30400D837C4 /* AddCommentAndRatingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCommentAndRatingViewController.swift; sourceTree = "<group>"; };
 		B52494591DE5EB9C00D837C4 /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
@@ -201,7 +205,9 @@
 			children = (
 				B5A881751DE76BF700D90B07 /* FollowersFollowing.xib */,
 				B5A881771DE76DFE00D90B07 /* FollowersFollowing.swift */,
+				B51F9F821DEA3FE5006921D3 /* BooksUserWantsToReadCollectionViewController.swift */,
 				B58291D21DB96C710017FF58 /* BooksReadCollectionViewController.swift */,
+				B51F9F841DEA4796006921D3 /* FutureReadsCollectionViewCell.swift */,
 				B52494591DE5EB9C00D837C4 /* UserProfileViewController.swift */,
 			);
 			name = ProfileVC;
@@ -415,6 +421,7 @@
 				B51480D61DE87AB900DD7523 /* FriendsBooksPostedTableViewCell.swift in Sources */,
 				B52494561DE5C30400D837C4 /* AddCommentAndRatingViewController.swift in Sources */,
 				B58291BE1DB96C300017FF58 /* AppDelegate.swift in Sources */,
+				B51F9F851DEA4796006921D3 /* FutureReadsCollectionViewCell.swift in Sources */,
 				B5A8817D1DE7710200D90B07 /* FollowingTableViewController.swift in Sources */,
 				B50F8A291DE36A24003954F8 /* BookDataStore.swift in Sources */,
 				B57ABBBC1DE7F22B00722B83 /* FollowingTableViewCell.swift in Sources */,
@@ -424,6 +431,7 @@
 				B51F9F811DEA09D8006921D3 /* BookDetailsViewController.swift in Sources */,
 				B58291D31DB96C710017FF58 /* BooksReadCollectionViewController.swift in Sources */,
 				B50F8A231DE323EC003954F8 /* AddBookViewController.swift in Sources */,
+				B51F9F831DEA3FE6006921D3 /* BooksUserWantsToReadCollectionViewController.swift in Sources */,
 				B58291D51DB96CBF0017FF58 /* SearchedBook.swift in Sources */,
 				B52472511DE45DDF00BE95FA /* Constants.swift in Sources */,
 			);

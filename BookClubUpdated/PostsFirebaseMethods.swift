@@ -68,12 +68,12 @@ class PostsFirebaseMethods {
     
     // MARK: - Add & remove books to book list
     
-    static func addBookToFutureReadsWith(book uniqueID: String, completion: () -> Void) {
+    static func addBookToFutureReadsWith(book uniqueID: String, imageLink: String, completion: () -> Void) {
         
         guard let userUniqueID = FIRAuth.auth()?.currentUser?.uid else {return}
         let userRef = FIRDatabase.database().reference().child("users").child(userUniqueID).child("futureReads")
         
-        userRef.updateChildValues([uniqueID: true])
+        userRef.updateChildValues([uniqueID: ["futureRead": true, "imageLink": imageLink]])
         
         completion()
     }
@@ -118,7 +118,7 @@ class PostsFirebaseMethods {
             completion(boolToReturn)
             
         })
-
+        
     }
     
     
@@ -140,8 +140,30 @@ class PostsFirebaseMethods {
         
     }
     
-    
-    
-    
-    
+    static func downloadUsersFutureReadsBookLinkIDArray(with completion: @escaping ([String]) -> Void) {
+        
+        guard let userUniqueID = FIRAuth.auth()?.currentUser?.uid else {return}
+        let userRef = FIRDatabase.database().reference().child("users").child(userUniqueID).child("futureReads")
+        var bookLinkIDArray = [String]()
+        
+        userRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            guard let snapshotValue = snapshot.value as? [String: Any] else {return}
+            print(snapshotValue)
+            for snap in snapshotValue {
+                
+                print(snap)
+                
+                guard
+                    let postInfo = snap.value as? [String: Any],
+                    let imageLink = postInfo["imageLink"] as? String
+                    else { print("error downloading image link"); return}
+                
+                bookLinkIDArray.append(imageLink)
+                
+            }
+            print(bookLinkIDArray.count)
+            completion(bookLinkIDArray)
+        })
+    }
 }

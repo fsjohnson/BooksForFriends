@@ -134,7 +134,9 @@
                             <outlet property="delegate" destination="Usx-En-JRb" id="a8F-Vz-9L4"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="riH-j3-mAc"/>
+                    <navigationItem key="navigationItem" id="riH-j3-mAc">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Skg-1R-kVj"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="searchDisplayController" destination="WsO-Cm-wkV" id="wQl-iJ-mbp"/>
                     </connections>
@@ -214,7 +216,9 @@
                             <constraint firstItem="cnb-m1-AcH" firstAttribute="centerX" secondItem="z5t-Vc-kyO" secondAttribute="centerX" id="yxd-oJ-u0R"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Sdz-5E-qTw"/>
+                    <navigationItem key="navigationItem" id="Sdz-5E-qTw">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="tNS-pC-NkC"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="bookImageView" destination="cnb-m1-AcH" id="cfw-h6-ZEB"/>
                         <outlet property="bookSynopsis" destination="vOT-Tt-8Iy" id="rlv-TI-Ozb"/>
@@ -246,8 +250,8 @@
         <!--Books I Want To Read-->
         <scene sceneID="84d-vU-RlP">
             <objects>
-                <collectionViewController id="3KZ-Be-9wS" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="MVK-OP-hUs">
+                <collectionViewController id="3KZ-Be-9wS" customClass="BooksReadCollectionViewController" customModule="BookClubUpdated" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="MVK-OP-hUs">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -258,13 +262,22 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="4rR-gR-AVH">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="imageCell" id="4rR-gR-AVH" customClass="FutureReadsCollectionViewCell" customModule="BookClubUpdated" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7nN-9X-18r">
+                                            <rect key="frame" x="-47" y="-39" width="240" height="128"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                    </subviews>
                                 </view>
+                                <connections>
+                                    <outlet property="bookCoverImageView" destination="7nN-9X-18r" id="tKo-4Q-yK4"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -346,7 +359,9 @@
                             <outlet property="delegate" destination="yhH-Yx-6bO" id="vTl-6b-yXf"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Following" id="gfH-JJ-eM1"/>
+                    <navigationItem key="navigationItem" title="Following" id="gfH-JJ-eM1">
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="Rcn-LX-hFs"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="51S-QU-oWp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -375,7 +390,9 @@
                             <outlet property="delegate" destination="rcH-At-f36" id="Qz4-5m-5S4"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Followers" id="XD1-gN-UFj"/>
+                    <navigationItem key="navigationItem" title="Followers" id="XD1-gN-UFj">
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="s2R-h9-K2D"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ukb-KX-C9l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -418,7 +435,7 @@
                     <connections>
                         <outlet property="searchAuthorTextField" destination="DIw-R1-Fam" id="idw-vR-h8c"/>
                         <outlet property="searchBookTitle" destination="WwH-OG-iLt" id="d43-eh-nVk"/>
-                        <segue destination="p49-83-rhL" kind="presentation" identifier="addRatingAndComment" id="G4t-FG-AvW"/>
+                        <segue destination="yP3-ri-dUJ" kind="presentation" identifier="addRatingAndComment" id="G4t-FG-AvW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="puW-bP-Nhn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -498,6 +515,9 @@
                             <constraint firstItem="oxf-vg-a7b" firstAttribute="centerX" secondItem="IZw-Jg-whS" secondAttribute="centerX" id="iiG-tD-R9q"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="TP7-hb-GEF">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="bjI-e5-kkD"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="bookCoverImageView" destination="Nth-Md-Eeu" id="v4v-wv-txC"/>
                         <outlet property="commentsTextField" destination="aG7-jC-Ghi" id="gcI-7U-1Lt"/>
@@ -506,7 +526,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LHq-FN-bfx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3896.8000000000002" y="553.67316341829087"/>
+            <point key="canvasLocation" x="4836" y="553.67316341829087"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="XKA-Ec-pZP">
@@ -639,6 +659,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lcr-zE-Po9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2622" y="-832"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ayN-TO-4U3">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yP3-ri-dUJ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="2We-hJ-pnV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="p49-83-rhL" kind="relationship" relationship="rootViewController" id="w4g-qP-zvO"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vnj-bB-5bf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3896.8000000000002" y="553.67316341829087"/>
         </scene>
     </scenes>
 </document>

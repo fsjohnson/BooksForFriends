@@ -16,6 +16,7 @@ class BookDetailsViewController: UIViewController {
     
     var passedImage = UIImage()
     var passedUniqueID = String()
+    var passedImageLink = String()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,31 +39,30 @@ class BookDetailsViewController: UIViewController {
         
         PostsFirebaseMethods.checkIfFutureReadsIsEmpty { (isEmpty) in
             if isEmpty == true {
-                PostsFirebaseMethods.addBookToFutureReadsWith(book: self.passedUniqueID) {
-                    
+                
+                PostsFirebaseMethods.addBookToFutureReadsWith(book: self.passedUniqueID, imageLink: self.passedImageLink, completion: {
                     let alert = UIAlertController(title: "Success!", message: "You have updated your book list", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                         self.dismiss(animated: true, completion: nil)
                     }))
                     self.present(alert, animated: true, completion: nil)
-                    
-                }
-
+                })
+                
+            
             } else {
                 
                 PostsFirebaseMethods.checkIfAlreadyAddedBookToFutureReadsWith(book: self.passedUniqueID, completion: { (doesExist) in
                     if doesExist == false {
 
-                        PostsFirebaseMethods.addBookToFutureReadsWith(book: self.passedUniqueID) {
-
+                        
+                        PostsFirebaseMethods.addBookToFutureReadsWith(book: self.passedUniqueID, imageLink: self.passedImageLink, completion: {
                             let alert = UIAlertController(title: "Success!", message: "You have updated your book list", preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                                 self.dismiss(animated: true, completion: nil)
                             }))
                             self.present(alert, animated: true, completion: nil)
                             
-                        }
-
+                        })
                         
                     } else {
                         
