@@ -40,15 +40,11 @@ class UserProfileViewController: UIViewController {
     
     
     func segueToFollowers() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let destVC = storyboard.instantiateViewController(withIdentifier: "FollowersTableViewController") as UIViewController
-        self.present(destVC, animated: true, completion: nil)
+        self.performSegue(withIdentifier: "followersSegue", sender: self)
     }
     
     func segueToFollowing() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let destVC = storyboard.instantiateViewController(withIdentifier: "FollowingTableViewController") as UIViewController
-        self.present(destVC, animated: true, completion: nil)
+        self.performSegue(withIdentifier: "followingSegue", sender: self)
     }
 
 
@@ -58,11 +54,14 @@ class UserProfileViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
         if segue.identifier == "followersSegue" {
-            let dest = segue.destination as! FollowersTableViewController
+            let destinationNavController = segue.destination as! UINavigationController
+            let targetController = destinationNavController.topViewController as! FollowersTableViewController
         }
         
         if segue.identifier == "followingSegue" {
-            let dest = segue.destination as! FollowingTableViewController
+            let destinationNavController = segue.destination as! UINavigationController
+            let targetController = destinationNavController.topViewController as! FollowingTableViewController
+            
         }
     }
 
