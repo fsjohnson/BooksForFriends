@@ -16,6 +16,7 @@ class PostsFirebaseMethods {
     static func downloadAllPosts(with completion: @escaping ([BookPosted]) -> Void) {
         
         let postRef = FIRDatabase.database().reference().child("posts")
+        guard let currentUserID = FIRAuth.auth()?.currentUser?.uid else {return}
         
         var postsArray = [BookPosted]()
         
@@ -36,8 +37,11 @@ class PostsFirebaseMethods {
                     let timestamp = Double(timestampString)
                     else {print("error downloading postInfo"); return}
                 
-                let post = BookPosted(bookUniqueID: bookUniqueID, rating: rating, comment: comment, imageLink: imageLink, timestamp: timestamp, userUniqueKey: userUniqueID)
-                postsArray.append(post)
+                if userUniqueID != currentUserID {
+                    let post = BookPosted(bookUniqueID: bookUniqueID, rating: rating, comment: comment, imageLink: imageLink, timestamp: timestamp, userUniqueKey: userUniqueID)
+                    postsArray.append(post)
+                }
+
             }
             
             postsArray.sort(by: { (first, second) -> Bool in
@@ -83,8 +87,7 @@ class PostsFirebaseMethods {
         guard let userUniqueID = FIRAuth.auth()?.currentUser?.uid else {return}
         let userRef = FIRDatabase.database().reference().child("users").child(userUniqueID).child("futureReads")
         
-        userRef.updateChildValues([uniqueID: false])
-        
+        userRef.child(uniqueID).removeValue()
         completion()
         
     }
@@ -140,11 +143,12 @@ class PostsFirebaseMethods {
         
     }
     
-    static func downloadUsersFutureReadsBookLinkIDArray(with completion: @escaping ([String]) -> Void) {
+    static func downloadUsersFutureReadsBookLinkIDArray(with completion: @escaping ([String], [String]) -> Void) {
         
         guard let userUniqueID = FIRAuth.auth()?.currentUser?.uid else {return}
         let userRef = FIRDatabase.database().reference().child("users").child(userUniqueID).child("futureReads")
         var bookLinkIDArray = [String]()
+        var bookIDArray = [String]()
         
         userRef.observeSingleEvent(of: .value, with: { (snapshot) in
             
@@ -160,10 +164,11 @@ class PostsFirebaseMethods {
                     else { print("error downloading image link"); return}
                 
                 bookLinkIDArray.append(imageLink)
+                bookIDArray.append(snap.key)
                 
             }
             print(bookLinkIDArray.count)
-            completion(bookLinkIDArray)
+            completion(bookLinkIDArray, bookIDArray)
         })
     }
 }

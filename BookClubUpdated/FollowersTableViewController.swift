@@ -50,6 +50,13 @@ class FollowersTableViewController: UITableViewController {
         return cell
     }
     
+    
+    @IBAction func doneButton(_ sender: Any) {
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
 
     /*
     // Override to support conditional editing of the table view.

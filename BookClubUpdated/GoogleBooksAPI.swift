@@ -65,9 +65,9 @@ class GoogleBooksAPI {
     class func downloadBookImage(with urlString: String, with completion: @escaping (UIImage) -> Void) {
 
         let searchCoverURL = URL(string: urlString)
-        
-        guard let unwrappedCoverURL = searchCoverURL else {return}
 
+        guard let unwrappedCoverURL = searchCoverURL else {return}
+        
         do {
             let imageData = try Data(contentsOf: unwrappedCoverURL)
             guard let image = UIImage(data: imageData) else {return}

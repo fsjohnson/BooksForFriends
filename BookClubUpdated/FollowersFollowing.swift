@@ -7,17 +7,24 @@
 //
 
 import UIKit
+import Foundation
 
 class FollowersFollowing: UIView {
 
+    @IBOutlet var wholeView: UIView!
+    
     @IBOutlet weak var booksPosted: UILabel!
 
     @IBOutlet weak var numFollowers: UILabel!
     
     @IBOutlet weak var numFollowing: UILabel!
     
-    
     @IBOutlet weak var contentView: UIStackView!
+    
+    @IBOutlet weak var followersButtonOutlet: UIButton!
+    
+    @IBOutlet weak var followingButtonOutlet: UIButton!
+    
     
     
     override init(frame: CGRect) {
@@ -33,26 +40,10 @@ class FollowersFollowing: UIView {
     
     private func commonInit() {
         Bundle.main.loadNibNamed("FollowersFollowing", owner: self, options: nil)
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(contentView)
-        contentView.constrainEdges(to: self)
+        wholeView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(wholeView)
+        wholeView.constrainEdges(to: self)
         backgroundColor = UIColor.clear
-    }
-    
-    
-    @IBAction func followingButton(_ sender: Any) {
-        
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let vc = storyboard.instantiateViewController(withIdentifier: "UserProfileViewController")
-        
-
-    }
-    
-    @IBAction func followersButton(_ sender: Any) {
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let vc = storyboard.instantiateViewController(withIdentifier: "UserProfileViewController")
-//        
-        
     }
     
 }

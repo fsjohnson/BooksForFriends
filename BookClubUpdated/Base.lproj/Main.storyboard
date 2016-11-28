@@ -26,7 +26,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jEc-gT-Gli" id="XTB-2m-cEg">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jzc-3G-L0G">
@@ -109,7 +109,7 @@
                                 <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iRT-mi-YS3" id="9ez-cm-Hoe">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bit-yc-2h9">
@@ -135,7 +135,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="riH-j3-mAc">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Skg-1R-kVj"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Skg-1R-kVj">
+                            <connections>
+                                <action selector="cancelButton:" destination="Usx-En-JRb" id="b5e-Pw-pce"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="searchDisplayController" destination="WsO-Cm-wkV" id="wQl-iJ-mbp"/>
@@ -250,8 +254,8 @@
         <!--Books I Want To Read-->
         <scene sceneID="84d-vU-RlP">
             <objects>
-                <collectionViewController id="3KZ-Be-9wS" customClass="BooksReadCollectionViewController" customModule="BookClubUpdated" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="MVK-OP-hUs">
+                <collectionViewController id="3KZ-Be-9wS" customClass="BooksUserWantsToReadCollectionViewController" customModule="BookClubUpdated" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="MVK-OP-hUs">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -269,14 +273,19 @@
                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7nN-9X-18r">
-                                            <rect key="frame" x="-47" y="-39" width="240" height="128"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7nN-9X-18r">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         </imageView>
                                     </subviews>
                                 </view>
+                                <constraints>
+                                    <constraint firstItem="7nN-9X-18r" firstAttribute="top" secondItem="4rR-gR-AVH" secondAttribute="top" id="7Vp-Hm-vM2"/>
+                                    <constraint firstAttribute="bottom" secondItem="7nN-9X-18r" secondAttribute="bottom" id="Dlh-zN-kOJ"/>
+                                    <constraint firstItem="7nN-9X-18r" firstAttribute="leading" secondItem="4rR-gR-AVH" secondAttribute="leading" id="mUk-Op-0lC"/>
+                                    <constraint firstAttribute="trailing" secondItem="7nN-9X-18r" secondAttribute="trailing" id="zxL-XP-kqR"/>
+                                </constraints>
                                 <connections>
-                                    <outlet property="bookCoverImageView" destination="7nN-9X-18r" id="tKo-4Q-yK4"/>
+                                    <outlet property="bookCoverImageView" destination="7nN-9X-18r" id="521-es-dZV"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -285,7 +294,13 @@
                             <outlet property="delegate" destination="3KZ-Be-9wS" id="kGs-kh-Mcq"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Books I Want To Read" id="mPR-jh-JCW"/>
+                    <navigationItem key="navigationItem" title="Books I Want To Read" id="mPR-jh-JCW">
+                        <barButtonItem key="rightBarButtonItem" systemItem="trash" id="hKO-a1-lz9">
+                            <connections>
+                                <action selector="removeBookFromFutureReadsButton:" destination="3KZ-Be-9wS" id="oH2-bP-gm0"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wEy-dj-7Mq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -313,8 +328,8 @@
                     </navigationItem>
                     <connections>
                         <segue destination="Se0-J3-hHX" kind="presentation" identifier="addBookSegue" id="tbB-TP-c8X"/>
-                        <segue destination="yhH-Yx-6bO" kind="show" identifier="followingSegue" id="2zR-Lo-DzH"/>
-                        <segue destination="rcH-At-f36" kind="show" identifier="followersSegue" id="kIc-7N-zNs"/>
+                        <segue destination="psi-Ae-tUT" kind="show" identifier="followingSegue" id="2zR-Lo-DzH"/>
+                        <segue destination="Swf-ez-0av" kind="show" identifier="followersSegue" id="kIc-7N-zNs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xDH-Ev-bDz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -334,7 +349,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LHg-b6-Go7" id="SuF-oX-Skp">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="smt-Ob-UIl">
@@ -360,12 +375,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Following" id="gfH-JJ-eM1">
-                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="Rcn-LX-hFs"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="Rcn-LX-hFs">
+                            <connections>
+                                <action selector="doneButton:" destination="yhH-Yx-6bO" id="8A6-Ns-wHt"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="51S-QU-oWp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="844" y="1454"/>
+            <point key="canvasLocation" x="818" y="1453"/>
         </scene>
         <!--Followers-->
         <scene sceneID="j9S-ht-I5K">
@@ -380,7 +399,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xQv-SE-uxd" id="skZ-HR-6gC">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -391,12 +410,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Followers" id="XD1-gN-UFj">
-                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="s2R-h9-K2D"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="s2R-h9-K2D">
+                            <connections>
+                                <action selector="doneButton:" destination="rcH-At-f36" id="ZJY-OO-4ID"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ukb-KX-C9l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1564" y="1455"/>
+            <point key="canvasLocation" x="2478" y="1452"/>
         </scene>
         <!--Title-->
         <scene sceneID="QcJ-yo-d3b">
@@ -428,6 +451,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="4i8-Pl-M8r">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="mGz-Oq-a97">
+                            <connections>
+                                <action selector="cancelButton:" destination="40l-QF-BTu" id="3vU-KN-i4X"/>
+                            </connections>
+                        </barButtonItem>
                         <connections>
                             <outlet property="titleView" destination="Dft-Dp-BjU" id="xeR-SB-fiA"/>
                         </connections>
@@ -454,7 +482,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Nth-Md-Eeu">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Nth-Md-Eeu">
                                 <rect key="frame" x="112" y="92" width="150" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Nth-Md-Eeu" secondAttribute="height" multiplier="1:1" id="0C6-9B-NDY"/>
@@ -516,7 +544,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="TP7-hb-GEF">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="bjI-e5-kkD"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="bjI-e5-kkD">
+                            <connections>
+                                <action selector="cancelButton:" destination="p49-83-rhL" id="vfi-Nw-477"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="bookCoverImageView" destination="Nth-Md-Eeu" id="v4v-wv-txC"/>
@@ -549,11 +581,11 @@
             </objects>
             <point key="canvasLocation" x="-1110" y="-296"/>
         </scene>
-        <!--Item-->
+        <!--Friends Posts-->
         <scene sceneID="BLr-wy-ead">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mnJ-Wf-y6U" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="RGh-D8-vWe"/>
+                    <tabBarItem key="tabBarItem" title="Friends Posts" id="RGh-D8-vWe"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="UNL-oz-8jx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -568,11 +600,11 @@
             </objects>
             <point key="canvasLocation" x="460" y="-1111.3943028485758"/>
         </scene>
-        <!--Item-->
+        <!--Future Reads-->
         <scene sceneID="BBN-mM-0hK">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mqH-Gc-DyL" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="8ao-ew-FZ7"/>
+                    <tabBarItem key="tabBarItem" title="Future Reads" id="8ao-ew-FZ7"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6du-5p-aU4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -587,11 +619,11 @@
             </objects>
             <point key="canvasLocation" x="460" y="-278.41079460269867"/>
         </scene>
-        <!--Item-->
+        <!--Previous Reads-->
         <scene sceneID="3tl-cz-Q3b">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XvU-cf-f2e" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="JLS-2v-nbV"/>
+                    <tabBarItem key="tabBarItem" title="Previous Reads" id="JLS-2v-nbV"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="PbY-uS-dBE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -677,6 +709,42 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vnj-bB-5bf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3896.8000000000002" y="553.67316341829087"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="kI3-st-rPx">
+            <objects>
+                <navigationController storyboardIdentifier="FollowingNavViewController" automaticallyAdjustsScrollViewInsets="NO" id="psi-Ae-tUT" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="v0K-Fc-zhs">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="yhH-Yx-6bO" kind="relationship" relationship="rootViewController" id="VlY-Wl-21o"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dby-Oa-YTl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="94" y="1453"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="IIy-Iu-mZl">
+            <objects>
+                <navigationController storyboardIdentifier="FollowersNavViewController" automaticallyAdjustsScrollViewInsets="NO" id="Swf-ez-0av" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="KI8-Cz-LZ6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="rcH-At-f36" kind="relationship" relationship="rootViewController" id="JJo-QJ-Ldg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h4G-z2-4cM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1719" y="1452"/>
         </scene>
     </scenes>
 </document>

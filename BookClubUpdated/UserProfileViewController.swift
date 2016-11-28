@@ -14,12 +14,16 @@ class UserProfileViewController: UIViewController {
         super.viewDidLoad()
         
         let viewWidth = view.frame.width
-        let viewHeight = view.frame.height
+        let viewHeight = view.frame.height.multiplied(by: 0.25)
         
-        let followersFollowingView = FollowersFollowing(frame: CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight))
+        let followersFollowingView = FollowersFollowing(frame: CGRect(x: 0, y: 20, width: viewWidth, height: viewHeight))
         view.addSubview(followersFollowingView)
         
-//        segueToFollowers()
+        
+        followersFollowingView.followersButtonOutlet.addTarget(self, action: #selector(segueToFollowers), for: .touchDown)
+        
+    
+        followersFollowingView.followingButtonOutlet.addTarget(self, action: #selector(segueToFollowing), for: .touchDown)
         
     }
 
@@ -30,20 +34,21 @@ class UserProfileViewController: UIViewController {
     
     
     @IBAction func addBookBtn(_ sender: Any) {
-        print("BUTTON PRESSED")
         performSegue(withIdentifier: "addBookSegue", sender: self)
     }
    
     
     
     func segueToFollowers() {
-        let followersVC = storyboard?.instantiateViewController(withIdentifier: "FollowersTableViewController")
-        self.present(followersVC!, animated: true, completion: nil)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let destVC = storyboard.instantiateViewController(withIdentifier: "FollowersTableViewController") as UIViewController
+        self.present(destVC, animated: true, completion: nil)
     }
     
     func segueToFollowing() {
-        let followingVC = storyboard?.instantiateViewController(withIdentifier: "FollowingTableViewController")
-        self.present(followingVC!, animated: true, completion: nil)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let destVC = storyboard.instantiateViewController(withIdentifier: "FollowingTableViewController") as UIViewController
+        self.present(destVC, animated: true, completion: nil)
     }
 
 

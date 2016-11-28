@@ -47,7 +47,16 @@ class BooksFriendsReadTableViewController: UITableViewController {
 
         cell.usernameLabel.text = postsArray[indexPath.row].userUniqueKey
         cell.commentsLabel.text = postsArray[indexPath.row].comment
-        cell.bookImage.image = postsArray[indexPath.row].bookCover
+        
+        let imageLink = postsArray[indexPath.row].imageLink
+        
+        if imageLink == "" {
+            cell.bookImage.image = UIImage(named: "BFFLogo")
+        } else {
+            cell.bookImage.image = postsArray[indexPath.row].bookCover
+        }
+        
+        
 
         return cell
     }

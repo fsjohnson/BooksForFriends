@@ -53,6 +53,7 @@ class UserFirebaseMethods {
     static func retrieveAllUsers(with completion: @escaping ([User?])-> Void) {
         
         let userRef = FIRDatabase.database().reference().child("users")
+        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
         var usersArray = [User]()
         
         userRef.observeSingleEvent(of: .value, with: { (snapshot) in
@@ -70,8 +71,10 @@ class UserFirebaseMethods {
                     let uniqueKey = userInfo["uniqueKey"] as? String
                     else { print("\n\n\n\n\n\(userRawInfo)\n\n\n\n"); return }
                 
-                let user = User(name: name, email: email, uniqueKey: uniqueKey, username: username)
-                usersArray.append(user)
+                if uniqueKey != currentUser {
+                    let user = User(name: name, email: email, uniqueKey: uniqueKey, username: username)
+                    usersArray.append(user)
+                }
             }
             completion(usersArray)
         })

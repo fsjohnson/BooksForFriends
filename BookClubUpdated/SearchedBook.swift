@@ -35,9 +35,16 @@ class SearchedBook {
         
         guard let link = finalBookCoverLink else {return}
         
-        GoogleBooksAPI.downloadBookImage(with: link) { (image) in
-            self.bookCover = image
+        if bookCoverLink != nil {
+            GoogleBooksAPI.downloadBookImage(with: link) { (image) in
+                print(link)
+                self.bookCover = image
+            }
+        } else {
+            self.bookCover = UIImage(named: "BFFLogo")
         }
+        
+        
     }
     
 }

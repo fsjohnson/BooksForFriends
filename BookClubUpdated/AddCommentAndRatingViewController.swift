@@ -31,8 +31,12 @@ class AddCommentAndRatingViewController: UIViewController {
         print("author: \(passedAuthor)")
         
         
+        if self.passedImageLink != "" {
+            self.bookCoverImageView.image = self.passedImage
+        } else {
+            self.bookCoverImageView.image = UIImage(named: "BFFLogo")
+        }
         
-        self.bookCoverImageView.image = self.passedImage
         
         
     }
@@ -145,6 +149,9 @@ class AddCommentAndRatingViewController: UIViewController {
     }
     
     
+    @IBAction func cancelButton(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     
     

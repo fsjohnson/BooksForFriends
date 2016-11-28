@@ -167,7 +167,9 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
      
         if segue.identifier == "addRatingAndComment" {
-            let dest = segue.destination as! AddCommentAndRatingViewController
+            let destinationNavController = segue.destination as! UINavigationController
+            let targetController = destinationNavController.topViewController as! AddCommentAndRatingViewController
+            
             if let indexPath = tableView.indexPathForSelectedRow {
                 
                 guard let bookCoverToPass = BookDataStore.shared.bookArray[indexPath.row].bookCover else {print("no cover"); return}
@@ -176,16 +178,23 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
                 guard let synopsisToPass = BookDataStore.shared.bookArray[indexPath.row].synopsis else {print("no synopsis"); return}
                 
                 
-                dest.passedImage = bookCoverToPass
-                dest.passedTitle = BookDataStore.shared.bookArray[indexPath.row].title
-                dest.passedAuthor = authorToPass
-                dest.passedImageLink = imageLinkToPass
-                dest.passedSynopsis = synopsisToPass
+                targetController.passedImage = bookCoverToPass
+                targetController.passedTitle = BookDataStore.shared.bookArray[indexPath.row].title
+                targetController.passedAuthor = authorToPass
+                targetController.passedImageLink = imageLinkToPass
+                targetController.passedSynopsis = synopsisToPass
             }
         }
         
         
      }
+    
+    
+    @IBAction func cancelButton(_ sender: Any) {
+            self.dismiss(animated: true, completion: nil)
+        
+    }
+    
 
     
 }

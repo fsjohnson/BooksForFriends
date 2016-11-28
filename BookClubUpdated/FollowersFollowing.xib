@@ -13,8 +13,11 @@
             <connections>
                 <outlet property="booksPosted" destination="qxM-YZ-bsO" id="xcf-0o-8wu"/>
                 <outlet property="contentView" destination="1M1-RC-sdh" id="aar-Xv-4Ht"/>
+                <outlet property="followersButtonOutlet" destination="CS8-Cc-8Ul" id="Bft-sK-mGh"/>
+                <outlet property="followingButtonOutlet" destination="82j-pB-tB4" id="eGI-by-Mqi"/>
                 <outlet property="numFollowers" destination="E7S-og-WTn" id="tg9-eg-BK6"/>
                 <outlet property="numFollowing" destination="rUh-xT-glJ" id="3Fp-Ns-4l1"/>
+                <outlet property="wholeView" destination="iN0-l3-epB" id="LO6-5J-hZ9"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
