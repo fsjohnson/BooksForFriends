@@ -42,7 +42,7 @@ class FollowersFollowing: UIView {
         Bundle.main.loadNibNamed("FollowersFollowing", owner: self, options: nil)
         wholeView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(wholeView)
-        wholeView.constrainEdges(to: self)
+        contentView.constrainToEdges(to: self)
         backgroundColor = UIColor.clear
     }
     
@@ -52,7 +52,7 @@ class FollowersFollowing: UIView {
 // MARK: - UIView Extension
 extension UIView {
     
-    func constrainEdges(to view: UIView) {
+    func constrainToEdges(to view: UIView) {
         topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true

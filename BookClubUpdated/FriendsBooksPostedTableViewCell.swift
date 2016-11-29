@@ -10,11 +10,9 @@ import UIKit
 
 class FriendsBooksPostedTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var postView: PostsView!
     
-    @IBOutlet weak var commentsLabel: UILabel!
-    
-    @IBOutlet weak var bookImage: UIImageView!
+    var bookID: String!
     
     
 
@@ -26,7 +24,6 @@ class FriendsBooksPostedTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
 
 }

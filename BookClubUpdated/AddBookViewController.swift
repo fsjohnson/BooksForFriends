@@ -137,12 +137,19 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "bookResult", for: indexPath) as! SearchBookResultsTableViewCell
         
-        OperationQueue.main.addOperation {
-            cell.bookTitleLabel.text = BookDataStore.shared.bookArray[indexPath.row].title
-            cell.bookAuthorLabel.text = BookDataStore.shared.bookArray[indexPath.row].author
-            cell.bookImage.image = BookDataStore.shared.bookArray[indexPath.row].bookCover
-            
-        }
+        let searchResult = BookDataStore.shared.bookArray[indexPath.row]
+        
+        // HOW TO ADD XIB TO SEARCHBOOKRESULTS CELL SO CAN CREATE INSTANCE OF SEARCHED BOOK
+        
+//        cell.postView.bookPost = currentPost
+        
+        
+//        OperationQueue.main.addOperation {
+//            cell.bookTitleLabel.text = BookDataStore.shared.bookArray[indexPath.row].title
+//            cell.bookAuthorLabel.text = BookDataStore.shared.bookArray[indexPath.row].author
+//            cell.bookImage.image = BookDataStore.shared.bookArray[indexPath.row].bookCover
+//            
+//        }
         
         return cell
     }

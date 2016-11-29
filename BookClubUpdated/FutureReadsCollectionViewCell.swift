@@ -10,5 +10,8 @@ import UIKit
 
 class FutureReadsCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var bookCoverImageView: UIImageView!
+    @IBOutlet weak var bookCoverImageView: UIImageView! = UIImageView()
+    
+    
+    
 }

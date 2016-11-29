@@ -63,17 +63,29 @@ class GoogleBooksAPI {
     }
 
     class func downloadBookImage(with urlString: String, with completion: @escaping (UIImage) -> Void) {
-
-        let searchCoverURL = URL(string: urlString)
-
-        guard let unwrappedCoverURL = searchCoverURL else {return}
         
-        do {
-            let imageData = try Data(contentsOf: unwrappedCoverURL)
-            guard let image = UIImage(data: imageData) else {return}
+        let searchCoverURL = URL(string: urlString)
+        
+        let session = URLSession.shared
+        
+        let request = URLRequest(url: searchCoverURL!)
+        
+        session.dataTask(with: request, completionHandler: { data, response, error in
+            
+            guard let rawData = data, let image = UIImage(data: rawData) else { return }
+            
             completion(image)
+            
+        }).resume()
 
-        } catch {}
+//        guard let unwrappedCoverURL = searchCoverURL else {return}
+//        
+//        do {
+//            let imageData = try Data(contentsOf: unwrappedCoverURL)
+//            guard let image = UIImage(data: imageData) else {return}
+//            completion(image)
+//
+//        } catch {}
     }
 }
 

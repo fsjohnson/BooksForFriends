@@ -9,6 +9,10 @@
 import UIKit
 
 class SearchBookResultsTableViewCell: UITableViewCell {
+    
+    
+    @IBOutlet weak var searchResultView: UIView!
+    
 
     var bookTitleLabel = UILabel()
     var bookAuthorLabel = UILabel()
@@ -20,7 +24,7 @@ class SearchBookResultsTableViewCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: "bookResult")
         
-        configureCell()
+        
     }
     
     required init?(coder aDecoder: NSCoder) {

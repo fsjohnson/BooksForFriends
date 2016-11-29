@@ -32,7 +32,7 @@ class BookPosted {
         self.dateSent = Date(timeIntervalSince1970: timestamp)
         self.userUniqueKey = userUniqueKey
         setImage()
-        setUsername()
+
     }
     
     func setImage() {
@@ -41,14 +41,14 @@ class BookPosted {
         }
     }
     
-    func setUsername() {
-        UserFirebaseMethods.retrieveSpecificUser(with: userUniqueKey) { (user) in
-            guard let user = user else {return}
-            print("USER: \(user.username)")
-            print("USER: \(self.userUniqueKey)")
-            self.username = user.username
-        }
-    }
+//    func setUsername(handler: (Bool) -> Void) {
+//        UserFirebaseMethods.retrieveSpecificUser(with: userUniqueKey) { (user) in
+//            guard let user = user else { return }
+//            print("USER: \(user.username)")
+//            print("USER: \(self.userUniqueKey)")
+//            self.username = user.username
+//        }
+//    }
 
     
     

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PostsView" customModule="BookClubUpdated" customModuleProvider="target">
+            <connections>
+                <outlet property="bookImage" destination="iX1-aw-Mnv" id="cHa-yg-rEs"/>
+                <outlet property="commentLabel" destination="9Ja-ux-w71" id="cIb-PV-lKs"/>
+                <outlet property="contentView" destination="iN0-l3-epB" id="1jg-an-oo1"/>
+                <outlet property="usernameLabel" destination="Akl-U3-6SY" id="PsT-fM-s18"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="476" height="198"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iX1-aw-Mnv">
+                    <rect key="frame" x="309" y="19.5" width="159" height="159"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="iX1-aw-Mnv" secondAttribute="height" multiplier="1:1" id="Z9t-CK-2xU"/>
+                    </constraints>
+                </imageView>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="pvY-Mb-a6Q">
+                    <rect key="frame" x="8" y="19.5" width="238" height="159"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Akl-U3-6SY">
+                            <rect key="frame" x="0.0" y="0.0" width="238" height="53"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comment:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gCc-4X-3yx">
+                            <rect key="frame" x="0.0" y="53" width="238" height="53"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="COMMENTS HERE" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9Ja-ux-w71">
+                            <rect key="frame" x="0.0" y="106" width="238" height="53"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="pvY-Mb-a6Q" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.8" id="4yb-9d-eQR"/>
+                <constraint firstItem="iX1-aw-Mnv" firstAttribute="height" secondItem="pvY-Mb-a6Q" secondAttribute="height" id="ANI-wB-2Ot"/>
+                <constraint firstItem="pvY-Mb-a6Q" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="DCV-vn-vKg"/>
+                <constraint firstItem="pvY-Mb-a6Q" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.5" id="IIF-9J-NJt"/>
+                <constraint firstItem="iX1-aw-Mnv" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="gY6-0b-pih"/>
+                <constraint firstItem="pvY-Mb-a6Q" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="lCT-Qg-17q"/>
+                <constraint firstAttribute="trailing" secondItem="iX1-aw-Mnv" secondAttribute="trailing" constant="8" id="r1q-Dr-STg"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-8" y="-215"/>
+        </view>
+    </objects>
+</document>

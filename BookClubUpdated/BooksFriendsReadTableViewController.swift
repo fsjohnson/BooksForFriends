@@ -23,6 +23,14 @@ class BooksFriendsReadTableViewController: UITableViewController {
         }
 
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        PostsFirebaseMethods.downloadAllPosts { (postsArray) in
+            self.postsArray = postsArray
+            self.tableView.reloadData()
+        }
+
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -43,20 +51,40 @@ class BooksFriendsReadTableViewController: UITableViewController {
 
    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        
+        print("===========\(#function)===============\n\n")
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "booksPosted", for: indexPath) as! FriendsBooksPostedTableViewCell
-
-        cell.usernameLabel.text = postsArray[indexPath.row].userUniqueKey
-        cell.commentsLabel.text = postsArray[indexPath.row].comment
-        
-        let imageLink = postsArray[indexPath.row].imageLink
-        
-        if imageLink == "" {
-            cell.bookImage.image = UIImage(named: "BFFLogo")
-        } else {
-            cell.bookImage.image = postsArray[indexPath.row].bookCover
-        }
         
         
+        
+        let currentPost = postsArray[indexPath.row]
+        
+        cell.postView.bookPost = currentPost
+        
+//
+//        let postedBook = postsArray[indexPath.row]
+//        
+//        print("username: \(postedBook.username)")
+//        print("comment: \(postedBook.comment)")
+//        
+//        
+//        
+//        cell.usernameLabel.text = postsArray[indexPath.row].username
+//        cell.commentsLabel.text = postsArray[indexPath.row].comment
+//        cell.bookID = postedBook.bookUniqueID
+//        
+//        let imageLink = postsArray[indexPath.row].imageLink
+//        
+//        if imageLink == "" {
+//            cell.bookImage.image = UIImage(named: "BFFLogo")
+//        } else {
+//            cell.bookImage.image = postsArray[indexPath.row].bookCover
+//        }
+//        
+//        print("=============================================\n\n\n\n")
+//        
 
         return cell
     }
@@ -64,6 +92,21 @@ class BooksFriendsReadTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "getBookDetails", sender: self)
+    }
+    
+    
+    func canDisplayImage(sender: BookPosted) -> Bool {
+        
+        let viewableCells = tableView.visibleCells as! [FriendsBooksPostedTableViewCell]
+        
+        for cell in viewableCells {
+            
+            if cell.bookID == sender.bookUniqueID { return true }
+            
+        }
+        
+        return false
+        
     }
     
     /*
