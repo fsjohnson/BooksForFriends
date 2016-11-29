@@ -52,19 +52,19 @@
                     <navigationItem key="navigationItem" title="Book My Friends Read" id="iGf-4p-RD9">
                         <barButtonItem key="rightBarButtonItem" title="Find Friend" id="yfQ-J4-dYc">
                             <connections>
-                                <segue destination="w0n-dv-Its" kind="presentation" identifier="findFriends" id="R08-q3-V2F"/>
+                                <segue destination="Usx-En-JRb" kind="show" identifier="findFriends" id="t49-p0-bcd"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="b1B-vy-bgO" kind="show" identifier="getBookDetails" id="joU-cs-JeS"/>
+                        <segue destination="Jcl-oe-RQx" kind="show" identifier="getBookDetails" id="eNo-YL-zZh"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VFU-j9-Efz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1397.5999999999999" y="-1111.3943028485758"/>
         </scene>
-        <!--Find Friends Table View Controller-->
+        <!--Find Friends-->
         <scene sceneID="lO6-ci-F6J">
             <objects>
                 <tableViewController id="Usx-En-JRb" customClass="FindFriendsTableViewController" customModule="BookClubUpdated" customModuleProvider="target" sceneMemberID="viewController">
@@ -110,13 +110,7 @@
                             <outlet property="delegate" destination="Usx-En-JRb" id="a8F-Vz-9L4"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="riH-j3-mAc">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Skg-1R-kVj">
-                            <connections>
-                                <action selector="cancelButton:" destination="Usx-En-JRb" id="b5e-Pw-pce"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Find Friends" id="Faz-5W-Ifm"/>
                     <connections>
                         <outlet property="searchDisplayController" destination="WsO-Cm-wkV" id="wQl-iJ-mbp"/>
                     </connections>
@@ -132,9 +126,9 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="3606" y="-1580"/>
+            <point key="canvasLocation" x="2753" y="-1528"/>
         </scene>
-        <!--Book Details View Controller-->
+        <!--Add Book-->
         <scene sceneID="2Y0-R8-f7n">
             <objects>
                 <viewController id="Jcl-oe-RQx" customClass="BookDetailsViewController" customModule="BookClubUpdated" customModuleProvider="target" sceneMemberID="viewController">
@@ -196,9 +190,7 @@
                             <constraint firstItem="cnb-m1-AcH" firstAttribute="centerX" secondItem="z5t-Vc-kyO" secondAttribute="centerX" id="yxd-oJ-u0R"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Sdz-5E-qTw">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="tNS-pC-NkC"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Add Book" id="1up-7y-CU0"/>
                     <connections>
                         <outlet property="bookImageView" destination="cnb-m1-AcH" id="cfw-h6-ZEB"/>
                         <outlet property="bookSynopsis" destination="vOT-Tt-8Iy" id="rlv-TI-Ozb"/>
@@ -206,7 +198,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UBm-Ei-XNE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3605.5999999999999" y="-833.43328335832086"/>
+            <point key="canvasLocation" x="2753" y="-820"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="PzW-hz-Due">
@@ -227,7 +219,7 @@
             </objects>
             <point key="canvasLocation" x="-365" y="-295"/>
         </scene>
-        <!--Books I Want To Read-->
+        <!--Books I Want to Read-->
         <scene sceneID="84d-vU-RlP">
             <objects>
                 <collectionViewController id="3KZ-Be-9wS" customClass="BooksUserWantsToReadCollectionViewController" customModule="BookClubUpdated" customModuleProvider="target" sceneMemberID="viewController">
@@ -256,10 +248,10 @@
                             <outlet property="delegate" destination="3KZ-Be-9wS" id="kGs-kh-Mcq"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Books I Want To Read" id="mPR-jh-JCW">
-                        <barButtonItem key="rightBarButtonItem" systemItem="trash" id="hKO-a1-lz9">
+                    <navigationItem key="navigationItem" title="Books I Want to Read" id="65A-aa-fwH">
+                        <barButtonItem key="rightBarButtonItem" systemItem="trash" id="LBY-Mx-t60">
                             <connections>
-                                <action selector="removeBookFromFutureReadsButton:" destination="3KZ-Be-9wS" id="oH2-bP-gm0"/>
+                                <action selector="removeBook:" destination="3KZ-Be-9wS" id="cbU-t7-K4K"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -289,9 +281,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="Se0-J3-hHX" kind="presentation" identifier="addBookSegue" id="tbB-TP-c8X"/>
-                        <segue destination="psi-Ae-tUT" kind="show" identifier="followingSegue" id="2zR-Lo-DzH"/>
-                        <segue destination="Swf-ez-0av" kind="show" identifier="followersSegue" id="kIc-7N-zNs"/>
+                        <segue destination="yhH-Yx-6bO" kind="show" identifier="followingSegue" id="1Kq-f3-fTw"/>
+                        <segue destination="rcH-At-f36" kind="show" identifier="followersSegue" id="Da5-KS-bco"/>
+                        <segue destination="40l-QF-BTu" kind="show" identifier="addBookSegue" id="aqp-JA-I9R"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xDH-Ev-bDz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -336,13 +328,7 @@
                             <outlet property="delegate" destination="yhH-Yx-6bO" id="vTl-6b-yXf"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Following" id="gfH-JJ-eM1">
-                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="Rcn-LX-hFs">
-                            <connections>
-                                <action selector="doneButton:" destination="yhH-Yx-6bO" id="8A6-Ns-wHt"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Following" id="uXG-sv-vgw"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="51S-QU-oWp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -371,19 +357,13 @@
                             <outlet property="delegate" destination="rcH-At-f36" id="Qz4-5m-5S4"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Followers" id="XD1-gN-UFj">
-                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="s2R-h9-K2D">
-                            <connections>
-                                <action selector="doneButton:" destination="rcH-At-f36" id="ZJY-OO-4ID"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Followers" id="TX9-ic-kih"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ukb-KX-C9l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2478" y="1452"/>
+            <point key="canvasLocation" x="1596" y="1452"/>
         </scene>
-        <!--Title-->
+        <!--Search-->
         <scene sceneID="QcJ-yo-d3b">
             <objects>
                 <viewController id="40l-QF-BTu" customClass="AddBookViewController" customModule="BookClubUpdated" customModuleProvider="target" sceneMemberID="viewController">
@@ -395,12 +375,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Search book author" translatesAutoresizingMaskIntoConstraints="NO" id="et5-xK-mJZ">
+                            <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Search Title" translatesAutoresizingMaskIntoConstraints="NO" id="et5-xK-mJZ">
                                 <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
-                            <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Search book title" translatesAutoresizingMaskIntoConstraints="NO" id="PE3-VB-q2n">
+                            <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Search Author" translatesAutoresizingMaskIntoConstraints="NO" id="PE3-VB-q2n">
                                 <rect key="frame" x="0.0" y="116" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -408,27 +388,18 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="4i8-Pl-M8r">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="mGz-Oq-a97">
-                            <connections>
-                                <action selector="cancelButton:" destination="40l-QF-BTu" id="3vU-KN-i4X"/>
-                            </connections>
-                        </barButtonItem>
-                        <connections>
-                            <outlet property="titleView" destination="Dft-Dp-BjU" id="xeR-SB-fiA"/>
-                        </connections>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Search" id="OeS-Gk-Vzl"/>
                     <connections>
                         <outlet property="searchAuthor" destination="et5-xK-mJZ" id="KWS-M9-n2L"/>
                         <outlet property="searchTitle" destination="PE3-VB-q2n" id="iMJ-TU-l6c"/>
-                        <segue destination="yP3-ri-dUJ" kind="presentation" identifier="addRatingAndComment" id="G4t-FG-AvW"/>
+                        <segue destination="p49-83-rhL" kind="show" identifier="addRatingAndComment" id="mdY-vw-6gc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="puW-bP-Nhn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3167.1999999999998" y="553.67316341829087"/>
+            <point key="canvasLocation" x="2358" y="546"/>
         </scene>
-        <!--Add Comment And Rating View Controller-->
+        <!--Add Book and Comments-->
         <scene sceneID="rDg-PD-EXd">
             <objects>
                 <viewController id="p49-83-rhL" customClass="AddCommentAndRatingViewController" customModule="BookClubUpdated" customModuleProvider="target" sceneMemberID="viewController">
@@ -501,13 +472,7 @@
                             <constraint firstItem="oxf-vg-a7b" firstAttribute="centerX" secondItem="IZw-Jg-whS" secondAttribute="centerX" id="iiG-tD-R9q"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="TP7-hb-GEF">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="bjI-e5-kkD">
-                            <connections>
-                                <action selector="cancelButton:" destination="p49-83-rhL" id="vfi-Nw-477"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Add Book and Comments" id="N78-Sz-aLY"/>
                     <connections>
                         <outlet property="bookCoverImageView" destination="Nth-Md-Eeu" id="v4v-wv-txC"/>
                         <outlet property="commentsTextField" destination="aG7-jC-Ghi" id="gcI-7U-1Lt"/>
@@ -516,7 +481,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LHq-FN-bfx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4836" y="553.67316341829087"/>
+            <point key="canvasLocation" x="3236" y="546"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="XKA-Ec-pZP">
@@ -595,131 +560,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V8X-fi-wJr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="334" y="546"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="AEw-xw-lmi">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="w0n-dv-Its" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="pvZ-EP-zc4">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="Usx-En-JRb" kind="relationship" relationship="rootViewController" id="HYn-QB-kqW"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ojV-LR-fe5" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2642" y="-1580"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="fLG-Fy-J8W">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Se0-J3-hHX" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="zwz-2l-aRB">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="40l-QF-BTu" kind="relationship" relationship="rootViewController" id="LJ1-ef-kJd"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Nvd-21-zFg" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2228" y="553.67316341829087"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="S4X-mv-V6b">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="b1B-vy-bgO" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="UDd-m1-h9p">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="Jcl-oe-RQx" kind="relationship" relationship="rootViewController" id="TVG-UT-8rY"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Lcr-zE-Po9" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2622" y="-832"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="ayN-TO-4U3">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yP3-ri-dUJ" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="2We-hJ-pnV">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="p49-83-rhL" kind="relationship" relationship="rootViewController" id="w4g-qP-zvO"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vnj-bB-5bf" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3896.8000000000002" y="553.67316341829087"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="kI3-st-rPx">
-            <objects>
-                <navigationController storyboardIdentifier="FollowingNavViewController" automaticallyAdjustsScrollViewInsets="NO" id="psi-Ae-tUT" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="v0K-Fc-zhs">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="yhH-Yx-6bO" kind="relationship" relationship="rootViewController" id="VlY-Wl-21o"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dby-Oa-YTl" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="94" y="1453"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="IIy-Iu-mZl">
-            <objects>
-                <navigationController storyboardIdentifier="FollowersNavViewController" automaticallyAdjustsScrollViewInsets="NO" id="Swf-ez-0av" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="KI8-Cz-LZ6">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="rcH-At-f36" kind="relationship" relationship="rootViewController" id="JJo-QJ-Ldg"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="h4G-z2-4cM" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1719" y="1452"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="nWO-6r-8DX">
-            <objects>
-                <viewController id="gwg-5k-09V" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="50J-iQ-8pD"/>
-                        <viewControllerLayoutGuide type="bottom" id="UpA-LZ-jAR"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Dgc-E2-Vcb">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yPm-Td-qBk" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
         </scene>
     </scenes>
 </document>

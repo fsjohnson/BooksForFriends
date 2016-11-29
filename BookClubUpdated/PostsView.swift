@@ -54,11 +54,18 @@ extension PostsView {
     
     fileprivate func updateViewToReflectBookImage() {
         if bookImage.image == nil {
-            GoogleBooksAPI.downloadBookImage(with: bookPost.imageLink, with: { (image) in
-                OperationQueue.main.addOperation {
-                    self.bookImage.image = image
-                }
-            })
+            if bookPost.imageLink != "" {
+                
+                GoogleBooksAPI.downloadBookImage(with: bookPost.imageLink, with: { (image) in
+                    OperationQueue.main.addOperation {
+                        self.bookImage.image = image
+                    }
+                })
+                
+            } else {
+                self.bookImage.image = UIImage(named: "BFFLogo")
+            }
+            
         }
     }
     

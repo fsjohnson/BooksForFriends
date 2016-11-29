@@ -43,7 +43,8 @@ class BookDetailsViewController: UIViewController {
                 PostsFirebaseMethods.addBookToFutureReadsWith(book: self.passedUniqueID, imageLink: self.passedImageLink, completion: {
                     let alert = UIAlertController(title: "Success!", message: "You have updated your book list", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                        self.dismiss(animated: true, completion: nil)
+//                                self.dismiss(animated: true, completion: nil)
+
                     }))
                     self.present(alert, animated: true, completion: nil)
                 })
@@ -58,7 +59,7 @@ class BookDetailsViewController: UIViewController {
                         PostsFirebaseMethods.addBookToFutureReadsWith(book: self.passedUniqueID, imageLink: self.passedImageLink, completion: {
                             let alert = UIAlertController(title: "Success!", message: "You have updated your book list", preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                                self.dismiss(animated: true, completion: nil)
+//                                self.dismiss(animated: true, completion: nil)
                             }))
                             self.present(alert, animated: true, completion: nil)
                             
@@ -68,7 +69,7 @@ class BookDetailsViewController: UIViewController {
                         
                         let alert = UIAlertController(title: "Oops!", message: "You have already added this to your book list", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                            self.dismiss(animated: true, completion: nil)
+//                            self.dismiss(animated: true, completion: nil)
                         }))
                         self.present(alert, animated: true, completion: nil)
                         

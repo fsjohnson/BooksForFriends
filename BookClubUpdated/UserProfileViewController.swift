@@ -27,6 +27,7 @@ class UserProfileViewController: UIViewController {
         
     }
 
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -54,13 +55,12 @@ class UserProfileViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
         if segue.identifier == "followersSegue" {
-            let destinationNavController = segue.destination as! UINavigationController
-            let targetController = destinationNavController.topViewController as! FollowersTableViewController
+            let destinationNavController = segue.destination as! FollowersTableViewController
+
         }
         
         if segue.identifier == "followingSegue" {
-            let destinationNavController = segue.destination as! UINavigationController
-            let targetController = destinationNavController.topViewController as! FollowingTableViewController
+            let destinationNavController = segue.destination as! FollowingTableViewController
             
         }
     }

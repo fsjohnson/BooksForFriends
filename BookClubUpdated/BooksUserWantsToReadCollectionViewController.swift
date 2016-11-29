@@ -30,7 +30,7 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print("COLLECTION VIEW")
         PostsFirebaseMethods.downloadUsersFutureReadsBookLinkIDArray { (bookLinkArray, bookIDArray) in
             self.futureBooksArray = bookLinkArray
             self.bookIDArray = bookIDArray
@@ -40,14 +40,26 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController {
         
         self.cellConfig()
         
-        self.collectionView!.register(FutureReadsCollectionViewCell.self, forCellWithReuseIdentifier: "imageCell")
+                self.collectionView!.register(FutureReadsCollectionViewCell.self, forCellWithReuseIdentifier: "imageCell")
         
         
-        collectionView?.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headerCell")
+//        collectionView?.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headerCell")
         
         collectionView?.allowsMultipleSelection = true
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        PostsFirebaseMethods.downloadUsersFutureReadsBookLinkIDArray { (bookLinkArray, bookIDArray) in
+            self.futureBooksArray = bookLinkArray
+            self.bookIDArray = bookIDArray
+            print("COUNT: \(self.futureBooksArray.count)")
+            self.collectionView?.reloadData()
+        }
+        
+        self.cellConfig()
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -81,7 +93,6 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController {
         
         
         let imageLink = futureBooksArray[indexPath.item]
-        print("IMAGE LINK: \(imageLink)")
         let imageURL = URL(string: imageLink)
         cell.layer.borderWidth = 2.0
         cell.layer.borderColor = UIColor.black.cgColor
@@ -97,30 +108,30 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController {
     
     //MARK: Header & Footer Layout Configuration
     
-    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        
-        if kind == UICollectionElementKindSectionHeader {
-            
-            // set up and return a view
-            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headerCell", for: indexPath)
-            
-            headerView.backgroundColor = UIColor.gray
-            
-            return headerView
-            
-            
-        }
-        
-        if kind == UICollectionElementKindSectionFooter {
-            
-            // set up and return a view
-            
-        }
-        
-        return UICollectionReusableView()
-        
-    }
+//    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+//        
+//        if kind == UICollectionElementKindSectionHeader {
+//            
+//            // set up and return a view
+//            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headerCell", for: indexPath)
+//            
+//            headerView.backgroundColor = UIColor.gray
+//            
+//            return headerView
+//            
+//            
+//        }
     
+//        if kind == UICollectionElementKindSectionFooter {
+//            
+//            // set up and return a view
+//            
+//        }
+//        
+//        return UICollectionReusableView()
+//        
+//    }
+//    
     
     
     //MARK: Cell Layout Configuration
@@ -169,39 +180,52 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController {
     }
     
     
-    @IBAction func removeBookFromFutureReadsButton(_ sender: Any) {
-        
+    @IBAction func removeBook(_ sender: Any) {
         deleteButtonSelected = true
     }
-    
+
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let cell = collectionView.cellForItem(at: indexPath)
-        
-        let bookToRemove = bookIDArray[indexPath.item]
-        
+
         if deleteButtonSelected == true {
-            
-            cell?.layer.borderWidth = 2.0
-            cell?.layer.borderColor = UIColor.gray.cgColor
-            
-            PostsFirebaseMethods.removeBookFromFutureReadsWith(book: bookToRemove, completion: {
-                let alert = UIAlertController(title: "Success!", message: "You have updated your reading list", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                    self.dismiss(animated: true, completion: nil)
-                    
-                    
-                }))
+            let alert = UIAlertController(title: "Are you sure?", message: "Do you want to delete this book", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+                self.deleteBook(at: indexPath)
                 
-                self.deleteButtonSelected = false
-                self.collectionView?.reloadData()
-                
-            })
+            }))
             
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+                
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
         }
         
         
     }
+    
+    
+    func deleteBook(at indexPath: IndexPath) {
+        
+        let bookToRemove = bookIDArray[indexPath.item]
+        
+        PostsFirebaseMethods.removeBookFromFutureReadsWith(book: bookToRemove, completion: {
+            let alert = UIAlertController(title: "Success!", message: "You have updated your reading list", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
+                self.futureBooksArray.remove(at: indexPath.row)
+                self.deleteButtonSelected = false
+                self.collectionView?.reloadData()
+                
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
+            
+        })
+    }
+    
+    
+    
     
 }

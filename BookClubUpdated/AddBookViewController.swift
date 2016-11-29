@@ -37,18 +37,7 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
 //        var navBar = self.navigationController?.navigationBar
 //        self.view.addSubview(navBar!)
         
-        
-        //TableView
-        
-        self.view.addSubview(tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.80).isActive = true
-        tableView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1.0).isActive = true
-        tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        
-        
-        //Search Title Textfield
+                //Search Title
         
         
         searchTitle.translatesAutoresizingMaskIntoConstraints = false
@@ -58,7 +47,7 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         searchTitle.topAnchor.constraint(equalTo: (view.topAnchor), constant: (navigationBarHeight + 20)).isActive = true
 
         
-        //Search Author Textfield
+        //Search Author
         
         
         searchAuthor.translatesAutoresizingMaskIntoConstraints = false
@@ -84,9 +73,24 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         searchButton.topAnchor.constraint(equalTo: (view.topAnchor), constant: (navigationBarHeight + 20)).isActive = true
         
         
+        
+        //TableView
+        
+        self.view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.topAnchor.constraint(equalTo: searchAuthor.bottomAnchor).isActive = true
+        tableView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1.0).isActive = true
+        tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        
         activityIndicator()
         
     }
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        BookDataStore.shared.bookArray.removeAll()
+//    }
     
     
     func activityIndicator() {
@@ -158,8 +162,8 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
      
         if segue.identifier == "addRatingAndComment" {
-            let destinationNavController = segue.destination as! UINavigationController
-            let targetController = destinationNavController.topViewController as! AddCommentAndRatingViewController
+            let targetController = segue.destination as! AddCommentAndRatingViewController
+    
             
             if let indexPath = tableView.indexPathForSelectedRow {
                 

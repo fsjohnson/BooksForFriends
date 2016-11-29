@@ -54,35 +54,10 @@ class BooksFriendsReadTableViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "booksPosted", for: indexPath) as! FriendsBooksPostedTableViewCell
         
-        
-        
         let currentPost = postsArray[indexPath.row]
         
         cell.postView.bookPost = currentPost
         
-//
-//        let postedBook = postsArray[indexPath.row]
-//        
-//        print("username: \(postedBook.username)")
-//        print("comment: \(postedBook.comment)")
-//        
-//        
-//        
-//        cell.usernameLabel.text = postsArray[indexPath.row].username
-//        cell.commentsLabel.text = postsArray[indexPath.row].comment
-//        cell.bookID = postedBook.bookUniqueID
-//        
-//        let imageLink = postsArray[indexPath.row].imageLink
-//        
-//        if imageLink == "" {
-//            cell.bookImage.image = UIImage(named: "BFFLogo")
-//        } else {
-//            cell.bookImage.image = postsArray[indexPath.row].bookCover
-//        }
-//        
-//        print("=============================================\n\n\n\n")
-//        
-
         return cell
     }
     
@@ -147,8 +122,7 @@ class BooksFriendsReadTableViewController: UITableViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "getBookDetails" {
-            let destinationNavigationController = segue.destination as! UINavigationController
-            let targetController = destinationNavigationController.topViewController as! BookDetailsViewController
+            let targetController = segue.destination as! BookDetailsViewController
             
             if let indexPath = tableView.indexPathForSelectedRow {
                 
