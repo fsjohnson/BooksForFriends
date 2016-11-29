@@ -395,12 +395,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" fixedFrame="YES" text="Search book author" translatesAutoresizingMaskIntoConstraints="NO" id="et5-xK-mJZ">
+                            <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Search book author" translatesAutoresizingMaskIntoConstraints="NO" id="et5-xK-mJZ">
                                 <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
-                            <searchBar contentMode="redraw" fixedFrame="YES" text="Search book title" translatesAutoresizingMaskIntoConstraints="NO" id="PE3-VB-q2n">
+                            <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Search book title" translatesAutoresizingMaskIntoConstraints="NO" id="PE3-VB-q2n">
                                 <rect key="frame" x="0.0" y="116" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -419,6 +419,8 @@
                         </connections>
                     </navigationItem>
                     <connections>
+                        <outlet property="searchAuthor" destination="et5-xK-mJZ" id="KWS-M9-n2L"/>
+                        <outlet property="searchTitle" destination="PE3-VB-q2n" id="iMJ-TU-l6c"/>
                         <segue destination="yP3-ri-dUJ" kind="presentation" identifier="addRatingAndComment" id="G4t-FG-AvW"/>
                     </connections>
                 </viewController>

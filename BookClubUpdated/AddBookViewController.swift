@@ -10,9 +10,9 @@ import UIKit
 
 class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    
-    @IBOutlet weak var searchAuthorTextField: UITextField!
-    @IBOutlet weak var searchBookTitle: UITextField!
+    @IBOutlet weak var searchTitle: UISearchBar!
+    @IBOutlet weak var searchAuthor: UISearchBar!
+
     
     var tableView = UITableView()
     let searchButton = UIButton()
@@ -51,25 +51,21 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         //Search Title Textfield
         
         
-        searchBookTitle.translatesAutoresizingMaskIntoConstraints = false
-        searchBookTitle.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05).isActive = true
-        searchBookTitle.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.70).isActive = true
-        searchBookTitle.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        searchBookTitle.topAnchor.constraint(equalTo: (view.topAnchor), constant: (navigationBarHeight + 20)).isActive = true
-        searchBookTitle.layer.borderWidth = 2.0
-        searchBookTitle.layer.borderColor = UIColor.black.cgColor
-        
+        searchTitle.translatesAutoresizingMaskIntoConstraints = false
+        searchTitle.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05).isActive = true
+        searchTitle.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.70).isActive = true
+        searchTitle.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        searchTitle.topAnchor.constraint(equalTo: (view.topAnchor), constant: (navigationBarHeight + 20)).isActive = true
+
         
         //Search Author Textfield
         
         
-        searchAuthorTextField.translatesAutoresizingMaskIntoConstraints = false
-        searchAuthorTextField.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05).isActive = true
-        searchAuthorTextField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.70).isActive = true
-        searchAuthorTextField.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        searchAuthorTextField.topAnchor.constraint(equalTo: searchBookTitle.bottomAnchor, constant: 0).isActive = true
-        searchAuthorTextField.layer.borderWidth = 2.0
-        searchAuthorTextField.layer.borderColor = UIColor.black.cgColor
+        searchAuthor.translatesAutoresizingMaskIntoConstraints = false
+        searchAuthor.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05).isActive = true
+        searchAuthor.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.70).isActive = true
+        searchAuthor.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        searchAuthor.topAnchor.constraint(equalTo: searchTitle.bottomAnchor, constant: 0).isActive = true
         
         
         //Search message button
@@ -113,7 +109,7 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         queue.qualityOfService = .userInitiated
         queue.maxConcurrentOperationCount = 1
         
-        let request = BookDataStore.shared.getBookResults(with: searchBookTitle.text!, authorQuery: searchAuthorTextField.text!) { (success) in
+        let request = BookDataStore.shared.getBookResults(with: searchTitle.text!, authorQuery: searchAuthor.text!) { (success) in
             
             if success == true && queue.operationCount == 0{
                 DispatchQueue.main.async {
@@ -136,21 +132,9 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "bookResult", for: indexPath) as! SearchBookResultsTableViewCell
-        
-        let searchResult = BookDataStore.shared.bookArray[indexPath.row]
-        
-        // HOW TO ADD XIB TO SEARCHBOOKRESULTS CELL SO CAN CREATE INSTANCE OF SEARCHED BOOK
-        
-//        cell.postView.bookPost = currentPost
-        
-        
-//        OperationQueue.main.addOperation {
-//            cell.bookTitleLabel.text = BookDataStore.shared.bookArray[indexPath.row].title
-//            cell.bookAuthorLabel.text = BookDataStore.shared.bookArray[indexPath.row].author
-//            cell.bookImage.image = BookDataStore.shared.bookArray[indexPath.row].bookCover
-//            
-//        }
-        
+
+        cell.searchResultView.searchedBook = BookDataStore.shared.bookArray[indexPath.row]
+            
         return cell
     }
     

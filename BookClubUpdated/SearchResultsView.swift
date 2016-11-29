@@ -51,11 +51,20 @@ extension SearchResultsView {
     fileprivate func updateViewToReflectBookImage() {
         if bookImage.image == nil {
             guard let link = searchedBook.finalBookCoverLink else {return}
-            GoogleBooksAPI.downloadBookImage(with: link, with: { (image) in
-                OperationQueue.main.addOperation {
-                    self.bookImage.image = image
-                }
-            })
+            
+            if link != "" {
+                GoogleBooksAPI.downloadBookImage(with: link, with: { (image) in
+                    OperationQueue.main.addOperation {
+                        self.bookImage.image = image
+                    }
+                })
+
+            } else {
+                
+                self.bookImage.image = UIImage(named: "BFFLogo")
+                
+            }
+            
         }
     }
 }
