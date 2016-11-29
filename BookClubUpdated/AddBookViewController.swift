@@ -88,10 +88,6 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        BookDataStore.shared.bookArray.removeAll()
-//    }
-    
     
     func activityIndicator() {
         

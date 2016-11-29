@@ -390,8 +390,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="Search" id="OeS-Gk-Vzl"/>
                     <connections>
-                        <outlet property="searchAuthor" destination="et5-xK-mJZ" id="KWS-M9-n2L"/>
-                        <outlet property="searchTitle" destination="PE3-VB-q2n" id="iMJ-TU-l6c"/>
+                        <outlet property="searchAuthor" destination="PE3-VB-q2n" id="5il-Nt-cda"/>
+                        <outlet property="searchTitle" destination="et5-xK-mJZ" id="ZZt-DC-diD"/>
                         <segue destination="p49-83-rhL" kind="show" identifier="addRatingAndComment" id="mdY-vw-6gc"/>
                     </connections>
                 </viewController>

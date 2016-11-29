@@ -13,5 +13,5 @@ class FutureReadsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var bookCoverImageView: UIImageView! = UIImageView()
     
     
-    
+
 }

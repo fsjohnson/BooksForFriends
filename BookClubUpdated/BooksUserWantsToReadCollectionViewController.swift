@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BooksUserWantsToReadCollectionViewController: UICollectionViewController {
+class BooksUserWantsToReadCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     
     var futureBooksArray = [String]()
@@ -30,6 +30,9 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.cellConfig()
+        
         print("COLLECTION VIEW")
         PostsFirebaseMethods.downloadUsersFutureReadsBookLinkIDArray { (bookLinkArray, bookIDArray) in
             self.futureBooksArray = bookLinkArray
@@ -38,14 +41,14 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController {
             self.collectionView?.reloadData()
         }
         
-        self.cellConfig()
+        
         
                 self.collectionView!.register(FutureReadsCollectionViewCell.self, forCellWithReuseIdentifier: "imageCell")
         
         
 //        collectionView?.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headerCell")
         
-        collectionView?.allowsMultipleSelection = true
+//        collectionView?.allowsMultipleSelection = true
         
     }
     
@@ -106,33 +109,6 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController {
         return cell
     }
     
-    //MARK: Header & Footer Layout Configuration
-    
-//    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-//        
-//        if kind == UICollectionElementKindSectionHeader {
-//            
-//            // set up and return a view
-//            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headerCell", for: indexPath)
-//            
-//            headerView.backgroundColor = UIColor.gray
-//            
-//            return headerView
-//            
-//            
-//        }
-    
-//        if kind == UICollectionElementKindSectionFooter {
-//            
-//            // set up and return a view
-//            
-//        }
-//        
-//        return UICollectionReusableView()
-//        
-//    }
-//    
-    
     
     //MARK: Cell Layout Configuration
     
@@ -147,7 +123,7 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController {
         minimumInterItemSpacing = 2
         minimumLineSpacing = 2
         sectionInsets = UIEdgeInsetsMake(insetSpacing, insetSpacing, insetSpacing, insetSpacing)
-        referenceSize = CGSize(width: screedWidth, height: 80)
+        referenceSize = CGSize(width: screedWidth, height: 0)
         
         let totalWidthDeduction = (minimumInterItemSpacing + minimumInterItemSpacing + sectionInsets.right + sectionInsets.left)
         let totalHeightDeduction = (sectionInsets.right + sectionInsets.left + minimumLineSpacing + minimumLineSpacing)
