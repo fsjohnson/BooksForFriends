@@ -29,17 +29,19 @@ class UserPostCollectionViewCell: UICollectionViewCell {
     private func commonInit() {
         
         imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        
         self.contentView.addSubview(imageView)
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
         imageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor).isActive = true
         imageView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor).isActive = true
+//        imageView.layer.borderColor = UIColor.black.cgColor
+//        imageView.layer.borderWidth = 2.0
         imageView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
         
     }
 
-    
-    
 }

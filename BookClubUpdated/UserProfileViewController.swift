@@ -44,8 +44,8 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         postsCollectionView.topAnchor.constraint(equalTo: followersFollowingView.bottomAnchor).isActive = true
         postsCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         postsCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        postsCollectionView.layer.borderWidth = 2.0
-        postsCollectionView.layer.borderColor = UIColor.black.cgColor
+//        postsCollectionView.layer.borderWidth = 2.0
+//        postsCollectionView.layer.borderColor = UIColor.black.cgColor
         
         postsCollectionView.register(UserPostCollectionViewCell.self, forCellWithReuseIdentifier: "bookPost")
         
@@ -74,11 +74,11 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
     
     
     func cellConfig() {
-        let screedWidth = postsCollectionView.frame.width
-        let screenHeight = postsCollectionView.frame.height
+        let screedWidth = view.frame.width
+        let screenHeight = view.frame.height
         
-        let numOfRows = CGFloat(2.0)
-        let numOfColumns = CGFloat(2.0)
+        let numOfRows = CGFloat(4.0)
+        let numOfColumns = CGFloat(3.0)
         
         insetSpacing = 2
         minimumInterItemSpacing = 2
@@ -156,8 +156,10 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
             cell.imageView.image = UIImage(named: "BFFLogo")
             return cell
         }
+        OperationQueue.main.addOperation {
+            cell.imageView.image = UIImage(data: data)
+        }
         
-        cell.imageView.image = UIImage(data: data)
         
         return cell
     }
