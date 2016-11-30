@@ -271,6 +271,33 @@
                     <view key="view" contentMode="scaleToFill" id="t8K-a8-2O3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="0XS-Ti-drF">
+                                <rect key="frame" x="39" y="269" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="q2P-Ti-4KW">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="Y8R-ST-uJK" customClass="UserPostCollectionViewCell" customModule="BookClubUpdated" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="WjS-Mn-Kr9" id="pbJ-dN-jWh"/>
+                                    <outlet property="delegate" destination="WjS-Mn-Kr9" id="W3e-37-rw5"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Books I've Read" id="U7c-UA-MJp">
@@ -281,6 +308,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="postsCollectionView" destination="0XS-Ti-drF" id="4Pi-FZ-zFB"/>
                         <segue destination="yhH-Yx-6bO" kind="show" identifier="followingSegue" id="1Kq-f3-fTw"/>
                         <segue destination="rcH-At-f36" kind="show" identifier="followersSegue" id="Da5-KS-bco"/>
                         <segue destination="40l-QF-BTu" kind="show" identifier="addBookSegue" id="aqp-JA-I9R"/>

@@ -171,4 +171,36 @@ class PostsFirebaseMethods {
             completion(bookLinkIDArray, bookIDArray)
         })
     }
+    
+    
+    static func downloadUsersBookPostsLinkIDArray(with completion: @escaping ([String], [String]) -> Void) {
+        
+        guard let userUniqueID = FIRAuth.auth()?.currentUser?.uid else {return}
+        let userRef = FIRDatabase.database().reference().child("users").child(userUniqueID).child("previousReads")
+        var bookLinkIDArray = [String]()
+        var bookIDArray = [String]()
+        
+        userRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            guard let snapshotValue = snapshot.value as? [String: Any] else {return}
+            print(snapshotValue)
+            for snap in snapshotValue {
+                
+                print(snap)
+                
+                guard
+                    let postInfo = snap.value as? [String: Any],
+                    let imageLink = postInfo["imageLink"] as? String
+                    else { print("error downloading image link"); return}
+                
+                bookLinkIDArray.append(imageLink)
+                bookIDArray.append(snap.key)
+                
+            }
+            print(bookLinkIDArray.count)
+            completion(bookLinkIDArray, bookIDArray)
+        })
+    }
+    
+    
 }
