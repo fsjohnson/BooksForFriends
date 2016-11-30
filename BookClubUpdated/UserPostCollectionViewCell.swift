@@ -29,7 +29,7 @@ class UserPostCollectionViewCell: UICollectionViewCell {
     private func commonInit() {
         
         imageView = UIImageView()
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFit
         self.contentView.addSubview(imageView)
         
         imageView.translatesAutoresizingMaskIntoConstraints = false

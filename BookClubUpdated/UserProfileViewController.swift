@@ -8,7 +8,8 @@
 
 import UIKit
 
-class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowLayout {
+class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {
+    
     
     @IBOutlet weak var postsCollectionView: UICollectionView!
     
@@ -26,17 +27,27 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let viewWidth = view.frame.width
-        let followersFollowingViewHeight = view.frame.height.multiplied(by: 0.25)
         
-        let followersFollowingView = FollowersFollowing(frame: CGRect(x: 0, y: 20, width: viewWidth, height: followersFollowingViewHeight))
+        guard let navBarHeight = self.navigationController?.navigationBar.frame.height else { print("no nav bar height"); return }
+
+        
+        let viewWidth = view.frame.width
+        let followersFollowingViewHeight = view.frame.height.multiplied(by: 0.15)
+        
+        let followersFollowingView = FollowersFollowing(frame: CGRect(x: 0, y: navBarHeight, width: viewWidth, height: followersFollowingViewHeight))
         view.addSubview(followersFollowingView)
+        
+        view.addSubview(postsCollectionView)
         
         postsCollectionView.translatesAutoresizingMaskIntoConstraints = false
         postsCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         postsCollectionView.topAnchor.constraint(equalTo: followersFollowingView.bottomAnchor).isActive = true
-        postsCollectionView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
+        postsCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        postsCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        postsCollectionView.layer.borderWidth = 2.0
+        postsCollectionView.layer.borderColor = UIColor.black.cgColor
+        
+        postsCollectionView.register(UserPostCollectionViewCell.self, forCellWithReuseIdentifier: "bookPost")
         
         followersFollowingView.followersButtonOutlet.addTarget(self, action: #selector(segueToFollowers), for: .touchDown)
         
@@ -63,11 +74,11 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
     
     
     func cellConfig() {
-        let screedWidth = UIScreen.main.bounds.width
+        let screedWidth = postsCollectionView.frame.width
         let screenHeight = postsCollectionView.frame.height
         
-        let numOfRows = CGFloat(3.0)
-        let numOfColumns = CGFloat(3.0)
+        let numOfRows = CGFloat(2.0)
+        let numOfColumns = CGFloat(2.0)
         
         insetSpacing = 2
         minimumInterItemSpacing = 2
@@ -79,7 +90,7 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         let totalHeightDeduction = (sectionInsets.right + sectionInsets.left + minimumLineSpacing + minimumLineSpacing)
         
         
-        itemSize = CGSize(width: (screedWidth/numOfColumns) - (totalWidthDeduction/numOfColumns), height: (screenHeight - totalHeightDeduction)/3)
+        itemSize = CGSize(width: (screedWidth - totalWidthDeduction)/numOfColumns, height: (screenHeight - totalHeightDeduction)/numOfRows)
         
     }
 
@@ -135,19 +146,18 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         return userPosts.count
     }
     
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! UserPostCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "bookPost", for: indexPath) as! UserPostCollectionViewCell
         
-//        let imageLink = userPosts[indexPath.item]
-//        let imageURL = URL(string: imageLink)
-        cell.layer.borderWidth = 2.0
-        cell.layer.borderColor = UIColor.black.cgColor
-//        guard let data = try? Data(contentsOf: imageURL!) else {
-//            cell.imageView.image = UIImage(named: "BFFLogo")
-//            return cell
-//        }
-//        
-//        cell.imageView.image = UIImage(data: data)
+        let imageLink = userPosts[indexPath.item]
+        let imageURL = URL(string: imageLink)
+        guard let data = try? Data(contentsOf: imageURL!) else {
+            cell.imageView.image = UIImage(named: "BFFLogo")
+            return cell
+        }
+        
+        cell.imageView.image = UIImage(data: data)
         
         return cell
     }
