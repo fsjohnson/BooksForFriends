@@ -14,7 +14,7 @@ class UserPostCollectionViewCell: UICollectionViewCell {
     
     weak var bookPost: BookPosted! {
         didSet {
-//            setImage()
+            setImage()
         }
     }
 
@@ -46,9 +46,8 @@ class UserPostCollectionViewCell: UICollectionViewCell {
         imageView.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
         imageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor).isActive = true
         imageView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor).isActive = true
-//        imageView.layer.borderColor = UIColor.black.cgColor
-//        imageView.layer.borderWidth = 2.0
         imageView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
+        
         
     }
     
@@ -58,7 +57,10 @@ class UserPostCollectionViewCell: UICollectionViewCell {
         
         if imageLink != "" {
             GoogleBooksAPI.downloadBookImage(with: imageLink, with: { (image) in
-                self.imageView.image = image
+                OperationQueue.main.addOperation {
+                    self.imageView.image = image
+                }
+                
             })
         } else {
              self.imageView.image = UIImage(named: "BFFLogo")

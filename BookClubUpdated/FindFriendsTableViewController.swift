@@ -104,15 +104,15 @@ class FindFriendsTableViewController: UITableViewController, UISearchBarDelegate
             UserFirebaseMethods.prohibitDuplicateFollowing(of: uniqueUserID, completion: { (alreadyFollowing) in
                 if alreadyFollowing == true {
                     let alert = UIAlertController(title: "Oops", message: "You are already following \(username)", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                        self.dismiss(animated: true, completion: nil)
+                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
+//                        self.dismiss(animated: true, completion: nil)
                     }))
                     self.present(alert, animated: true, completion: nil)
                 } else {
                     UserFirebaseMethods.addFollowing(with: uniqueUserID, completion: {
                         let alert = UIAlertController(title: "Success", message: "You have added \(username) as a friend!", preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                            self.dismiss(animated: true, completion: nil)
+                        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
+//                            self.dismiss(animated: true, completion: nil)
                         }))
                         self.present(alert, animated: true, completion: nil)
                     })

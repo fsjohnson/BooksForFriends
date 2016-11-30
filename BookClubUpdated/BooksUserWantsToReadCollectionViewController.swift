@@ -38,17 +38,9 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
             self.futureBooksArray = bookLinkArray
             self.bookIDArray = bookIDArray
             print("COUNT: \(self.futureBooksArray.count)")
+            print("COUNT: \(self.bookIDArray.count)")
             self.collectionView?.reloadData()
         }
-        
-        
-        
-                self.collectionView!.register(FutureReadsCollectionViewCell.self, forCellWithReuseIdentifier: "imageCell")
-        
-        
-//        collectionView?.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headerCell")
-        
-//        collectionView?.allowsMultipleSelection = true
         
     }
     
@@ -78,33 +70,35 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        print("NUM OF CELLS: \(futureBooksArray.count)")
         // #warning Incomplete implementation, return the number of items
         return futureBooksArray.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath) as! FutureReadsCollectionViewCell
+
+//        let imageView = UIImageView()
+//        imageView.translatesAutoresizingMaskIntoConstraints = false
+//        cell.addSubview(imageView)
+//        imageView.bottomAnchor.constraint(equalTo: cell.bottomAnchor).isActive = true
+//        imageView.topAnchor.constraint(equalTo: cell.topAnchor).isActive = true
+//        imageView.leadingAnchor.constraint(equalTo: cell.leadingAnchor).isActive = true
+//        imageView.trailingAnchor.constraint(equalTo: cell.trailingAnchor).isActive = true
         
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        cell.addSubview(imageView)
-        imageView.bottomAnchor.constraint(equalTo: cell.bottomAnchor).isActive = true
-        imageView.topAnchor.constraint(equalTo: cell.topAnchor).isActive = true
-        imageView.leadingAnchor.constraint(equalTo: cell.leadingAnchor).isActive = true
-        imageView.trailingAnchor.constraint(equalTo: cell.trailingAnchor).isActive = true
-        
-        
+        print("called \n\n\n")
         
         let imageLink = futureBooksArray[indexPath.item]
         let imageURL = URL(string: imageLink)
         cell.layer.borderWidth = 2.0
         cell.layer.borderColor = UIColor.black.cgColor
         guard let data = try? Data(contentsOf: imageURL!) else {
-            imageView.image = UIImage(named: "BFFLogo")
+            cell.bookCoverImageView.image = UIImage(named: "BFFLogo")
             return cell
         }
         
-        imageView.image = UIImage(data: data)
+        cell.bookCoverImageView.image = UIImage(data: data)
         
         return cell
     }

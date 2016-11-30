@@ -150,18 +150,20 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "bookPost", for: indexPath) as! UserPostCollectionViewCell
         
         
-//        let currentPost = userPosts[indexPath.row]
-//        cell.bookPost = currentPost
+        let currentPost = userPosts[indexPath.row]
+        cell.bookPost = currentPost
         
         
-        guard let imageLink = String(userPosts[indexPath.item].imageLink) else {return cell}
-        let imageURL = URL(string: imageLink)
-        guard let data = try? Data(contentsOf: imageURL!) else {
-            cell.imageView.image = UIImage(named: "BFFLogo")
-            return cell
-        }
         
-        cell.imageView.image = UIImage(data: data)
+//        
+//        guard let imageLink = String(userPosts[indexPath.item].imageLink) else {return cell}
+//        let imageURL = URL(string: imageLink)
+//        guard let data = try? Data(contentsOf: imageURL!) else {
+//            cell.imageView.image = UIImage(named: "BFFLogo")
+//            return cell
+//        }
+//        
+//        cell.imageView.image = UIImage(data: data)
 
         
         return cell
