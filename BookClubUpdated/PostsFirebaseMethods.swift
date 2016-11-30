@@ -41,7 +41,7 @@ class PostsFirebaseMethods {
                     let post = BookPosted(bookUniqueID: bookUniqueID, rating: rating, comment: comment, imageLink: imageLink, timestamp: timestamp, userUniqueKey: userUniqueID)
                     postsArray.append(post)
                 }
-
+                
             }
             
             postsArray.sort(by: { (first, second) -> Bool in
@@ -201,6 +201,51 @@ class PostsFirebaseMethods {
             completion(bookLinkIDArray, bookIDArray)
         })
     }
+    
+    
+    static func downloadUsersBookPostsArray(with completion: @escaping ([BookPosted]) -> Void) {
+        
+        let postRef = FIRDatabase.database().reference().child("posts")
+        guard let currentUserID = FIRAuth.auth()?.currentUser?.uid else {return}
+        
+        var postsArray = [BookPosted]()
+        
+        postRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let snapshotValue = snapshot.value as? [String: Any] else {print("download all posts error"); return}
+            
+            for snap in snapshotValue {
+                
+                let bookUniqueID = snap.key
+                
+                guard
+                    let postInfo = snap.value as? [String: String],
+                    let comment = postInfo["comment"],
+                    let imageLink = postInfo["imageLink"],
+                    let rating = postInfo["rating"],
+                    let userUniqueID = postInfo["userUniqueID"],
+                    let timestampString = postInfo["timestamp"],
+                    let timestamp = Double(timestampString)
+                    else {print("error downloading postInfo"); return}
+                
+                if userUniqueID == currentUserID {
+                    let post = BookPosted(bookUniqueID: bookUniqueID, rating: rating, comment: comment, imageLink: imageLink, timestamp: timestamp, userUniqueKey: userUniqueID)
+                    postsArray.append(post)
+                }
+                
+            }
+            
+            postsArray.sort(by: { (first, second) -> Bool in
+                return first.timestamp > second.timestamp
+            })
+            
+            if postsArray.count > 0 {
+                completion(postsArray)
+            }
+            
+        })
+    }
+    
+    
     
     
 }

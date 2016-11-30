@@ -22,7 +22,7 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
     var insetSpacing: CGFloat!
     var minimumInterItemSpacing: CGFloat!
     var minimumLineSpacing: CGFloat!
-    var userPosts = [String]()
+    var userPosts = [BookPosted]()
     
     
     override func viewDidLoad() {
@@ -57,17 +57,16 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         
         self.cellConfig()
         
-        PostsFirebaseMethods.downloadUsersBookPostsLinkIDArray { (bookLinkArray, bookIDArray) in
-            self.userPosts = bookLinkArray
+        PostsFirebaseMethods.downloadUsersBookPostsArray { (booksPosted) in
+            self.userPosts = booksPosted
             self.postsCollectionView.reloadData()
         }
-        
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
-        PostsFirebaseMethods.downloadUsersBookPostsLinkIDArray { (bookLinkArray, bookIDArray) in
-            self.userPosts = bookLinkArray
+        PostsFirebaseMethods.downloadUsersBookPostsArray { (booksPosted) in
+            self.userPosts = booksPosted
             self.postsCollectionView.reloadData()
         }
     }
@@ -150,16 +149,20 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "bookPost", for: indexPath) as! UserPostCollectionViewCell
         
-        let imageLink = userPosts[indexPath.item]
+        
+//        let currentPost = userPosts[indexPath.row]
+//        cell.bookPost = currentPost
+        
+        
+        guard let imageLink = String(userPosts[indexPath.item].imageLink) else {return cell}
         let imageURL = URL(string: imageLink)
         guard let data = try? Data(contentsOf: imageURL!) else {
             cell.imageView.image = UIImage(named: "BFFLogo")
             return cell
         }
-        OperationQueue.main.addOperation {
-            cell.imageView.image = UIImage(data: data)
-        }
         
+        cell.imageView.image = UIImage(data: data)
+
         
         return cell
     }

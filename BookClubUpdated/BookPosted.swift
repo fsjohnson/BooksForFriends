@@ -36,9 +36,15 @@ class BookPosted {
     }
     
     func setImage() {
-        GoogleBooksAPI.downloadBookImage(with: imageLink) { (image) in
-            self.bookCover = image
+        if imageLink != "" {
+            GoogleBooksAPI.downloadBookImage(with: imageLink) { (image) in
+                print("IMAGE LINK: \(self.imageLink)")
+                self.bookCover = image
+            }
+        } else {
+            self.bookCover = UIImage(named: "BFFLogo")
         }
+        
     }
     
 //    func setUsername(handler: (Bool) -> Void) {

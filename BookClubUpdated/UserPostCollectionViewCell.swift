@@ -12,6 +12,14 @@ class UserPostCollectionViewCell: UICollectionViewCell {
     
     var imageView: UIImageView!
     
+    weak var bookPost: BookPosted! {
+        didSet {
+//            setImage()
+        }
+    }
+
+    
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -43,5 +51,21 @@ class UserPostCollectionViewCell: UICollectionViewCell {
         imageView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
         
     }
+    
+    func setImage() {
+        
+        let imageLink = bookPost.imageLink
+        
+        if imageLink != "" {
+            GoogleBooksAPI.downloadBookImage(with: imageLink, with: { (image) in
+                self.imageView.image = image
+            })
+        } else {
+             self.imageView.image = UIImage(named: "BFFLogo")
+        }
+
+    }
+    
+    
 
 }
