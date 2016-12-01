@@ -12,13 +12,10 @@ class PostsView: UIView {
     
     
     @IBOutlet weak var usernameLabel: UILabel!
-    
     @IBOutlet weak var commentLabel: UITextView!
-    
     @IBOutlet weak var bookImage: UIImageView!
-    
     @IBOutlet var contentView: UIView!
-    
+    @IBOutlet weak var starView: UIView!
     
     weak var bookPost: BookPosted! {
         didSet {
@@ -26,6 +23,8 @@ class PostsView: UIView {
             updateViewToReflectUsername()
             commentLabel.text = bookPost.comment
             print("COMMENT: \(bookPost.comment)")
+            print("RATING: \(bookPost.rating)")
+            updateStars()
             
         }
     }
@@ -47,6 +46,7 @@ class PostsView: UIView {
         addSubview(contentView)
         contentView.constrainEdges(to: self)
         backgroundColor = UIColor.clear
+
     }
 }
 
@@ -76,6 +76,23 @@ extension PostsView {
             guard let user = user else { return }
             self.usernameLabel.text = user.username
         })
+    }
+    
+    
+    fileprivate func updateStars() {
+        
+        
+        let star2 = StarReview(frame: CGRect(x: 0, y: 0, width: starView.bounds.width, height: starView.bounds.height))
+        star2.starCount = 5
+        star2.allowEdit = false
+
+        guard let rating = Float(bookPost.rating) else {return}
+        star2.value = rating
+        star2.allowAccruteStars = false
+        star2.starFillColor = UIColor.red
+        star2.starBackgroundColor = UIColor.black
+        star2.starMarginScale = 0.3
+        starView.addSubview(star2)
     }
     
 }

@@ -24,7 +24,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jEc-gT-Gli" id="XTB-2m-cEg">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="grV-Tl-UCl" customClass="PostsView" customModule="BookClubUpdated" customModuleProvider="target">
@@ -85,7 +85,7 @@
                                 <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iRT-mi-YS3" id="9ez-cm-Hoe">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bit-yc-2h9">
@@ -331,7 +331,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LHg-b6-Go7" id="SuF-oX-Skp">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="smt-Ob-UIl">
@@ -375,7 +375,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xQv-SE-uxd" id="skZ-HR-6gC">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -462,18 +462,19 @@
                                     </textField>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jX6-lv-yQw">
-                                <rect key="frame" x="28" y="308.5" width="319" height="50.5"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="jX6-lv-yQw">
+                                <rect key="frame" x="28" y="284" width="319" height="100"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rating:  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L6w-8s-4Mb">
-                                        <rect key="frame" x="0.0" y="0.0" width="319" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="319" height="50"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="UEO-k4-KEo">
-                                        <rect key="frame" x="-2" y="20.5" width="323" height="31"/>
-                                    </slider>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kZH-hT-Ax4">
+                                        <rect key="frame" x="0.0" y="50" width="319" height="50"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="60P-Jn-3pe">
@@ -495,6 +496,7 @@
                             <constraint firstItem="60P-Jn-3pe" firstAttribute="top" secondItem="oxf-vg-a7b" secondAttribute="bottom" constant="21" id="Wew-QX-1lW"/>
                             <constraint firstItem="jX6-lv-yQw" firstAttribute="width" secondItem="oxf-vg-a7b" secondAttribute="width" id="YLK-97-NGi"/>
                             <constraint firstItem="60P-Jn-3pe" firstAttribute="centerX" secondItem="IZw-Jg-whS" secondAttribute="centerX" id="YeC-hg-mFp"/>
+                            <constraint firstItem="jX6-lv-yQw" firstAttribute="height" secondItem="IZw-Jg-whS" secondAttribute="height" multiplier="0.15" id="ZS2-aI-ub2"/>
                             <constraint firstItem="Nth-Md-Eeu" firstAttribute="centerY" secondItem="IZw-Jg-whS" secondAttribute="centerY" multiplier="0.5" id="b1H-Nx-hDI"/>
                             <constraint firstItem="oxf-vg-a7b" firstAttribute="centerY" secondItem="IZw-Jg-whS" secondAttribute="centerY" multiplier="1.4" id="cfX-1m-M6A"/>
                             <constraint firstItem="oxf-vg-a7b" firstAttribute="centerX" secondItem="IZw-Jg-whS" secondAttribute="centerX" id="iiG-tD-R9q"/>
@@ -504,7 +506,7 @@
                     <connections>
                         <outlet property="bookCoverImageView" destination="Nth-Md-Eeu" id="v4v-wv-txC"/>
                         <outlet property="commentsTextField" destination="aG7-jC-Ghi" id="gcI-7U-1Lt"/>
-                        <outlet property="ratingSlider" destination="UEO-k4-KEo" id="Y34-we-Sh3"/>
+                        <outlet property="starView" destination="kZH-hT-Ax4" id="qgA-Fu-2er"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LHq-FN-bfx" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -16,6 +16,7 @@
                 <outlet property="bookImage" destination="iX1-aw-Mnv" id="cHa-yg-rEs"/>
                 <outlet property="commentLabel" destination="9Ja-ux-w71" id="cIb-PV-lKs"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="1jg-an-oo1"/>
+                <outlet property="starView" destination="TWE-6B-K6Y" id="zHW-N3-6FR"/>
                 <outlet property="usernameLabel" destination="Akl-U3-6SY" id="PsT-fM-s18"/>
             </connections>
         </placeholder>
@@ -25,44 +26,46 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iX1-aw-Mnv">
-                    <rect key="frame" x="309" y="19.5" width="159" height="159"/>
+                    <rect key="frame" x="308" y="20.5" width="158" height="158"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="iX1-aw-Mnv" secondAttribute="height" multiplier="1:1" id="Z9t-CK-2xU"/>
                     </constraints>
                 </imageView>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="pvY-Mb-a6Q">
-                    <rect key="frame" x="8" y="19.5" width="238" height="159"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="NUH-yq-PON">
+                    <rect key="frame" x="10" y="20.5" width="288" height="158"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Akl-U3-6SY">
-                            <rect key="frame" x="0.0" y="0.0" width="238" height="53"/>
+                            <rect key="frame" x="0.0" y="0.0" width="288" height="39.5"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comment:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gCc-4X-3yx">
-                            <rect key="frame" x="0.0" y="53" width="238" height="53"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="COMMENTS HERE" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9Ja-ux-w71">
-                            <rect key="frame" x="0.0" y="106" width="238" height="53"/>
+                            <rect key="frame" x="0.0" y="39.5" width="288" height="95"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TWE-6B-K6Y">
+                            <rect key="frame" x="0.0" y="134.5" width="288" height="23.5"/>
+                        </view>
                     </subviews>
+                    <constraints>
+                        <constraint firstItem="Akl-U3-6SY" firstAttribute="height" secondItem="NUH-yq-PON" secondAttribute="height" multiplier="0.25" id="H53-RB-AtZ"/>
+                        <constraint firstItem="9Ja-ux-w71" firstAttribute="height" secondItem="NUH-yq-PON" secondAttribute="height" multiplier="0.6" id="lf0-2b-nKg"/>
+                        <constraint firstItem="TWE-6B-K6Y" firstAttribute="height" secondItem="NUH-yq-PON" secondAttribute="height" multiplier="0.15" id="pgV-Xy-Fyd"/>
+                    </constraints>
                 </stackView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="pvY-Mb-a6Q" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.8" id="4yb-9d-eQR"/>
-                <constraint firstItem="iX1-aw-Mnv" firstAttribute="height" secondItem="pvY-Mb-a6Q" secondAttribute="height" id="ANI-wB-2Ot"/>
-                <constraint firstItem="pvY-Mb-a6Q" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="DCV-vn-vKg"/>
-                <constraint firstItem="pvY-Mb-a6Q" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.5" id="IIF-9J-NJt"/>
-                <constraint firstItem="iX1-aw-Mnv" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="gY6-0b-pih"/>
-                <constraint firstItem="pvY-Mb-a6Q" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="lCT-Qg-17q"/>
-                <constraint firstAttribute="trailing" secondItem="iX1-aw-Mnv" secondAttribute="trailing" constant="8" id="r1q-Dr-STg"/>
+                <constraint firstItem="iX1-aw-Mnv" firstAttribute="height" secondItem="NUH-yq-PON" secondAttribute="height" id="B3P-lh-shw"/>
+                <constraint firstItem="NUH-yq-PON" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="Btk-QM-idb"/>
+                <constraint firstItem="iX1-aw-Mnv" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="L99-Mu-aV6"/>
+                <constraint firstItem="iX1-aw-Mnv" firstAttribute="leading" secondItem="NUH-yq-PON" secondAttribute="trailing" constant="10" id="Sjn-X5-4eg"/>
+                <constraint firstItem="NUH-yq-PON" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="mth-ZI-0VX"/>
+                <constraint firstItem="NUH-yq-PON" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.8" id="nf7-lC-s6R"/>
+                <constraint firstAttribute="trailing" secondItem="iX1-aw-Mnv" secondAttribute="trailing" constant="10" id="oEw-Y6-nzC"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="-8" y="-215"/>

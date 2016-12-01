@@ -17,6 +17,8 @@ class AddCommentAndRatingViewController: UIViewController {
     var passedImageLink = String()
     var passedSynopsis = String()
     
+    @IBOutlet weak var starView: UIView!
+    var star = StarReview()
     
     @IBOutlet weak var bookCoverImageView: UIImageView!
     @IBOutlet weak var ratingSlider: UISlider!
@@ -38,7 +40,14 @@ class AddCommentAndRatingViewController: UIViewController {
         }
         
         
-        
+        star = StarReview(frame: CGRect(x: 0, y: 0, width: starView.bounds.width, height: starView.bounds.height))
+        star.starCount = 5
+        star.value = 1
+        star.allowAccruteStars = false
+        star.starFillColor = UIColor.red
+        star.starBackgroundColor = UIColor.black
+        star.starMarginScale = 0.3
+        starView.addSubview(star)
     }
     
     override func didReceiveMemoryWarning() {
@@ -51,7 +60,7 @@ class AddCommentAndRatingViewController: UIViewController {
         
         let bookToAdd = UserBook(title: passedTitle, author: passedAuthor, synopsis: passedSynopsis, bookUniqueKey: nil, finalBookCoverLink: passedImageLink)
         guard let userUniqueKey = FIRAuth.auth()?.currentUser?.uid else {return}
-        let ratingString = String(ratingSlider.value)
+        let ratingString = String(star.value)
         guard let comment = commentsTextField.text else {return}
         let bookUniqueKey = FIRDatabase.database().reference().childByAutoId().key
         
