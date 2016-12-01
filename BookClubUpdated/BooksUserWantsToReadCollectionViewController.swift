@@ -79,20 +79,9 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath) as! FutureReadsCollectionViewCell
 
-//        let imageView = UIImageView()
-//        imageView.translatesAutoresizingMaskIntoConstraints = false
-//        cell.addSubview(imageView)
-//        imageView.bottomAnchor.constraint(equalTo: cell.bottomAnchor).isActive = true
-//        imageView.topAnchor.constraint(equalTo: cell.topAnchor).isActive = true
-//        imageView.leadingAnchor.constraint(equalTo: cell.leadingAnchor).isActive = true
-//        imageView.trailingAnchor.constraint(equalTo: cell.trailingAnchor).isActive = true
-        
-        print("called \n\n\n")
         
         let imageLink = futureBooksArray[indexPath.item]
         let imageURL = URL(string: imageLink)
-        cell.layer.borderWidth = 2.0
-        cell.layer.borderColor = UIColor.black.cgColor
         guard let data = try? Data(contentsOf: imageURL!) else {
             cell.bookCoverImageView.image = UIImage(named: "BFFLogo")
             return cell
@@ -121,8 +110,6 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
         
         let totalWidthDeduction = (minimumInterItemSpacing + minimumInterItemSpacing + sectionInsets.right + sectionInsets.left)
         let totalHeightDeduction = (sectionInsets.right + sectionInsets.left + minimumLineSpacing + minimumLineSpacing)
-        
-        
         
         itemSize = CGSize(width: (screedWidth/numOfColumns) - (totalWidthDeduction/numOfColumns), height: (screenHeight - totalHeightDeduction)/3)
         
@@ -172,8 +159,6 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
             
             self.present(alert, animated: true, completion: nil)
         }
-        
-        
     }
     
     

@@ -15,18 +15,14 @@ class SearchResultsView: UIView {
     @IBOutlet weak var bookImage: UIImageView!
     
     @IBOutlet weak var titleLabel: UILabel!
-
+    
     @IBOutlet weak var authorLabel: UILabel!
     
     weak var searchedBook: SearchedBook! {
         didSet {
-//            updateViewToReflectBookImage()
+            updateViewToReflectBookImage()
             titleLabel.text = searchedBook.title
             authorLabel.text = searchedBook.author
-            OperationQueue.main.addOperation {
-                self.bookImage.image = self.searchedBook.bookCover
-            }
-            
         }
     }
     
@@ -53,24 +49,20 @@ class SearchResultsView: UIView {
 extension SearchResultsView {
     
     fileprivate func updateViewToReflectBookImage() {
-  
-        if bookImage.image == nil {
-            guard let link = searchedBook.finalBookCoverLink else {return}
-            
-            if link != "" {
+
+            if searchedBook.finalBookCoverLink != "" && searchedBook.finalBookCoverLink != nil {
+                guard let link = searchedBook.finalBookCoverLink else {return}
                 GoogleBooksAPI.downloadBookImage(with: link, with: { (image) in
                     OperationQueue.main.addOperation {
                         self.bookImage.image = image
                     }
                 })
-
+                
             } else {
                 
                 self.bookImage.image = UIImage(named: "BFFLogo")
                 
             }
-        
-        }
     }
 }
 

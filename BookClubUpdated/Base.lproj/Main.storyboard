@@ -50,7 +50,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Book My Friends Read" id="iGf-4p-RD9">
-                        <barButtonItem key="rightBarButtonItem" title="Find Friend" id="yfQ-J4-dYc">
+                        <barButtonItem key="rightBarButtonItem" image="AddFriend" id="yfQ-J4-dYc">
                             <connections>
                                 <segue destination="Usx-En-JRb" kind="show" identifier="findFriends" id="t49-p0-bcd"/>
                             </connections>
@@ -301,7 +301,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Books I've Read" id="U7c-UA-MJp">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="oSm-xK-zeT">
+                        <barButtonItem key="rightBarButtonItem" image="AddBook" style="plain" id="oSm-xK-zeT">
                             <connections>
                                 <action selector="addBookBtn:" destination="WjS-Mn-Kr9" id="h3T-hz-T87"/>
                             </connections>
@@ -536,7 +536,7 @@
         <scene sceneID="BLr-wy-ead">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mnJ-Wf-y6U" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Friends Posts" id="RGh-D8-vWe"/>
+                    <tabBarItem key="tabBarItem" title="Friends Posts" image="LiveFeedHome" id="RGh-D8-vWe"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="UNL-oz-8jx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -555,7 +555,7 @@
         <scene sceneID="BBN-mM-0hK">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mqH-Gc-DyL" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Future Reads" id="8ao-ew-FZ7"/>
+                    <tabBarItem key="tabBarItem" title="Future Reads" image="Book" id="8ao-ew-FZ7"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6du-5p-aU4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -574,7 +574,7 @@
         <scene sceneID="3tl-cz-Q3b">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XvU-cf-f2e" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Previous Reads" id="JLS-2v-nbV"/>
+                    <tabBarItem key="tabBarItem" title="Previous Reads" image="Profile" id="JLS-2v-nbV"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="PbY-uS-dBE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -590,4 +590,11 @@
             <point key="canvasLocation" x="334" y="546"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="AddBook" width="36" height="36"/>
+        <image name="AddFriend" width="36" height="36"/>
+        <image name="Book" width="36" height="36"/>
+        <image name="LiveFeedHome" width="36" height="36"/>
+        <image name="Profile" width="36" height="36"/>
+    </resources>
 </document>

@@ -25,26 +25,21 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
         
         let navigationBarHeight: CGFloat = self.navigationController!.navigationBar.frame.height
-        
-        print("HEIGHT: \(navigationBarHeight)")
-
+        let tabBarHeight: CGFloat = (self.tabBarController?.tabBar.frame.height)!
         
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(SearchBookResultsTableViewCell.self, forCellReuseIdentifier: "bookResult")
         tableView.rowHeight = 100
-
-//        var navBar = self.navigationController?.navigationBar
-//        self.view.addSubview(navBar!)
         
-                //Search Title
+        //Search Title
         
         
         searchTitle.translatesAutoresizingMaskIntoConstraints = false
         searchTitle.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05).isActive = true
         searchTitle.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.70).isActive = true
         searchTitle.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        searchTitle.topAnchor.constraint(equalTo: (view.topAnchor), constant: (navigationBarHeight + 20)).isActive = true
+        searchTitle.topAnchor.constraint(equalTo: (view.topAnchor), constant:(navigationBarHeight + 20)).isActive = true
 
         
         //Search Author
@@ -62,7 +57,7 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.view.addSubview(searchButton)
         searchButton.layer.borderWidth = 2.0
         searchButton.layer.borderColor = UIColor.black.cgColor
-        searchButton.setTitle("Search", for: .normal)
+        searchButton.setImage(#imageLiteral(resourceName: "Search"), for: .normal)
         searchButton.setTitleColor(UIColor.blue, for: .normal)
         searchButton.addTarget(self, action: #selector(searchButtonFunc), for: .touchUpInside)
         
@@ -81,11 +76,16 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.topAnchor.constraint(equalTo: searchAuthor.bottomAnchor).isActive = true
         tableView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1.0).isActive = true
         tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabBarHeight).isActive = true
         
         
         activityIndicator()
         
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
     }
     
     
@@ -179,12 +179,6 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         
      }
-    
-    
-    @IBAction func cancelButton(_ sender: Any) {
-            self.dismiss(animated: true, completion: nil)
-        
-    }
     
 
     
