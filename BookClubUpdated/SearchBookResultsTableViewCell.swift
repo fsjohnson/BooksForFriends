@@ -15,13 +15,10 @@ class SearchBookResultsTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: "bookResult")
-        
-        
-        
+
         searchResultView = SearchResultsView(frame: CGRect.zero)
         configureView()
-        
-        
+
     }
     
     required init?(coder aDecoder: NSCoder) {

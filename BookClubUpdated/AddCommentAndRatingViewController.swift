@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import SDWebImage
 
 class AddCommentAndRatingViewController: UIViewController {
     
@@ -32,12 +33,8 @@ class AddCommentAndRatingViewController: UIViewController {
         print("title: \(passedTitle)")
         print("author: \(passedAuthor)")
         
-        
-        if self.passedImageLink != "" {
-            self.bookCoverImageView.image = self.passedImage
-        } else {
-            self.bookCoverImageView.image = UIImage(named: "BFFLogo")
-        }
+        let url = URL(string: passedImageLink)
+        self.bookCoverImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "BFFLogo"), options: SDWebImageOptions.refreshCached)
         
         
         star = StarReview(frame: CGRect(x: 0, y: 0, width: starView.bounds.width, height: starView.bounds.height))
@@ -61,7 +58,7 @@ class AddCommentAndRatingViewController: UIViewController {
         let bookToAdd = UserBook(title: passedTitle, author: passedAuthor, synopsis: passedSynopsis, bookUniqueKey: nil, finalBookCoverLink: passedImageLink)
         guard let userUniqueKey = FIRAuth.auth()?.currentUser?.uid else {return}
         let ratingString = String(star.value)
-        guard let comment = commentsTextField.text else {return}
+        guard let comment = commentsTextField.text else { print("no comment"); return }
         let bookUniqueKey = FIRDatabase.database().reference().childByAutoId().key
         
         
@@ -83,7 +80,7 @@ class AddCommentAndRatingViewController: UIViewController {
                 
                 let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-//                    self.dismiss(animated: true, completion: nil)
+                    //                    self.dismiss(animated: true, completion: nil)
                 }))
                 self.present(alert, animated: true, completion: nil)
                 
@@ -99,7 +96,7 @@ class AddCommentAndRatingViewController: UIViewController {
                         
                         let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-//                            self.dismiss(animated: true, completion: nil)
+                            //                            self.dismiss(animated: true, completion: nil)
                         }))
                         self.present(alert, animated: true, completion: nil)
                         
@@ -129,7 +126,7 @@ class AddCommentAndRatingViewController: UIViewController {
                                             
                                             let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
                                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-//                                                self.dismiss(animated: true, completion: nil)
+                                                //                                                self.dismiss(animated: true, completion: nil)
                                             }))
                                             self.present(alert, animated: true, completion: nil)
                                             
@@ -138,7 +135,7 @@ class AddCommentAndRatingViewController: UIViewController {
                                             
                                             let alert = UIAlertController(title: "Oops!", message: "You have already posted \(self.passedTitle)", preferredStyle: .alert)
                                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-//                                                self.dismiss(animated: true, completion: nil)
+                                                //                                                self.dismiss(animated: true, completion: nil)
                                                 
                                             }))
                                             
@@ -155,11 +152,6 @@ class AddCommentAndRatingViewController: UIViewController {
                 
             }
         }
-    }
-    
-    
-    @IBAction func cancelButton(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
     }
     
     

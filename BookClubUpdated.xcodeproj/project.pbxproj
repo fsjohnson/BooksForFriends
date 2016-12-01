@@ -152,8 +152,6 @@
 			isa = PBXGroup;
 			children = (
 				B50F8A221DE323EC003954F8 /* AddBookViewController.swift */,
-				B5302D881DEDC81B007848B2 /* SearchResultsView.swift */,
-				B5302D8A1DEDC82D007848B2 /* SearchResultsView.xib */,
 				B50F8A2F1DE375FE003954F8 /* SearchBookResultsTableViewCell.swift */,
 				B52494551DE5C30400D837C4 /* AddCommentAndRatingViewController.swift */,
 			);
@@ -216,8 +214,6 @@
 		B524945B1DE5EBA300D837C4 /* ProfileVC */ = {
 			isa = PBXGroup;
 			children = (
-				B5A881751DE76BF700D90B07 /* FollowersFollowing.xib */,
-				B5A881771DE76DFE00D90B07 /* FollowersFollowing.swift */,
 				B58291D21DB96C710017FF58 /* BooksUserWantsToReadCollectionViewController.swift */,
 				B51F9F841DEA4796006921D3 /* FutureReadsCollectionViewCell.swift */,
 				B52494591DE5EB9C00D837C4 /* UserProfileViewController.swift */,
@@ -230,12 +226,23 @@
 			isa = PBXGroup;
 			children = (
 				B524945C1DE5EEB700D837C4 /* BooksFriendsReadTableViewController.swift */,
-				B5253F9E1DECF6A000553344 /* PostsView.xib */,
-				B5253FA01DECF6BE00553344 /* PostsView.swift */,
 				B51480D51DE87AB900DD7523 /* FriendsBooksPostedTableViewCell.swift */,
 				B51F9F801DEA09D8006921D3 /* BookDetailsViewController.swift */,
 			);
 			name = BooksFriendsReadVC;
+			sourceTree = "<group>";
+		};
+		B57955D11DF084CB000A030A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B5253F9E1DECF6A000553344 /* PostsView.xib */,
+				B5253FA01DECF6BE00553344 /* PostsView.swift */,
+				B5302D8A1DEDC82D007848B2 /* SearchResultsView.xib */,
+				B5302D881DEDC81B007848B2 /* SearchResultsView.swift */,
+				B5A881751DE76BF700D90B07 /* FollowersFollowing.xib */,
+				B5A881771DE76DFE00D90B07 /* FollowersFollowing.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		B58291B11DB96C300017FF58 = {
@@ -260,6 +267,7 @@
 			isa = PBXGroup;
 			children = (
 				B52494581DE5C32700D837C4 /* BasicSetup */,
+				B57955D11DF084CB000A030A /* Views */,
 				B50F8A2C1DE36A7C003954F8 /* Controllers */,
 				B50F8A2D1DE36AA5003954F8 /* DataStructs */,
 				B50F8A2A1DE36A60003954F8 /* BookAPIAndStore */,

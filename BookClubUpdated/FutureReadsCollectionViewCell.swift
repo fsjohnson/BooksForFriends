@@ -38,5 +38,6 @@ class FutureReadsCollectionViewCell: UICollectionViewCell {
         bookCoverImageView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor).isActive = true
         bookCoverImageView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
         
+        
     }
 }

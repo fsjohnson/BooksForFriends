@@ -151,7 +151,7 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         
         
         let currentPost = userPosts[indexPath.row]
-        cell.bookPost = currentPost
+        cell.configureCell(book: currentPost)
         
         
         

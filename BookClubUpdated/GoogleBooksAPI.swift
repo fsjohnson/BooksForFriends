@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SDWebImage
 
 class GoogleBooksAPI {
     
@@ -37,7 +38,7 @@ class GoogleBooksAPI {
             let session = URLSession.shared
             let url = URL(string: passedURL)
             guard let unwrappedURL = url else {return}
-
+            
             let task = session.dataTask(with: unwrappedURL) { (data, response, error) in
                 if error != nil {
                     print(error?.localizedDescription)
@@ -61,31 +62,26 @@ class GoogleBooksAPI {
             task.resume()
         }
     }
-
+    
     class func downloadBookImage(with urlString: String, with completion: @escaping (UIImage) -> Void) {
         
         let searchCoverURL = URL(string: urlString)
         
-        let session = URLSession.shared
         
-        let request = URLRequest(url: searchCoverURL!)
         
-        session.dataTask(with: request, completionHandler: { data, response, error in
+        SDWebImageDownloader.shared().downloadImage(with: searchCoverURL, options: .lowPriority, progress: { (receivedSize, expectedSize) in
+            print("received: \(receivedSize)")
+            print("expected: \(expectedSize)")
             
-            guard let rawData = data, let image = UIImage(data: rawData) else { return }
-            
-            completion(image)
-            
-        }).resume()
+        }) { (image, data, error, finished) in
+            if (image != nil && finished) {
+                guard let image = image else { return }
+                
+//                SDImageCache.shared().store(image, forKey: urlString)
 
-//        guard let unwrappedCoverURL = searchCoverURL else {return}
-//        
-//        do {
-//            let imageData = try Data(contentsOf: unwrappedCoverURL)
-//            guard let image = UIImage(data: imageData) else {return}
-//            completion(image)
-//
-//        } catch {}
+                completion(image)
+            }
+        }
     }
 }
 
