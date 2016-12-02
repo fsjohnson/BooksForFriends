@@ -56,7 +56,7 @@ class BooksFriendsReadTableViewController: UITableViewController {
         
         let currentPost = postsArray[indexPath.row]
         
-        cell.postView.bookPost = currentPost
+        cell.bookPost = currentPost
         
         return cell
     }

@@ -44,8 +44,6 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         postsCollectionView.topAnchor.constraint(equalTo: followersFollowingView.bottomAnchor).isActive = true
         postsCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         postsCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-//        postsCollectionView.layer.borderWidth = 2.0
-//        postsCollectionView.layer.borderColor = UIColor.black.cgColor
         
         postsCollectionView.register(UserPostCollectionViewCell.self, forCellWithReuseIdentifier: "bookPost")
         
@@ -149,23 +147,9 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "bookPost", for: indexPath) as! UserPostCollectionViewCell
         
-        
         let currentPost = userPosts[indexPath.row]
         cell.configureCell(book: currentPost)
-        
-        
-        
-//        
-//        guard let imageLink = String(userPosts[indexPath.item].imageLink) else {return cell}
-//        let imageURL = URL(string: imageLink)
-//        guard let data = try? Data(contentsOf: imageURL!) else {
-//            cell.imageView.image = UIImage(named: "BFFLogo")
-//            return cell
-//        }
-//        
-//        cell.imageView.image = UIImage(data: data)
 
-        
         return cell
     }
     

@@ -12,16 +12,18 @@ import Firebase
 
 class SearchedBook {
     
-    let title: String
-    let author: String?
-    let authorArray: [String]?
+    var title: String
+    var author: String?
+    var authorArray: [String]?
     var bookCover: UIImage?
-    let bookCoverLink: String?
-    let bookCoverLinkDict: [String:String]?
-    let finalBookCoverLink: String?
+    var bookCoverLink: String?
+    var bookCoverLinkDict: [String:String]?
+    var finalBookCoverLink: String?
+    
     
     let volume: [String: Any]
-    let synopsis: String?
+    var synopsis: String? = "Synopsis not available"
+    
     
     init(dict: [String: Any]) {
         self.volume = dict["volumeInfo"] as! [String: Any]
@@ -40,11 +42,54 @@ class SearchedBook {
                 print(link)
                 self.bookCover = image
             }
-        } else {
-            self.bookCover = UIImage(named: "BFFLogo")
         }
+    }
+    
+    init(volume: [String: Any], title: String, authorArray: [String]?, author: String, bookCoverLinkDict: [String: String]?, bookCoverLink: String?, finalBookCoverLink: String?, synopsis: String?) {
         
+        self.volume = volume
+        self.title = title
+        self.authorArray = authorArray
+        self.author = author
+        self.bookCoverLinkDict = bookCoverLinkDict
+        self.bookCoverLink = bookCoverLink
+        self.finalBookCoverLink = finalBookCoverLink
+    }
+    
+    
+    //    convenience init(title: String, author: String, bookCover: UIImage?, finalBookCoverLink: String, synopsis: String?) {
+    //        self.init(title: title, author: author, bookCover: bookCover, finalBookCoverLink: finalBookCoverLink, synopsis: synopsis)
+    //        self.title = title
+    //        self.author = author
+    //        self.bookCover = bookCover
+    //        self.finalBookCoverLink = finalBookCoverLink
+    //        self.synopsis = synopsis
+    //
+    //    }
+
+    
+//    convenience init(title: String, author: String, bookCover: UIImage?, finalBookCoverLink: String, synopsis: String?) {
+//        self.init(title: title, author: author, bookCover: bookCover, finalBookCoverLink: finalBookCoverLink, synopsis: synopsis)
+//    }
+    
+}
+
+extension SearchedBook: Hashable {
+    
+    var hashValue: Int {
         
+        let authorHash = author?.hashValue ?? 0
+        
+        return title.hashValue ^ authorHash
+        
+    }
+    
+    static func ==(lhs: SearchedBook, rhs: SearchedBook) -> Bool {
+
+        let leftAuthorName = lhs.author ?? "No Name"
+        let rightAuthorName = rhs.author ?? "No Name"
+        
+        return (leftAuthorName + lhs.title) == (rightAuthorName + rhs.title)
     }
     
 }

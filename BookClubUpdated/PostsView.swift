@@ -19,15 +19,15 @@ class PostsView: UIView {
     @IBOutlet weak var starView: UIView!
     var star: StarReview!
     
-    weak var bookPost: BookPosted! {
-        didSet {
-            updateViewToReflectBookImage()
-            updateViewToReflectUsername()
-            commentLabel.text = bookPost.comment
-            updateStars()
-            
-        }
-    }
+//    
+//    weak var bookPost: BookPosted! {
+//        didSet {
+//            updateViewToReflectBookImage()
+//            updateViewToReflectUsername()
+//            commentLabel.text = bookPost.comment
+//            updateStars()
+//        }
+//    }
     
     
     override init(frame: CGRect) {
@@ -48,58 +48,45 @@ class PostsView: UIView {
         backgroundColor = UIColor.clear
 
     }
-}
-
-extension PostsView {
-
-    
-    fileprivate func updateViewToReflectBookImage() {
-        if bookImage.image == nil {
-            if bookPost.imageLink != "" {
-                
-                GoogleBooksAPI.downloadBookImage(with: bookPost.imageLink, with: { (image) in
-                    OperationQueue.main.addOperation {
-                        self.bookImage.image = image
-                    }
-                })
-                
-            } else {
-                self.bookImage.image = UIImage(named: "BFFLogo")
-            }
-            
-        }
-    }
-    
-    
-    fileprivate func updateViewToReflectUsername() {
-        UserFirebaseMethods.retrieveSpecificUser(with: bookPost.userUniqueKey, completion: { (user) in
-            guard let user = user else { return }
-            self.usernameLabel.text = user.username
-        })
-    }
-    
-    
-    fileprivate func updateStars() {
-        
-        if starView.subviews.isEmpty {
-            self.star = StarReview(frame: CGRect(x: 0, y: 0, width: starView.bounds.width, height: starView.bounds.height))
-            self.star.starCount = 5
-            self.star.allowEdit = false
-            starView.addSubview(self.star)
-            
-            
-            guard let rating = Float(bookPost.rating) else {return}
-            self.star.value = rating
-            self.star.allowAccruteStars = false
-            self.star.starFillColor = UIColor.red
-            self.star.starBackgroundColor = UIColor.black
-            self.star.starMarginScale = 0.3
-        }
-        
-        
-    }
     
 }
+
+//extension PostsView {
+//
+//
+//    fileprivate func updateViewToReflectBookImage() {
+//        guard let url = URL(string: bookPost.imageLink) else { print("no image cover");return }
+//        bookImage.sd_setImage(with: url, placeholderImage: UIImage(named: "BFFLogo"), options: SDWebImageOptions.refreshCached)
+//    }
+//    
+//    
+//    fileprivate func updateViewToReflectUsername() {
+//        UserFirebaseMethods.retrieveSpecificUser(with: bookPost.userUniqueKey, completion: { (user) in
+//            guard let user = user else { return }
+//            self.usernameLabel.text = user.username
+//        })
+//    }
+//    
+//    
+//    fileprivate func updateStars() {
+//        
+//        if starView.subviews.isEmpty {
+//            self.star = StarReview(frame: CGRect(x: 0, y: 0, width: starView.bounds.width, height: starView.bounds.height))
+//            self.star.starCount = 5
+//            self.star.allowEdit = false
+//            starView.addSubview(self.star)
+//            
+//            
+//            guard let rating = Float(bookPost.rating) else {return}
+//            self.star.value = rating
+//            self.star.allowAccruteStars = false
+//            self.star.starFillColor = UIColor.red
+//            self.star.starBackgroundColor = UIColor.black
+//            self.star.starMarginScale = 0.3
+//        }
+//    }
+//    
+//}
 
 // MARK: - UIView Extension
 extension UIView {

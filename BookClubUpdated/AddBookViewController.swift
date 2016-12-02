@@ -132,9 +132,11 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "bookResult", for: indexPath) as! SearchBookResultsTableViewCell
+        
+        if cell.searchResultView.delegate == nil { cell.searchResultView.delegate = self }
 
         cell.searchResultView.searchedBook = BookDataStore.shared.bookArray[indexPath.row]
-            
+        
         return cell
     }
     
@@ -162,18 +164,29 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
     
             
             if let indexPath = tableView.indexPathForSelectedRow {
-                
-                guard let bookCoverToPass = BookDataStore.shared.bookArray[indexPath.row].bookCover else {print("no cover"); return}
+
+                guard let bookCoverToPass = BookDataStore.shared.bookArray[indexPath.row].bookCover else { print("no cover"); return }
+                let titleToPass = BookDataStore.shared.bookArray[indexPath.row].title
                 guard let authorToPass = BookDataStore.shared.bookArray[indexPath.row].author else {print("no author"); return}
                 guard let imageLinkToPass = BookDataStore.shared.bookArray[indexPath.row].finalBookCoverLink else {print("no image"); return}
-                guard let synopsisToPass = BookDataStore.shared.bookArray[indexPath.row].synopsis else {print("no synopsis"); return}
                 
+                var synopsis = String()
+                if let downloadedSynopsis = BookDataStore.shared.bookArray[indexPath.row].synopsis {
+                    synopsis = downloadedSynopsis
+                } else {
+                    synopsis = "Synopsis not available"
+                    
+                }
+//                guard let synopsisToPass = BookDataStore.shared.bookArray[indexPath.row].synopsis else { print("no synopsis"); return "Synopsis not available"}
+                
+//                let selectedBook = SearchedBook(title: titleToPass, author: authorToPass, bookCover: bookCoverToPass, finalBookCoverLink: imageLinkToPass, synopsis: synopsis)
+//                targetController.searchedBook = selectedBook
                 
                 targetController.passedImage = bookCoverToPass
-                targetController.passedTitle = BookDataStore.shared.bookArray[indexPath.row].title
+                targetController.passedTitle = titleToPass
                 targetController.passedAuthor = authorToPass
                 targetController.passedImageLink = imageLinkToPass
-                targetController.passedSynopsis = synopsisToPass
+                targetController.passedSynopsis = synopsis
             }
         }
         
@@ -184,7 +197,7 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
     
 }
 
-
+// MARK: - Presentation Methods
 extension UIViewController {
     
     func presentAlertWithTitle(title: String, message : String) {
@@ -196,6 +209,30 @@ extension UIViewController {
         alertController.addAction(OKAction)
         self.present(alertController, animated: true, completion: nil)
     }
+}
+
+
+extension AddBookViewController: SearchResultDelegate {
+    
+    func canDisplayImage(sender: SearchResultsView) -> Bool {
+        
+        guard let viewableIndexPaths = tableView.indexPathsForVisibleRows else { return false }
+        
+        var books: Set<SearchedBook> = []
+        
+        for indexPath in viewableIndexPaths {
+            
+            let currentBook = BookDataStore.shared.bookArray[indexPath.row]
+            
+            books.insert(currentBook)
+            
+        }
+        
+        return books.contains(sender.searchedBook)
+        
+    }
+    
+    
 }
 
 

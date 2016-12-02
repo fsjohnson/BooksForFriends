@@ -21,6 +21,8 @@ class AddCommentAndRatingViewController: UIViewController {
     @IBOutlet weak var starView: UIView!
     var star = StarReview()
     
+    weak var searchedBook: SearchedBook!
+    
     @IBOutlet weak var bookCoverImageView: UIImageView!
     @IBOutlet weak var ratingSlider: UISlider!
     @IBOutlet weak var commentsTextField: UITextField!
@@ -28,8 +30,8 @@ class AddCommentAndRatingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print("LINK: \(passedImageLink)")
+                
+        print("LINK: \(passedImage)")
         print("title: \(passedTitle)")
         print("author: \(passedAuthor)")
         

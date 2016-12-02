@@ -13,15 +13,6 @@ class UserPostCollectionViewCell: UICollectionViewCell {
     
     var imageView: UIImageView!
     
-    weak var bookPost: BookPosted! {
-        didSet {
-            print("i got set")
-            //setImage()
-            //self.setNeedsLayout()
-        }
-    }
-    
-    
     var book: BookPosted!
     
     
@@ -42,7 +33,6 @@ class UserPostCollectionViewCell: UICollectionViewCell {
     private func commonInit() {
         
         imageView = UIImageView()
-        imageView.backgroundColor = UIColor.random
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         
@@ -53,79 +43,19 @@ class UserPostCollectionViewCell: UICollectionViewCell {
         imageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor).isActive = true
         imageView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor).isActive = true
         imageView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
-    
-    
-        
         
     }
     
     
     func configureCell(book: BookPosted){
-        
-        guard let url = URL(string: book.imageLink) else { print("no image");return }
-        //print(url)
-        //print(bookPost.imageLink)
-        
-//        
-//        let session = URLSession.shared
-//        
-//        let dataTask = session.dataTask(with: url) { (data, response, error) in
-//            guard let dataresponse = data else { return }
-//            
-//            let image = UIImage(data: dataresponse)
-//            OperationQueue.main.addOperation {
-//                self.imageView.image = image
-//            }
-//            
-//        }
-//        dataTask.resume()
-        
-        self.imageView.sd_setImage(with: url, placeholderImage: UIImage(named: "BFFLogo"), options: SDWebImageOptions.refreshCached)
-
-    
-    }
-    
-    func setImage() {
-        
-        imageView = UIImageView()
-        
-        let url = URL(string: "https://s2.dmcdn.net/Ub1O8/1280x720-mCQ.jpg")
-        print(url)
-        print(bookPost.imageLink)
-        
-        
-        let session = URLSession.shared
-        
-        let dataTask = session.dataTask(with: url!) { (data, response, error) in
-            guard let dataresponse = data else { return }
+           
+        if let url = URL(string: book.imageLink) {
+            self.imageView.sd_setImage(with: url, placeholderImage: UIImage(named: "BFFLogo"), options: SDWebImageOptions.refreshCached)
+        } else {
             
-            let image = UIImage(data: dataresponse)
-            OperationQueue.main.addOperation {
-                self.imageView.image = image
-            }
-            
+            self.imageView.image = UIImage(named: "BFFLogo")
         }
-        dataTask.resume()
-        
-        
-//        self.imageView.sd_setImage(with: url, placeholderImage: UIImage(named: "BFFLogo"), options: SDWebImageOptions.refreshCached)
-        
-        
-        
-        
     }
-    
-    
     
 }
 
-
-extension UIColor{
-    class var random :UIColor{
-        let red = CGFloat(drand48())
-        let blue = CGFloat(drand48())
-        let green = CGFloat(drand48())
-        
-        return UIColor(red: red, green: green, blue: blue, alpha: 1.0)
-    }
-}
