@@ -34,11 +34,12 @@ class PostsFirebaseMethods {
                     let timestampString = postInfo["timestamp"] as? String,
                     let timestamp = Double(timestampString),
                     let bookUniqueID = postInfo["bookUniqueKey"] as? String,
+                    let title = postInfo["title"] as? String,
                     let reviewID = postInfo["reviewID"] as? String
                     else {print("error downloading postInfo"); return}
                 
                 if userUniqueID != currentUserID {
-                    let post = BookPosted(bookUniqueID: bookUniqueID, rating: rating, comment: comment, imageLink: imageLink, timestamp: timestamp, userUniqueKey: userUniqueID, reviewID: reviewID)
+                    let post = BookPosted(bookUniqueID: bookUniqueID, rating: rating, comment: comment, imageLink: imageLink, timestamp: timestamp, userUniqueKey: userUniqueID, reviewID: reviewID, title: title)
                     postsArray.append(post)
                 }
                 
@@ -195,11 +196,12 @@ class PostsFirebaseMethods {
                     let timestampString = postInfo["timestamp"] as? String,
                     let timestamp = Double(timestampString),
                     let bookUniqueID = postInfo["bookUniqueKey"] as? String,
+                    let title = postInfo["title"] as? String,
                     let reviewID = postInfo["reviewID"] as? String
                     else {print("error downloading postInfo"); return}
                 
                 if userUniqueID == currentUserID {
-                    let post = BookPosted(bookUniqueID: bookUniqueID, rating: rating, comment: comment, imageLink: imageLink, timestamp: timestamp, userUniqueKey: userUniqueID, reviewID: reviewID)
+                    let post = BookPosted(bookUniqueID: bookUniqueID, rating: rating, comment: comment, imageLink: imageLink, timestamp: timestamp, userUniqueKey: userUniqueID, reviewID: reviewID, title: title)
                     postsArray.append(post)
                 }
                 
@@ -227,7 +229,7 @@ class PostsFirebaseMethods {
         
             userRef.updateChildValues([post.bookUniqueID: ["rating": post.rating, "comment": post.comment, "timestamp": post.timestamp, "imageLink": post.imageLink, "isFlagged": true]])
             
-            postFlaggedRef.updateChildValues([post.reviewID: ["rating": post.rating, "comment": post.comment, "timestamp": post.timestamp, "imageLink": post.imageLink, "userUniqueID": post.userUniqueKey, "isFlagged": true, "bookUniqueKey": post.bookUniqueID, "reviewID": post.reviewID]])
+            postFlaggedRef.updateChildValues([post.reviewID: ["rating": post.rating, "comment": post.comment, "timestamp": post.timestamp, "imageLink": post.imageLink, "userUniqueID": post.userUniqueKey, "isFlagged": true, "bookUniqueKey": post.bookUniqueID, "reviewID": post.reviewID, "title": post.title]])
             
             postRef.child(post.reviewID).removeValue()
             

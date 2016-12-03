@@ -1,10 +1,4 @@
-//
-//  StarReview.swift
-//  StarReviewDemo
-//
-//  Created by Tyrant on 12/4/15.
-//  Copyright © 2015 Qfq. All rights reserved.
-//
+
 
 import UIKit
 public final class StarReview: UIControl {
@@ -25,7 +19,7 @@ public final class StarReview: UIControl {
         }
     }
    public var allowEdit:Bool = true
-    public var allowAccruteStars:Bool = false{
+    public var allowAccruteStars:Bool = false {
         didSet{
             setNeedsDisplay()
         }
@@ -181,11 +175,11 @@ public final class StarReview: UIControl {
         let ctx = UIGraphicsGetCurrentContext()
         for s in 0...(starCount-1){
             let x = starMarginScale * Float(s) * starRadius + starRadius * (0.5 + Float(s))
-            var starCenter = CGPoint(x: CGFloat(x), y: (self.frame.height) / 2) //第个星的中心
+            var starCenter = CGPoint(x: CGFloat(x), y: (self.frame.height) / 2)
             if ratio > startReviewWidthScale{
                 starCenter = CGPoint(x: CGFloat(x)+CGFloat(offsetX), y: self.frame.height / 2)
             }
-            let radius = starRadius / 2 //半径
+            let radius = starRadius / 2
             
             let p1 = CGPoint(x: starCenter.x, y: starCenter.y - CGFloat(radius)) //
             

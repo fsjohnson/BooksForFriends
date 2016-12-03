@@ -243,7 +243,7 @@ class BooksFirebaseMethods {
                     
                     bookRef.child(bookID).child("readByUsers").updateChildValues([userUniqueID: true])
                     
-                    postRef.updateChildValues([postUniqueKey: ["rating": rating, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "userUniqueID": userUniqueID, "isFlagged": false, "bookUniqueKey": bookID, "reviewID": postUniqueKey]])
+                    postRef.updateChildValues([postUniqueKey: ["rating": rating, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "userUniqueID": userUniqueID, "isFlagged": false, "bookUniqueKey": bookID, "reviewID": postUniqueKey, "title": userBook.title]])
                     
                     boolToSend = false
                     

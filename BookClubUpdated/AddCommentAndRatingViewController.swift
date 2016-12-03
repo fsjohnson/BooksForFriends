@@ -79,7 +79,7 @@ class AddCommentAndRatingViewController: UIViewController {
                 
                 userRef.updateChildValues([bookUniqueKey: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "isFlagged": false]])
                 bookRef.updateChildValues([bookUniqueKey: ["title": bookToAdd.title, "author": author, "synopsis": synopsis, "readByUsers": [userUniqueKey: true], "bookUniqueKey": bookUniqueKey, "imageLink": imageLink]])
-                postRef.updateChildValues([postUniqueKey: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "userUniqueID": userUniqueKey, "isFlagged": false, "bookUniqueKey": bookUniqueKey, "reviewID": postUniqueKey]])
+                postRef.updateChildValues([postUniqueKey: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "userUniqueID": userUniqueKey, "isFlagged": false, "bookUniqueKey": bookUniqueKey, "reviewID": postUniqueKey, "title": bookToAdd.title]])
                 
                 let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
@@ -95,7 +95,7 @@ class AddCommentAndRatingViewController: UIViewController {
                         
                         userRef.updateChildValues([bookUniqueKey: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "isFlagged": false]])
                         bookRef.updateChildValues([bookUniqueKey: ["title": bookToAdd.title, "author": author, "synopsis": synopsis, "readByUsers": [userUniqueKey: true], "bookUniqueKey": bookUniqueKey, "imageLink": imageLink]])
-                        postRef.updateChildValues([postUniqueKey: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "userUniqueID": userUniqueKey, "isFlagged": false, "bookUniqueKey": bookUniqueKey, "reviewID": postUniqueKey]])
+                        postRef.updateChildValues([postUniqueKey: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "userUniqueID": userUniqueKey, "isFlagged": false, "bookUniqueKey": bookUniqueKey, "reviewID": postUniqueKey, "title": bookToAdd.title]])
                         
                         let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
@@ -120,7 +120,7 @@ class AddCommentAndRatingViewController: UIViewController {
                                     
                                     userRef.updateChildValues([bookID: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "isFlagged": false]])
                                     bookRef.child(bookID).child("readByUsers").updateChildValues([userUniqueKey: true])
-                                    postRef.updateChildValues([postUniqueKey: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "userUniqueID": userUniqueKey, "isFlagged": false, "bookUniqueKey": bookID, "reviewID": postUniqueKey]])
+                                    postRef.updateChildValues([postUniqueKey: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "userUniqueID": userUniqueKey, "isFlagged": false, "bookUniqueKey": bookID, "reviewID": postUniqueKey, "title": bookToAdd.title]])
                                     
                                 } else {
                                     
