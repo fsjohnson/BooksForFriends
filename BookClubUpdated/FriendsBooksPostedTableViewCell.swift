@@ -36,7 +36,6 @@ class FriendsBooksPostedTableViewCell: UITableViewCell {
         postView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         postView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         
-        
     }
     
     

@@ -30,6 +30,9 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         
         guard let navBarHeight = self.navigationController?.navigationBar.frame.height else { print("no nav bar height"); return }
 
+        self.navigationController?.navigationBar.barTintColor = UIColor.themeOrange
+        self.tabBarController?.tabBar.barTintColor = UIColor.themeDarkBlue
+        
         
         let viewWidth = view.frame.width
         let followersFollowingViewHeight = view.frame.height.multiplied(by: 0.15)

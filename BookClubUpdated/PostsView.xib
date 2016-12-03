@@ -37,25 +37,24 @@
                     <rect key="frame" x="10" y="29.5" width="307.5" height="139"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Akl-U3-6SY">
-                            <rect key="frame" x="0.0" y="0.0" width="307.5" height="34.5"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                            <rect key="frame" x="0.0" y="0.0" width="307.5" height="55.5"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="COMMENTS HERE" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9Ja-ux-w71">
-                            <rect key="frame" x="0.0" y="34.5" width="307.5" height="83"/>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="COMMENTS HERE" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Ja-ux-w71">
+                            <rect key="frame" x="0.0" y="55.5" width="307.5" height="69.5"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            <textInputTraits key="textInputTraits"/>
                         </textView>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TWE-6B-K6Y">
-                            <rect key="frame" x="0.0" y="117.5" width="307.5" height="21.5"/>
+                        <view contentMode="right" translatesAutoresizingMaskIntoConstraints="NO" id="TWE-6B-K6Y">
+                            <rect key="frame" x="0.0" y="125" width="307.5" height="14"/>
                         </view>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="Akl-U3-6SY" firstAttribute="height" secondItem="NUH-yq-PON" secondAttribute="height" multiplier="0.25" id="H53-RB-AtZ"/>
-                        <constraint firstItem="9Ja-ux-w71" firstAttribute="height" secondItem="NUH-yq-PON" secondAttribute="height" multiplier="0.6" id="lf0-2b-nKg"/>
-                        <constraint firstItem="TWE-6B-K6Y" firstAttribute="height" secondItem="NUH-yq-PON" secondAttribute="height" multiplier="0.15" id="pgV-Xy-Fyd"/>
+                        <constraint firstItem="TWE-6B-K6Y" firstAttribute="height" secondItem="NUH-yq-PON" secondAttribute="height" multiplier="0.1" id="2t7-aV-cay"/>
+                        <constraint firstItem="9Ja-ux-w71" firstAttribute="height" secondItem="NUH-yq-PON" secondAttribute="height" multiplier="0.5" id="rn1-ct-kgs"/>
                     </constraints>
                 </stackView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vxm-ot-HVL">

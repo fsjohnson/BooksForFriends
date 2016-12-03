@@ -33,6 +33,9 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
         
         self.cellConfig()
         
+        self.navigationController?.navigationBar.barTintColor = UIColor.themeOrange
+        self.tabBarController?.tabBar.barTintColor = UIColor.themeDarkBlue
+        
         print("COLLECTION VIEW")
         PostsFirebaseMethods.downloadUsersFutureReadsBookLinkIDArray { (bookLinkArray, bookIDArray) in
             self.futureBooksArray = bookLinkArray

@@ -54,7 +54,16 @@ class PostsView: UIView {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(contentView)
         contentView.constrainEdges(to: self)
-        backgroundColor = UIColor.clear
+        self.contentView.layer.borderColor = UIColor.themeWhite.cgColor
+        self.contentView.layer.borderWidth = 4.0
+        
+        usernameLabel.font = UIFont.themeLargeBold
+        usernameLabel.textColor = UIColor.themeOrange
+        
+        commentLabel.font = UIFont.themeSmallLight
+        commentLabel.textColor = UIColor.themeDarkGrey
+        
+        
     }
 }
 
@@ -118,9 +127,9 @@ extension PostsView {
             guard let rating = Float(bookPost.rating) else {return}
             star.value = rating
             star.allowAccruteStars = false
-            star.starFillColor = UIColor.red
-            star.starBackgroundColor = UIColor.black
-            star.starMarginScale = 0.3
+            star.starFillColor = UIColor.themeDarkBlue
+            star.starBackgroundColor = UIColor.themeLightBlue
+            star.starMarginScale = 0.2
         }
     }
 

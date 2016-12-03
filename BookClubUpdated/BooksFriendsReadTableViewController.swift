@@ -17,6 +17,9 @@ class BooksFriendsReadTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.navigationBar.barTintColor = UIColor.themeOrange
+        self.tabBarController?.tabBar.barTintColor = UIColor.themeDarkBlue
+        
         PostsFirebaseMethods.downloadAllPosts { (postsArray) in
             self.postsArray = postsArray
             self.tableView.reloadData()
@@ -89,11 +92,11 @@ class BooksFriendsReadTableViewController: UITableViewController {
         
         print("button touched")
         
-        let cellContent = sender.tag
-//        let cell = cellContent as! UITableViewCell
-//        let indexPath = tableView.indexPath(for: cell)
+        let cellContent = sender.superview!
+        let cell = cellContent as! UITableViewCell
+        let indexPath = tableView.indexPath(for: cell)
         
-        let flaggedPost = postsArray[cellContent]
+        let flaggedPost = postsArray[(indexPath?.row)!]
         
         PostsFirebaseMethods.flagPostsWith(book: flaggedPost) {
             let alert = UIAlertController(title: "Success!", message: "You have flagged this comment for review", preferredStyle: .alert)

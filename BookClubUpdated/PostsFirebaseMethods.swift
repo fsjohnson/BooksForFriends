@@ -225,8 +225,6 @@ class PostsFirebaseMethods {
         let postRef = FIRDatabase.database().reference().child("posts").child("visible")
         let postFlaggedRef = FIRDatabase.database().reference().child("posts").child("flagged")
         
-        
-        
             userRef.updateChildValues([post.bookUniqueID: ["rating": post.rating, "comment": post.comment, "timestamp": post.timestamp, "imageLink": post.imageLink, "isFlagged": true]])
             
             postFlaggedRef.updateChildValues([post.reviewID: ["rating": post.rating, "comment": post.comment, "timestamp": post.timestamp, "imageLink": post.imageLink, "userUniqueID": post.userUniqueKey, "isFlagged": true, "bookUniqueKey": post.bookUniqueID, "reviewID": post.reviewID]])
