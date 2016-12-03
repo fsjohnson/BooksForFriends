@@ -14,9 +14,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PostsView" customModule="BookClubUpdated" customModuleProvider="target">
             <connections>
                 <outlet property="bookImage" destination="iX1-aw-Mnv" id="cHa-yg-rEs"/>
-                <outlet property="commentLabel" destination="9Ja-ux-w71" id="cIb-PV-lKs"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="1jg-an-oo1"/>
-                <outlet property="flagButton" destination="vxm-ot-HVL" id="U12-9Y-P6s"/>
                 <outlet property="flagButtonOutlet" destination="vxm-ot-HVL" id="dIV-eH-cbB"/>
                 <outlet property="starView" destination="TWE-6B-K6Y" id="zHW-N3-6FR"/>
                 <outlet property="usernameLabel" destination="Akl-U3-6SY" id="PsT-fM-s18"/>
@@ -37,24 +35,17 @@
                     <rect key="frame" x="10" y="29.5" width="307.5" height="139"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Akl-U3-6SY">
-                            <rect key="frame" x="0.0" y="0.0" width="307.5" height="55.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="307.5" height="125"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="COMMENTS HERE" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Ja-ux-w71">
-                            <rect key="frame" x="0.0" y="55.5" width="307.5" height="69.5"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits"/>
-                        </textView>
                         <view contentMode="right" translatesAutoresizingMaskIntoConstraints="NO" id="TWE-6B-K6Y">
                             <rect key="frame" x="0.0" y="125" width="307.5" height="14"/>
                         </view>
                     </subviews>
                     <constraints>
                         <constraint firstItem="TWE-6B-K6Y" firstAttribute="height" secondItem="NUH-yq-PON" secondAttribute="height" multiplier="0.1" id="2t7-aV-cay"/>
-                        <constraint firstItem="9Ja-ux-w71" firstAttribute="height" secondItem="NUH-yq-PON" secondAttribute="height" multiplier="0.5" id="rn1-ct-kgs"/>
                     </constraints>
                 </stackView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vxm-ot-HVL">

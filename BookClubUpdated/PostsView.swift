@@ -15,8 +15,6 @@ protocol BookPostDelegate: class {
 
 class PostsView: UIView {
     
-    @IBOutlet weak var flagButton: UIButton!
-    
     @IBOutlet weak var flagButtonOutlet: UIButton!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var commentLabel: UITextView!
@@ -31,7 +29,7 @@ class PostsView: UIView {
     weak var bookPost: BookPosted! {
         didSet {
             updateViewToReflectBookImage()
-            commentLabel.text = bookPost.comment
+//            commentLabel.text = bookPost.comment
             updateViewToReflectUsername()
             updateStars()
             
@@ -57,13 +55,14 @@ class PostsView: UIView {
         self.contentView.layer.borderColor = UIColor.themeWhite.cgColor
         self.contentView.layer.borderWidth = 4.0
         
-        usernameLabel.font = UIFont.themeLargeBold
-        usernameLabel.textColor = UIColor.themeOrange
+//        usernameLabel.font = UIFont.themeSmallBold
+//        usernameLabel.textColor = UIColor.themeOrange
+//        
+//        commentLabel.font = UIFont.themeSmallLight
+//        commentLabel.textColor = UIColor.themeDarkGrey
+//        commentLabel.backgroundColor = UIColor.themeWhite
         
-        commentLabel.font = UIFont.themeSmallLight
-        commentLabel.textColor = UIColor.themeDarkGrey
-        
-        
+
     }
 }
 
@@ -108,9 +107,21 @@ extension PostsView {
     
     
     fileprivate func updateViewToReflectUsername() {
+        
         UserFirebaseMethods.retrieveSpecificUser(with: bookPost.userUniqueKey, completion: { (user) in
             guard let user = user else { return }
-            self.usernameLabel.text = user.username
+            
+            let username = [NSFontAttributeName : UIFont.themeSmallBold, NSForegroundColorAttributeName : UIColor.themeOrange]
+            
+            let comments = [NSFontAttributeName : UIFont.themeSmallLight, NSForegroundColorAttributeName : UIColor.themeLightGrey]
+            
+            let attributedString1 = NSMutableAttributedString(string:"\(user.username): ", attributes:username)
+            
+            let attributedString2 = NSMutableAttributedString(string:"\(self.bookPost.comment)", attributes:comments)
+            
+            attributedString1.append(attributedString2)
+            
+            self.usernameLabel.attributedText = attributedString1
         })
     }
     

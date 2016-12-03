@@ -59,7 +59,7 @@ class BooksFriendsReadTableViewController: UITableViewController {
         
         if cell.postView.delegate == nil { cell.postView.delegate = self }
         cell.postView.bookPost = postsArray[indexPath.row]
-        
+        cell.postView.flagButtonOutlet.tag = indexPath.row
         cell.postView.flagButtonOutlet.addTarget(self, action: #selector(flagButtonTouched), for: .touchUpInside)
         
         return cell
@@ -92,11 +92,10 @@ class BooksFriendsReadTableViewController: UITableViewController {
         
         print("button touched")
         
-        let cellContent = sender.superview!
-        let cell = cellContent as! UITableViewCell
-        let indexPath = tableView.indexPath(for: cell)
+        let index = sender.tag
+//        let indexPath = tableView.indexPath(for: cell)
         
-        let flaggedPost = postsArray[(indexPath?.row)!]
+        let flaggedPost = postsArray[index]
         
         PostsFirebaseMethods.flagPostsWith(book: flaggedPost) {
             let alert = UIAlertController(title: "Success!", message: "You have flagged this comment for review", preferredStyle: .alert)
