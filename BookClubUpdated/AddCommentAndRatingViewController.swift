@@ -62,11 +62,12 @@ class AddCommentAndRatingViewController: UIViewController {
         let ratingString = String(star.value)
         guard let comment = commentsTextField.text else { print("no comment"); return }
         let bookUniqueKey = FIRDatabase.database().reference().childByAutoId().key
+        let postUniqueKey = FIRDatabase.database().reference().childByAutoId().key
         
         
         let userRef = FIRDatabase.database().reference().child("users").child(userUniqueKey).child("previousReads")
         let bookRef = FIRDatabase.database().reference().child("books")
-        let postRef = FIRDatabase.database().reference().child("posts")
+        let postRef = FIRDatabase.database().reference().child("posts").child("visible")
         
         guard let synopsis = bookToAdd.synopsis else {return}
         guard let author = bookToAdd.author else {return}
@@ -76,13 +77,13 @@ class AddCommentAndRatingViewController: UIViewController {
         BooksFirebaseMethods.checkIfBooksChildIsEmpty { (isEmpty) in
             if isEmpty == true {
                 
-                userRef.updateChildValues([bookUniqueKey: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink]])
+                userRef.updateChildValues([bookUniqueKey: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "isFlagged": false]])
                 bookRef.updateChildValues([bookUniqueKey: ["title": bookToAdd.title, "author": author, "synopsis": synopsis, "readByUsers": [userUniqueKey: true], "bookUniqueKey": bookUniqueKey, "imageLink": imageLink]])
-                postRef.updateChildValues([bookUniqueKey: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "userUniqueID": userUniqueKey]])
+                postRef.updateChildValues([postUniqueKey: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "userUniqueID": userUniqueKey, "isFlagged": false, "bookUniqueKey": bookUniqueKey, "reviewID": postUniqueKey]])
                 
                 let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                    //                    self.dismiss(animated: true, completion: nil)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
+                    self.dismiss(animated: true, completion: nil)
                 }))
                 self.present(alert, animated: true, completion: nil)
                 
@@ -92,12 +93,12 @@ class AddCommentAndRatingViewController: UIViewController {
                     
                     if doesExist == false {
                         
-                        userRef.updateChildValues([bookUniqueKey: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink]])
+                        userRef.updateChildValues([bookUniqueKey: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "isFlagged": false]])
                         bookRef.updateChildValues([bookUniqueKey: ["title": bookToAdd.title, "author": author, "synopsis": synopsis, "readByUsers": [userUniqueKey: true], "bookUniqueKey": bookUniqueKey, "imageLink": imageLink]])
-                        postRef.updateChildValues([bookUniqueKey: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "userUniqueID": userUniqueKey]])
+                        postRef.updateChildValues([postUniqueKey: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "userUniqueID": userUniqueKey, "isFlagged": false, "bookUniqueKey": bookUniqueKey, "reviewID": postUniqueKey]])
                         
                         let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
                             self.dismiss(animated: true, completion: nil)
                         }))
                         self.present(alert, animated: true, completion: nil)
@@ -111,15 +112,15 @@ class AddCommentAndRatingViewController: UIViewController {
                                     
                                     
                                     let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
-                                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
                                         self.dismiss(animated: true, completion: nil)
                                     }))
                                     self.present(alert, animated: true, completion: nil)
                                     
                                     
-                                    userRef.updateChildValues([bookID: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink]])
+                                    userRef.updateChildValues([bookID: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "isFlagged": false]])
                                     bookRef.child(bookID).child("readByUsers").updateChildValues([userUniqueKey: true])
-                                    postRef.updateChildValues([bookID: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "userUniqueID": userUniqueKey]])
+                                    postRef.updateChildValues([postUniqueKey: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "userUniqueID": userUniqueKey, "isFlagged": false, "bookUniqueKey": bookID, "reviewID": postUniqueKey]])
                                     
                                 } else {
                                     
@@ -127,7 +128,7 @@ class AddCommentAndRatingViewController: UIViewController {
                                         if doesExist == false {
                                             
                                             let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
-                                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                                            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
                                                 self.dismiss(animated: true, completion: nil)
                                             }))
                                             self.present(alert, animated: true, completion: nil)
@@ -136,7 +137,7 @@ class AddCommentAndRatingViewController: UIViewController {
                                         } else {
                                             
                                             let alert = UIAlertController(title: "Oops!", message: "You have already posted \(self.passedTitle)", preferredStyle: .alert)
-                                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                                            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
                                                 self.dismiss(animated: true, completion: nil)
                                                 
                                             }))

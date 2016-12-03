@@ -20,9 +20,11 @@ class BookPosted {
     var bookCover: UIImage?
     var username: String?
     var userUniqueKey: String
+    var isFlagged: Bool?
+    let reviewID: String
     
     
-    init(bookUniqueID: String, rating: String, comment: String, imageLink: String, timestamp: Double, userUniqueKey: String) {
+    init(bookUniqueID: String, rating: String, comment: String, imageLink: String, timestamp: Double, userUniqueKey: String, reviewID: String) {
         self.bookUniqueID = bookUniqueID
         self.rating = rating
         self.comment = comment
@@ -31,6 +33,7 @@ class BookPosted {
         self.timestamp = timestamp
         self.dateSent = Date(timeIntervalSince1970: timestamp)
         self.userUniqueKey = userUniqueKey
+        self.reviewID = reviewID
         setImage()
 
     }

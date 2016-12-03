@@ -16,7 +16,6 @@ class FriendsBooksPostedTableViewCell: UITableViewCell {
     
     var bookID: String!
 
-
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -36,6 +35,7 @@ class FriendsBooksPostedTableViewCell: UITableViewCell {
         postView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         postView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         postView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        
         
     }
     

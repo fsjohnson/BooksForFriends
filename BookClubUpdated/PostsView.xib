@@ -16,6 +16,8 @@
                 <outlet property="bookImage" destination="iX1-aw-Mnv" id="cHa-yg-rEs"/>
                 <outlet property="commentLabel" destination="9Ja-ux-w71" id="cIb-PV-lKs"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="1jg-an-oo1"/>
+                <outlet property="flagButton" destination="vxm-ot-HVL" id="U12-9Y-P6s"/>
+                <outlet property="flagButtonOutlet" destination="vxm-ot-HVL" id="dIV-eH-cbB"/>
                 <outlet property="starView" destination="TWE-6B-K6Y" id="zHW-N3-6FR"/>
                 <outlet property="usernameLabel" destination="Akl-U3-6SY" id="PsT-fM-s18"/>
             </connections>
@@ -26,28 +28,28 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iX1-aw-Mnv">
-                    <rect key="frame" x="308" y="20.5" width="158" height="158"/>
+                    <rect key="frame" x="327.5" y="29.5" width="138.5" height="139"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="iX1-aw-Mnv" secondAttribute="height" multiplier="1:1" id="Z9t-CK-2xU"/>
                     </constraints>
                 </imageView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="NUH-yq-PON">
-                    <rect key="frame" x="10" y="20.5" width="288" height="158"/>
+                    <rect key="frame" x="10" y="29.5" width="307.5" height="139"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Akl-U3-6SY">
-                            <rect key="frame" x="0.0" y="0.0" width="288" height="39.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="307.5" height="34.5"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="COMMENTS HERE" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9Ja-ux-w71">
-                            <rect key="frame" x="0.0" y="39.5" width="288" height="95"/>
+                            <rect key="frame" x="0.0" y="34.5" width="307.5" height="83"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TWE-6B-K6Y">
-                            <rect key="frame" x="0.0" y="134.5" width="288" height="23.5"/>
+                            <rect key="frame" x="0.0" y="117.5" width="307.5" height="21.5"/>
                         </view>
                     </subviews>
                     <constraints>
@@ -56,19 +58,29 @@
                         <constraint firstItem="TWE-6B-K6Y" firstAttribute="height" secondItem="NUH-yq-PON" secondAttribute="height" multiplier="0.15" id="pgV-Xy-Fyd"/>
                     </constraints>
                 </stackView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vxm-ot-HVL">
+                    <rect key="frame" x="434.5" y="168.5" width="41.5" height="22"/>
+                    <state key="normal" title="Button" image="Flag"/>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="iX1-aw-Mnv" firstAttribute="height" secondItem="NUH-yq-PON" secondAttribute="height" id="B3P-lh-shw"/>
                 <constraint firstItem="NUH-yq-PON" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="Btk-QM-idb"/>
+                <constraint firstAttribute="trailing" secondItem="vxm-ot-HVL" secondAttribute="trailing" id="CMw-XG-0KW"/>
+                <constraint firstItem="vxm-ot-HVL" firstAttribute="width" secondItem="iX1-aw-Mnv" secondAttribute="width" multiplier="0.3" id="Hcv-Gm-50y"/>
                 <constraint firstItem="iX1-aw-Mnv" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="L99-Mu-aV6"/>
                 <constraint firstItem="iX1-aw-Mnv" firstAttribute="leading" secondItem="NUH-yq-PON" secondAttribute="trailing" constant="10" id="Sjn-X5-4eg"/>
                 <constraint firstItem="NUH-yq-PON" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="mth-ZI-0VX"/>
-                <constraint firstItem="NUH-yq-PON" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.8" id="nf7-lC-s6R"/>
+                <constraint firstItem="NUH-yq-PON" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.7" id="nf7-lC-s6R"/>
                 <constraint firstAttribute="trailing" secondItem="iX1-aw-Mnv" secondAttribute="trailing" constant="10" id="oEw-Y6-nzC"/>
+                <constraint firstItem="vxm-ot-HVL" firstAttribute="top" secondItem="iX1-aw-Mnv" secondAttribute="bottom" id="qVD-Bz-AW1"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="-8" y="-215"/>
         </view>
     </objects>
+    <resources>
+        <image name="Flag" width="18" height="18"/>
+    </resources>
 </document>

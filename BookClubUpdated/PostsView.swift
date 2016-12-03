@@ -15,7 +15,9 @@ protocol BookPostDelegate: class {
 
 class PostsView: UIView {
     
+    @IBOutlet weak var flagButton: UIButton!
     
+    @IBOutlet weak var flagButtonOutlet: UIButton!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var commentLabel: UITextView!
     @IBOutlet weak var bookImage: UIImageView!

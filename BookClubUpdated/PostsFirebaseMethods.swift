@@ -15,7 +15,7 @@ class PostsFirebaseMethods {
     
     static func downloadAllPosts(with completion: @escaping ([BookPosted]) -> Void) {
         
-        let postRef = FIRDatabase.database().reference().child("posts")
+        let postRef = FIRDatabase.database().reference().child("posts").child("visible")
         guard let currentUserID = FIRAuth.auth()?.currentUser?.uid else {return}
         
         var postsArray = [BookPosted]()
@@ -25,20 +25,20 @@ class PostsFirebaseMethods {
             
             for snap in snapshotValue {
                 
-                let bookUniqueID = snap.key
-                
                 guard
-                    let postInfo = snap.value as? [String: String],
-                    let comment = postInfo["comment"],
-                    let imageLink = postInfo["imageLink"],
-                    let rating = postInfo["rating"],
-                    let userUniqueID = postInfo["userUniqueID"],
-                    let timestampString = postInfo["timestamp"],
-                    let timestamp = Double(timestampString)
+                    let postInfo = snap.value as? [String: Any],
+                    let comment = postInfo["comment"] as? String,
+                    let imageLink = postInfo["imageLink"] as? String,
+                    let rating = postInfo["rating"] as? String,
+                    let userUniqueID = postInfo["userUniqueID"] as? String,
+                    let timestampString = postInfo["timestamp"] as? String,
+                    let timestamp = Double(timestampString),
+                    let bookUniqueID = postInfo["bookUniqueKey"] as? String,
+                    let reviewID = postInfo["reviewID"] as? String
                     else {print("error downloading postInfo"); return}
                 
                 if userUniqueID != currentUserID {
-                    let post = BookPosted(bookUniqueID: bookUniqueID, rating: rating, comment: comment, imageLink: imageLink, timestamp: timestamp, userUniqueKey: userUniqueID)
+                    let post = BookPosted(bookUniqueID: bookUniqueID, rating: rating, comment: comment, imageLink: imageLink, timestamp: timestamp, userUniqueKey: userUniqueID, reviewID: reviewID)
                     postsArray.append(post)
                 }
                 
@@ -176,7 +176,7 @@ class PostsFirebaseMethods {
     
     static func downloadUsersBookPostsArray(with completion: @escaping ([BookPosted]) -> Void) {
         
-        let postRef = FIRDatabase.database().reference().child("posts")
+        let postRef = FIRDatabase.database().reference().child("posts").child("visible")
         guard let currentUserID = FIRAuth.auth()?.currentUser?.uid else {return}
         
         var postsArray = [BookPosted]()
@@ -186,20 +186,20 @@ class PostsFirebaseMethods {
             
             for snap in snapshotValue {
                 
-                let bookUniqueID = snap.key
-                
                 guard
-                    let postInfo = snap.value as? [String: String],
-                    let comment = postInfo["comment"],
-                    let imageLink = postInfo["imageLink"],
-                    let rating = postInfo["rating"],
-                    let userUniqueID = postInfo["userUniqueID"],
-                    let timestampString = postInfo["timestamp"],
-                    let timestamp = Double(timestampString)
+                    let postInfo = snap.value as? [String: Any],
+                    let comment = postInfo["comment"] as? String,
+                    let imageLink = postInfo["imageLink"] as? String,
+                    let rating = postInfo["rating"] as? String,
+                    let userUniqueID = postInfo["userUniqueID"] as? String,
+                    let timestampString = postInfo["timestamp"] as? String,
+                    let timestamp = Double(timestampString),
+                    let bookUniqueID = postInfo["bookUniqueKey"] as? String,
+                    let reviewID = postInfo["reviewID"] as? String
                     else {print("error downloading postInfo"); return}
                 
                 if userUniqueID == currentUserID {
-                    let post = BookPosted(bookUniqueID: bookUniqueID, rating: rating, comment: comment, imageLink: imageLink, timestamp: timestamp, userUniqueKey: userUniqueID)
+                    let post = BookPosted(bookUniqueID: bookUniqueID, rating: rating, comment: comment, imageLink: imageLink, timestamp: timestamp, userUniqueKey: userUniqueID, reviewID: reviewID)
                     postsArray.append(post)
                 }
                 
@@ -217,6 +217,24 @@ class PostsFirebaseMethods {
     }
     
     
+    // MARK: - Flag posts
     
-    
+    static func flagPostsWith(book post: BookPosted, completion: @escaping () -> Void) {
+        
+        let userRef = FIRDatabase.database().reference().child("users").child(post.userUniqueKey).child("previousReads")
+        let postRef = FIRDatabase.database().reference().child("posts").child("visible")
+        let postFlaggedRef = FIRDatabase.database().reference().child("posts").child("flagged")
+        
+        
+        
+            userRef.updateChildValues([post.bookUniqueID: ["rating": post.rating, "comment": post.comment, "timestamp": post.timestamp, "imageLink": post.imageLink, "isFlagged": true]])
+            
+            postFlaggedRef.updateChildValues([post.reviewID: ["rating": post.rating, "comment": post.comment, "timestamp": post.timestamp, "imageLink": post.imageLink, "userUniqueID": post.userUniqueKey, "isFlagged": true, "bookUniqueKey": post.bookUniqueID, "reviewID": post.reviewID]])
+            
+            postRef.child(post.reviewID).removeValue()
+            
+            completion()
+        
+    }
+
 }

@@ -227,22 +227,23 @@ class BooksFirebaseMethods {
         
         let userRef = FIRDatabase.database().reference().child("users").child(userUniqueID).child("previousReads")
         let bookRef = FIRDatabase.database().reference().child("books")
-        let postRef = FIRDatabase.database().reference().child("posts")
+        let postRef = FIRDatabase.database().reference().child("posts").child("visible")
+        let postUniqueKey = FIRDatabase.database().reference().childByAutoId().key
         
         
         var boolToSend = false
         
         BooksFirebaseMethods.getBookIDFor(userBook: userBook, completion: { (bookID) in
-            print("BOOK ID GENERATED FROM GET BOOK: \(bookID)")
             
             BooksFirebaseMethods.checkIfCurrentUserAlreadyPosted(previousRead: bookID, userUniqueID: userUniqueID, completion: { (doesExist) in
-                print("BOOK ID INSIDE COMPLETION: \(bookID)")
                 
                 if doesExist == false {
                     
-                    userRef.updateChildValues([bookID: ["rating": rating, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink]])
+                    userRef.updateChildValues([bookID: ["rating": rating, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "isFlagged": false]])
+                    
                     bookRef.child(bookID).child("readByUsers").updateChildValues([userUniqueID: true])
-                    postRef.updateChildValues([bookID: ["rating": rating, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "userUniqueID": userUniqueID]])
+                    
+                    postRef.updateChildValues([postUniqueKey: ["rating": rating, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "userUniqueID": userUniqueID, "isFlagged": false, "bookUniqueKey": bookID, "reviewID": postUniqueKey]])
                     
                     boolToSend = false
                     
