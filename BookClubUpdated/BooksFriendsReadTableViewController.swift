@@ -54,9 +54,10 @@ class BooksFriendsReadTableViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "booksPosted", for: indexPath) as! FriendsBooksPostedTableViewCell
         
-        let currentPost = postsArray[indexPath.row]
         
-        cell.bookPost = currentPost
+        if cell.postView.delegate == nil { cell.postView.delegate = self }
+        cell.postView.bookPost = postsArray[indexPath.row]
+
         
         return cell
     }
@@ -140,3 +141,31 @@ class BooksFriendsReadTableViewController: UITableViewController {
  
 
 }
+
+
+// Mark: - Presentation Methods
+
+extension BooksFriendsReadTableViewController: BookPostDelegate {
+    
+    func canDisplayImage(sender: PostsView) -> Bool {
+        
+        guard let viewableIndexPaths = tableView.indexPathsForVisibleRows else { return false }
+        
+        var books: Set<BookPosted> = []
+        
+        for indexPath in viewableIndexPaths {
+            
+            let currentBook = postsArray[indexPath.row]
+            
+            books.insert(currentBook)
+            
+        }
+        
+        return books.contains(sender.bookPost)
+        
+    }
+    
+    
+}
+
+

@@ -30,7 +30,7 @@ class AddCommentAndRatingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
         print("LINK: \(passedImage)")
         print("title: \(passedTitle)")
         print("author: \(passedAuthor)")
@@ -98,7 +98,7 @@ class AddCommentAndRatingViewController: UIViewController {
                         
                         let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                            //                            self.dismiss(animated: true, completion: nil)
+                            self.dismiss(animated: true, completion: nil)
                         }))
                         self.present(alert, animated: true, completion: nil)
                         
@@ -128,7 +128,7 @@ class AddCommentAndRatingViewController: UIViewController {
                                             
                                             let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
                                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                                                //                                                self.dismiss(animated: true, completion: nil)
+                                                self.dismiss(animated: true, completion: nil)
                                             }))
                                             self.present(alert, animated: true, completion: nil)
                                             
@@ -137,7 +137,7 @@ class AddCommentAndRatingViewController: UIViewController {
                                             
                                             let alert = UIAlertController(title: "Oops!", message: "You have already posted \(self.passedTitle)", preferredStyle: .alert)
                                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                                                //                                                self.dismiss(animated: true, completion: nil)
+                                                self.dismiss(animated: true, completion: nil)
                                                 
                                             }))
                                             

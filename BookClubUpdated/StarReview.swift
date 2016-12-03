@@ -96,7 +96,7 @@ public final class StarReview: UIControl {
         }
     }
     
-    fileprivate var starRadius:Float = 0.0; //表示Star的大小,其实也就是半径
+    fileprivate var starRadius:Float = 0.0; 
     fileprivate weak var target:AnyObject?
     fileprivate var selector:Selector?
     fileprivate var event:UIControlEvents?
@@ -169,8 +169,7 @@ public final class StarReview: UIControl {
         }
     }
     override public func draw(_ rect: CGRect) {
-        //对于View的尺寸是有要求的,如果过长,那么5颗星排起来也排不满整个长度,如果太高的话,那么又占不了整个高度,如果一个星是正文形,长宽都是1的话,那么总长宽比可以是
-        //所以可以计算一下应该取多少
+
         clipsToBounds = false
          starRadius = Float(self.frame.size.height) - Float(layer.borderWidth * 2)
         if ratio < startReviewWidthScale{
@@ -186,9 +185,8 @@ public final class StarReview: UIControl {
             if ratio > startReviewWidthScale{
                 starCenter = CGPoint(x: CGFloat(x)+CGFloat(offsetX), y: self.frame.height / 2)
             }
-            //print("第\(s)个星的中心x:\(starCenter.x) y:\(starCenter.y)")
             let radius = starRadius / 2 //半径
-            //print("星圆的半径:\(radius)")
+            
             let p1 = CGPoint(x: starCenter.x, y: starCenter.y - CGFloat(radius)) //
             
             ctx?.setFillColor(starBackgroundColor.cgColor)
@@ -252,7 +250,7 @@ public final class StarReview: UIControl {
         self.event = controlEvents
     }
     
-    fileprivate func getStarIndex()->(Int,Int){  //判断坐标在第几个星上,如果不在星上,返回在第几个间隙上
+    fileprivate func getStarIndex()->(Int,Int){
         let i = Int(starPixelValue)
         if  starPixelValue - Float(i) <= 1 / (1 + starMarginScale)
         {

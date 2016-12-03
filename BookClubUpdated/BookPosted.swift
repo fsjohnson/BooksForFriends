@@ -47,17 +47,6 @@ class BookPosted {
         
     }
     
-//    func setUsername(handler: (Bool) -> Void) {
-//        UserFirebaseMethods.retrieveSpecificUser(with: userUniqueKey) { (user) in
-//            guard let user = user else { return }
-//            print("USER: \(user.username)")
-//            print("USER: \(self.userUniqueKey)")
-//            self.username = user.username
-//        }
-//    }
-
-    
-    
     func convertTimestampIntoDate(with timestamp: String, completion: (Date) -> Void) {
         let dateTimeStamp = NSDate(timeIntervalSince1970:Double(timestamp)!/1000)  //UTC time
         
@@ -78,10 +67,20 @@ class BookPosted {
         
         completion(date3)
     }
-    
-
-    
-    
-    
-    
 }
+
+
+extension BookPosted: Hashable {
+    
+    var hashValue: Int {
+        
+        return bookUniqueID.hashValue
+        
+    }
+    
+    static func ==(lhs: BookPosted, rhs: BookPosted) -> Bool {
+        
+        return (lhs.bookUniqueID) == (rhs.bookUniqueID)
+    }
+}
+

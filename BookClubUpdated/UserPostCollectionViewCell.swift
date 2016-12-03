@@ -14,7 +14,7 @@ class UserPostCollectionViewCell: UICollectionViewCell {
     var imageView: UIImageView!
     
     var book: BookPosted!
-    
+        
     
     override init(frame: CGRect) {
         super.init(frame: frame)
