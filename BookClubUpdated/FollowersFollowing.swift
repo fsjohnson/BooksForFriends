@@ -30,11 +30,17 @@ class FollowersFollowing: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
+        populatePostsLabel()
+        populateFollowersLabel()
+        populateFollowingLabel()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
+        populatePostsLabel()
+        populateFollowersLabel()
+        populateFollowingLabel()
     }
     
     
@@ -42,15 +48,15 @@ class FollowersFollowing: UIView {
         Bundle.main.loadNibNamed("FollowersFollowing", owner: self, options: nil)
         wholeView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(wholeView)
-        contentView.constrainToEdges(to: self)
+        contentView.constrainEdges(to: self)
         backgroundColor = UIColor.clear
     }
     
 }
 
 
-// MARK: - UIView Extension
-extension UIView {
+// MARK: - Configure View
+extension FollowersFollowing {
     
     func constrainToEdges(to view: UIView) {
         topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -58,5 +64,25 @@ extension UIView {
         leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
     }
+    
+    func populateFollowersLabel() {
+        UserFirebaseMethods.retriveFollowingUsers { (users) in
+            self.numFollowers.text = String(users.count)
+            
+        }
+    }
+    
+    func populateFollowingLabel() {
+        UserFirebaseMethods.retriveFollowingUsers { (users) in
+            self.numFollowing.text = String(users.count)
+        }
+    }
+    
+    func populatePostsLabel() {
+        PostsFirebaseMethods.downloadUsersBookPostsArray { (booksPosted) in
+            self.booksPosted.text = String(booksPosted.count)
+        }
+    }
+    
 }
 
