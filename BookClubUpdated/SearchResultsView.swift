@@ -49,6 +49,11 @@ class SearchResultsView: UIView {
         addSubview(contentView)
         contentView.constrainEdges(to: self)
         backgroundColor = UIColor.clear
+        
+        
+        
+        
+        
     }
 }
 

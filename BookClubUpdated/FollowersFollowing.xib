@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FollowersFollowing" customModule="BookClubUpdated" customModuleProvider="target">
             <connections>
                 <outlet property="booksPosted" destination="qxM-YZ-bsO" id="xcf-0o-8wu"/>
+                <outlet property="booksPostedLabel" destination="o2i-8S-PGr" id="tWK-Es-4Wt"/>
                 <outlet property="contentView" destination="1M1-RC-sdh" id="aar-Xv-4Ht"/>
                 <outlet property="followersButtonOutlet" destination="CS8-Cc-8Ul" id="Bft-sK-mGh"/>
                 <outlet property="followingButtonOutlet" destination="82j-pB-tB4" id="eGI-by-Mqi"/>

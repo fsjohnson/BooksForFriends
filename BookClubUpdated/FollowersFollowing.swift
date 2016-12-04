@@ -11,6 +11,9 @@ import Foundation
 
 class FollowersFollowing: UIView {
 
+    @IBOutlet weak var booksPostedLabel: UILabel!
+    
+    
     @IBOutlet var wholeView: UIView!
     
     @IBOutlet weak var booksPosted: UILabel!
@@ -50,6 +53,23 @@ class FollowersFollowing: UIView {
         addSubview(wholeView)
         contentView.constrainEdges(to: self)
         backgroundColor = UIColor.clear
+        
+        
+        booksPosted.font = UIFont.themeMediumBold
+        booksPosted.textColor = UIColor.themeLightGrey
+        
+        numFollowers.font = UIFont.themeMediumBold
+        numFollowers.textColor = UIColor.themeLightGrey
+        
+        numFollowing.font = UIFont.themeMediumBold
+        numFollowing.textColor = UIColor.themeLightGrey
+        
+        booksPostedLabel.font = UIFont.themeSmallBold
+        booksPostedLabel.textColor = UIColor.themeDarkGrey
+    
+        
+        
+        
     }
     
 }
