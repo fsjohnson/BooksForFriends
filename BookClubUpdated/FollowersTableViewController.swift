@@ -12,6 +12,7 @@ class FollowersTableViewController: UITableViewController {
 
     
     var followersArray = [User]()
+    var deleteButtonSelected = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,10 +52,53 @@ class FollowersTableViewController: UITableViewController {
     }
     
     
-    @IBAction func doneButton(_ sender: Any) {
+    
+    @IBAction func blockUser(_ sender: Any) {
         
-        self.dismiss(animated: true, completion: nil)
+        deleteButtonSelected = true
+        
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+//        let cell = tableView.cellForRow(at: indexPath)
+        let friend = followersArray[indexPath.row].username
+        
+        
+        if deleteButtonSelected == true {
+            let alert = UIAlertController(title: "Are you sure?", message: "Do you want to block \(friend)", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+                self.blockUser(at: indexPath)
+                
+            }))
+            
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+                
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func blockUser(at indexPath: IndexPath) {
+        
+        let userToRemove = followersArray[indexPath.item].uniqueKey
+        let friend = followersArray[indexPath.item].username
+        
+        UserFirebaseMethods.blockFollower(with: userToRemove) {
+            let alert = UIAlertController(title: "Success!", message: "You have blocked \(friend)", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
+                self.followersArray.remove(at: indexPath.row)
+                self.deleteButtonSelected = false
+                self.tableView.reloadData()
+                
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
+            
+        }
+    }
+    
     
     
 

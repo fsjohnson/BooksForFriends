@@ -83,8 +83,12 @@ class FollowingTableViewController: UITableViewController {
         UserFirebaseMethods.removeFollowing(with: userUniqueKey) {
             let alert = UIAlertController(title: "Success", message: "You have unfollowed \(username)", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                self.dismiss(animated: true, completion: nil)
+                
+                self.followingArray.remove(at: indexPath)
+                self.deleteButtonSelected = false
+                self.tableView.reloadData()
             }))
+            
             self.present(alert, animated: true, completion: nil)
         }
     }

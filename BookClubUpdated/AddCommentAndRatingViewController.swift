@@ -31,10 +31,6 @@ class AddCommentAndRatingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("LINK: \(passedImage)")
-        print("title: \(passedTitle)")
-        print("author: \(passedAuthor)")
-        
         let url = URL(string: passedImageLink)
         self.bookCoverImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "BFFLogo"), options: SDWebImageOptions.refreshCached)
         
@@ -47,11 +43,11 @@ class AddCommentAndRatingViewController: UIViewController {
         star.starBackgroundColor = UIColor.themeDarkBlue
         star.starMarginScale = 0.3
         starView.addSubview(star)
-
+        
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -76,7 +72,7 @@ class AddCommentAndRatingViewController: UIViewController {
             }
         }
     }
-
+    
     
     @IBAction func addBookButton(_ sender: Any) {
         
@@ -97,106 +93,118 @@ class AddCommentAndRatingViewController: UIViewController {
         guard let imageLink = bookToAdd.finalBookCoverLink else {print("Couldn't download imageLink: \(bookToAdd.finalBookCoverLink)"); return}
         
         
-        BooksFirebaseMethods.checkIfBooksChildIsEmpty { (isEmpty) in
-            if isEmpty == true {
-                
-                userRef.updateChildValues([bookUniqueKey: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "isFlagged": false]])
-                bookRef.updateChildValues([bookUniqueKey: ["title": bookToAdd.title, "author": author, "synopsis": synopsis, "readByUsers": [userUniqueKey: true], "bookUniqueKey": bookUniqueKey, "imageLink": imageLink]])
-                postRef.updateChildValues([postUniqueKey: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "userUniqueID": userUniqueKey, "isFlagged": false, "bookUniqueKey": bookUniqueKey, "reviewID": postUniqueKey, "title": bookToAdd.title]])
-                
-                let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
+        if commentsTextField.text == "" {
+            
+            let alert = UIAlertController(title: "Oops!", message: "Must write a comment before you can submit a post", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
+            
+        } else {
+            
+            BooksFirebaseMethods.checkIfBooksChildIsEmpty { (isEmpty) in
+                if isEmpty == true {
                     
-//                    self.dismiss(animated: true, completion: nil)
-                }))
-                
-                self.commentsTextField.text = ""
-                self.commentsTextField.resignFirstResponder()
-                
-                self.present(alert, animated: true, completion: nil)
-                
-            } else {
-                
-                BooksFirebaseMethods.checkIfBookExistsOnFirebaseWith(userBook: bookToAdd, completion: { (doesExist) in
+                    userRef.updateChildValues([bookUniqueKey: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "isFlagged": false]])
+                    bookRef.updateChildValues([bookUniqueKey: ["title": bookToAdd.title, "author": author, "synopsis": synopsis, "readByUsers": [userUniqueKey: true], "bookUniqueKey": bookUniqueKey, "imageLink": imageLink]])
+                    postRef.updateChildValues([postUniqueKey: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "userUniqueID": userUniqueKey, "isFlagged": false, "bookUniqueKey": bookUniqueKey, "reviewID": postUniqueKey, "title": bookToAdd.title]])
                     
-                    if doesExist == false {
+                    let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
                         
-                        userRef.updateChildValues([bookUniqueKey: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "isFlagged": false]])
-                        bookRef.updateChildValues([bookUniqueKey: ["title": bookToAdd.title, "author": author, "synopsis": synopsis, "readByUsers": [userUniqueKey: true], "bookUniqueKey": bookUniqueKey, "imageLink": imageLink]])
-                        postRef.updateChildValues([postUniqueKey: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "userUniqueID": userUniqueKey, "isFlagged": false, "bookUniqueKey": bookUniqueKey, "reviewID": postUniqueKey, "title": bookToAdd.title]])
+                        //                    self.dismiss(animated: true, completion: nil)
+                    }))
+                    
+                    self.commentsTextField.text = ""
+                    self.commentsTextField.resignFirstResponder()
+                    
+                    self.present(alert, animated: true, completion: nil)
+                    
+                } else {
+                    
+                    BooksFirebaseMethods.checkIfBookExistsOnFirebaseWith(userBook: bookToAdd, completion: { (doesExist) in
                         
-                        let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
-//                            self.dismiss(animated: true, completion: nil)
-                        }))
-                        
-                        self.commentsTextField.text = ""
-                        self.commentsTextField.resignFirstResponder()
-                        
-                        self.present(alert, animated: true, completion: nil)
-                        
-                        
-                    } else {
-                        
-                        BooksFirebaseMethods.getBookIDFor(userBook: bookToAdd, completion: { (bookID) in
-                            BooksFirebaseMethods.checkIfCurrentUsersBooksChildIsEmpty(with: { (isEmpty) in
-                                if isEmpty == true {
-                                    
-                                    
-                                    let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
-                                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
-//                                        self.dismiss(animated: true, completion: nil)
-                                    }))
-                                    
-                                    self.commentsTextField.text = ""
-                                    self.commentsTextField.resignFirstResponder()
-                                    
-                                    self.present(alert, animated: true, completion: nil)
-                                    
-                                    
-                                    userRef.updateChildValues([bookID: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "isFlagged": false]])
-                                    bookRef.child(bookID).child("readByUsers").updateChildValues([userUniqueKey: true])
-                                    postRef.updateChildValues([postUniqueKey: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "userUniqueID": userUniqueKey, "isFlagged": false, "bookUniqueKey": bookID, "reviewID": postUniqueKey, "title": bookToAdd.title]])
-                                    
-                                } else {
-                                    
-                                    BooksFirebaseMethods.addToPreviousReadsWith(userBook: bookToAdd, comment: comment, rating: ratingString, userUniqueID: userUniqueKey, imageLink: imageLink, completion: { (doesExist) in
-                                        if doesExist == false {
-                                            
-                                            let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
-                                            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
-//                                                self.dismiss(animated: true, completion: nil)
-                                            }))
-                                            
-                                            self.commentsTextField.text = ""
-                                            self.commentsTextField.resignFirstResponder()
-                                            
-                                            self.present(alert, animated: true, completion: nil)
-                                            
-                                            
-                                        } else {
-                                            
-                                            let alert = UIAlertController(title: "Oops!", message: "You have already posted \(self.passedTitle)", preferredStyle: .alert)
-                                            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
-//                                                self.dismiss(animated: true, completion: nil)
+                        if doesExist == false {
+                            
+                            userRef.updateChildValues([bookUniqueKey: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "isFlagged": false]])
+                            bookRef.updateChildValues([bookUniqueKey: ["title": bookToAdd.title, "author": author, "synopsis": synopsis, "readByUsers": [userUniqueKey: true], "bookUniqueKey": bookUniqueKey, "imageLink": imageLink]])
+                            postRef.updateChildValues([postUniqueKey: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "userUniqueID": userUniqueKey, "isFlagged": false, "bookUniqueKey": bookUniqueKey, "reviewID": postUniqueKey, "title": bookToAdd.title]])
+                            
+                            let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
+                                //                            self.dismiss(animated: true, completion: nil)
+                            }))
+                            
+                            self.commentsTextField.text = ""
+                            self.commentsTextField.resignFirstResponder()
+                            
+                            self.present(alert, animated: true, completion: nil)
+                            
+                            
+                        } else {
+                            
+                            BooksFirebaseMethods.getBookIDFor(userBook: bookToAdd, completion: { (bookID) in
+                                BooksFirebaseMethods.checkIfCurrentUsersBooksChildIsEmpty(with: { (isEmpty) in
+                                    if isEmpty == true {
+                                        
+                                        
+                                        let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
+                                        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
+                                            //                                        self.dismiss(animated: true, completion: nil)
+                                        }))
+                                        
+                                        self.commentsTextField.text = ""
+                                        self.commentsTextField.resignFirstResponder()
+                                        
+                                        self.present(alert, animated: true, completion: nil)
+                                        
+                                        
+                                        userRef.updateChildValues([bookID: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "isFlagged": false]])
+                                        bookRef.child(bookID).child("readByUsers").updateChildValues([userUniqueKey: true])
+                                        postRef.updateChildValues([postUniqueKey: ["rating": ratingString, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "userUniqueID": userUniqueKey, "isFlagged": false, "bookUniqueKey": bookID, "reviewID": postUniqueKey, "title": bookToAdd.title]])
+                                        
+                                    } else {
+                                        
+                                        BooksFirebaseMethods.addToPreviousReadsWith(userBook: bookToAdd, comment: comment, rating: ratingString, userUniqueID: userUniqueKey, imageLink: imageLink, completion: { (doesExist) in
+                                            if doesExist == false {
                                                 
-                                            }))
-                                            
-                                            self.commentsTextField.text = ""
-                                            self.commentsTextField.resignFirstResponder()
-                                            
-                                            self.present(alert, animated: true, completion: nil)
-                                            
-                                        }
-                                    })
-                                }
+                                                let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
+                                                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
+                                                    //                                                self.dismiss(animated: true, completion: nil)
+                                                }))
+                                                
+                                                self.commentsTextField.text = ""
+                                                self.commentsTextField.resignFirstResponder()
+                                                
+                                                self.present(alert, animated: true, completion: nil)
+                                                
+                                                
+                                            } else {
+                                                
+                                                let alert = UIAlertController(title: "Oops!", message: "You have already posted \(self.passedTitle)", preferredStyle: .alert)
+                                                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
+                                                    //                                                self.dismiss(animated: true, completion: nil)
+                                                    
+                                                }))
+                                                
+                                                self.commentsTextField.text = ""
+                                                self.commentsTextField.resignFirstResponder()
+                                                
+                                                self.present(alert, animated: true, completion: nil)
+                                                
+                                            }
+                                        })
+                                    }
+                                })
                             })
-                        })
-                    }
+                        }
+                        
+                    })
                     
-                })
-                
+                }
             }
+            
         }
     }
     

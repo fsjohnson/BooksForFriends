@@ -38,13 +38,11 @@ class UserFirebaseMethods {
                     
                     ref.child("users").child((user?.uid)!).setValue(userDictionary)
                     boolToPass = true
-                    print("SIGN UP COMPLETION: \(boolToPass)")
                     completion(boolToPass)
                     
                 } else {
                     print(error?.localizedDescription ?? "")
                     boolToPass = false
-                    print("SIGN UP COMPLETION: \(boolToPass)")
                     completion(boolToPass)
                 }
             })
@@ -110,18 +108,28 @@ class UserFirebaseMethods {
     
     //MARK: - Add & remove following / followers
     
-    static func addFollowing(with userUniqueKey: String, completion: () -> Void) {
+    static func addFollowing(with userUniqueKey: String, completion: @escaping (Bool) -> Void) {
         
         guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
         
         let ref = FIRDatabase.database().reference().child("users").child(currentUser).child("following")
+        var boolToReturn = false
         
-        ref.updateChildValues([userUniqueKey: true])
-        
-        let followedRef = FIRDatabase.database().reference().child("users").child(userUniqueKey).child("followers")
-        followedRef.updateChildValues([currentUser:true])
-        completion()
-        
+        UserFirebaseMethods.checkIfBlocked(with: userUniqueKey) { (isBlocked) in
+            if isBlocked == false {
+                
+                ref.updateChildValues([userUniqueKey: true])
+                
+                let followedRef = FIRDatabase.database().reference().child("users").child(userUniqueKey).child("followers").child("notBlocked")
+                followedRef.updateChildValues([currentUser:true])
+                boolToReturn = true
+                
+            } else {
+                boolToReturn = false
+            }
+            print(boolToReturn)
+            completion(boolToReturn)
+        }
     }
     
     
@@ -133,7 +141,7 @@ class UserFirebaseMethods {
         
         ref.child(userUniqueKey).removeValue()
         
-        let followedRef = FIRDatabase.database().reference().child("users").child(userUniqueKey).child("followers")
+        let followedRef = FIRDatabase.database().reference().child("users").child(userUniqueKey).child("followers").child("notBlocked")
         followedRef.child(currentUser).removeValue()
         
         completion()
@@ -203,12 +211,12 @@ class UserFirebaseMethods {
     }
     
     
-    //MARK: - Retrieve followers 
+    //MARK: - Retrieve followers
     
     static func retriveFollowers(with completion: @escaping ([User]) -> Void) {
         
         guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
-        let ref = FIRDatabase.database().reference().child("users").child(currentUser).child("followers")
+        let ref = FIRDatabase.database().reference().child("users").child(currentUser).child("followers").child("notBlocked")
         var followersUserArray = [User]()
         var followersUserIDArray = [String]()
         
@@ -232,5 +240,60 @@ class UserFirebaseMethods {
             }
         })
     }
+    
+    // Mark: - Block Follower
+    
+    static func blockFollower(with userUniqueKey: String, completion: () -> Void) {
+        
+        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
+        
+        let ref = FIRDatabase.database().reference().child("users").child(userUniqueKey).child("following")
+        
+        ref.child(currentUser).removeValue()
+        
+        let followedRef = FIRDatabase.database().reference().child("users").child(currentUser).child("followers").child("notBlocked")
+        
+        let blockedRef = FIRDatabase.database().reference().child("users").child(currentUser).child("followers").child("blocked")
+        
+        blockedRef.updateChildValues([userUniqueKey:true])
+        
+        followedRef.child(userUniqueKey).removeValue()
+        completion()
+    }
+    
+    // Mark: - Check if blocked
+    
+    
+    static func checkIfBlocked(with userUniqueKey: String, completion: @escaping (Bool) -> Void) {
+        
+        let blockedRef = FIRDatabase.database().reference().child("users").child(userUniqueKey).child("followers").child("blocked")
+        
+        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
+        
+        var isBlocked = false
+        var blockedUsers = [String]()
+        
+        
+        blockedRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if !snapshot.hasChildren() {
+                isBlocked = false
+            } else {
+                
+                guard let snapshotValue = snapshot.value as? [String: Any] else { print("error returning blocked users"); return }
+                
+                for snap in snapshotValue {
+                    blockedUsers.append(snap.key)
+                }
+                
+                if blockedUsers.contains(currentUser) {
+                    
+                    isBlocked = true
+                }
+            }
+            completion(isBlocked)
+        })
+    }
+    
     
 }

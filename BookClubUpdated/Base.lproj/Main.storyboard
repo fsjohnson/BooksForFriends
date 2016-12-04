@@ -436,7 +436,13 @@
                             <outlet property="delegate" destination="rcH-At-f36" id="Qz4-5m-5S4"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Followers" id="TX9-ic-kih"/>
+                    <navigationItem key="navigationItem" title="Followers" id="TX9-ic-kih">
+                        <barButtonItem key="rightBarButtonItem" title="Block" id="Rp6-AK-ghV">
+                            <connections>
+                                <action selector="blockUser:" destination="rcH-At-f36" id="0Z1-pv-hsA"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ukb-KX-C9l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -645,7 +651,6 @@
         <!--Navigation Controller-->
         <scene sceneID="e0x-6k-yvP">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="uy8-UC-R9E" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Frj-2M-wIs" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ujm-Q5-Ea1">
@@ -657,6 +662,7 @@
                         <segue destination="oGp-Qo-8Xg" kind="relationship" relationship="rootViewController" id="p7N-Ic-SDl"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uy8-UC-R9E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2349.5999999999999" y="807.34632683658174"/>
         </scene>
