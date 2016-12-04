@@ -88,12 +88,9 @@ class BooksFriendsReadTableViewController: UITableViewController {
     
     func flagButtonTouched(sender: UIButton) {
         
-        _ = sender.tag
-        
         print("button touched")
         
         let index = sender.tag
-//        let indexPath = tableView.indexPath(for: cell)
         
         let flaggedPost = postsArray[index]
         

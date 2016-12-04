@@ -13,6 +13,7 @@ class FollowingTableViewController: UITableViewController {
     var followingArray = [User]()
     var array = [User]()
     var uniqueUserIDs = [String]()
+    var deleteButtonSelected = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,23 +48,37 @@ class FollowingTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "followingCell", for: indexPath) as! FollowingTableViewCell
         
         cell.textLabel?.text = followingArray[indexPath.row].username
-        
+        cell.unfollow.tag = indexPath.row
         cell.unfollow.addTarget(self, action: #selector(unFollowButton), for: .touchUpInside)
         
         return cell
     }
     
     func unFollowButton(sender: UIButton) {
-        _ = sender.tag
-        
         print("BUTTON TAPPED")
+        let indexPath = sender.tag
+        deleteButtonSelected = true
+        let friend = followingArray[indexPath].username
         
-        let cellContent = sender.superview!
-        let cell = cellContent.superview! as! UITableViewCell
-        guard let indexPath = self.tableView.indexPath(for: cell) else {return}
-        
-        let userUniqueKey = followingArray[indexPath.row].uniqueKey
-        let username = followingArray[indexPath.row].username
+        if deleteButtonSelected == true {
+            let alert = UIAlertController(title: "Are you sure?", message: "Do you want to unfollow \(friend)", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+                self.unfollowFriend(at: indexPath)
+                
+            }))
+            
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+                
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    
+    func unfollowFriend(at indexPath: Int) {
+        let userUniqueKey = followingArray[indexPath].uniqueKey
+        let username = followingArray[indexPath].username
         
         UserFirebaseMethods.removeFollowing(with: userUniqueKey) {
             let alert = UIAlertController(title: "Success", message: "You have unfollowed \(username)", preferredStyle: .alert)

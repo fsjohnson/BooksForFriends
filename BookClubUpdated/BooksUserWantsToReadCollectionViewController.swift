@@ -35,13 +35,10 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
         
         self.navigationController?.navigationBar.barTintColor = UIColor.themeOrange
         self.tabBarController?.tabBar.barTintColor = UIColor.themeDarkBlue
-        
-        print("COLLECTION VIEW")
+
         PostsFirebaseMethods.downloadUsersFutureReadsBookLinkIDArray { (bookLinkArray, bookIDArray) in
             self.futureBooksArray = bookLinkArray
             self.bookIDArray = bookIDArray
-            print("COUNT: \(self.futureBooksArray.count)")
-            print("COUNT: \(self.bookIDArray.count)")
             self.collectionView?.reloadData()
         }
         
@@ -73,9 +70,6 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        print("NUM OF CELLS: \(futureBooksArray.count)")
-        // #warning Incomplete implementation, return the number of items
         return futureBooksArray.count
     }
     
@@ -114,7 +108,7 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
         let totalWidthDeduction = (minimumInterItemSpacing + minimumInterItemSpacing + sectionInsets.right + sectionInsets.left)
         let totalHeightDeduction = (sectionInsets.right + sectionInsets.left + minimumLineSpacing + minimumLineSpacing)
         
-        itemSize = CGSize(width: (screedWidth/numOfColumns) - (totalWidthDeduction/numOfColumns), height: (screenHeight - totalHeightDeduction)/3)
+        itemSize = CGSize(width: (screedWidth/numOfColumns) - (totalWidthDeduction/numOfColumns), height: (screenHeight - totalHeightDeduction)/numOfRows)
         
     }
     

@@ -90,7 +90,6 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         
         segmentedControl.selectedSegmentIndex = 0
         followersFollowingView.populatePostsLabel()
-        print("BOOK COUNT: \(followersFollowingView.booksPostedLabel)")
     }
     
     
@@ -135,8 +134,6 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         
     }
     
-    
-    
     func segueToFollowers() {
         self.performSegue(withIdentifier: "followersSegue", sender: self)
     }
@@ -152,18 +149,18 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "followersSegue" {
-            let destinationNavController = segue.destination as! FollowersTableViewController
+            _ = segue.destination as! FollowersTableViewController
             
         }
         
         if segue.identifier == "followingSegue" {
-            let destinationNavController = segue.destination as! FollowingTableViewController
+            _ = segue.destination as! FollowingTableViewController
             
         }
         
         if segue.identifier == "viewList" {
             let destination = segue.destination as! UINavigationController
-            let desiredDest = destination.topViewController as! UserPostListTableViewController
+            _ = destination.topViewController as! UserPostListTableViewController
         }
     }
     
