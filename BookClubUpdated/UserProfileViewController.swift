@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -23,6 +24,7 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
     var minimumInterItemSpacing: CGFloat!
     var minimumLineSpacing: CGFloat!
     var userPosts = [BookPosted]()
+    var segmentedControl = UISegmentedControl(items: ["Icons", "List"])
     
     
     override func viewDidLoad() {
@@ -33,18 +35,33 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         self.navigationController?.navigationBar.barTintColor = UIColor.themeOrange
         self.tabBarController?.tabBar.barTintColor = UIColor.themeDarkBlue
         
+        guard let currentUserID = FIRAuth.auth()?.currentUser?.uid else { return }
         
+        UserFirebaseMethods.retrieveSpecificUser(with: currentUserID) { (returnedUser) in
+            guard let username = returnedUser?.username else { print("no username"); return }
+            self.navigationItem.title = username
+        }
+
         let viewWidth = view.frame.width
         let followersFollowingViewHeight = view.frame.height.multiplied(by: 0.15)
         
         let followersFollowingView = FollowersFollowing(frame: CGRect(x: 0, y: navBarHeight, width: viewWidth, height: followersFollowingViewHeight))
         view.addSubview(followersFollowingView)
         
+        view.addSubview(segmentedControl)
+        segmentedControl.frame = CGRect(x: 0, y: followersFollowingViewHeight.multiplied(by: 1.3), width: view.frame.width, height: view.frame.height.multiplied(by: 0.05))
+        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.addTarget(self, action: #selector(segmentedControlSegues), for: .valueChanged)
+        
+        //        let segmentFont = [NSFontAttributeName : UIFont.themeSmallBold, NSForegroundColorAttributeName : UIColor.themeOrange]
+        //        segmentedControl.setTitleTextAttributes(segmentFont, for: .normal)
+        //        segmentedControl.backgroundColor = UIColor.themeWhite
+        
         view.addSubview(postsCollectionView)
         
         postsCollectionView.translatesAutoresizingMaskIntoConstraints = false
         postsCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        postsCollectionView.topAnchor.constraint(equalTo: followersFollowingView.bottomAnchor).isActive = true
+        postsCollectionView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 10).isActive = true
         postsCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         postsCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         
@@ -55,12 +72,12 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         
         followersFollowingView.followingButtonOutlet.addTarget(self, action: #selector(segueToFollowing), for: .touchDown)
         
-        
         self.cellConfig()
         
         PostsFirebaseMethods.downloadUsersBookPostsArray { (booksPosted) in
             self.userPosts = booksPosted
             self.postsCollectionView.reloadData()
+
         }
     }
     
@@ -69,8 +86,12 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         PostsFirebaseMethods.downloadUsersBookPostsArray { (booksPosted) in
             self.userPosts = booksPosted
             self.postsCollectionView.reloadData()
+
         }
+        
+        segmentedControl.selectedSegmentIndex = 0
     }
+    
     
     
     func cellConfig() {
@@ -105,6 +126,15 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
     }
     
     
+    func segmentedControlSegues(sender: UISegmentedControl!) {
+        
+        if sender.selectedSegmentIndex == 1 {
+            self.performSegue(withIdentifier: "viewList", sender: self)
+        }
+        
+    }
+    
+    
     
     func segueToFollowers() {
         self.performSegue(withIdentifier: "followersSegue", sender: self)
@@ -128,6 +158,11 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         if segue.identifier == "followingSegue" {
             let destinationNavController = segue.destination as! FollowingTableViewController
             
+        }
+        
+        if segue.identifier == "viewList" {
+            let destination = segue.destination as! UINavigationController
+            let desiredDest = destination.topViewController as! UserPostListTableViewController
         }
     }
     

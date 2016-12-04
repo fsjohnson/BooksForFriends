@@ -38,7 +38,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="82j-pB-tB4">
-                    <rect key="frame" x="342" y="38" width="151" height="115"/>
+                    <rect key="frame" x="332" y="38" width="151" height="115"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <state key="normal" title="Following"/>
                     <connections>
@@ -56,7 +56,7 @@
                 <constraint firstItem="CS8-Cc-8Ul" firstAttribute="height" secondItem="o2i-8S-PGr" secondAttribute="height" id="XTe-9e-e5g"/>
                 <constraint firstItem="CS8-Cc-8Ul" firstAttribute="width" secondItem="o2i-8S-PGr" secondAttribute="width" id="aIE-Ii-aoZ"/>
                 <constraint firstItem="82j-pB-tB4" firstAttribute="height" secondItem="o2i-8S-PGr" secondAttribute="height" id="cyd-he-Koc"/>
-                <constraint firstAttribute="trailing" secondItem="82j-pB-tB4" secondAttribute="trailing" constant="10" id="fov-Hr-9sC"/>
+                <constraint firstAttribute="trailing" secondItem="82j-pB-tB4" secondAttribute="trailing" constant="20" id="fov-Hr-9sC"/>
                 <constraint firstItem="o2i-8S-PGr" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="nZL-ip-Tr3"/>
                 <constraint firstItem="82j-pB-tB4" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="qBA-KH-dYC"/>
                 <constraint firstItem="82j-pB-tB4" firstAttribute="width" secondItem="o2i-8S-PGr" secondAttribute="width" id="s2v-GH-QHg"/>

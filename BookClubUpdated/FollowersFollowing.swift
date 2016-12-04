@@ -55,20 +55,33 @@ class FollowersFollowing: UIView {
         
         booksPostedLabel.layer.borderWidth = 4.0
         booksPostedLabel.layer.borderColor = UIColor.themeLightBlue.cgColor
-        booksPostedLabel.layer.cornerRadius = 5.0
+        
         
         
         followersButtonOutlet.titleLabel?.textAlignment = NSTextAlignment.center
         followersButtonOutlet.titleLabel?.numberOfLines = 0
         followersButtonOutlet.layer.borderWidth = 4.0
         followersButtonOutlet.layer.borderColor = UIColor.themeLightBlue.cgColor
-        followersButtonOutlet.layer.cornerRadius = 5.0
-        
-        
+        followersButtonOutlet.layer.cornerRadius = 0.5 * followersButtonOutlet.frame.size.width
+//        
+//        let padding : CGFloat = 2
+//        
+//        let x = followersButtonOutlet.layer.position.x - (followersButtonOutlet.frame.width / 2)
+//        let y = followersButtonOutlet.layer.position.y  - (followersButtonOutlet.frame.width / 2)
+//        
+//        let circlePath = UIBezierPath(roundedRect: (CGRect(x: (x - padding), y: (y - padding), width: (followersButtonOutlet.frame.width + (2 * padding)), height: (followersButtonOutlet.frame.width + (2 * padding)))), cornerRadius: (followersButtonOutlet.frame.width + (2 * padding)) / 2).cgPath
+//        
+//        let circleShape = CAShapeLayer()
+//        circleShape.path = circlePath
+//        circleShape.lineWidth = 3
+//        circleShape.strokeColor = UIColor.themeLightBlue.cgColor
+//        
+//        self.layer.addSublayer(circleShape)
+
         followingButtonOutlet.titleLabel?.textAlignment = NSTextAlignment.center
         followingButtonOutlet.layer.borderWidth = 4.0
         followingButtonOutlet.layer.borderColor = UIColor.themeLightBlue.cgColor
-        followingButtonOutlet.layer.cornerRadius = 5.0
+        followingButtonOutlet.layer.cornerRadius = 0.5 * followingButtonOutlet.frame.size.width
         followingButtonOutlet.titleLabel?.numberOfLines = 0
     }
     
@@ -161,6 +174,12 @@ extension FollowersFollowing {
                 
                 attributedString1.append(attributedString2)
                 self.booksPostedLabel.attributedText = attributedString1
+                
+                let booksPostedHeight = self.booksPostedLabel.frame.width
+                print("HEIGHT: \(booksPostedHeight)")
+                self.booksPostedLabel.layer.cornerRadius = booksPostedHeight/2
+                
+                
 
             } else {
                 let attributedString1 = NSMutableAttributedString(string:"\(text)\n", attributes:attrs1)
@@ -169,6 +188,11 @@ extension FollowersFollowing {
                 
                 attributedString1.append(attributedString2)
                 self.booksPostedLabel.attributedText = attributedString1
+                
+                let booksPostedHeight = self.booksPostedLabel.frame.width
+                print("HEIGHT: \(booksPostedHeight)")
+                self.booksPostedLabel.layer.cornerRadius = booksPostedHeight/2
+                
             }
             
         }

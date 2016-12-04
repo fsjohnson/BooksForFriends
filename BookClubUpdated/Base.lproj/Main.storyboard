@@ -28,7 +28,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="grV-Tl-UCl" customClass="PostsView" customModule="BookClubUpdated" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                     </subviews>
@@ -89,7 +89,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bit-yc-2h9">
-                                            <rect key="frame" x="325" y="0.5" width="30" height="43.5"/>
+                                            <rect key="frame" x="325" y="1" width="30" height="43"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                             <state key="normal" title="+"/>
                                         </button>
@@ -147,16 +147,16 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ydl-aU-MlQ">
-                                <rect key="frame" x="18.5" y="266.5" width="338" height="267"/>
+                                <rect key="frame" x="19" y="267" width="338" height="267"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Synopsis: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LGU-Zm-Yyq">
-                                        <rect key="frame" x="0.0" y="0.0" width="338" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="338" height="20"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vOT-Tt-8Iy">
-                                        <rect key="frame" x="0.0" y="20.5" width="338" height="246.5"/>
+                                        <rect key="frame" x="0.0" y="20" width="338" height="247"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -312,11 +312,62 @@
                         <segue destination="yhH-Yx-6bO" kind="show" identifier="followingSegue" id="1Kq-f3-fTw"/>
                         <segue destination="rcH-At-f36" kind="show" identifier="followersSegue" id="Da5-KS-bco"/>
                         <segue destination="40l-QF-BTu" kind="show" identifier="addBookSegue" id="aqp-JA-I9R"/>
+                        <segue destination="Frj-2M-wIs" kind="presentation" identifier="viewList" id="DHK-wC-L0f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xDH-Ev-bDz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1206" y="547"/>
+        </scene>
+        <!--Previous Posts-->
+        <scene sceneID="pz4-dL-WIN">
+            <objects>
+                <tableViewController id="oGp-Qo-8Xg" customClass="UserPostListTableViewController" customModule="BookClubUpdated" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="150" sectionHeaderHeight="28" sectionFooterHeight="28" id="L3t-If-k3u">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="userPost" id="tNj-xA-Xwn" customClass="UserPostListTableViewCell" customModule="BookClubUpdated" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="150"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tNj-xA-Xwn" id="tgv-6c-hzE">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ztr-rn-GHw" customClass="PostsView" customModule="BookClubUpdated" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="149.5"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="Ztr-rn-GHw" secondAttribute="bottom" id="0zY-b8-Fi7"/>
+                                        <constraint firstAttribute="trailing" secondItem="Ztr-rn-GHw" secondAttribute="trailing" id="HI5-5T-hiD"/>
+                                        <constraint firstItem="Ztr-rn-GHw" firstAttribute="top" secondItem="tgv-6c-hzE" secondAttribute="top" id="XJi-xX-mfp"/>
+                                        <constraint firstItem="Ztr-rn-GHw" firstAttribute="leading" secondItem="tgv-6c-hzE" secondAttribute="leading" id="s8O-9N-efW"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="postView" destination="Ztr-rn-GHw" id="dUA-4k-WLQ"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="oGp-Qo-8Xg" id="bFb-Kw-03F"/>
+                            <outlet property="delegate" destination="oGp-Qo-8Xg" id="cEF-Sa-ovk"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Previous Posts" id="CUA-ks-9dR">
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="dKV-pI-kKd">
+                            <connections>
+                                <action selector="backButton:" destination="oGp-Qo-8Xg" id="ZqH-pr-CBP"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Az8-kR-zCK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3288.8000000000002" y="807.34632683658174"/>
         </scene>
         <!--Following-->
         <scene sceneID="wCp-fN-FMw">
@@ -335,7 +386,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="smt-Ob-UIl">
-                                            <rect key="frame" x="319" y="0.0" width="30" height="43.5"/>
+                                            <rect key="frame" x="319" y="0.0" width="30" height="44"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                             <state key="normal" title="-"/>
                                         </button>
@@ -425,7 +476,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="puW-bP-Nhn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2358" y="546"/>
+            <point key="canvasLocation" x="2338" y="89"/>
         </scene>
         <!--Add Book and Comments-->
         <scene sceneID="rDg-PD-EXd">
@@ -449,13 +500,13 @@
                                 <rect key="frame" x="28" y="384" width="319" height="167"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comments: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9qy-h1-RC7">
-                                        <rect key="frame" x="0.0" y="0.0" width="319" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="319" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="What did you think about this book?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aG7-jC-Ghi">
-                                        <rect key="frame" x="0.0" y="20.5" width="319" height="146.5"/>
+                                        <rect key="frame" x="0.0" y="21" width="319" height="146"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -478,7 +529,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="60P-Jn-3pe">
-                                <rect key="frame" x="153.5" y="572" width="67" height="30"/>
+                                <rect key="frame" x="154" y="572" width="67" height="30"/>
                                 <state key="normal" title="Add Book"/>
                                 <connections>
                                     <action selector="addBookButton:" destination="p49-83-rhL" eventType="touchUpInside" id="8eQ-Cr-m2n"/>
@@ -511,7 +562,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LHq-FN-bfx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3236" y="546"/>
+            <point key="canvasLocation" x="3214" y="89"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="XKA-Ec-pZP">
@@ -590,6 +641,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V8X-fi-wJr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="334" y="546"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="e0x-6k-yvP">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uy8-UC-R9E" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Frj-2M-wIs" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ujm-Q5-Ea1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="oGp-Qo-8Xg" kind="relationship" relationship="rootViewController" id="p7N-Ic-SDl"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="2349.5999999999999" y="807.34632683658174"/>
         </scene>
     </scenes>
     <resources>

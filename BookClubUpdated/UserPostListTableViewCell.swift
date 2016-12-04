@@ -1,20 +1,17 @@
 //
-//  FriendsBooksPostedTableViewCell.swift
+//  UserPostListTableViewCell.swift
 //  BookClubUpdated
 //
-//  Created by Felicity Johnson on 11/25/16.
+//  Created by Felicity Johnson on 12/4/16.
 //  Copyright © 2016 FJ. All rights reserved.
 //
 
 import UIKit
-import SDWebImage
 
-
-class FriendsBooksPostedTableViewCell: UITableViewCell {
+class UserPostListTableViewCell: UITableViewCell {
     
     @IBOutlet weak var postView: PostsView!
     
-    var bookID: String!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,6 +21,7 @@ class FriendsBooksPostedTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
+        // Configure the view for the selected state
     }
     
     
@@ -37,8 +35,6 @@ class FriendsBooksPostedTableViewCell: UITableViewCell {
         postView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         
     }
-    
-    
+
 
 }
-
