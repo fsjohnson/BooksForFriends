@@ -52,11 +52,9 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         segmentedControl.frame = CGRect(x: 0, y: followersFollowingViewHeight.multiplied(by: 1.3), width: view.frame.width, height: view.frame.height.multiplied(by: 0.05))
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addTarget(self, action: #selector(segmentedControlSegues), for: .valueChanged)
-        
-        //        let segmentFont = [NSFontAttributeName : UIFont.themeSmallBold, NSForegroundColorAttributeName : UIColor.themeOrange]
-        //        segmentedControl.setTitleTextAttributes(segmentFont, for: .normal)
-        //        segmentedControl.backgroundColor = UIColor.themeWhite
-        
+  
+        segmentedControl.setTitleTextAttributes([NSForegroundColorAttributeName : UIColor.themeDarkBlue], for: .normal)
+
         view.addSubview(postsCollectionView)
         
         postsCollectionView.translatesAutoresizingMaskIntoConstraints = false
