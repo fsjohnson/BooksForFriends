@@ -20,14 +20,14 @@ class BooksFriendsReadTableViewController: UITableViewController {
         self.navigationController?.navigationBar.barTintColor = UIColor.themeOrange
         self.tabBarController?.tabBar.barTintColor = UIColor.themeDarkBlue
         
-        PostsFirebaseMethods.downloadAllPosts { (postsArray) in
+        PostsFirebaseMethods.downloadFollowingPosts { (postsArray) in
             self.postsArray = postsArray
             self.tableView.reloadData()
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        PostsFirebaseMethods.downloadAllPosts { (postsArray) in
+        PostsFirebaseMethods.downloadFollowingPosts { (postsArray) in
             self.postsArray = postsArray
             self.tableView.reloadData()
         }

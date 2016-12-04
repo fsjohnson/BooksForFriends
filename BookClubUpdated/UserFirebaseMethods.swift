@@ -29,6 +29,7 @@ class UserFirebaseMethods {
     static func signUpButton(email: String, password: String, name: String, username: String, completion: @escaping (Bool) -> () ) {
         
         let ref = FIRDatabase.database().reference().root
+        var boolToPass = false
         
         if email != "" && password != "" {
             FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user, error) in
@@ -36,11 +37,15 @@ class UserFirebaseMethods {
                     let userDictionary = ["email": email, "name": name, "username": username, "uniqueKey": (user?.uid)!]
                     
                     ref.child("users").child((user?.uid)!).setValue(userDictionary)
-                    completion(true)
+                    boolToPass = true
+                    print("SIGN UP COMPLETION: \(boolToPass)")
+                    completion(boolToPass)
                     
                 } else {
                     print(error?.localizedDescription ?? "")
-                    completion(false)
+                    boolToPass = false
+                    print("SIGN UP COMPLETION: \(boolToPass)")
+                    completion(boolToPass)
                 }
             })
         }

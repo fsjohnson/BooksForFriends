@@ -70,6 +70,57 @@ class PostsFirebaseMethods {
     }
     
     
+    static func downloadFollowingPosts(with completion: @escaping ([BookPosted]) -> Void) {
+        
+        let postRef = FIRDatabase.database().reference().child("posts").child("visible")
+        
+        var postsArray = [BookPosted]()
+        var followingUniqueIDArray = [String]()
+        
+        UserFirebaseMethods.retriveFollowingUsers { (followingArray) in
+            
+            for user in followingArray {
+                followingUniqueIDArray.append(user.uniqueKey)
+            }
+            
+            postRef.observeSingleEvent(of: .value, with: { (snapshot) in
+                guard let snapshotValue = snapshot.value as? [String: Any] else {print("download all posts error"); return}
+                
+                for snap in snapshotValue {
+                    
+                    guard
+                        let postInfo = snap.value as? [String: Any],
+                        let comment = postInfo["comment"] as? String,
+                        let imageLink = postInfo["imageLink"] as? String,
+                        let rating = postInfo["rating"] as? String,
+                        let userUniqueID = postInfo["userUniqueID"] as? String,
+                        let timestampString = postInfo["timestamp"] as? String,
+                        let timestamp = Double(timestampString),
+                        let bookUniqueID = postInfo["bookUniqueKey"] as? String,
+                        let title = postInfo["title"] as? String,
+                        let reviewID = postInfo["reviewID"] as? String
+                        else {print("error downloading postInfo"); return}
+                    
+                    if followingUniqueIDArray.contains(userUniqueID) {
+                        let post = BookPosted(bookUniqueID: bookUniqueID, rating: rating, comment: comment, imageLink: imageLink, timestamp: timestamp, userUniqueKey: userUniqueID, reviewID: reviewID, title: title)
+                        postsArray.append(post)
+                    }
+                    
+                    print("POST ARRAY: \(postsArray)")
+                }
+                
+                postsArray.sort(by: { (first, second) -> Bool in
+                    return first.timestamp > second.timestamp
+                })
+                
+                if postsArray.count > 0 {
+                    completion(postsArray)
+                }
+            })
+        }
+
+    }
+    
     
     // MARK: - Add & remove books to book list
     

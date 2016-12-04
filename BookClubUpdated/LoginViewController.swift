@@ -51,7 +51,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor.blue
+        self.view.backgroundColor = UIColor.themeOrange
         loadViews()
         setPositions()
         emailTextField.becomeFirstResponder()
@@ -99,17 +99,17 @@ extension LoginViewController {
                 }
             }
         } else if email == "" && password != "" {
-            let alert = self.createAlertWith(title: "Uh Oh", message: "You need an email.")
+            let alert = self.createAlertWith(title: "Oops", message: "You need an email.")
             self.present(alert, animated: true, completion: {
                 
             })
         } else if password == "" && email != "" {
-            let alert = self.createAlertWith(title: "Uh Oh", message: "You need a password.")
+            let alert = self.createAlertWith(title: "Oops", message: "You need a password.")
             self.present(alert, animated: true, completion: {
                 
             })
         } else {
-            let alert = self.createAlertWith(title: "Uh Oh", message: "You need to enter some info.")
+            let alert = self.createAlertWith(title: "Oops", message: "You need to enter some info.")
             self.present(alert, animated: true, completion: {
                 
             })
@@ -128,6 +128,8 @@ extension LoginViewController {
         
         if email != "" && password != "" && name != "" && username != "" {
             UserFirebaseMethods.signUpButton(email: email, password: password, name: name, username: username) { success in
+                
+                
                 if success {
                     self.performSegue(withIdentifier: "landingSegue", sender: self)
                 } else {
@@ -138,7 +140,7 @@ extension LoginViewController {
                 }
             }
         } else {
-            let alert = self.createAlertWith(title: "Uh Oh", message: "Please fill in all the fields.")
+            let alert = self.createAlertWith(title: "Oops", message: "Please fill in all the fields.")
             self.present(alert, animated: true, completion: {
                 
             })
@@ -149,7 +151,7 @@ extension LoginViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "landingSegue" {
             let destinationNavController = segue.destination as! UITabBarController
-//            let targetController = destinationNavController.topViewController as! BooksFriendsReadTableViewController
+
         }
     }
     
@@ -327,45 +329,49 @@ extension LoginViewController {
     func loadViews() {
         
         let borderWidth: CGFloat = 2
-        let borderColor = UIColor.blue.cgColor
+        let borderColor = UIColor.themeOrange.cgColor
         
         nameTextField = UITextField(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width * 0.6, height: self.view.frame.size.height * 0.06))
-        nameTextField.layer.cornerRadius = 4
+        nameTextField.layer.cornerRadius = 7
         nameTextField.layer.borderWidth = borderWidth
         nameTextField.layer.borderColor = borderColor
         nameTextField.autocorrectionType = .no
-        nameTextField.backgroundColor = UIColor.blue
-        nameTextField.attributedPlaceholder = NSAttributedString(string: "Enter Name")
+        nameTextField.backgroundColor = UIColor.themeWhite
+        nameTextField.font = UIFont.themeSmallBold
+        nameTextField.attributedPlaceholder = NSAttributedString(string: " Enter name")
         self.view.addSubview(nameTextField)
         
         usernameTextField = UITextField(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width * 0.6, height: self.view.frame.size.height * 0.06))
-        usernameTextField.layer.cornerRadius = 4
+        usernameTextField.layer.cornerRadius = 7
         usernameTextField.layer.borderWidth = borderWidth
         usernameTextField.layer.borderColor = borderColor
         usernameTextField.autocorrectionType = .no
-        usernameTextField.backgroundColor = UIColor.blue
-        usernameTextField.attributedPlaceholder = NSAttributedString(string: "Enter Desired Username")
+        usernameTextField.backgroundColor = UIColor.themeWhite
+        usernameTextField.font = UIFont.themeSmallBold
+        usernameTextField.attributedPlaceholder = NSAttributedString(string: " Enter desired username")
         self.view.addSubview(usernameTextField)
         
         emailTextField = UITextField(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width * 0.6, height: self.view.frame.size.height * 0.06))
-        emailTextField.backgroundColor = UIColor.blue
-        emailTextField.layer.cornerRadius = 4
+        emailTextField.backgroundColor = UIColor.themeWhite
+        emailTextField.font = UIFont.themeSmallBold
+        emailTextField.layer.cornerRadius = 7
         emailTextField.layer.borderWidth = borderWidth
         emailTextField.layer.borderColor = borderColor
         emailTextField.autocorrectionType = .no
         emailTextField.autocapitalizationType = .none
-        emailTextField.attributedPlaceholder = NSAttributedString(string: "Enter email")
+        emailTextField.attributedPlaceholder = NSAttributedString(string: " Enter email")
         self.view.addSubview(emailTextField)
         
         passwordTextField = UITextField(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width * 0.6, height: self.view.frame.size.height * 0.06))
-        passwordTextField.layer.cornerRadius = 4
+        passwordTextField.layer.cornerRadius = 7
+        passwordTextField.font = UIFont.themeSmallBold
         passwordTextField.layer.borderWidth = borderWidth
         passwordTextField.layer.borderColor = borderColor
         passwordTextField.autocorrectionType = .no
         passwordTextField.autocapitalizationType = .none
         passwordTextField.isSecureTextEntry = true
-        passwordTextField.backgroundColor = UIColor.blue
-        passwordTextField.attributedPlaceholder = NSAttributedString(string: "Enter password")
+        passwordTextField.backgroundColor = UIColor.themeWhite
+        passwordTextField.attributedPlaceholder = NSAttributedString(string: " Enter password")
         self.view.addSubview(passwordTextField)
         
         
@@ -374,9 +380,10 @@ extension LoginViewController {
         loginButton.layer.cornerRadius = 7
         loginButton.layer.borderWidth = borderWidth
         loginButton.layer.borderColor = borderColor
-        loginButton.backgroundColor = UIColor.blue
+        loginButton.backgroundColor = UIColor.themeWhite
         loginButton.setTitle("Login", for: .normal)
-        loginButton.setTitleColor(UIColor.black, for: .normal)
+        loginButton.titleLabel?.font = UIFont.themeSmallBold
+        loginButton.setTitleColor(UIColor.themeDarkBlue, for: .normal)
         loginButton.addTarget(self, action: #selector(loginButtonAction), for: .touchUpInside)
         
         newuserButton = UIButton(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width * 0.4, height: self.view.frame.size.height * 0.06))
@@ -384,9 +391,10 @@ extension LoginViewController {
         newuserButton.layer.cornerRadius = 7
         newuserButton.layer.borderWidth = borderWidth
         newuserButton.layer.borderColor = borderColor
-        newuserButton.backgroundColor = UIColor.gray
+        newuserButton.backgroundColor = UIColor.themeLightBlue
         newuserButton.setTitle("New User", for: .normal)
-        newuserButton.setTitleColor(UIColor.black, for: .normal)
+        newuserButton.titleLabel?.font = UIFont.themeSmallBold
+        newuserButton.setTitleColor(UIColor.themeDarkBlue, for: .normal)
         newuserButton.addTarget(self, action: #selector(newuserButtonAction), for: .touchUpInside)
         
         signupButton = UIButton(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width * 0.4, height: self.view.frame.size.height * 0.06))
@@ -394,9 +402,10 @@ extension LoginViewController {
         signupButton.layer.cornerRadius = 7
         signupButton.layer.borderWidth = borderWidth
         signupButton.layer.borderColor = borderColor
-        signupButton.backgroundColor = UIColor.gray
+        signupButton.backgroundColor = UIColor.themeLightBlue
         signupButton.setTitle("Signup", for: .normal)
-        signupButton.setTitleColor(UIColor.black, for: .normal)
+        signupButton.titleLabel?.font = UIFont.themeSmallBold
+        signupButton.setTitleColor(UIColor.themeDarkBlue, for: .normal)
         signupButton.addTarget(self, action: #selector(signupButtonAction), for: .touchUpInside)
         
         cancelButton = UIButton(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width * 0.4, height: self.view.frame.size.height * 0.06))
@@ -404,9 +413,10 @@ extension LoginViewController {
         cancelButton.layer.borderWidth = borderWidth
         cancelButton.layer.borderColor = borderColor
         self.view.addSubview(cancelButton)
-        cancelButton.backgroundColor = UIColor.blue
+        cancelButton.backgroundColor = UIColor.themeWhite
         cancelButton.setTitle("Cancel", for: .normal)
-        cancelButton.setTitleColor(UIColor.black, for: .normal)
+        cancelButton.titleLabel?.font = UIFont.themeSmallBold
+        cancelButton.setTitleColor(UIColor.themeDarkBlue, for: .normal)
         cancelButton.addTarget(self, action: #selector(cancelButtonAction), for: .touchUpInside)
         
     }
