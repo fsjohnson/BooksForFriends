@@ -6,18 +6,15 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FollowersFollowing" customModule="BookClubUpdated" customModuleProvider="target">
             <connections>
-                <outlet property="booksPosted" destination="qxM-YZ-bsO" id="xcf-0o-8wu"/>
                 <outlet property="booksPostedLabel" destination="o2i-8S-PGr" id="tWK-Es-4Wt"/>
-                <outlet property="contentView" destination="1M1-RC-sdh" id="aar-Xv-4Ht"/>
                 <outlet property="followersButtonOutlet" destination="CS8-Cc-8Ul" id="Bft-sK-mGh"/>
                 <outlet property="followingButtonOutlet" destination="82j-pB-tB4" id="eGI-by-Mqi"/>
-                <outlet property="numFollowers" destination="E7S-og-WTn" id="tg9-eg-BK6"/>
-                <outlet property="numFollowing" destination="rUh-xT-glJ" id="3Fp-Ns-4l1"/>
                 <outlet property="wholeView" destination="iN0-l3-epB" id="LO6-5J-hZ9"/>
             </connections>
         </placeholder>
@@ -26,76 +23,43 @@
             <rect key="frame" x="0.0" y="0.0" width="503" height="192"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="1M1-RC-sdh">
-                    <rect key="frame" x="0.0" y="0.0" width="503" height="192"/>
-                    <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="J65-AH-Ace">
-                            <rect key="frame" x="0.0" y="138.5" width="167.5" height="53.5"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Posts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qxM-YZ-bsO">
-                                    <rect key="frame" x="49.5" y="0.0" width="69" height="20.5"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Books Posted" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o2i-8S-PGr">
-                                    <rect key="frame" x="31.5" y="20.5" width="105" height="33"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                        </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="DXz-1a-l3E">
-                            <rect key="frame" x="167.5" y="138.5" width="168" height="53.5"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E7S-og-WTn">
-                                    <rect key="frame" x="63" y="0.0" width="42" height="20.5"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CS8-Cc-8Ul">
-                                    <rect key="frame" x="47.5" y="20.5" width="73" height="33"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <state key="normal" title="Followers"/>
-                                    <connections>
-                                        <action selector="followersButton:" destination="-1" eventType="touchUpInside" id="aHH-Be-XHr"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                        </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="TBf-wm-JsH">
-                            <rect key="frame" x="335.5" y="138.5" width="167.5" height="53.5"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rUh-xT-glJ">
-                                    <rect key="frame" x="62.5" y="0.0" width="42" height="20.5"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="82j-pB-tB4">
-                                    <rect key="frame" x="47" y="20.5" width="73" height="33"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <state key="normal" title="Following"/>
-                                    <connections>
-                                        <action selector="followingButton:" destination="-1" eventType="touchUpInside" id="6QL-fP-19F"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                        </stackView>
-                    </subviews>
-                    <constraints>
-                        <constraint firstItem="J65-AH-Ace" firstAttribute="height" secondItem="DXz-1a-l3E" secondAttribute="height" id="oCk-y7-max"/>
-                    </constraints>
-                </stackView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Books Posted" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o2i-8S-PGr">
+                    <rect key="frame" x="20" y="38" width="151" height="115"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="CS8-Cc-8Ul">
+                    <rect key="frame" x="176" y="38" width="151" height="115"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <state key="normal" title="Followers"/>
+                    <connections>
+                        <action selector="followersButton:" destination="-1" eventType="touchUpInside" id="aHH-Be-XHr"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="82j-pB-tB4">
+                    <rect key="frame" x="332" y="38" width="151" height="115"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <state key="normal" title="Following"/>
+                    <connections>
+                        <action selector="followingButton:" destination="-1" eventType="touchUpInside" id="6QL-fP-19F"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="1M1-RC-sdh" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="4zT-w8-eZv"/>
-                <constraint firstItem="1M1-RC-sdh" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="95j-Ve-7oN"/>
-                <constraint firstItem="1M1-RC-sdh" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="g4J-fh-7xN"/>
-                <constraint firstItem="1M1-RC-sdh" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="nek-vk-0Pn"/>
+                <constraint firstItem="o2i-8S-PGr" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.6" id="BZo-Nt-BgH"/>
+                <constraint firstItem="CS8-Cc-8Ul" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="CJ8-j7-fQH"/>
+                <constraint firstItem="CS8-Cc-8Ul" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="IVm-Ft-CnJ"/>
+                <constraint firstItem="o2i-8S-PGr" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="SgD-G0-paD"/>
+                <constraint firstItem="o2i-8S-PGr" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.3" id="TZA-eQ-o90"/>
+                <constraint firstItem="CS8-Cc-8Ul" firstAttribute="height" secondItem="o2i-8S-PGr" secondAttribute="height" id="XTe-9e-e5g"/>
+                <constraint firstItem="CS8-Cc-8Ul" firstAttribute="width" secondItem="o2i-8S-PGr" secondAttribute="width" id="aIE-Ii-aoZ"/>
+                <constraint firstItem="82j-pB-tB4" firstAttribute="height" secondItem="o2i-8S-PGr" secondAttribute="height" id="cyd-he-Koc"/>
+                <constraint firstAttribute="trailing" secondItem="82j-pB-tB4" secondAttribute="trailing" constant="20" id="fov-Hr-9sC"/>
+                <constraint firstItem="o2i-8S-PGr" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="nZL-ip-Tr3"/>
+                <constraint firstItem="82j-pB-tB4" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="qBA-KH-dYC"/>
+                <constraint firstItem="82j-pB-tB4" firstAttribute="width" secondItem="o2i-8S-PGr" secondAttribute="width" id="s2v-GH-QHg"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="67.5" y="-23"/>

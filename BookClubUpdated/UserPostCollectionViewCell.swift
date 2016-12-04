@@ -43,7 +43,9 @@ class UserPostCollectionViewCell: UICollectionViewCell {
         imageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor).isActive = true
         imageView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor).isActive = true
         imageView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
-        
+//        imageView.layer.borderWidth = 4.0
+//        imageView.layer.borderColor = UIColor.themeWhite.cgColor
+        imageView.layer.cornerRadius = 5.0
     }
     
     

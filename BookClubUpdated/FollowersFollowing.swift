@@ -10,9 +10,8 @@ import UIKit
 import Foundation
 
 class FollowersFollowing: UIView {
-
-    @IBOutlet weak var booksPostedLabel: UILabel!
     
+    @IBOutlet weak var booksPostedLabel: UILabel!
     
     @IBOutlet var wholeView: UIView!
     
@@ -51,25 +50,23 @@ class FollowersFollowing: UIView {
         Bundle.main.loadNibNamed("FollowersFollowing", owner: self, options: nil)
         wholeView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(wholeView)
-        contentView.constrainEdges(to: self)
+        wholeView.constrainEdges(to: self)
         backgroundColor = UIColor.clear
         
+        booksPostedLabel.layer.borderWidth = 4.0
+        booksPostedLabel.layer.borderColor = UIColor.themeLightBlue.cgColor
+        booksPostedLabel.layer.cornerRadius = 5.0
+
+        followersButtonOutlet.titleLabel?.textAlignment = NSTextAlignment.center
+        followersButtonOutlet.layer.borderWidth = 4.0
+        followersButtonOutlet.layer.borderColor = UIColor.themeLightBlue.cgColor
+        followersButtonOutlet.layer.cornerRadius = 5.0
         
-        booksPosted.font = UIFont.themeMediumBold
-        booksPosted.textColor = UIColor.themeLightGrey
-        
-        numFollowers.font = UIFont.themeMediumBold
-        numFollowers.textColor = UIColor.themeLightGrey
-        
-        numFollowing.font = UIFont.themeMediumBold
-        numFollowing.textColor = UIColor.themeLightGrey
-        
-        booksPostedLabel.font = UIFont.themeSmallBold
-        booksPostedLabel.textColor = UIColor.themeDarkGrey
-    
-        
-        
-        
+        followingButtonOutlet.titleLabel?.textAlignment = NSTextAlignment.center
+        followingButtonOutlet.layer.borderWidth = 4.0
+        followingButtonOutlet.layer.borderColor = UIColor.themeLightBlue.cgColor
+        followingButtonOutlet.layer.cornerRadius = 5.0
+
     }
     
 }
@@ -86,21 +83,85 @@ extension FollowersFollowing {
     }
     
     func populateFollowersLabel() {
-        UserFirebaseMethods.retriveFollowingUsers { (users) in
-            self.numFollowers.text = String(users.count)
+
+        let attrs1 = [NSFontAttributeName : UIFont.themeSmallBold, NSForegroundColorAttributeName : UIColor.themeLightBlue]
+        
+        let attrs2 = [NSFontAttributeName : UIFont.themeTinyBold, NSForegroundColorAttributeName : UIColor.themeLightBlue]
+        
+        UserFirebaseMethods.retriveFollowers { (users) in
             
+            let text = String(users.count)
+            if users.count == 0 {
+                
+                let attributedString1 = NSMutableAttributedString(string:"0\n", attributes:attrs1)
+                
+                let attributedString2 = NSMutableAttributedString(string:"Followers", attributes:attrs2)
+                
+                attributedString1.append(attributedString2)
+                
+                self.followersButtonOutlet.titleLabel?.attributedText = attributedString1
+            } else {
+                let attributedString1 = NSMutableAttributedString(string:"\(text)\n", attributes:attrs1)
+                
+                let attributedString2 = NSMutableAttributedString(string:"Followers", attributes:attrs2)
+                
+                attributedString1.append(attributedString2)
+                self.followersButtonOutlet.titleLabel?.attributedText = attributedString1
+            }
         }
     }
     
     func populateFollowingLabel() {
+        
+        let attrs1 = [NSFontAttributeName : UIFont.themeSmallBold, NSForegroundColorAttributeName : UIColor.themeLightBlue]
+        
+        let attrs2 = [NSFontAttributeName : UIFont.themeTinyBold, NSForegroundColorAttributeName : UIColor.themeLightBlue]
+        
         UserFirebaseMethods.retriveFollowingUsers { (users) in
-            self.numFollowing.text = String(users.count)
+            let text = String(users.count)
+            if users.count == 0 {
+                let attributedString1 = NSMutableAttributedString(string:"0\n", attributes:attrs1)
+                
+                let attributedString2 = NSMutableAttributedString(string:"Following", attributes:attrs2)
+                
+                attributedString1.append(attributedString2)
+                self.followingButtonOutlet.titleLabel?.attributedText = attributedString1
+                
+            } else {
+                let attributedString1 = NSMutableAttributedString(string:"\(text)\n", attributes:attrs1)
+                
+                let attributedString2 = NSMutableAttributedString(string:"Following", attributes:attrs2)
+                
+                attributedString1.append(attributedString2)
+                self.followingButtonOutlet.titleLabel?.attributedText = attributedString1
+            }
         }
     }
     
     func populatePostsLabel() {
+        let attrs1 = [NSFontAttributeName : UIFont.themeSmallBold, NSForegroundColorAttributeName : UIColor.themeLightBlue]
+        
+        let attrs2 = [NSFontAttributeName : UIFont.themeTinyBold, NSForegroundColorAttributeName : UIColor.themeLightBlue]
+        
         PostsFirebaseMethods.downloadUsersBookPostsArray { (booksPosted) in
-            self.booksPosted.text = String(booksPosted.count)
+            let text = String(booksPosted.count)
+            if booksPosted.count == 0 {
+                let attributedString1 = NSMutableAttributedString(string:"0\n", attributes:attrs1)
+                
+                let attributedString2 = NSMutableAttributedString(string:"Books Posted", attributes:attrs2)
+                
+                attributedString1.append(attributedString2)
+                self.booksPostedLabel.attributedText = attributedString1
+
+            } else {
+                let attributedString1 = NSMutableAttributedString(string:"\(text)\n", attributes:attrs1)
+                
+                let attributedString2 = NSMutableAttributedString(string:"Books Posted", attributes:attrs2)
+                
+                attributedString1.append(attributedString2)
+                self.booksPostedLabel.attributedText = attributedString1
+            }
+            
         }
     }
     
