@@ -56,17 +56,20 @@ class FollowersFollowing: UIView {
         booksPostedLabel.layer.borderWidth = 4.0
         booksPostedLabel.layer.borderColor = UIColor.themeLightBlue.cgColor
         booksPostedLabel.layer.cornerRadius = 5.0
-
+        
+        
         followersButtonOutlet.titleLabel?.textAlignment = NSTextAlignment.center
+        followersButtonOutlet.titleLabel?.numberOfLines = 0
         followersButtonOutlet.layer.borderWidth = 4.0
         followersButtonOutlet.layer.borderColor = UIColor.themeLightBlue.cgColor
         followersButtonOutlet.layer.cornerRadius = 5.0
+        
         
         followingButtonOutlet.titleLabel?.textAlignment = NSTextAlignment.center
         followingButtonOutlet.layer.borderWidth = 4.0
         followingButtonOutlet.layer.borderColor = UIColor.themeLightBlue.cgColor
         followingButtonOutlet.layer.cornerRadius = 5.0
-
+        followingButtonOutlet.titleLabel?.numberOfLines = 0
     }
     
 }
@@ -99,14 +102,18 @@ extension FollowersFollowing {
                 
                 attributedString1.append(attributedString2)
                 
-                self.followersButtonOutlet.titleLabel?.attributedText = attributedString1
+//                self.followersButtonOutlet.titleLabel?.attributedText = attributedString1
+                self.followersButtonOutlet.setTitle(attributedString1.string, for: .normal)
+                
             } else {
                 let attributedString1 = NSMutableAttributedString(string:"\(text)\n", attributes:attrs1)
                 
                 let attributedString2 = NSMutableAttributedString(string:"Followers", attributes:attrs2)
                 
                 attributedString1.append(attributedString2)
-                self.followersButtonOutlet.titleLabel?.attributedText = attributedString1
+                
+//                self.followersButtonOutlet.titleLabel?.attributedText = attributedString1
+                self.followersButtonOutlet.setTitle(attributedString1.string, for: .normal)
             }
         }
     }
@@ -125,7 +132,8 @@ extension FollowersFollowing {
                 let attributedString2 = NSMutableAttributedString(string:"Following", attributes:attrs2)
                 
                 attributedString1.append(attributedString2)
-                self.followingButtonOutlet.titleLabel?.attributedText = attributedString1
+//                self.followingButtonOutlet.titleLabel?.attributedText = attributedString1
+                self.followingButtonOutlet.setTitle(attributedString1.string, for: .normal)
                 
             } else {
                 let attributedString1 = NSMutableAttributedString(string:"\(text)\n", attributes:attrs1)
@@ -133,7 +141,8 @@ extension FollowersFollowing {
                 let attributedString2 = NSMutableAttributedString(string:"Following", attributes:attrs2)
                 
                 attributedString1.append(attributedString2)
-                self.followingButtonOutlet.titleLabel?.attributedText = attributedString1
+//                self.followingButtonOutlet.titleLabel?.attributedText = attributedString1
+                self.followingButtonOutlet.setTitle(attributedString1.string, for: .normal)
             }
         }
     }
