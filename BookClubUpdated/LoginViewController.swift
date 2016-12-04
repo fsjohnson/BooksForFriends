@@ -127,16 +127,25 @@ extension LoginViewController {
         guard let username = usernameTextField.text else {return}
         
         if email != "" && password != "" && name != "" && username != "" {
-            UserFirebaseMethods.signUpButton(email: email, password: password, name: name, username: username) { success in
+            
+            if password.characters.count < 6 {
+                let alert = self.createAlertWith(title: "Couldn't Signup", message: "Email must be at least 6 characters.")
+                self.present(alert, animated: true, completion: {
+                    
+                })
                 
+            } else {
                 
-                if success {
-                    self.performSegue(withIdentifier: "landingSegue", sender: self)
-                } else {
-                    let alert = self.createAlertWith(title: "Couldn't Signup", message: "This email is already being used.")
-                    self.present(alert, animated: true, completion: {
-                        
-                    })
+                UserFirebaseMethods.signUpButton(email: email, password: password, name: name, username: username) { success in
+                    
+                    if success {
+                        self.performSegue(withIdentifier: "landingSegue", sender: self)
+                    } else {
+                        let alert = self.createAlertWith(title: "Couldn't Signup", message: "This email is already being used.")
+                        self.present(alert, animated: true, completion: {
+                            
+                        })
+                    }
                 }
             }
         } else {
@@ -145,13 +154,14 @@ extension LoginViewController {
                 
             })
         }
+        
     }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "landingSegue" {
             let destinationNavController = segue.destination as! UITabBarController
-
+            
         }
     }
     
