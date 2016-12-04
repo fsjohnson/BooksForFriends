@@ -176,10 +176,7 @@ extension FollowersFollowing {
                 self.booksPostedLabel.attributedText = attributedString1
                 
                 let booksPostedHeight = self.booksPostedLabel.frame.width
-                print("HEIGHT: \(booksPostedHeight)")
                 self.booksPostedLabel.layer.cornerRadius = booksPostedHeight/2
-                
-                
 
             } else {
                 let attributedString1 = NSMutableAttributedString(string:"\(text)\n", attributes:attrs1)
@@ -190,7 +187,6 @@ extension FollowersFollowing {
                 self.booksPostedLabel.attributedText = attributedString1
                 
                 let booksPostedHeight = self.booksPostedLabel.frame.width
-                print("HEIGHT: \(booksPostedHeight)")
                 self.booksPostedLabel.layer.cornerRadius = booksPostedHeight/2
                 
             }

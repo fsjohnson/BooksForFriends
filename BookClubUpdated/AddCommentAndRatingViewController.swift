@@ -43,10 +43,15 @@ class AddCommentAndRatingViewController: UIViewController {
         star.starCount = 5
         star.value = 1
         star.allowAccruteStars = false
-        star.starFillColor = UIColor.red
-        star.starBackgroundColor = UIColor.black
+        star.starFillColor = UIColor.themeLightBlue
+        star.starBackgroundColor = UIColor.themeDarkBlue
         star.starMarginScale = 0.3
         starView.addSubview(star)
+
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -54,6 +59,24 @@ class AddCommentAndRatingViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    func keyboardWillShow(notification: NSNotification) {
+        
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0{
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y != 0{
+                self.view.frame.origin.y += keyboardSize.height
+            }
+        }
+    }
+
     
     @IBAction func addBookButton(_ sender: Any) {
         
@@ -83,8 +106,13 @@ class AddCommentAndRatingViewController: UIViewController {
                 
                 let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
-                    self.dismiss(animated: true, completion: nil)
+                    
+//                    self.dismiss(animated: true, completion: nil)
                 }))
+                
+                self.commentsTextField.text = ""
+                self.commentsTextField.resignFirstResponder()
+                
                 self.present(alert, animated: true, completion: nil)
                 
             } else {
@@ -99,8 +127,12 @@ class AddCommentAndRatingViewController: UIViewController {
                         
                         let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
-                            self.dismiss(animated: true, completion: nil)
+//                            self.dismiss(animated: true, completion: nil)
                         }))
+                        
+                        self.commentsTextField.text = ""
+                        self.commentsTextField.resignFirstResponder()
+                        
                         self.present(alert, animated: true, completion: nil)
                         
                         
@@ -113,8 +145,12 @@ class AddCommentAndRatingViewController: UIViewController {
                                     
                                     let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
                                     alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
-                                        self.dismiss(animated: true, completion: nil)
+//                                        self.dismiss(animated: true, completion: nil)
                                     }))
+                                    
+                                    self.commentsTextField.text = ""
+                                    self.commentsTextField.resignFirstResponder()
+                                    
                                     self.present(alert, animated: true, completion: nil)
                                     
                                     
@@ -129,8 +165,12 @@ class AddCommentAndRatingViewController: UIViewController {
                                             
                                             let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
                                             alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
-                                                self.dismiss(animated: true, completion: nil)
+//                                                self.dismiss(animated: true, completion: nil)
                                             }))
+                                            
+                                            self.commentsTextField.text = ""
+                                            self.commentsTextField.resignFirstResponder()
+                                            
                                             self.present(alert, animated: true, completion: nil)
                                             
                                             
@@ -138,9 +178,12 @@ class AddCommentAndRatingViewController: UIViewController {
                                             
                                             let alert = UIAlertController(title: "Oops!", message: "You have already posted \(self.passedTitle)", preferredStyle: .alert)
                                             alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
-                                                self.dismiss(animated: true, completion: nil)
+//                                                self.dismiss(animated: true, completion: nil)
                                                 
                                             }))
+                                            
+                                            self.commentsTextField.text = ""
+                                            self.commentsTextField.resignFirstResponder()
                                             
                                             self.present(alert, animated: true, completion: nil)
                                             

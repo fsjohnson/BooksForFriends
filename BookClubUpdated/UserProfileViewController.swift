@@ -25,6 +25,7 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
     var minimumLineSpacing: CGFloat!
     var userPosts = [BookPosted]()
     var segmentedControl = UISegmentedControl(items: ["Icons", "List"])
+    var followersFollowingView: FollowersFollowing!
     
     
     override func viewDidLoad() {
@@ -45,7 +46,7 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         let viewWidth = view.frame.width
         let followersFollowingViewHeight = view.frame.height.multiplied(by: 0.15)
         
-        let followersFollowingView = FollowersFollowing(frame: CGRect(x: 0, y: navBarHeight, width: viewWidth, height: followersFollowingViewHeight))
+        followersFollowingView = FollowersFollowing(frame: CGRect(x: 0, y: navBarHeight, width: viewWidth, height: followersFollowingViewHeight))
         view.addSubview(followersFollowingView)
         
         view.addSubview(segmentedControl)
@@ -88,6 +89,8 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         }
         
         segmentedControl.selectedSegmentIndex = 0
+        followersFollowingView.populatePostsLabel()
+        print("BOOK COUNT: \(followersFollowingView.booksPostedLabel)")
     }
     
     

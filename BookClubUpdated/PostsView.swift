@@ -131,8 +131,8 @@ extension PostsView {
             guard let rating = Float(bookPost.rating) else {return}
             star.value = rating
             star.allowAccruteStars = false
-            star.starFillColor = UIColor.themeDarkBlue
-            star.starBackgroundColor = UIColor.themeLightBlue
+            star.starFillColor = UIColor.themeLightBlue
+            star.starBackgroundColor = UIColor.themeDarkBlue
             star.starMarginScale = 0.1
             
         }
