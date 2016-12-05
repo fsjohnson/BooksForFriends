@@ -50,6 +50,7 @@ class FollowingTableViewController: UITableViewController {
         cell.textLabel?.text = followingArray[indexPath.row].username
         cell.unfollow.tag = indexPath.row
         cell.unfollow.addTarget(self, action: #selector(unFollowButton), for: .touchUpInside)
+        cell.contentView.bringSubview(toFront: cell.unfollow)
         
         return cell
     }

@@ -75,6 +75,7 @@ class FindFriendsTableViewController: UITableViewController, UISearchBarDelegate
         cell.textLabel?.text = user.username
         
         cell.addFollowing.addTarget(self, action: #selector(addFollowingButton), for: .touchUpInside)
+        cell.contentView.bringSubview(toFront: cell.addFollowing)
         
         return cell
     }
