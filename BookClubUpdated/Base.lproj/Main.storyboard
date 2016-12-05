@@ -102,6 +102,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="addFollowing" destination="Bit-yc-2h9" id="QZE-jx-ZlA"/>
+                                    <segue destination="ocx-i4-yFK" kind="show" identifier="userPostDetail" id="A3K-cR-Hge"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -127,6 +128,49 @@
                 </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="2753" y="-1528"/>
+        </scene>
+        <!--Previous Posts-->
+        <scene sceneID="kkZ-dn-DZm">
+            <objects>
+                <tableViewController id="FOg-i2-afo" customClass="UserPostListTableViewController" customModule="BookClubUpdated" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="rjn-dW-GJN">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="userPost" rowHeight="150" id="if0-0U-hAt" customClass="UserPostListTableViewCell" customModule="BookClubUpdated" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="150"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="if0-0U-hAt" id="6dK-FH-TRl">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Hn-JB-gNc" customClass="PostsView" customModule="BookClubUpdated" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="6Hn-JB-gNc" secondAttribute="trailing" id="HES-1n-CbG"/>
+                                        <constraint firstItem="6Hn-JB-gNc" firstAttribute="leading" secondItem="6dK-FH-TRl" secondAttribute="leading" id="HuB-mn-WdB"/>
+                                        <constraint firstAttribute="bottom" secondItem="6Hn-JB-gNc" secondAttribute="bottom" id="Ooh-HZ-Lwe"/>
+                                        <constraint firstItem="6Hn-JB-gNc" firstAttribute="top" secondItem="6dK-FH-TRl" secondAttribute="top" id="Z1Q-xn-FNF"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="FOg-i2-afo" id="U7d-cO-fbV"/>
+                            <outlet property="delegate" destination="FOg-i2-afo" id="W2L-jR-Ves"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Previous Posts" id="nkt-cx-nbN">
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="WZf-is-lmv"/>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G6H-Sd-ErX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4258" y="-1521"/>
         </scene>
         <!--Add Book-->
         <scene sceneID="2Y0-R8-f7n">
@@ -223,7 +267,7 @@
         <scene sceneID="84d-vU-RlP">
             <objects>
                 <collectionViewController id="3KZ-Be-9wS" customClass="BooksUserWantsToReadCollectionViewController" customModule="BookClubUpdated" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="MVK-OP-hUs">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="MVK-OP-hUs">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -417,7 +461,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="51S-QU-oWp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="830" y="1398"/>
+            <point key="canvasLocation" x="766" y="1482"/>
         </scene>
         <!--Followers-->
         <scene sceneID="j9S-ht-I5K">
@@ -452,7 +496,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ukb-KX-C9l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1618" y="1399"/>
+            <point key="canvasLocation" x="1674" y="1481"/>
         </scene>
         <!--Search-->
         <scene sceneID="QcJ-yo-d3b">
@@ -603,7 +647,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mnJ-Wf-y6U" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Friends Posts" image="LiveFeedHome" id="RGh-D8-vWe"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="UNL-oz-8jx">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="UNL-oz-8jx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -622,7 +666,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mqH-Gc-DyL" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Future Reads" image="Book" id="8ao-ew-FZ7"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="6du-5p-aU4">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6du-5p-aU4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -641,7 +685,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XvU-cf-f2e" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Previous Reads" image="Profile" id="JLS-2v-nbV"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="PbY-uS-dBE">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="PbY-uS-dBE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -659,7 +703,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Frj-2M-wIs" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Ujm-Q5-Ea1">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ujm-Q5-Ea1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -671,6 +715,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uy8-UC-R9E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2349.5999999999999" y="807.34632683658174"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="WGp-O1-VqF">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ocx-i4-yFK" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Oyz-n5-d2s">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="FOg-i2-afo" kind="relationship" relationship="rootViewController" id="OWy-5V-dfj"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wsv-Ca-ATi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3490.4000000000001" y="-1520.6896551724139"/>
         </scene>
     </scenes>
     <resources>

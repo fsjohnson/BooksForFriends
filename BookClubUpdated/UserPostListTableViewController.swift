@@ -12,6 +12,7 @@ class UserPostListTableViewController: UITableViewController {
 
     
     var userPosts = [BookPosted]()
+    var passedUserUniqueID = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +20,9 @@ class UserPostListTableViewController: UITableViewController {
         self.navigationController?.navigationBar.barTintColor = UIColor.themeOrange
         self.tabBarController?.tabBar.barTintColor = UIColor.themeDarkBlue
         
-        PostsFirebaseMethods.downloadUsersBookPostsArray { (posts) in
+        print("PASSED ID: \(passedUserUniqueID)")
+        
+        PostsFirebaseMethods.downloadUsersBookPostsArray(with: passedUserUniqueID) { (posts) in
             self.userPosts = posts
             self.tableView.reloadData()
         }

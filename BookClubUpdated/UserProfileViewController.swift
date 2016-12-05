@@ -80,20 +80,22 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         
         self.cellConfig()
         
-        PostsFirebaseMethods.downloadUsersBookPostsArray { (booksPosted) in
+        PostsFirebaseMethods.downloadUsersBookPostsArray(with: currentUserID) { (booksPosted) in
             self.userPosts = booksPosted
             self.postsCollectionView.reloadData()
-
         }
+        
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
-        PostsFirebaseMethods.downloadUsersBookPostsArray { (booksPosted) in
+        guard let currentUserID = FIRAuth.auth()?.currentUser?.uid else { return }
+        
+        PostsFirebaseMethods.downloadUsersBookPostsArray(with: currentUserID) { (booksPosted) in
             self.userPosts = booksPosted
             self.postsCollectionView.reloadData()
-
         }
+        
         
         segmentedControl.selectedSegmentIndex = 0
         followersFollowingView.populatePostsLabel()
@@ -234,8 +236,10 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         }
         
         if segue.identifier == "viewList" {
+            guard let currentUserID = FIRAuth.auth()?.currentUser?.uid else { return }
             let destination = segue.destination as! UINavigationController
-            _ = destination.topViewController as! UserPostListTableViewController
+            let finalDest = destination.topViewController as! UserPostListTableViewController
+            finalDest.passedUserUniqueID = currentUserID
         }
     }
     

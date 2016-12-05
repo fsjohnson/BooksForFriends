@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 import Foundation
 
 class FollowersFollowing: UIView {
@@ -165,7 +166,9 @@ extension FollowersFollowing {
         
         let attrs2 = [NSFontAttributeName : UIFont.themeTinyBold, NSForegroundColorAttributeName : UIColor.themeLightBlue]
         
-        PostsFirebaseMethods.downloadUsersBookPostsArray { (booksPosted) in
+        guard let currentUserID = FIRAuth.auth()?.currentUser?.uid else { return }
+        
+        PostsFirebaseMethods.downloadUsersBookPostsArray(with: currentUserID) { (booksPosted) in
             let text = String(booksPosted.count)
             if booksPosted.count == 0 {
                 let attributedString1 = NSMutableAttributedString(string:"0\n", attributes:attrs1)
@@ -177,7 +180,7 @@ extension FollowersFollowing {
                 
                 let booksPostedHeight = self.booksPostedLabel.frame.width
                 self.booksPostedLabel.layer.cornerRadius = booksPostedHeight/2
-
+                
             } else {
                 let attributedString1 = NSMutableAttributedString(string:"\(text)\n", attributes:attrs1)
                 
@@ -190,7 +193,6 @@ extension FollowersFollowing {
                 self.booksPostedLabel.layer.cornerRadius = booksPostedHeight/2
                 
             }
-            
         }
     }
     

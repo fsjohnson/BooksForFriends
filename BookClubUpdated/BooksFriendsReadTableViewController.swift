@@ -98,10 +98,8 @@ class BooksFriendsReadTableViewController: UITableViewController {
             let alert = UIAlertController(title: "Success!", message: "You have flagged this comment for review", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                 
-                PostsFirebaseMethods.downloadAllPosts { (postsArray) in
-                    self.postsArray = postsArray
-                    self.tableView.reloadData()
-                }
+                self.postsArray.remove(at: index)
+                self.tableView.reloadData()
                 
             }))
             

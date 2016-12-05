@@ -226,11 +226,9 @@ class PostsFirebaseMethods {
     
     
     
-    static func downloadUsersBookPostsArray(with completion: @escaping ([BookPosted]) -> Void) {
+    static func downloadUsersBookPostsArray(with userUniqueKey: String, completion: @escaping ([BookPosted]) -> Void) {
         
         let postRef = FIRDatabase.database().reference().child("posts").child("visible")
-        guard let currentUserID = FIRAuth.auth()?.currentUser?.uid else {return}
-        
         var postsArray = [BookPosted]()
         
         postRef.observeSingleEvent(of: .value, with: { (snapshot) in
@@ -251,7 +249,7 @@ class PostsFirebaseMethods {
                     let reviewID = postInfo["reviewID"] as? String
                     else {print("error downloading postInfo"); return}
                 
-                if userUniqueID == currentUserID {
+                if userUniqueID == userUniqueKey {
                     let post = BookPosted(bookUniqueID: bookUniqueID, rating: rating, comment: comment, imageLink: imageLink, timestamp: timestamp, userUniqueKey: userUniqueID, reviewID: reviewID, title: title)
                     postsArray.append(post)
                 }
