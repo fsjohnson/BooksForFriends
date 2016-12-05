@@ -124,6 +124,7 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         dropDown.textFont = UIFont.themeTinyBold!
         dropDown.backgroundColor = UIColor.themeWhite
         dropDown.selectionBackgroundColor = UIColor.themeLightBlue
+        dropDown.cornerRadius = 5
         
 
     }
