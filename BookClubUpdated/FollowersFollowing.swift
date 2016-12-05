@@ -28,6 +28,7 @@ class FollowersFollowing: UIView {
     
     @IBOutlet weak var followingButtonOutlet: UIButton!
     
+    @IBOutlet weak var profilePic: UIImageView!
     
     
     override init(frame: CGRect) {
@@ -68,6 +69,9 @@ class FollowersFollowing: UIView {
         followingButtonOutlet.layer.borderWidth = 4.0
         followingButtonOutlet.layer.borderColor = UIColor.themeLightBlue.cgColor
         followingButtonOutlet.titleLabel?.numberOfLines = 0
+        
+        
+        profilePic.backgroundColor = UIColor.blue
     }
     
 }
