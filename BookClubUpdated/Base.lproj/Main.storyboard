@@ -223,7 +223,7 @@
         <scene sceneID="84d-vU-RlP">
             <objects>
                 <collectionViewController id="3KZ-Be-9wS" customClass="BooksUserWantsToReadCollectionViewController" customModule="BookClubUpdated" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="MVK-OP-hUs">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="MVK-OP-hUs">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -603,7 +603,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mnJ-Wf-y6U" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Friends Posts" image="LiveFeedHome" id="RGh-D8-vWe"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="UNL-oz-8jx">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="UNL-oz-8jx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -622,7 +622,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mqH-Gc-DyL" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Future Reads" image="Book" id="8ao-ew-FZ7"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6du-5p-aU4">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="6du-5p-aU4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -641,7 +641,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XvU-cf-f2e" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Previous Reads" image="Profile" id="JLS-2v-nbV"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="PbY-uS-dBE">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="PbY-uS-dBE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -659,7 +659,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Frj-2M-wIs" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ujm-Q5-Ea1">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Ujm-Q5-Ea1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -674,10 +674,10 @@
         </scene>
     </scenes>
     <resources>
-
         <image name="AddBook" width="29" height="29"/>
         <image name="Book" width="29" height="29"/>
         <image name="LiveFeedHome" width="29" height="29"/>
         <image name="Profile" width="29" height="29"/>
+        <image name="Settings" width="29" height="29"/>
     </resources>
 </document>

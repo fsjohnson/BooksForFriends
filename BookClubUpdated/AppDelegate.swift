@@ -16,11 +16,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    let storyboard =  UIStoryboard(name: "Main", bundle: Bundle.main)
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         DropDown.startListeningToKeyboard()
         FIRApp.configure()
+        
+        let currentUser = FIRAuth.auth()?.currentUser?.email
+        
+        if currentUser != nil {
+            
+            self.window?.rootViewController = self.storyboard.instantiateViewController(withIdentifier: "UITabBarController")
+        }
+        else {
+            self.window?.rootViewController = self.storyboard.instantiateViewController(withIdentifier: "LoginViewController")
+        }
+
+        
+        
+        
         return true
     }
 
