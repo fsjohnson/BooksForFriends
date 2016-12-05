@@ -63,26 +63,10 @@ class FollowersFollowing: UIView {
         followersButtonOutlet.titleLabel?.numberOfLines = 0
         followersButtonOutlet.layer.borderWidth = 4.0
         followersButtonOutlet.layer.borderColor = UIColor.themeLightBlue.cgColor
-        followersButtonOutlet.layer.cornerRadius = 0.5 * followersButtonOutlet.frame.size.width
-//        
-//        let padding : CGFloat = 2
-//        
-//        let x = followersButtonOutlet.layer.position.x - (followersButtonOutlet.frame.width / 2)
-//        let y = followersButtonOutlet.layer.position.y  - (followersButtonOutlet.frame.width / 2)
-//        
-//        let circlePath = UIBezierPath(roundedRect: (CGRect(x: (x - padding), y: (y - padding), width: (followersButtonOutlet.frame.width + (2 * padding)), height: (followersButtonOutlet.frame.width + (2 * padding)))), cornerRadius: (followersButtonOutlet.frame.width + (2 * padding)) / 2).cgPath
-//        
-//        let circleShape = CAShapeLayer()
-//        circleShape.path = circlePath
-//        circleShape.lineWidth = 3
-//        circleShape.strokeColor = UIColor.themeLightBlue.cgColor
-//        
-//        self.layer.addSublayer(circleShape)
 
         followingButtonOutlet.titleLabel?.textAlignment = NSTextAlignment.center
         followingButtonOutlet.layer.borderWidth = 4.0
         followingButtonOutlet.layer.borderColor = UIColor.themeLightBlue.cgColor
-        followingButtonOutlet.layer.cornerRadius = 0.5 * followingButtonOutlet.frame.size.width
         followingButtonOutlet.titleLabel?.numberOfLines = 0
     }
     
@@ -116,7 +100,7 @@ extension FollowersFollowing {
                 
                 attributedString1.append(attributedString2)
                 
-//                self.followersButtonOutlet.titleLabel?.attributedText = attributedString1
+                self.followersButtonOutlet.titleLabel?.attributedText = attributedString1
                 self.followersButtonOutlet.setTitle(attributedString1.string, for: .normal)
                 
             } else {
@@ -126,8 +110,7 @@ extension FollowersFollowing {
                 
                 attributedString1.append(attributedString2)
                 
-//                self.followersButtonOutlet.titleLabel?.attributedText = attributedString1
-                self.followersButtonOutlet.setTitle(attributedString1.string, for: .normal)
+                self.followersButtonOutlet.titleLabel?.attributedText = attributedString1
             }
         }
     }
@@ -146,7 +129,6 @@ extension FollowersFollowing {
                 let attributedString2 = NSMutableAttributedString(string:"Following", attributes:attrs2)
                 
                 attributedString1.append(attributedString2)
-//                self.followingButtonOutlet.titleLabel?.attributedText = attributedString1
                 self.followingButtonOutlet.setTitle(attributedString1.string, for: .normal)
                 
             } else {
@@ -155,8 +137,7 @@ extension FollowersFollowing {
                 let attributedString2 = NSMutableAttributedString(string:"Following", attributes:attrs2)
                 
                 attributedString1.append(attributedString2)
-//                self.followingButtonOutlet.titleLabel?.attributedText = attributedString1
-                self.followingButtonOutlet.setTitle(attributedString1.string, for: .normal)
+                self.followingButtonOutlet.titleLabel?.attributedText = attributedString1
             }
         }
     }
@@ -178,9 +159,6 @@ extension FollowersFollowing {
                 attributedString1.append(attributedString2)
                 self.booksPostedLabel.attributedText = attributedString1
                 
-                let booksPostedHeight = self.booksPostedLabel.frame.width
-                self.booksPostedLabel.layer.cornerRadius = booksPostedHeight/2
-                
             } else {
                 let attributedString1 = NSMutableAttributedString(string:"\(text)\n", attributes:attrs1)
                 
@@ -188,10 +166,7 @@ extension FollowersFollowing {
                 
                 attributedString1.append(attributedString2)
                 self.booksPostedLabel.attributedText = attributedString1
-                
-                let booksPostedHeight = self.booksPostedLabel.frame.width
-                self.booksPostedLabel.layer.cornerRadius = booksPostedHeight/2
-                
+                                
             }
         }
     }

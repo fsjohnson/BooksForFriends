@@ -47,6 +47,8 @@ class UserPostListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "userPost", for: indexPath) as! UserPostListTableViewCell
 
+        print(cell)
+        print(cell.postView)
         if cell.postView.delegate == nil { cell.postView.delegate = self }
         cell.postView.bookPost = userPosts[indexPath.row]
 
@@ -59,6 +61,9 @@ class UserPostListTableViewController: UITableViewController {
         
     }
 
+    @IBAction func doneButton(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
     
     
     /*
