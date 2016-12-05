@@ -50,7 +50,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Book My Friends Read" id="iGf-4p-RD9">
-                        <barButtonItem key="rightBarButtonItem" image="AddFriend" id="yfQ-J4-dYc">
+                        <barButtonItem key="rightBarButtonItem" image="AddBook" id="yfQ-J4-dYc">
                             <connections>
                                 <segue destination="Usx-En-JRb" kind="show" identifier="findFriends" id="t49-p0-bcd"/>
                             </connections>
@@ -674,11 +674,18 @@
         </scene>
     </scenes>
     <resources>
+<<<<<<< HEAD
         <image name="AddBook" width="36" height="36"/>
         <image name="AddFriend" width="36" height="36"/>
         <image name="Book" width="36" height="36"/>
         <image name="LiveFeedHome" width="36" height="36"/>
         <image name="Profile" width="36" height="36"/>
         <image name="Settings" width="30" height="30"/>
+=======
+        <image name="AddBook" width="29" height="29"/>
+        <image name="Book" width="29" height="29"/>
+        <image name="LiveFeedHome" width="29" height="29"/>
+        <image name="Profile" width="29" height="29"/>
+>>>>>>> master
     </resources>
 </document>
