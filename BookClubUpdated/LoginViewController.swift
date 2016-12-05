@@ -160,7 +160,7 @@ extension LoginViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "landingSegue" {
-            let destinationNavController = segue.destination as! UITabBarController
+            _ = segue.destination as! UITabBarController
             
         }
     }

@@ -8,11 +8,16 @@
 
 import UIKit
 import Firebase
+import DropDown
 
 class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {
     
     
     @IBOutlet weak var postsCollectionView: UICollectionView!
+    let dropDown = DropDown()
+
+    @IBOutlet weak var dropDownOutlet: UIBarButtonItem!
+    
     
     var sectionInsets: UIEdgeInsets!
     var itemSize: CGSize!
@@ -35,6 +40,8 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
 
         self.navigationController?.navigationBar.barTintColor = UIColor.themeOrange
         self.tabBarController?.tabBar.barTintColor = UIColor.themeDarkBlue
+        
+        dropdownMenuConfig()
         
         guard let currentUserID = FIRAuth.auth()?.currentUser?.uid else { return }
         
@@ -90,6 +97,63 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         
         segmentedControl.selectedSegmentIndex = 0
         followersFollowingView.populatePostsLabel()
+    }
+    
+    
+    func dropdownMenuConfig() {
+
+        dropDown.anchorView = dropDownOutlet
+        dropDown.dataSource = ["Contact BFF", "Logout"]
+        
+        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            
+            if index == 0 {
+                print("CONTACT")
+                self.contactBFFAlert()
+                
+            } else if index == 1 {
+                
+                print("LOGOUT")
+                self.logoutButton()
+            }
+        }
+        
+        dropDown.width = 200
+        dropDown.direction = .any
+
+    }
+    
+    func logoutButton() {
+        do {
+            try FIRAuth.auth()?.signOut()
+        } catch {
+            print(error)
+        }
+        
+        if let storyboard = self.storyboard {
+            let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
+            self.present(loginVC, animated: false, completion: nil)
+        }
+
+    }
+    
+    
+    func contactBFFAlert() {
+        
+        guard let userUniqueKey = FIRAuth.auth()?.currentUser?.uid else { return }
+        
+        let alert = UIAlertController(title: "Feedback for BFF?", message: "Type your comments or questions here!", preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addTextField { (reviewTextField) in
+            reviewTextField.text = "" }
+        
+        alert.addAction(UIAlertAction(title: "Submit", style: UIAlertActionStyle.default, handler: { (_) in
+            let reviewTextField = alert.textFields![0]
+            
+            UserFirebaseMethods.sendFeedbackToBFF(with: reviewTextField.text!)
+            
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
     
@@ -209,6 +273,13 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         return itemSize
     }
 
+    
+    @IBAction func dropDown(_ sender: Any) {
+        
+        dropDown.show()
+        
+    }
+    
     
     
 }

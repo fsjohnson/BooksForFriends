@@ -295,5 +295,15 @@ class UserFirebaseMethods {
         })
     }
     
+    // MARK: - Comments for BFF
+    
+    static func sendFeedbackToBFF(with comment: String) {
+        
+        let ref = FIRDatabase.database().reference().child("userFeedback")
+        let commentUniqueID = FIRDatabase.database().reference().childByAutoId().key
+        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else { return }
+        
+        ref.updateChildValues([commentUniqueID: ["userUniqueID": currentUser, "comment": comment]])
+    }
     
 }
