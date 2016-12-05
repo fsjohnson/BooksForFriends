@@ -108,18 +108,23 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             
             if index == 0 {
-                print("CONTACT")
                 self.contactBFFAlert()
                 
             } else if index == 1 {
                 
-                print("LOGOUT")
                 self.logoutButton()
             }
         }
         
         dropDown.width = 200
         dropDown.direction = .any
+        
+        
+        dropDown.textColor = UIColor.themeDarkBlue
+        dropDown.textFont = UIFont.themeTinyBold!
+        dropDown.backgroundColor = UIColor.themeWhite
+        dropDown.selectionBackgroundColor = UIColor.themeLightBlue
+        
 
     }
     
@@ -140,7 +145,7 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
     
     func contactBFFAlert() {
         
-        guard let userUniqueKey = FIRAuth.auth()?.currentUser?.uid else { return }
+        guard (FIRAuth.auth()?.currentUser?.uid) != nil else { return }
         
         let alert = UIAlertController(title: "Feedback for BFF?", message: "Type your comments or questions here!", preferredStyle: UIAlertControllerStyle.alert)
         
@@ -153,6 +158,11 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
             UserFirebaseMethods.sendFeedbackToBFF(with: reviewTextField.text!)
             
         }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+            
+        }))
+        
         self.present(alert, animated: true, completion: nil)
     }
     

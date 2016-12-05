@@ -41,7 +41,8 @@ class GoogleBooksAPI {
             
             let task = session.dataTask(with: unwrappedURL) { (data, response, error) in
                 if error != nil {
-                    print(error?.localizedDescription)
+                    guard let error = error?.localizedDescription else { return }
+                    print(error)
                 }
                 
                 let httpResponse = response as! HTTPURLResponse
