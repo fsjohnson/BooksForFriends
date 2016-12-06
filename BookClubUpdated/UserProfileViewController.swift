@@ -47,7 +47,7 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         
         postsCollectionView.translatesAutoresizingMaskIntoConstraints = false
         postsCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        postsCollectionView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 10).isActive = true
+        postsCollectionView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: segmentedControl.bounds.height.multiplied(by: 0.1)).isActive = true
         postsCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         postsCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         
@@ -96,7 +96,7 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         let viewWidth = view.frame.width
         let followersFollowingViewHeight = view.frame.height.multiplied(by: 0.15)
         
-        followersFollowingView = FollowersFollowing(frame: CGRect(x: 0, y: navBarHeight.multiplied(by: 1.3), width: viewWidth, height: followersFollowingViewHeight))
+        followersFollowingView = FollowersFollowing(frame: CGRect(x: 0, y: navBarHeight.multiplied(by: 1.5), width: viewWidth, height: followersFollowingViewHeight))
         view.addSubview(followersFollowingView)
         followersFollowingView.profilePic.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectProfileImageView)))
         
@@ -112,14 +112,13 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         
         view.addSubview(segmentedControl)
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        segmentedControl.topAnchor.constraint(equalTo: followersFollowingView.bottomAnchor, constant: 10).isActive = true
+        segmentedControl.topAnchor.constraint(equalTo: followersFollowingView.bottomAnchor, constant: followersFollowingView.bounds.height.multiplied(by: 0.1)).isActive = true
         segmentedControl.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1.0).isActive = true
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addTarget(self, action: #selector(segmentedControlSegues), for: .valueChanged)
         segmentedControl.setTitleTextAttributes([NSForegroundColorAttributeName : UIColor.themeDarkBlue], for: .normal)
-        
-        
-        
+        segmentedControl.tintColor = UIColor.themeDarkBlue
+
     }
     
     func dropdownMenuConfig() {

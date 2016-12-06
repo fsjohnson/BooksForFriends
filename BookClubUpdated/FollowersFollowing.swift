@@ -51,11 +51,13 @@ class FollowersFollowing: UIView {
         
         profilePic.backgroundColor = UIColor.blue
         profilePic.image = UIImage(named: "BFFLogo")
-        profilePic.translatesAutoresizingMaskIntoConstraints = false
-        profilePic.contentMode = .scaleAspectFill
-        profilePic.clipsToBounds = true
+        self.layoutIfNeeded()
+        profilePic.contentMode = .scaleAspectFit
         profilePic.isUserInteractionEnabled = true
-        profilePic.layer.cornerRadius = 0.5 * profilePic.bounds.size.height
+        profilePic.layer.masksToBounds = true
+        profilePic.layer.cornerRadius = profilePic.frame.size.width/2
+        profilePic.clipsToBounds = true
+        
         
         // Book Post Label Config
         
