@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Firebase
+import SDWebImage
 
 class SearchedBook {
     
@@ -38,10 +39,9 @@ class SearchedBook {
         guard let link = finalBookCoverLink else {return}
         
         if bookCoverLink != nil {
-            GoogleBooksAPI.downloadBookImage(with: link) { (image) in
-                print(link)
-                self.bookCover = image
-            }
+            let imageView = UIImageView()
+            imageView.sd_setImage(with: URL(string: link), placeholderImage: UIImage(named: "BFFLogo"))
+            self.bookCover = imageView.image
         }
     }
     

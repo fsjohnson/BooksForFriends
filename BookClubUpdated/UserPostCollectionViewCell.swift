@@ -14,7 +14,7 @@ class UserPostCollectionViewCell: UICollectionViewCell {
     var imageView: UIImageView!
     
     var book: BookPosted!
-        
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,7 +27,6 @@ class UserPostCollectionViewCell: UICollectionViewCell {
         super.init(coder: aDecoder)
         
         commonInit()
-        
     }
     
     private func commonInit() {
@@ -43,20 +42,15 @@ class UserPostCollectionViewCell: UICollectionViewCell {
         imageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor).isActive = true
         imageView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor).isActive = true
         imageView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
-//        imageView.layer.borderWidth = 4.0
-//        imageView.layer.borderColor = UIColor.themeWhite.cgColor
+        //        imageView.layer.borderWidth = 4.0
+        //        imageView.layer.borderColor = UIColor.themeWhite.cgColor
         imageView.layer.cornerRadius = 5.0
     }
     
     
-    func configureCell(book: BookPosted){
-           
-        if let url = URL(string: book.imageLink) {
-            self.imageView.sd_setImage(with: url, placeholderImage: UIImage(named: "BFFLogo"), options: SDWebImageOptions.refreshCached)
-        } else {
-            
-            self.imageView.image = UIImage(named: "BFFLogo")
-        }
+    func configureCell(book: BookPosted) {
+        
+        self.imageView.sd_setImage(with: URL(string: book.imageLink), placeholderImage: UIImage(named: "BFFLogo"))
     }
     
 }

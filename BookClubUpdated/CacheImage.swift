@@ -9,11 +9,17 @@
 import Foundation
 import UIKit
 
-let imageCache = URLCache()
+let imageCache = NSCache<AnyObject, AnyObject>()
 
 extension UIImageView {
     
     func loadImageUsingCacheWithURLString(urlString: String) {
+        
+        if let cachedImage = imageCache.object(forKey: urlString as AnyObject) as? UIImage {
+            self.image = cachedImage
+            return
+        }
+        
         guard let url = URL(string: urlString) else { return }
         let session = URLSession.shared
         
@@ -25,7 +31,9 @@ extension UIImageView {
             guard let data = data else { return }
             
             DispatchQueue.main.async {
-                self.image = UIImage(data: data)
+                if let downloadedImage = UIImage(data: data) {
+                    self.image = downloadedImage
+                }
             }
         }
         

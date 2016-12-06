@@ -63,17 +63,13 @@ extension SearchResultsView {
         
         guard searchedBook.bookCover == nil else { bookImage.image = searchedBook.bookCover; return }
         
-        guard let link = searchedBook.finalBookCoverLink else {
-            searchedBook.bookCover = UIImage(named: "BFFLogo")
-            bookImage.image = searchedBook.bookCover
-            return
-        }
+        guard let link = searchedBook.finalBookCoverLink else { print("NO SEARCHED IMAGE LINK"); return }
         
-        GoogleBooksAPI.downloadBookImage(with: link, with: { (image) in
+        bookImage.sd_setImage(with: URL(string: link), placeholderImage: UIImage(named: "BFFLogo"))
             
             DispatchQueue.main.async {
                 
-                self.searchedBook.bookCover = image
+                self.searchedBook.bookCover = self.bookImage.image
                 
                 if self.delegate.canDisplayImage(sender: self) {
                     
@@ -81,7 +77,6 @@ extension SearchResultsView {
                     
                 }
             }
-        })
     }
 }
 

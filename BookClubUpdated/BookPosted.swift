@@ -42,12 +42,9 @@ class BookPosted {
     
     func setImage() {
         if imageLink != "" {
-            GoogleBooksAPI.downloadBookImage(with: imageLink) { (image) in
-                print("IMAGE LINK: \(self.imageLink)")
-                self.bookCover = image
-            }
-        } else {
-            self.bookCover = UIImage(named: "BFFLogo")
+            let imageView = UIImageView()
+            imageView.sd_setImage(with: URL(string: imageLink), placeholderImage: UIImage(named: "BFFLogo"))
+            self.bookCover = imageView.image
         }
         
     }

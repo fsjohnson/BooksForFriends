@@ -93,11 +93,12 @@ extension PostsView {
             bookImage.image = bookPost.bookCover
         }
         
-        GoogleBooksAPI.downloadBookImage(with: bookPost.imageLink, with: { (image) in
-            
+        guard let url = URL(string: bookPost.imageLink) else { return }
+        
+        bookImage.sd_setImage(with: url, placeholderImage: UIImage(named: "BFFLogo"))
             DispatchQueue.main.async {
                 
-                self.bookPost.bookCover = image
+                self.bookPost.bookCover = self.bookImage.image
                 
                 if self.delegate.canDisplayImage(sender: self) {
                     
@@ -105,7 +106,6 @@ extension PostsView {
                     
                 }
             }
-        })
     }
     
     

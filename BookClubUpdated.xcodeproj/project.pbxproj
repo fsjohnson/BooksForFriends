@@ -85,6 +85,7 @@
 		B5302D881DEDC81B007848B2 /* SearchResultsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsView.swift; sourceTree = "<group>"; };
 		B5302D8A1DEDC82D007848B2 /* SearchResultsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultsView.xib; sourceTree = "<group>"; };
 		B5302D9C1DEE4376007848B2 /* UserPostCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPostCollectionViewCell.swift; sourceTree = "<group>"; };
+		B558296D1DF76FB400ACF191 /* BookClubUpdated-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BookClubUpdated-Bridging-Header.h"; sourceTree = "<group>"; };
 		B57955CD1DF07296000A030A /* StarReview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarReview.swift; sourceTree = "<group>"; };
 		B57ABBBB1DE7F22B00722B83 /* FollowingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowingTableViewCell.swift; sourceTree = "<group>"; };
 		B58291BA1DB96C300017FF58 /* BookClubUpdated.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookClubUpdated.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -229,6 +230,7 @@
 			children = (
 				B52472501DE45DDF00BE95FA /* Constants.swift */,
 				B58291BD1DB96C300017FF58 /* AppDelegate.swift */,
+				B558296D1DF76FB400ACF191 /* BookClubUpdated-Bridging-Header.h */,
 				B50E74451DF331AA00F2DC4A /* Extensions */,
 			);
 			name = Other;
@@ -364,6 +366,7 @@
 					B58291B91DB96C300017FF58 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 2UY7XP5ASH;
+						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -615,11 +618,14 @@
 			baseConfigurationReference = 564182B88FA5B39804202925 /* Pods-BookClubUpdated.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 2UY7XP5ASH;
 				INFOPLIST_FILE = BookClubUpdated/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.FJ.BookClubUpdated;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "BookClubUpdated/BookClubUpdated-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -629,11 +635,13 @@
 			baseConfigurationReference = 72BBA813D17FAAE43B1ECE5C /* Pods-BookClubUpdated.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 2UY7XP5ASH;
 				INFOPLIST_FILE = BookClubUpdated/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.FJ.BookClubUpdated;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "BookClubUpdated/BookClubUpdated-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
