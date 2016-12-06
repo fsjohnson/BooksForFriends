@@ -19,7 +19,6 @@ class User {
     var profileImageURL = "No image link"
 
     
-    
     init(name: String, email: String, uniqueKey: String, username: String, profileImageURL: String) {
         self.name = name
         self.email = email

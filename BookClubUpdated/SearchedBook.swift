@@ -55,23 +55,6 @@ class SearchedBook {
         self.bookCoverLink = bookCoverLink
         self.finalBookCoverLink = finalBookCoverLink
     }
-    
-    
-    //    convenience init(title: String, author: String, bookCover: UIImage?, finalBookCoverLink: String, synopsis: String?) {
-    //        self.init(title: title, author: author, bookCover: bookCover, finalBookCoverLink: finalBookCoverLink, synopsis: synopsis)
-    //        self.title = title
-    //        self.author = author
-    //        self.bookCover = bookCover
-    //        self.finalBookCoverLink = finalBookCoverLink
-    //        self.synopsis = synopsis
-    //
-    //    }
-
-    
-//    convenience init(title: String, author: String, bookCover: UIImage?, finalBookCoverLink: String, synopsis: String?) {
-//        self.init(title: title, author: author, bookCover: bookCover, finalBookCoverLink: finalBookCoverLink, synopsis: synopsis)
-//    }
-    
 }
 
 extension SearchedBook: Hashable {

@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import Foundation
+import SDWebImage 
 
 class FollowersFollowing: UIView {
     
@@ -29,6 +30,7 @@ class FollowersFollowing: UIView {
         populatePostsLabel()
         populateFollowersLabel()
         populateFollowingLabel()
+        populateProfilePic()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -37,6 +39,7 @@ class FollowersFollowing: UIView {
         populatePostsLabel()
         populateFollowersLabel()
         populateFollowingLabel()
+        populateProfilePic()    
     }
     
     
@@ -113,7 +116,6 @@ extension FollowersFollowing {
                 self.followersButtonOutlet.setTitle("0", for: .normal)
             } else {
                 UserFirebaseMethods.retriveFollowers { (users) in
-                    print("FOLLOWERS COUNT: \(users.count)")
                     self.followersButtonOutlet.setTitle(String(users.count), for: .normal)
                 }
             }
@@ -127,7 +129,6 @@ extension FollowersFollowing {
                 self.followingButtonOutlet.setTitle("0", for: .normal)
             } else {
                 UserFirebaseMethods.retriveFollowingUsers { (users) in
-                    print("FOLLOWING COUNT: \(users.count)")
                     self.followingButtonOutlet.setTitle(String(users.count), for: .normal)
                 }
             }
@@ -150,6 +151,21 @@ extension FollowersFollowing {
             
             
         }
+    }
+    
+    func populateProfilePic() {
+        guard let currentUserID = FIRAuth.auth()?.currentUser?.uid else { return }
+        UserFirebaseMethods.retrieveSpecificUser(with: currentUserID) { (currentUser) in
+            
+            if let profileImageURL = currentUser?.profileImageURL {
+                let url = URL(string: profileImageURL)
+                DispatchQueue.main.async {
+                    self.profilePic.sd_setImage(with: url, placeholderImage: UIImage(named: "BFFLogo"), options: .refreshCached)
+                }
+                
+            }
+        }
+        
     }
     
 }

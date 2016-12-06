@@ -77,6 +77,8 @@ class UserFirebaseMethods {
                     else { print("\n\n\n\n\n\(userRawInfo)\n\n\n\n"); return }
                 
                 if uniqueKey != currentUser {
+                 
+                    
                     let user = User(name: name, email: email, uniqueKey: uniqueKey, username: username, profileImageURL: profileImageURL)
                     usersArray.append(user)
                 }
@@ -232,8 +234,6 @@ class UserFirebaseMethods {
     }
     
     
-    
-    
     //MARK: - Retrieve followers
     
     
@@ -281,6 +281,7 @@ class UserFirebaseMethods {
             }
         })
     }
+    
     
     
     // Mark: - Block Follower
