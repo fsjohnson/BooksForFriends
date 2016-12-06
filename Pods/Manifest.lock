@@ -21,6 +21,9 @@ PODS:
   - Firebase/Database (3.10.0):
     - Firebase/Core
     - FirebaseDatabase (= 3.1.1)
+  - Firebase/Storage (3.10.0):
+    - Firebase/Core
+    - FirebaseStorage (= 1.0.5)
   - FirebaseAnalytics (3.6.0):
     - FirebaseCore (~> 3.4)
     - FirebaseInstanceID (~> 1.0)
@@ -37,6 +40,9 @@ PODS:
   - FirebaseDatabase (3.1.1):
     - FirebaseAnalytics (~> 3.5)
   - FirebaseInstanceID (1.0.8)
+  - FirebaseStorage (1.0.5):
+    - FirebaseAnalytics (~> 3.5)
+    - GTMSessionFetcher/Core (~> 1.1)
   - GoogleInterchangeUtilities (1.2.2):
     - GoogleSymbolUtilities (~> 1.1)
   - GoogleSymbolUtilities (1.1.2)
@@ -63,6 +69,7 @@ DEPENDENCIES:
   - Firebase
   - Firebase/Auth
   - Firebase/Database
+  - Firebase/Storage
   - SDWebImage (~> 3.8)
 
 SPEC CHECKSUMS:
@@ -76,12 +83,13 @@ SPEC CHECKSUMS:
   FirebaseCore: 1e383fdfe37b6b5d6ff88e84204bdee30276af0f
   FirebaseDatabase: 6de92187481ff0e8e124064f21742e95ee883b02
   FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
+  FirebaseStorage: 5738284835edb57f0e81d4ae5832bb17c1e4b5fa
   GoogleInterchangeUtilities: d5bc4d88d5b661ab72f9d70c58d02ca8c27ad1f7
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
   GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
   GTMSessionFetcher: a1f8ed39e4fe21c68957daed472c7afbcdf29166
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
 
-PODFILE CHECKSUM: 622c48b3549add12122c4ed619a0819811a85a7b
+PODFILE CHECKSUM: abf14665cf8b90718d7c616cfe9d9cef5b17b1cc
 
 COCOAPODS: 1.0.1

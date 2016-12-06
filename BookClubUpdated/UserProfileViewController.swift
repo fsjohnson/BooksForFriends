@@ -15,7 +15,7 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
     
     @IBOutlet weak var postsCollectionView: UICollectionView!
     let dropDown = DropDown()
-
+    
     @IBOutlet weak var dropDownOutlet: UIBarButtonItem!
     
     
@@ -36,34 +36,14 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let navBarHeight = self.navigationController?.navigationBar.frame.height else { print("no nav bar height"); return }
-
         self.navigationController?.navigationBar.barTintColor = UIColor.themeOrange
         self.tabBarController?.tabBar.barTintColor = UIColor.themeDarkBlue
         
+        configFollowersFollowingView()
+        configFirebaseData()
+        configSegmentedControl()
         dropdownMenuConfig()
-        
-        guard let currentUserID = FIRAuth.auth()?.currentUser?.uid else { return }
-        
-        UserFirebaseMethods.retrieveSpecificUser(with: currentUserID) { (returnedUser) in
-            guard let username = returnedUser?.username else { print("no username"); return }
-            self.navigationItem.title = username
-        }
-
-        let viewWidth = view.frame.width
-        let followersFollowingViewHeight = view.frame.height.multiplied(by: 0.15)
-        
-        followersFollowingView = FollowersFollowing(frame: CGRect(x: 0, y: navBarHeight, width: viewWidth, height: followersFollowingViewHeight))
-        view.addSubview(followersFollowingView)
-        
-        view.addSubview(segmentedControl)
-        segmentedControl.frame = CGRect(x: 0, y: followersFollowingViewHeight.multiplied(by: 1.3), width: view.frame.width, height: view.frame.height.multiplied(by: 0.05))
-        segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.addTarget(self, action: #selector(segmentedControlSegues), for: .valueChanged)
-  
-        segmentedControl.setTitleTextAttributes([NSForegroundColorAttributeName : UIColor.themeDarkBlue], for: .normal)
-
-        view.addSubview(postsCollectionView)
+        self.cellConfig()
         
         postsCollectionView.translatesAutoresizingMaskIntoConstraints = false
         postsCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
@@ -73,39 +53,86 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         
         postsCollectionView.register(UserPostCollectionViewCell.self, forCellWithReuseIdentifier: "bookPost")
         
-        followersFollowingView.followersButtonOutlet.addTarget(self, action: #selector(segueToFollowers), for: .touchDown)
-        
-        
-        followersFollowingView.followingButtonOutlet.addTarget(self, action: #selector(segueToFollowing), for: .touchDown)
-        
-        self.cellConfig()
-        
-        PostsFirebaseMethods.downloadUsersBookPostsArray(with: currentUserID) { (booksPosted) in
-            self.userPosts = booksPosted
-            self.postsCollectionView.reloadData()
-        }
+        view.addSubview(postsCollectionView)
         
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
-        guard let currentUserID = FIRAuth.auth()?.currentUser?.uid else { return }
         
+        guard let currentUserID = FIRAuth.auth()?.currentUser?.uid else { return }
         PostsFirebaseMethods.downloadUsersBookPostsArray(with: currentUserID) { (booksPosted) in
             self.userPosts = booksPosted
             self.postsCollectionView.reloadData()
         }
-        
         
         segmentedControl.selectedSegmentIndex = 0
         followersFollowingView.populatePostsLabel()
     }
     
     
+    func configFirebaseData() {
+        
+        guard let currentUserID = FIRAuth.auth()?.currentUser?.uid else { return }
+        
+        UserFirebaseMethods.retrieveSpecificUser(with: currentUserID) { (returnedUser) in
+            guard let username = returnedUser?.username else { print("no username"); return }
+            self.navigationItem.title = username
+        }
+        
+        PostsFirebaseMethods.downloadUsersBookPostsArray(with: currentUserID) { (booksPosted) in
+            self.userPosts = booksPosted
+            self.postsCollectionView.reloadData()
+        }
+        
+    }
+    
+    func configFollowersFollowingView() {
+        
+        guard let navBarHeight = self.navigationController?.navigationBar.frame.height else { print("no nav bar height"); return }
+        
+        let viewWidth = view.frame.width
+        let followersFollowingViewHeight = view.frame.height.multiplied(by: 0.15)
+        
+        followersFollowingView = FollowersFollowing(frame: CGRect(x: 0, y: navBarHeight.multiplied(by: 1.3), width: viewWidth, height: followersFollowingViewHeight))
+        view.addSubview(followersFollowingView)
+        followersFollowingView.profilePic.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectProfileImageView)))
+        
+        followersFollowingView.followersButtonOutlet.addTarget(self, action: #selector(segueToFollowers), for: .touchDown)
+        
+        
+        followersFollowingView.followingButtonOutlet.addTarget(self, action: #selector(segueToFollowing), for: .touchDown)
+        
+    }
+    
+    
+    func configSegmentedControl() {
+        
+        view.addSubview(segmentedControl)
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        segmentedControl.topAnchor.constraint(equalTo: followersFollowingView.bottomAnchor, constant: 10).isActive = true
+        segmentedControl.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1.0).isActive = true
+        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.addTarget(self, action: #selector(segmentedControlSegues), for: .valueChanged)
+        segmentedControl.setTitleTextAttributes([NSForegroundColorAttributeName : UIColor.themeDarkBlue], for: .normal)
+        
+        
+        
+    }
+    
     func dropdownMenuConfig() {
-
+        
         dropDown.anchorView = dropDownOutlet
         dropDown.dataSource = ["Contact BFF", "Logout"]
+        dropDown.width = 200
+        dropDown.direction = .any
+        
+        dropDown.textColor = UIColor.themeDarkBlue
+        dropDown.textFont = UIFont.themeTinyBold!
+        dropDown.backgroundColor = UIColor.themeWhite
+        dropDown.selectionBackgroundColor = UIColor.themeLightBlue
+        dropDown.cornerRadius = 5
+        
         
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             
@@ -117,18 +144,6 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
                 self.logoutButton()
             }
         }
-        
-        dropDown.width = 200
-        dropDown.direction = .any
-        
-        
-        dropDown.textColor = UIColor.themeDarkBlue
-        dropDown.textFont = UIFont.themeTinyBold!
-        dropDown.backgroundColor = UIColor.themeWhite
-        dropDown.selectionBackgroundColor = UIColor.themeLightBlue
-        dropDown.cornerRadius = 5
-        
-
     }
     
     func logoutButton() {
@@ -142,7 +157,7 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
             let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
             self.present(loginVC, animated: false, completion: nil)
         }
-
+        
     }
     
     
@@ -191,7 +206,7 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         itemSize = CGSize(width: (screedWidth - totalWidthDeduction)/numOfColumns, height: (screenHeight - totalHeightDeduction)/numOfRows)
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -264,7 +279,7 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         
         let currentPost = userPosts[indexPath.row]
         cell.configureCell(book: currentPost)
-
+        
         return cell
     }
     
@@ -287,7 +302,7 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return itemSize
     }
-
+    
     
     @IBAction func dropDown(_ sender: Any) {
         

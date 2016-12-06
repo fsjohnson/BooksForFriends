@@ -71,7 +71,8 @@ class UserFirebaseMethods {
                     let name = userInfo["name"] as?  String,
                     let username = userInfo["username"] as? String,
                     let email = userInfo["email"] as? String,
-                    let uniqueKey = userInfo["uniqueKey"] as? String
+                    let uniqueKey = userInfo["uniqueKey"] as? String,
+                    let profileImageURL = userInfo["profilePicURL"] as? String
                     else { print("\n\n\n\n\n\(userRawInfo)\n\n\n\n"); return }
                 
                 if uniqueKey != currentUser {
@@ -96,7 +97,8 @@ class UserFirebaseMethods {
                 let name = userInfo["name"] as?  String,
                 let username = userInfo["username"] as? String,
                 let email = userInfo["email"] as? String,
-                let uniqueKey = userInfo["uniqueKey"] as? String
+                let uniqueKey = userInfo["uniqueKey"] as? String,
+                let profileImageURL = userInfo["profilePicURL"] as? String
                 else { print("\n\n\n\n\n\(userInfoRaw)\n\n\n\n"); return }
             
             

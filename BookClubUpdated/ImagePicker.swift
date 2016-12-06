@@ -7,23 +7,11 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseStorage
 
 extension UserProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    
-    func configureProfileView() {
-        
-        followersFollowingView.profilePic.image = UIImage(named: "BFFLogo")
-        followersFollowingView.profilePic.translatesAutoresizingMaskIntoConstraints = false
-        followersFollowingView.profilePic.contentMode = .scaleAspectFill
-        
-        followersFollowingView.profilePic.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectProfileImageView)))
-        followersFollowingView.profilePic.isUserInteractionEnabled = true
-        
-        
-    }
-    
-    
+
     func handleSelectProfileImageView() {
         print("image touched")
         let picker = UIImagePickerController()
@@ -52,8 +40,9 @@ extension UserProfileViewController: UIImagePickerControllerDelegate, UINavigati
         
         if let selectedImage = seletedImageFromPicker {
             followersFollowingView.profilePic.image = selectedImage
+            handleSavingPic()
         }
-        
+       
         dismiss(animated: true, completion: nil)
     }
     
@@ -62,6 +51,34 @@ extension UserProfileViewController: UIImagePickerControllerDelegate, UINavigati
         dismiss(animated: true, completion: nil)
     }
 
+    
+    func handleSavingPic() {
+        
+        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else { return }
+        let userRef = FIRDatabase.database().reference().child("users").child(currentUser)
+        
+        let imageName = NSUUID().uuidString
+        let storageRef = FIRStorage.storage().reference().child("profilePics").child("\(imageName).png")
+        guard let imageToUpload = followersFollowingView.profilePic.image else { print("no image"); return }
+        
+        if let uploadData = UIImagePNGRepresentation(imageToUpload) {
+            
+            storageRef.put(uploadData, metadata: nil) { (metadata, error) in
+                
+                if error != nil {
+                    print(error ?? String())
+                    return
+                }
+                
+                guard let metaDataURL = metadata?.downloadURL()?.absoluteString else { print("no profile image URL"); return }
+                
+                userRef.updateChildValues(["profilePicURL": metaDataURL])
+                
+            }
+            
+        }
+        
+    }
     
 }
 

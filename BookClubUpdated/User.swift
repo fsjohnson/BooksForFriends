@@ -16,6 +16,7 @@ class User {
     var uniqueKey: String
     var email: String
     var username: String
+    var profileImageURL: UIImage?
 
     
     
