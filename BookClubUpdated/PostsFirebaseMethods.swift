@@ -232,35 +232,42 @@ class PostsFirebaseMethods {
         var postsArray = [BookPosted]()
         
         postRef.observeSingleEvent(of: .value, with: { (snapshot) in
-            guard let snapshotValue = snapshot.value as? [String: Any] else {print("download all posts error"); return}
             
-            for snap in snapshotValue {
+            if !snapshot.hasChildren() {
+                postsArray = []
+            } else {
+                guard let snapshotValue = snapshot.value as? [String: Any] else {print("download all posts error"); return}
                 
-                guard
-                    let postInfo = snap.value as? [String: Any],
-                    let comment = postInfo["comment"] as? String,
-                    let imageLink = postInfo["imageLink"] as? String,
-                    let rating = postInfo["rating"] as? String,
-                    let userUniqueID = postInfo["userUniqueID"] as? String,
-                    let timestampString = postInfo["timestamp"] as? String,
-                    let timestamp = Double(timestampString),
-                    let bookUniqueID = postInfo["bookUniqueKey"] as? String,
-                    let title = postInfo["title"] as? String,
-                    let reviewID = postInfo["reviewID"] as? String
-                    else {print("error downloading postInfo"); return}
                 
-                if userUniqueID == userUniqueKey {
-                    let post = BookPosted(bookUniqueID: bookUniqueID, rating: rating, comment: comment, imageLink: imageLink, timestamp: timestamp, userUniqueKey: userUniqueID, reviewID: reviewID, title: title)
-                    postsArray.append(post)
+                for snap in snapshotValue {
+                    
+                    guard
+                        let postInfo = snap.value as? [String: Any],
+                        let comment = postInfo["comment"] as? String,
+                        let imageLink = postInfo["imageLink"] as? String,
+                        let rating = postInfo["rating"] as? String,
+                        let userUniqueID = postInfo["userUniqueID"] as? String,
+                        let timestampString = postInfo["timestamp"] as? String,
+                        let timestamp = Double(timestampString),
+                        let bookUniqueID = postInfo["bookUniqueKey"] as? String,
+                        let title = postInfo["title"] as? String,
+                        let reviewID = postInfo["reviewID"] as? String
+                        else {print("error downloading postInfo"); return}
+                    
+                    if userUniqueID == userUniqueKey {
+                        let post = BookPosted(bookUniqueID: bookUniqueID, rating: rating, comment: comment, imageLink: imageLink, timestamp: timestamp, userUniqueKey: userUniqueID, reviewID: reviewID, title: title)
+                        postsArray.append(post)
+                    }
+                    
                 }
                 
+                postsArray.sort(by: { (first, second) -> Bool in
+                    return first.timestamp > second.timestamp
+                })
+
             }
             
-            postsArray.sort(by: { (first, second) -> Bool in
-                return first.timestamp > second.timestamp
-            })
-            
-            if postsArray.count > 0 {
+            if postsArray.count == Int(snapshot.childrenCount) {
                 completion(postsArray)
             }
             

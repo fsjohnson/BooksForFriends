@@ -74,6 +74,21 @@ class FollowersFollowing: UIView {
         numFollowingOutlet.textColor = UIColor.themeLightBlue
         numFollowingOutlet.font = UIFont.themeTinyBold
         numFollowingOutlet.text = "Following"
+    
+        // Book Post Button Config
+        
+        self.booksPostedButton.setTitleColor(UIColor.themeLightBlue, for: .normal)
+        self.booksPostedButton.titleLabel?.font = UIFont.themeSmallBold
+        
+        // Followers Button Config
+        
+        self.followersButtonOutlet.setTitleColor(UIColor.themeLightBlue, for: .normal)
+        self.followersButtonOutlet.titleLabel?.font = UIFont.themeSmallBold
+        
+        // Following Button Config
+        
+        self.followingButtonOutlet.setTitleColor(UIColor.themeLightBlue, for: .normal)
+        self.followingButtonOutlet.titleLabel?.font = UIFont.themeSmallBold
         
     }
     
@@ -91,37 +106,31 @@ extension FollowersFollowing {
     }
     
     func populateFollowersLabel() {
-        
-        UserFirebaseMethods.retriveFollowers { (users) in
-            
-            print("COUNT: \(users.count)")
-            
-            var text = String()
-            if users.count == 0 {
-                text = "0"
+        UserFirebaseMethods.checkIfFollowerUsersIsEmpty { (isEmpty) in
+            if isEmpty ==  true {
+                self.followersButtonOutlet.setTitle("0", for: .normal)
             } else {
-                text = String(users.count)
+                UserFirebaseMethods.retriveFollowers { (users) in
+                    print("FOLLOWERS COUNT: \(users.count)")
+                    self.followersButtonOutlet.setTitle(String(users.count), for: .normal)
+                }
             }
-            
-            self.followersButtonOutlet.titleLabel?.text = text
-            self.followersButtonOutlet.titleLabel?.textColor = UIColor.themeLightBlue
-            self.followersButtonOutlet.titleLabel?.font = UIFont.themeSmallBold
         }
+        
     }
     
     func populateFollowingLabel() {
-        
-        UserFirebaseMethods.retriveFollowingUsers { (users) in
-            var text = String()
-            if users.count == 0 {
-                text = "0"
+        UserFirebaseMethods.checkIfFollowingUsersIsEmpty { (isEmpty) in
+            if isEmpty == true {
+                self.followingButtonOutlet.setTitle("0", for: .normal)
             } else {
-                text = String(users.count)
+                UserFirebaseMethods.retriveFollowingUsers { (users) in
+                    print("FOLLOWING COUNT: \(users.count)")
+                    self.followingButtonOutlet.setTitle(String(users.count), for: .normal)
+                }
             }
-            self.followingButtonOutlet.titleLabel?.text = text
-            self.followingButtonOutlet.setTitleColor(UIColor.themeLightBlue, for: .normal)
-            self.followingButtonOutlet.titleLabel?.font = UIFont.themeSmallBold
         }
+
     }
     
     func populatePostsLabel() {
@@ -129,8 +138,6 @@ extension FollowersFollowing {
         guard let currentUserID = FIRAuth.auth()?.currentUser?.uid else { return }
         
         PostsFirebaseMethods.downloadUsersBookPostsArray(with: currentUserID) { (booksPosted) in
-            
-            print("COUNT: \(booksPosted.count)")
             var text = String()
             if booksPosted.count == 0 {
                 text = "0"
@@ -138,8 +145,7 @@ extension FollowersFollowing {
                 text = String(booksPosted.count)
             }
             self.booksPostedButton.setTitle(text, for: .normal)
-            self.booksPostedButton.setTitleColor(UIColor.themeLightBlue, for: .normal)
-            self.booksPostedButton.titleLabel?.font = UIFont.themeSmallBold
+            
             
         }
     }

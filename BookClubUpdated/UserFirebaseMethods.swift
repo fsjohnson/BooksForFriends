@@ -34,7 +34,7 @@ class UserFirebaseMethods {
         if email != "" && password != "" {
             FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user, error) in
                 if error == nil {
-                    let userDictionary = ["email": email, "name": name, "username": username, "uniqueKey": (user?.uid)!]
+                    let userDictionary = ["email": email, "name": name, "username": username, "uniqueKey": (user?.uid)!, "profilePicURL": "no image"]
                     
                     ref.child("users").child((user?.uid)!).setValue(userDictionary)
                     boolToPass = true
@@ -60,6 +60,7 @@ class UserFirebaseMethods {
         var usersArray = [User]()
         
         userRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            
             guard let userRawInfo = snapshot.value as? [String:Any] else {return}
             
             for userValue in userRawInfo {
@@ -76,7 +77,7 @@ class UserFirebaseMethods {
                     else { print("\n\n\n\n\n\(userRawInfo)\n\n\n\n"); return }
                 
                 if uniqueKey != currentUser {
-                    let user = User(name: name, email: email, uniqueKey: uniqueKey, username: username)
+                    let user = User(name: name, email: email, uniqueKey: uniqueKey, username: username, profileImageURL: profileImageURL)
                     usersArray.append(user)
                 }
             }
@@ -102,7 +103,7 @@ class UserFirebaseMethods {
                 else { print("\n\n\n\n\n\(userInfoRaw)\n\n\n\n"); return }
             
             
-            let user = User(name: name, email: email, uniqueKey: uniqueKey, username: username)
+            let user = User(name: name, email: email, uniqueKey: uniqueKey, username: username, profileImageURL: profileImageURL)
             completion(user)
         })
     }
@@ -150,7 +151,7 @@ class UserFirebaseMethods {
     }
     
     
-    // MARK: - Check that not already following user
+    // MARK: - Check not already following user
     
     static func prohibitDuplicateFollowing(of uniqueUserID: String, completion: @escaping (Bool) -> Void) {
         guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
@@ -184,6 +185,24 @@ class UserFirebaseMethods {
     
     //MARK: - Retrive following
     
+    static func checkIfFollowingUsersIsEmpty(with completion: @escaping (Bool) -> Void) {
+        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
+        let ref = FIRDatabase.database().reference().child("users").child(currentUser).child("following")
+        var isEmpty = false
+        
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            if !snapshot.hasChildren() {
+                isEmpty = true
+            } else {
+                isEmpty = false
+            }
+            
+            completion(isEmpty)
+        })
+    }
+    
+    
+    
     static func retriveFollowingUsers(with completion: @escaping ([User]) -> Void) {
         
         guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
@@ -213,7 +232,27 @@ class UserFirebaseMethods {
     }
     
     
+    
+    
     //MARK: - Retrieve followers
+    
+    
+    static func checkIfFollowerUsersIsEmpty(with completion: @escaping (Bool) -> Void) {
+        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
+        let ref = FIRDatabase.database().reference().child("users").child(currentUser).child("followers").child("notBlocked")
+        var isEmpty = false
+        
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            if !snapshot.hasChildren() {
+                isEmpty = true
+            } else {
+                isEmpty = false
+            }
+            
+            completion(isEmpty)
+        })
+    }
+    
     
     static func retriveFollowers(with completion: @escaping ([User]) -> Void) {
         
@@ -242,6 +281,7 @@ class UserFirebaseMethods {
             }
         })
     }
+    
     
     // Mark: - Block Follower
     

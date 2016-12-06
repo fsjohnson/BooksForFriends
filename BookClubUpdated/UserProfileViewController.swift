@@ -68,6 +68,8 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         
         segmentedControl.selectedSegmentIndex = 0
         followersFollowingView.populatePostsLabel()
+        followersFollowingView.populateFollowersLabel()
+        followersFollowingView.populateFollowingLabel()
     }
     
     
