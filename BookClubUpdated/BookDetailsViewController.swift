@@ -14,14 +14,13 @@ class BookDetailsViewController: UIViewController {
     
     @IBOutlet weak var bookSynopsis: UITextView!
     
-    var passedImage = UIImage()
     var passedUniqueID = String()
     var passedImageLink = String()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        bookImageView.image = passedImage
+        print("PASSED IMAGE LINK: \(passedImageLink)")
+        bookImageView.loadImageUsingCacheWithURLString(urlString: passedImageLink)
         
         PostsFirebaseMethods.downloadSynopsisOfBookWith(book: passedUniqueID) { (synopsis) in
             print(synopsis)

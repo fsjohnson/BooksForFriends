@@ -157,9 +157,7 @@ class BooksFriendsReadTableViewController: UITableViewController {
                 
                 let bookUniqueID = postsArray[indexPath.row].bookUniqueID
                 let imageLinkToPass = postsArray[indexPath.row].imageLink
-                guard let bookCoverToPass = postsArray[indexPath.row].bookCover else {print("no cover"); return}
                 
-                targetController.passedImage = bookCoverToPass
                 targetController.passedUniqueID = bookUniqueID
                 targetController.passedImageLink = imageLinkToPass
                 
