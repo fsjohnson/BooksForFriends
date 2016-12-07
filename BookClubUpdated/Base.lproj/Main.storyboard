@@ -522,7 +522,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
-                            <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Search Author" translatesAutoresizingMaskIntoConstraints="NO" id="PE3-VB-q2n">
+                            <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Add Author To Improve Results" translatesAutoresizingMaskIntoConstraints="NO" id="PE3-VB-q2n">
                                 <rect key="frame" x="0.0" y="116" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <textInputTraits key="textInputTraits"/>

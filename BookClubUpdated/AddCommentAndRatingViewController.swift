@@ -29,9 +29,6 @@ class AddCommentAndRatingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("passedImageLink: \(passedImageLink)")
-        print("passedTitle: \(passedTitle)")
-        print("passedAuthor: \(passedAuthor)")
         DispatchQueue.main.async {
             self.bookCoverImageView.loadImageUsingCacheWithURLString(urlString: self.passedImageLink)
         }

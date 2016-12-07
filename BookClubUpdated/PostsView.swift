@@ -29,7 +29,7 @@ class PostsView: UIView {
     weak var bookPost: BookPosted! {
         didSet {
             updateViewToReflectBookImage()
-            commentLabel.text = bookPost.comment
+            commentLabel.text = "'\(bookPost.comment)'"
             titleLabel.text = bookPost.title
             updateViewToReflectUsername()
             updateStars()
@@ -109,7 +109,7 @@ extension PostsView {
         UserFirebaseMethods.retrieveSpecificUser(with: bookPost.userUniqueKey, completion: { (user) in
             guard let user = user else { return }
             
-            self.usernameLabel.text = user.username
+            self.usernameLabel.text = "- \(user.username)"
         })
     }
     

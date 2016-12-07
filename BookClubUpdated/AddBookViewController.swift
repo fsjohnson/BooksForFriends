@@ -40,6 +40,8 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         searchTitle.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.70).isActive = true
         searchTitle.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         searchTitle.topAnchor.constraint(equalTo: (view.topAnchor), constant:(navigationBarHeight + 20)).isActive = true
+//        searchTitle.barTintColor = UIColor.themeOrange
+//        searchTitle.backgroundColor = UIColor.themeOrange
         
         
         //Search Author
@@ -50,6 +52,8 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         searchAuthor.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.70).isActive = true
         searchAuthor.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         searchAuthor.topAnchor.constraint(equalTo: searchTitle.bottomAnchor, constant: 0).isActive = true
+//        searchAuthor.barTintColor = UIColor.themeOrange
+//        searchAuthor.backgroundColor = UIColor.themeOrange
         
         
         //Search message button
@@ -58,7 +62,6 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         searchButton.layer.borderWidth = 2.0
         searchButton.layer.borderColor = UIColor.black.cgColor
         searchButton.setImage(#imageLiteral(resourceName: "Search"), for: .normal)
-        searchButton.setTitleColor(UIColor.blue, for: .normal)
         searchButton.addTarget(self, action: #selector(searchButtonFunc), for: .touchUpInside)
         
         searchButton.translatesAutoresizingMaskIntoConstraints = false
@@ -66,6 +69,7 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         searchButton.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         searchButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.30).isActive = true
         searchButton.topAnchor.constraint(equalTo: (view.topAnchor), constant: (navigationBarHeight + 20)).isActive = true
+        searchButton.backgroundColor = UIColor.themeOrange
         
         //TableView
         
