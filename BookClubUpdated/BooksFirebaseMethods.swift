@@ -78,8 +78,8 @@ class BooksFirebaseMethods {
                 }
             }
             
-            print("DOWNLOAD ALL BOOK IDs: \(userBookIDArray), \(boolToPass)")
             completion(userBookIDArray, boolToPass)
+            
         })
     }
     
@@ -152,7 +152,7 @@ class BooksFirebaseMethods {
                     bookIDToPass = userBook.bookUniqueKey!
                 }
                 if bookIDToPass != "" {
-                    print("GET BOOK ID: \(bookIDToPass)")
+
                     completion(bookIDToPass)
                     
                 }
@@ -196,7 +196,6 @@ class BooksFirebaseMethods {
                 boolToReturn = false
             }
             
-            print("CHECK IF BOOK EXISTS: \(boolToReturn)\n\n\n")
             completion(boolToReturn)
             
         }
@@ -215,7 +214,7 @@ class BooksFirebaseMethods {
                 
                 completionToPass = false
             }
-            print("CHECK IF USER ALREADY POSTED: \(completionToPass)")
+
             completion(completionToPass)
         }
     }

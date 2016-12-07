@@ -118,7 +118,7 @@ class PostsFirebaseMethods {
                 }
             })
         }
-
+        
     }
     
     
@@ -225,6 +225,23 @@ class PostsFirebaseMethods {
     }
     
     
+    static func checkIfAnyBookPostsExist(with completion: @escaping (Bool) -> Void) {
+        let postRef = FIRDatabase.database().reference().child("posts").child("visible")
+        var postsArray = [BookPosted]()
+        var postsExist = false
+        
+        postRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if !snapshot.hasChildren() {
+                postsExist = false
+            } else {
+                postsExist = true
+            }
+            
+            completion(postsExist)
+        })
+    }
+    
     
     static func downloadUsersBookPostsArray(with userUniqueKey: String, completion: @escaping ([BookPosted]) -> Void) {
         
@@ -233,43 +250,34 @@ class PostsFirebaseMethods {
         
         postRef.observeSingleEvent(of: .value, with: { (snapshot) in
             
-            if !snapshot.hasChildren() {
-                postsArray = []
-            } else {
-                guard let snapshotValue = snapshot.value as? [String: Any] else {print("download all posts error"); return}
+            guard let snapshotValue = snapshot.value as? [String: Any] else {print("download all posts error"); return}
+        
+            for snap in snapshotValue {
                 
+                guard
+                    let postInfo = snap.value as? [String: Any],
+                    let comment = postInfo["comment"] as? String,
+                    let imageLink = postInfo["imageLink"] as? String,
+                    let rating = postInfo["rating"] as? String,
+                    let userUniqueID = postInfo["userUniqueID"] as? String,
+                    let timestampString = postInfo["timestamp"] as? String,
+                    let timestamp = Double(timestampString),
+                    let bookUniqueID = postInfo["bookUniqueKey"] as? String,
+                    let title = postInfo["title"] as? String,
+                    let reviewID = postInfo["reviewID"] as? String
+                    else {print("error downloading postInfo"); return}
                 
-                for snap in snapshotValue {
-                    
-                    guard
-                        let postInfo = snap.value as? [String: Any],
-                        let comment = postInfo["comment"] as? String,
-                        let imageLink = postInfo["imageLink"] as? String,
-                        let rating = postInfo["rating"] as? String,
-                        let userUniqueID = postInfo["userUniqueID"] as? String,
-                        let timestampString = postInfo["timestamp"] as? String,
-                        let timestamp = Double(timestampString),
-                        let bookUniqueID = postInfo["bookUniqueKey"] as? String,
-                        let title = postInfo["title"] as? String,
-                        let reviewID = postInfo["reviewID"] as? String
-                        else {print("error downloading postInfo"); return}
-                    
-                    if userUniqueID == userUniqueKey {
-                        let post = BookPosted(bookUniqueID: bookUniqueID, rating: rating, comment: comment, imageLink: imageLink, timestamp: timestamp, userUniqueKey: userUniqueID, reviewID: reviewID, title: title)
-                        postsArray.append(post)
-                    }
-                    
+                if userUniqueID == userUniqueKey {
+                    let post = BookPosted(bookUniqueID: bookUniqueID, rating: rating, comment: comment, imageLink: imageLink, timestamp: timestamp, userUniqueKey: userUniqueID, reviewID: reviewID, title: title)
+                    postsArray.append(post)
                 }
-                
-                postsArray.sort(by: { (first, second) -> Bool in
-                    return first.timestamp > second.timestamp
-                })
-
             }
             
-            if postsArray.count == Int(snapshot.childrenCount) {
-                completion(postsArray)
-            }
+            postsArray.sort(by: { (first, second) -> Bool in
+                return first.timestamp > second.timestamp
+            })
+            
+            completion(postsArray)
             
         })
     }
@@ -283,14 +291,14 @@ class PostsFirebaseMethods {
         let postRef = FIRDatabase.database().reference().child("posts").child("visible")
         let postFlaggedRef = FIRDatabase.database().reference().child("posts").child("flagged")
         
-            userRef.updateChildValues([post.bookUniqueID: ["rating": post.rating, "comment": post.comment, "timestamp": post.timestamp, "imageLink": post.imageLink, "isFlagged": true]])
-            
-            postFlaggedRef.updateChildValues([post.reviewID: ["rating": post.rating, "comment": post.comment, "timestamp": post.timestamp, "imageLink": post.imageLink, "userUniqueID": post.userUniqueKey, "isFlagged": true, "bookUniqueKey": post.bookUniqueID, "reviewID": post.reviewID, "title": post.title]])
-            
-            postRef.child(post.reviewID).removeValue()
-            
-            completion()
+        userRef.updateChildValues([post.bookUniqueID: ["rating": post.rating, "comment": post.comment, "timestamp": post.timestamp, "imageLink": post.imageLink, "isFlagged": true]])
+        
+        postFlaggedRef.updateChildValues([post.reviewID: ["rating": post.rating, "comment": post.comment, "timestamp": post.timestamp, "imageLink": post.imageLink, "userUniqueID": post.userUniqueKey, "isFlagged": true, "bookUniqueKey": post.bookUniqueID, "reviewID": post.reviewID, "title": post.title]])
+        
+        postRef.child(post.reviewID).removeValue()
+        
+        completion()
         
     }
-
+    
 }

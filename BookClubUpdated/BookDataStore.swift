@@ -33,17 +33,12 @@ class BookDataStore {
     
     func getBookResults(with searchQuery: String, authorQuery: String, completion: @escaping (Bool) -> Void) {
         
-        bookArray.removeAll()
-
+        BookDataStore.shared.bookArray.removeAll()
         GoogleBooksAPI.APICall(with: searchQuery, authorName: authorQuery) { (searchResults) in
             for searchResult in searchResults {
                 let book = SearchedBook(dict: searchResult)
                 self.bookArray.append(book)
             }
-            
-//            self.bookArray.sort(by: { (first, second) -> Bool in
-//                return first.title < second.title
-//            })
             
             if self.bookArray.count > 0 {
                 completion(true)

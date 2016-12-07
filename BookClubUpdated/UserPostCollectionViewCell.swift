@@ -20,7 +20,6 @@ class UserPostCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         commonInit()
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -49,8 +48,11 @@ class UserPostCollectionViewCell: UICollectionViewCell {
     
     
     func configureCell(book: BookPosted) {
-        
-        self.imageView.sd_setImage(with: URL(string: book.imageLink), placeholderImage: UIImage(named: "BFFLogo"))
+        if book.imageLink == "" {
+            imageView.image = UIImage(named: "BFFLogo")
+        } else {
+            imageView.loadImageUsingCacheWithURLString(urlString: book.imageLink)
+        }
     }
     
 }

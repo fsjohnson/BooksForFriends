@@ -12,7 +12,7 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBOutlet weak var searchTitle: UISearchBar!
     @IBOutlet weak var searchAuthor: UISearchBar!
-
+    
     
     var tableView = UITableView()
     let searchButton = UIButton()
@@ -40,7 +40,7 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         searchTitle.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.70).isActive = true
         searchTitle.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         searchTitle.topAnchor.constraint(equalTo: (view.topAnchor), constant:(navigationBarHeight + 20)).isActive = true
-
+        
         
         //Search Author
         
@@ -67,8 +67,6 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         searchButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.30).isActive = true
         searchButton.topAnchor.constraint(equalTo: (view.topAnchor), constant: (navigationBarHeight + 20)).isActive = true
         
-        
-        
         //TableView
         
         self.view.addSubview(tableView)
@@ -85,6 +83,9 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     override func viewWillAppear(_ animated: Bool) {
+        //        BookDataStore.shared.bookArray.removeAll()
+        searchAuthor.text = ""
+        searchTitle.text = ""
         tableView.reloadData()
     }
     
@@ -103,24 +104,17 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
     func searchButtonFunc(sender: UIButton!) {
         
         indicator.startAnimating()
-        
-        let queue = OperationQueue()
-        queue.name = "Download Image"
-        queue.qualityOfService = .userInitiated
-        queue.maxConcurrentOperationCount = 1
-        
-        let request = BookDataStore.shared.getBookResults(with: searchTitle.text!, authorQuery: searchAuthor.text!) { (success) in
+        BookDataStore.shared.getBookResults(with: searchTitle.text!, authorQuery: searchAuthor.text!) { (success) in
             
-            if success == true && queue.operationCount == 0{
-                DispatchQueue.main.async {
+            if success == true {
+                OperationQueue.main.addOperation {
                     self.tableView.reloadData()
                     self.indicator.stopAnimating()
                     self.indicator.hidesWhenStopped = true
+                    
                 }
             }
         }
-        
-        queue.addOperation { request }
         
     }
     
@@ -134,66 +128,49 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         let cell = tableView.dequeueReusableCell(withIdentifier: "bookResult", for: indexPath) as! SearchBookResultsTableViewCell
         
         if cell.searchResultView.delegate == nil { cell.searchResultView.delegate = self }
-
+        
         cell.searchResultView.searchedBook = BookDataStore.shared.bookArray[indexPath.row]
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         performSegue(withIdentifier: "addRatingAndComment" , sender: self)
-        
-        
+        BookDataStore.shared.bookArray.removeAll()
     }
     
     
+    // MARK: - Navigation
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
-
-     // MARK: - Navigation
-    
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if segue.identifier == "addRatingAndComment" {
             let targetController = segue.destination as! AddCommentAndRatingViewController
-    
-            
+            var synopsis = String()
+            var author = String()
             if let indexPath = tableView.indexPathForSelectedRow {
-
-                guard let bookCoverToPass = BookDataStore.shared.bookArray[indexPath.row].bookCover else { print("no cover"); return }
-                let titleToPass = BookDataStore.shared.bookArray[indexPath.row].title
-                guard let authorToPass = BookDataStore.shared.bookArray[indexPath.row].author else {print("no author"); return}
-                guard let imageLinkToPass = BookDataStore.shared.bookArray[indexPath.row].finalBookCoverLink else {print("no image"); return}
                 
-                var synopsis = String()
+                let titleToPass = BookDataStore.shared.bookArray[indexPath.row].title
+                guard let imageLinkToPass = BookDataStore.shared.bookArray[indexPath.row].finalBookCoverLink else {print("no image"); return}
+                if let authorToPass = BookDataStore.shared.bookArray[indexPath.row].author {
+                    author = authorToPass
+                } else {
+                    author = "no author available"
+                }
                 if let downloadedSynopsis = BookDataStore.shared.bookArray[indexPath.row].synopsis {
                     synopsis = downloadedSynopsis
                 } else {
                     synopsis = "Synopsis not available"
-                    
                 }
-//                guard let synopsisToPass = BookDataStore.shared.bookArray[indexPath.row].synopsis else { print("no synopsis"); return "Synopsis not available"}
-                
-//                let selectedBook = SearchedBook(title: titleToPass, author: authorToPass, bookCover: bookCoverToPass, finalBookCoverLink: imageLinkToPass, synopsis: synopsis)
-//                targetController.searchedBook = selectedBook
-                
-                targetController.passedImage = bookCoverToPass
                 targetController.passedTitle = titleToPass
-                targetController.passedAuthor = authorToPass
+                targetController.passedAuthor = author
                 targetController.passedImageLink = imageLinkToPass
                 targetController.passedSynopsis = synopsis
+                
             }
         }
-        
-        
-     }
-    
-
+    }
     
 }
 

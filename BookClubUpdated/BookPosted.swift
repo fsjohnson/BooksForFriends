@@ -36,22 +36,11 @@ class BookPosted {
         self.userUniqueKey = userUniqueKey
         self.reviewID = reviewID
         self.title = title
-        setImage()
-
-    }
-    
-    func setImage() {
-        if imageLink != "" {
-            let imageView = UIImageView()
-            imageView.sd_setImage(with: URL(string: imageLink), placeholderImage: UIImage(named: "BFFLogo"))
-            self.bookCover = imageView.image
-        }
-        
     }
     
     func convertTimestampIntoDate(with timestamp: String, completion: (Date) -> Void) {
-        let dateTimeStamp = NSDate(timeIntervalSince1970:Double(timestamp)!/1000)  //UTC time
         
+        let dateTimeStamp = NSDate(timeIntervalSince1970:Double(timestamp)!/1000)  //UTC time
         let dateFormatter = DateFormatter()
         dateFormatter.timeZone = NSTimeZone.local //Edit
         dateFormatter.dateFormat = "yyyy-MM-dd"

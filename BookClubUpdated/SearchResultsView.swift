@@ -50,10 +50,6 @@ class SearchResultsView: UIView {
         contentView.constrainEdges(to: self)
         backgroundColor = UIColor.clear
         
-        
-        
-        
-        
     }
 }
 
@@ -61,22 +57,19 @@ extension SearchResultsView {
     
     fileprivate func updateViewToReflectBookImage() {
         
-        guard searchedBook.bookCover == nil else { bookImage.image = searchedBook.bookCover; return }
+        guard searchedBook.bookCover == nil else { bookImage.image = searchedBook.bookCover; print("book image doesnt exit");return }
         
-        guard let link = searchedBook.finalBookCoverLink else { print("NO SEARCHED IMAGE LINK"); return }
+        guard let link = searchedBook.finalBookCoverLink else {
+            searchedBook.bookCover = UIImage(named: "BFFLogo")
+            bookImage.image = searchedBook.bookCover
+            return
+        }
         
-        bookImage.sd_setImage(with: URL(string: link), placeholderImage: UIImage(named: "BFFLogo"))
-            
-            DispatchQueue.main.async {
-                
-                self.searchedBook.bookCover = self.bookImage.image
-                
-                if self.delegate.canDisplayImage(sender: self) {
-                    
-                    self.bookImage.image = self.searchedBook.bookCover
-                    
-                }
+        OperationQueue.main.addOperation {
+            if self.delegate.canDisplayImage(sender: self) {
+                self.bookImage.loadImageUsingCacheWithURLString(urlString: link)
             }
+        }
     }
 }
 

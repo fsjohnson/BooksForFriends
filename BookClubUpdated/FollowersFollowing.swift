@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 import Foundation
-import SDWebImage 
+//import SDWebImage
 
 class FollowersFollowing: UIView {
     
@@ -39,7 +39,7 @@ class FollowersFollowing: UIView {
         populatePostsLabel()
         populateFollowersLabel()
         populateFollowingLabel()
-        populateProfilePic()    
+        populateProfilePic()
     }
     
     
@@ -55,7 +55,6 @@ class FollowersFollowing: UIView {
         profilePic.backgroundColor = UIColor.blue
         profilePic.image = UIImage(named: "BFFLogo")
         self.layoutIfNeeded()
-        profilePic.contentMode = .scaleAspectFit
         profilePic.isUserInteractionEnabled = true
         profilePic.layer.masksToBounds = true
         profilePic.layer.cornerRadius = profilePic.frame.size.width/2
@@ -79,7 +78,7 @@ class FollowersFollowing: UIView {
         numFollowingOutlet.textColor = UIColor.themeLightBlue
         numFollowingOutlet.font = UIFont.themeTinyBold
         numFollowingOutlet.text = "Following"
-    
+        
         // Book Post Button Config
         
         self.booksPostedButton.setTitleColor(UIColor.themeLightBlue, for: .normal)
@@ -133,24 +132,25 @@ extension FollowersFollowing {
                 }
             }
         }
-
+        
     }
     
     func populatePostsLabel() {
         
         guard let currentUserID = FIRAuth.auth()?.currentUser?.uid else { return }
-        
-        PostsFirebaseMethods.downloadUsersBookPostsArray(with: currentUserID) { (booksPosted) in
-            var text = String()
-            if booksPosted.count == 0 {
-                text = "0"
+        PostsFirebaseMethods.checkIfAnyBookPostsExist { (postsExist) in
+            if postsExist == true {
+                PostsFirebaseMethods.downloadUsersBookPostsArray(with: currentUserID) { (booksPosted) in
+                    self.booksPostedButton.setTitle(String(booksPosted.count), for: .normal)
+                }
             } else {
-                text = String(booksPosted.count)
+                self.booksPostedButton.setTitle("0", for: .normal)
             }
-            self.booksPostedButton.setTitle(text, for: .normal)
-            
-            
         }
+        
+        
+        
+        
     }
     
     func populateProfilePic() {
@@ -158,14 +158,13 @@ extension FollowersFollowing {
         UserFirebaseMethods.retrieveSpecificUser(with: currentUserID) { (currentUser) in
             
             if let profileImageURL = currentUser?.profileImageURL {
-                let url = URL(string: profileImageURL)
-                DispatchQueue.main.async {
-                    self.profilePic.sd_setImage(with: url, placeholderImage: UIImage(named: "BFFLogo"), options: .refreshCached)
+                OperationQueue.main.addOperation {
+                    self.profilePic.contentMode = .scaleAspectFill
+                    self.profilePic.loadImageUsingCacheWithURLString(urlString: profileImageURL)
                 }
-                
             }
+            
         }
-        
     }
     
 }

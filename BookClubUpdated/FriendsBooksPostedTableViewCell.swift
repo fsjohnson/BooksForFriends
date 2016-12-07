@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SDWebImage
+//import SDWebImage
 
 
 class FriendsBooksPostedTableViewCell: UITableViewCell {

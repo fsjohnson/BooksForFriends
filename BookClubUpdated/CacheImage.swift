@@ -30,12 +30,13 @@ extension UIImageView {
             
             guard let data = data else { return }
             
-            DispatchQueue.main.async {
+            OperationQueue.main.addOperation {
                 if let downloadedImage = UIImage(data: data) {
+                    imageCache.setObject(downloadedImage, forKey: urlString as AnyObject)
                     self.image = downloadedImage
                 }
             }
-        }
+        }.resume()
         
     }
     

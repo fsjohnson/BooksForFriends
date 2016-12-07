@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 import Firebase
-import SDWebImage
+//import SDWebImage
 
 class SearchedBook {
     
@@ -35,14 +35,6 @@ class SearchedBook {
         self.bookCoverLink = bookCoverLinkDict?["thumbnail"]
         self.finalBookCoverLink = bookCoverLink?.replacingOccurrences(of: "http", with: "https")
         self.synopsis = volume["description"] as? String
-        
-        guard let link = finalBookCoverLink else {return}
-        
-        if bookCoverLink != nil {
-            let imageView = UIImageView()
-            imageView.sd_setImage(with: URL(string: link), placeholderImage: UIImage(named: "BFFLogo"))
-            self.bookCover = imageView.image
-        }
     }
     
     init(volume: [String: Any], title: String, authorArray: [String]?, author: String, bookCoverLinkDict: [String: String]?, bookCoverLink: String?, finalBookCoverLink: String?, synopsis: String?) {

@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import Firebase
 import DropDown
-import SDWebImage
+//import SDWebImage
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,9 +23,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         DropDown.startListeningToKeyboard()
         
-        let sd = SDImageCache()
-        print("COUNT: \(sd.getDiskCount())")
-        print("size: \(sd.getSize())")
+//        let sd = SDImageCache()
+        let cache = NSCache<AnyObject, AnyObject>()
+        
+        
+//        print("COUNT: \(sd.getDiskCount())")
+//        print("size: \(sd.getSize())")
         
         FIRApp.configure()
         

@@ -8,11 +8,9 @@
 
 import UIKit
 import Firebase
-import SDWebImage
 
 class AddCommentAndRatingViewController: UIViewController {
     
-    var passedImage = UIImage()
     var passedTitle = String()
     var passedAuthor = String()
     var passedImageLink = String()
@@ -31,8 +29,12 @@ class AddCommentAndRatingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let url = URL(string: passedImageLink)
-        self.bookCoverImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "BFFLogo"), options: SDWebImageOptions.refreshCached)
+        print("passedImageLink: \(passedImageLink)")
+        print("passedTitle: \(passedTitle)")
+        print("passedAuthor: \(passedAuthor)")
+        DispatchQueue.main.async {
+            self.bookCoverImageView.loadImageUsingCacheWithURLString(urlString: self.passedImageLink)
+        }
         
         
         star = StarReview(frame: CGRect(x: 0, y: 0, width: starView.bounds.width, height: starView.bounds.height))

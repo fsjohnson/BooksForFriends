@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SDWebImage
+//import SDWebImage
 
 protocol BookPostDelegate: class {
     func canDisplayImage(sender: PostsView) -> Bool
@@ -87,15 +87,15 @@ extension PostsView {
     fileprivate func updateViewToReflectBookImage() {
         
         guard bookPost.bookCover == nil else { bookImage.image = bookPost.bookCover; return }
-        
+
         if bookPost.imageLink == "" {
             bookPost.bookCover = UIImage(named: "BFFLogo")
             bookImage.image = bookPost.bookCover
-        }
         
-        guard let url = URL(string: bookPost.imageLink) else { return }
-        
-        bookImage.sd_setImage(with: url, placeholderImage: UIImage(named: "BFFLogo"))
+        } else {
+            
+            let image = bookImage.loadImageUsingCacheWithURLString(urlString: bookPost.imageLink)
+            
             DispatchQueue.main.async {
                 
                 self.bookPost.bookCover = self.bookImage.image
@@ -106,6 +106,7 @@ extension PostsView {
                     
                 }
             }
+        }
     }
     
     
