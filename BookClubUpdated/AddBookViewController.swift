@@ -7,19 +7,21 @@
 //
 
 import UIKit
+import AVFoundation
 
-class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, AVCaptureMetadataOutputObjectsDelegate {
     
     @IBOutlet weak var searchOptionsView: UIView!
     var tableView = UITableView()
     let searchButton = UIButton()
-    var isbnImage = String()
     var segmentedController = UISegmentedControl(items: ["Title", "Title & Author", "Scan Barcode"])
     let indicator: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x:0 ,y: 0, width: 50, height: 50))
     let searchTitleBar = UISearchBar()
     let secondSearchTitleBar = UISearchBar()
     let searchAuthorBar = UISearchBar()
     let searchStackView = UIStackView()
+    var session: AVCaptureSession!
+    var previewLayer: AVCaptureVideoPreviewLayer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -181,7 +183,15 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func configBarScanner() {
         
+        session = AVCaptureSession()
+        let videoCaptureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
+        let videoInput: AVCaptureDeviceInput?
         
+        do {
+            videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
+        } catch {
+            return
+        }
     }
     
     
