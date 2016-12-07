@@ -51,8 +51,6 @@ class FollowersFollowing: UIView {
         
         // Image Config
         
-        profilePic.backgroundColor = UIColor.blue
-        profilePic.image = UIImage(named: "BFFLogo")
         self.layoutIfNeeded()
         profilePic.isUserInteractionEnabled = true
         profilePic.layer.masksToBounds = true
@@ -155,14 +153,19 @@ extension FollowersFollowing {
     func populateProfilePic() {
         guard let currentUserID = FIRAuth.auth()?.currentUser?.uid else { return }
         UserFirebaseMethods.retrieveSpecificUser(with: currentUserID) { (currentUser) in
-            
-            if let profileImageURL = currentUser?.profileImageURL {
-                OperationQueue.main.addOperation {
-                    self.profilePic.contentMode = .scaleAspectFill
-                    self.profilePic.loadImageUsingCacheWithURLString(urlString: profileImageURL)
+            print("LINK: \(currentUser?.profileImageURL)")
+            if currentUser?.profileImageURL == "no image" {
+                self.profilePic.image = UIImage(named: "BFFLogo")
+                self.profilePic.contentMode = .scaleAspectFit
+            } else {
+                if let profileImageURL = currentUser?.profileImageURL {
+                    OperationQueue.main.addOperation {
+                        self.profilePic.contentMode = .scaleAspectFill
+                        self.profilePic.loadImageUsingCacheWithURLString(urlString: profileImageURL)
+                    }
+                    
                 }
             }
-            
         }
     }
     
