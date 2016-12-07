@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchTitleAuthor" customModule="BookClubUpdated" customModuleProvider="target">
+            <connections>
+                <outlet property="searchAuthor" destination="rib-Fm-rUT" id="78b-zX-zrf"/>
+                <outlet property="searchTitle" destination="IWw-Fb-j0b" id="uUE-pb-ieh"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="101"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="2G3-nK-Jxo">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="101"/>
+                    <subviews>
+                        <searchBar contentMode="redraw" placeholder="Search Title" translatesAutoresizingMaskIntoConstraints="NO" id="IWw-Fb-j0b">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
+                        <searchBar contentMode="redraw" verticalHuggingPriority="249" placeholder="Search Author To Improve Results" translatesAutoresizingMaskIntoConstraints="NO" id="rib-Fm-rUT">
+                            <rect key="frame" x="0.0" y="44" width="375" height="57"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="2G3-nK-Jxo" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="GBx-j0-Ns5"/>
+                <constraint firstItem="2G3-nK-Jxo" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="N5u-Ij-WO1"/>
+                <constraint firstItem="2G3-nK-Jxo" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="QnF-Iv-zAx"/>
+                <constraint firstItem="2G3-nK-Jxo" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="vli-EU-vEG"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="34.5" y="-211.5"/>
+        </view>
+    </objects>
+</document>

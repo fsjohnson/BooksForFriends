@@ -10,16 +10,15 @@ import UIKit
 
 class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet weak var searchTitle: UISearchBar!
-    @IBOutlet weak var searchAuthor: UISearchBar!
-    
-    
+    @IBOutlet weak var searchOptionsView: UIView!
     var tableView = UITableView()
     let searchButton = UIButton()
     var isbnImage = String()
-    
+    var segmentedController = UISegmentedControl(items: ["Title", "Title & Author", "Scan Barcode"])
     let indicator: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x:0 ,y: 0, width: 50, height: 50))
-    
+    let searchStackView = UIStackView()
+    let searchTitleBar = UISearchBar()
+    let searchAuthorBar = UISearchBar()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,30 +31,30 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.register(SearchBookResultsTableViewCell.self, forCellReuseIdentifier: "bookResult")
         tableView.rowHeight = 100
         
-        //Search Title
         
         
-        searchTitle.translatesAutoresizingMaskIntoConstraints = false
-        searchTitle.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05).isActive = true
-        searchTitle.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.70).isActive = true
-        searchTitle.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        searchTitle.topAnchor.constraint(equalTo: (view.topAnchor), constant:(navigationBarHeight + 20)).isActive = true
-//        searchTitle.barTintColor = UIColor.themeOrange
-//        searchTitle.backgroundColor = UIColor.themeOrange
+        //Search Options View
+    
+        searchOptionsView.translatesAutoresizingMaskIntoConstraints = false
+        searchOptionsView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.15).isActive = true
+        searchOptionsView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        searchOptionsView.topAnchor.constraint(equalTo: (view.topAnchor), constant:(navigationBarHeight + 20)).isActive = true
+        searchOptionsView.backgroundColor = UIColor.themeOrange
+
+        // Stack View 
         
+        searchStackView.axis = UILayoutConstraintAxis.horizontal
+        searchStackView.distribution = UIStackViewDistribution.fillEqually
+        searchOptionsView.addSubview(searchStackView)
         
-        //Search Author
-        
-        
-        searchAuthor.translatesAutoresizingMaskIntoConstraints = false
-        searchAuthor.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05).isActive = true
-        searchAuthor.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.70).isActive = true
-        searchAuthor.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        searchAuthor.topAnchor.constraint(equalTo: searchTitle.bottomAnchor, constant: 0).isActive = true
-//        searchAuthor.barTintColor = UIColor.themeOrange
-//        searchAuthor.backgroundColor = UIColor.themeOrange
-        
-        
+        searchStackView.translatesAutoresizingMaskIntoConstraints = false
+        searchStackView.widthAnchor.constraint(equalTo: searchOptionsView.widthAnchor, multiplier: 3.0).isActive = true
+        searchStackView.heightAnchor.constraint(equalTo: searchOptionsView.heightAnchor).isActive = true
+                
+        configSegmentedControl()
+        configSearchTitleView()
+//        configSearchTitleAuthorView()
+
         //Search message button
         
         self.view.addSubview(searchButton)
@@ -65,17 +64,17 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         searchButton.addTarget(self, action: #selector(searchButtonFunc), for: .touchUpInside)
         
         searchButton.translatesAutoresizingMaskIntoConstraints = false
-        searchButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.10).isActive = true
         searchButton.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        searchButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.30).isActive = true
-        searchButton.topAnchor.constraint(equalTo: (view.topAnchor), constant: (navigationBarHeight + 20)).isActive = true
+        searchButton.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        searchButton.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
+        searchButton.topAnchor.constraint(equalTo: (segmentedController.bottomAnchor)).isActive = true
 //        searchButton.backgroundColor = UIColor.themeOrange
         
         //TableView
         
         self.view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: searchAuthor.bottomAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: searchButton.bottomAnchor, constant: 8).isActive = true
         tableView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1.0).isActive = true
         tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabBarHeight).isActive = true
@@ -87,9 +86,8 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     override func viewWillAppear(_ animated: Bool) {
-        //        BookDataStore.shared.bookArray.removeAll()
-        searchAuthor.text = ""
-        searchTitle.text = ""
+//        searchAuthor.text = ""
+//        searchTitle.text = ""
         tableView.reloadData()
     }
     
@@ -108,21 +106,66 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
     func searchButtonFunc(sender: UIButton!) {
         
         indicator.startAnimating()
-        BookDataStore.shared.getBookResults(with: searchTitle.text!, authorQuery: searchAuthor.text!) { (success) in
+//        BookDataStore.shared.getBookResults(with: searchTitle.text!, authorQuery: searchAuthor.text!) { (success) in
+//            
+//            if success == true {
+//                OperationQueue.main.addOperation {
+//                    self.tableView.reloadData()
+//                    self.indicator.stopAnimating()
+//                    self.indicator.hidesWhenStopped = true
+//                    
+//                }
+//            }
+//        }
+        
+    }
+    
+    func configSegmentedControl() {
+        view.addSubview(segmentedController)
+        segmentedController.translatesAutoresizingMaskIntoConstraints = false
+        segmentedController.topAnchor.constraint(equalTo: searchOptionsView.bottomAnchor, constant: 8).isActive = true
+        segmentedController.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
+        segmentedController.selectedSegmentIndex = 0
+        segmentedController.addTarget(self, action: #selector(segmentedControlSegues), for: .valueChanged)
+        segmentedController.setTitleTextAttributes([NSForegroundColorAttributeName : UIColor.themeDarkBlue], for: .normal)
+        segmentedController.tintColor = UIColor.themeDarkBlue
+        
+    }
+    
+    func segmentedControlSegues(sender: UISegmentedControl!) {
+        
+        if sender.selectedSegmentIndex == 0 {
             
-            if success == true {
-                OperationQueue.main.addOperation {
-                    self.tableView.reloadData()
-                    self.indicator.stopAnimating()
-                    self.indicator.hidesWhenStopped = true
-                    
-                }
-            }
+            print("INDEX 0")
+        } else if sender.selectedSegmentIndex == 1 {
+            
+            print("INDEX 1")
         }
         
     }
     
+    func configSearchTitleView() {
+        
+        searchStackView.addArrangedSubview(searchTitleBar)
+        searchTitleBar.translatesAutoresizingMaskIntoConstraints = false
+        searchTitleBar.placeholder = "Search Title"
+        searchTitleBar.leadingAnchor.constraint(equalTo: searchStackView.leadingAnchor).isActive = true
+        searchTitleBar.widthAnchor.constraint(equalTo: searchStackView.widthAnchor).isActive = true
+        searchTitleBar.bottomAnchor.constraint(equalTo: searchStackView.bottomAnchor).isActive = true
+
+    }
     
+    func configSearchTitleAuthorView() {
+        
+        searchAuthorBar.translatesAutoresizingMaskIntoConstraints = false
+        searchAuthorBar.leadingAnchor.constraint(equalTo: searchOptionsView.leadingAnchor).isActive = true
+        searchAuthorBar.trailingAnchor.constraint(equalTo: searchOptionsView.trailingAnchor).isActive = true
+        searchAuthorBar.topAnchor.constraint(equalTo: searchOptionsView.topAnchor).isActive = true
+        searchAuthorBar.bottomAnchor.constraint(equalTo: searchOptionsView.bottomAnchor).isActive = true
+        //searchStackView.addArrangedSubview(searchTitleAuthor)
+        
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return BookDataStore.shared.bookArray.count
@@ -132,7 +175,6 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         let cell = tableView.dequeueReusableCell(withIdentifier: "bookResult", for: indexPath) as! SearchBookResultsTableViewCell
         
         if cell.searchResultView.delegate == nil { cell.searchResultView.delegate = self }
-        
         cell.searchResultView.searchedBook = BookDataStore.shared.bookArray[indexPath.row]
         
         return cell
@@ -171,7 +213,6 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
                 targetController.passedAuthor = author
                 targetController.passedImageLink = imageLinkToPass
                 targetController.passedSynopsis = synopsis
-                
             }
         }
     }

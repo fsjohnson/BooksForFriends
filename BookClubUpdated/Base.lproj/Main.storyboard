@@ -24,7 +24,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jEc-gT-Gli" id="XTB-2m-cEg">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="grV-Tl-UCl" customClass="PostsView" customModule="BookClubUpdated" customModuleProvider="target">
@@ -85,7 +85,7 @@
                                 <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iRT-mi-YS3" id="9ez-cm-Hoe">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bit-yc-2h9">
@@ -142,7 +142,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="if0-0U-hAt" id="6dK-FH-TRl">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Hn-JB-gNc" customClass="PostsView" customModule="BookClubUpdated" customModuleProvider="target">
@@ -389,7 +389,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tNj-xA-Xwn" id="tgv-6c-hzE">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ztr-rn-GHw" customClass="PostsView" customModule="BookClubUpdated" customModuleProvider="target">
@@ -439,7 +439,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LHg-b6-Go7" id="SuF-oX-Skp">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="smt-Ob-UIl">
@@ -483,7 +483,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xQv-SE-uxd" id="skZ-HR-6gC">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -517,23 +517,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Search Title" translatesAutoresizingMaskIntoConstraints="NO" id="et5-xK-mJZ">
-                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
-                            <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Add Author To Improve Results" translatesAutoresizingMaskIntoConstraints="NO" id="PE3-VB-q2n">
-                                <rect key="frame" x="0.0" y="116" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nYf-wb-Tke">
+                                <rect key="frame" x="16" y="0.0" width="343" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Search" id="OeS-Gk-Vzl"/>
                     <connections>
-                        <outlet property="searchAuthor" destination="PE3-VB-q2n" id="5il-Nt-cda"/>
-                        <outlet property="searchTitle" destination="et5-xK-mJZ" id="ZZt-DC-diD"/>
+                        <outlet property="searchOptionsView" destination="nYf-wb-Tke" id="dfO-A2-88o"/>
                         <segue destination="p49-83-rhL" kind="show" identifier="addRatingAndComment" id="mdY-vw-6gc"/>
                     </connections>
                 </viewController>

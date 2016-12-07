@@ -53,6 +53,10 @@
 		B5A8818B1DE77C1B00D90B07 /* UserFirebaseMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A8818A1DE77C1B00D90B07 /* UserFirebaseMethods.swift */; };
 		B5A8818D1DE78DFA00D90B07 /* FindFriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A8818C1DE78DFA00D90B07 /* FindFriendsTableViewController.swift */; };
 		B5A8818F1DE7A81200D90B07 /* SearchFriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A8818E1DE7A81200D90B07 /* SearchFriendsTableViewCell.swift */; };
+		B5CB82E31DF7D6E300B373B5 /* SearchTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5CB82E21DF7D6E300B373B5 /* SearchTitleView.xib */; };
+		B5CB82E51DF7D72900B373B5 /* SearchTitleAuthor.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5CB82E41DF7D72900B373B5 /* SearchTitleAuthor.xib */; };
+		B5CB82E71DF7DC0C00B373B5 /* SearchTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CB82E61DF7DC0C00B373B5 /* SearchTitle.swift */; };
+		B5CB82E91DF7DC2700B373B5 /* SearchTitleAuthor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CB82E81DF7DC2700B373B5 /* SearchTitleAuthor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -106,6 +110,10 @@
 		B5A8818A1DE77C1B00D90B07 /* UserFirebaseMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFirebaseMethods.swift; sourceTree = "<group>"; };
 		B5A8818C1DE78DFA00D90B07 /* FindFriendsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindFriendsTableViewController.swift; sourceTree = "<group>"; };
 		B5A8818E1DE7A81200D90B07 /* SearchFriendsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFriendsTableViewCell.swift; sourceTree = "<group>"; };
+		B5CB82E21DF7D6E300B373B5 /* SearchTitleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchTitleView.xib; sourceTree = "<group>"; };
+		B5CB82E41DF7D72900B373B5 /* SearchTitleAuthor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchTitleAuthor.xib; sourceTree = "<group>"; };
+		B5CB82E61DF7DC0C00B373B5 /* SearchTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTitle.swift; sourceTree = "<group>"; };
+		B5CB82E81DF7DC2700B373B5 /* SearchTitleAuthor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTitleAuthor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -261,9 +269,13 @@
 			isa = PBXGroup;
 			children = (
 				B5253F9E1DECF6A000553344 /* PostsView.xib */,
+				B5CB82E21DF7D6E300B373B5 /* SearchTitleView.xib */,
+				B5CB82E61DF7DC0C00B373B5 /* SearchTitle.swift */,
+				B5CB82E41DF7D72900B373B5 /* SearchTitleAuthor.xib */,
 				B5253FA01DECF6BE00553344 /* PostsView.swift */,
 				B5302D8A1DEDC82D007848B2 /* SearchResultsView.xib */,
 				B5302D881DEDC81B007848B2 /* SearchResultsView.swift */,
+				B5CB82E81DF7DC2700B373B5 /* SearchTitleAuthor.swift */,
 				B5A881751DE76BF700D90B07 /* FollowersFollowing.xib */,
 				B5A881771DE76DFE00D90B07 /* FollowersFollowing.swift */,
 				B52DF5F61DF6202000239D36 /* ImagePicker.swift */,
@@ -396,9 +408,11 @@
 				B5A06E781DE5333D003438A4 /* GoogleService-Info.plist in Resources */,
 				B5A881761DE76BF700D90B07 /* FollowersFollowing.xib in Resources */,
 				B5253F9F1DECF6A000553344 /* PostsView.xib in Resources */,
+				B5CB82E51DF7D72900B373B5 /* SearchTitleAuthor.xib in Resources */,
 				B58291CB1DB96C300017FF58 /* LaunchScreen.storyboard in Resources */,
 				B58291C81DB96C300017FF58 /* Assets.xcassets in Resources */,
 				B58291C31DB96C300017FF58 /* Main.storyboard in Resources */,
+				B5CB82E31DF7D6E300B373B5 /* SearchTitleView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,6 +477,7 @@
 				B51F9F7C1DE9E004006921D3 /* BookPosted.swift in Sources */,
 				B5A8818D1DE78DFA00D90B07 /* FindFriendsTableViewController.swift in Sources */,
 				B524945A1DE5EB9C00D837C4 /* UserProfileViewController.swift in Sources */,
+				B5CB82E71DF7DC0C00B373B5 /* SearchTitle.swift in Sources */,
 				B51E7EB31DF469F100F3369F /* UserPostListTableViewCell.swift in Sources */,
 				B5302D9D1DEE4376007848B2 /* UserPostCollectionViewCell.swift in Sources */,
 				B52DF5F71DF6202000239D36 /* ImagePicker.swift in Sources */,
@@ -477,6 +492,7 @@
 				B5A881781DE76DFE00D90B07 /* FollowersFollowing.swift in Sources */,
 				B51E7EB11DF469D300F3369F /* UserPostListTableViewController.swift in Sources */,
 				B51480D61DE87AB900DD7523 /* FriendsBooksPostedTableViewCell.swift in Sources */,
+				B5CB82E91DF7DC2700B373B5 /* SearchTitleAuthor.swift in Sources */,
 				B52494561DE5C30400D837C4 /* AddCommentAndRatingViewController.swift in Sources */,
 				B58291BE1DB96C300017FF58 /* AppDelegate.swift in Sources */,
 				B51F9F851DEA4796006921D3 /* FutureReadsCollectionViewCell.swift in Sources */,
