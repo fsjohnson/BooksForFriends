@@ -227,58 +227,59 @@ class PostsFirebaseMethods {
     
     static func checkIfAnyBookPostsExist(with completion: @escaping (Bool) -> Void) {
         let postRef = FIRDatabase.database().reference().child("posts").child("visible")
-        var postsArray = [BookPosted]()
         var postsExist = false
         
         postRef.observeSingleEvent(of: .value, with: { (snapshot) in
             
-            if !snapshot.hasChildren() {
-                postsExist = false
-            } else {
-                postsExist = true
+            DispatchQueue.main.async {
+                
+                completion(snapshot.hasChildren())
+                
             }
-            
-            completion(postsExist)
         })
     }
     
     
-    static func downloadUsersBookPostsArray(with userUniqueKey: String, completion: @escaping ([BookPosted]) -> Void) {
+    static func downloadUsersBookPostsArray(with userUniqueKey: String, completion: @escaping ([BookPosted]?) -> Void) {
         
         let postRef = FIRDatabase.database().reference().child("posts").child("visible")
         var postsArray = [BookPosted]()
         
         postRef.observeSingleEvent(of: .value, with: { (snapshot) in
             
-            guard let snapshotValue = snapshot.value as? [String: Any] else {print("download all posts error"); return}
-        
-            for snap in snapshotValue {
+            DispatchQueue.main.async {
                 
-                guard
-                    let postInfo = snap.value as? [String: Any],
-                    let comment = postInfo["comment"] as? String,
-                    let imageLink = postInfo["imageLink"] as? String,
-                    let rating = postInfo["rating"] as? String,
-                    let userUniqueID = postInfo["userUniqueID"] as? String,
-                    let timestampString = postInfo["timestamp"] as? String,
-                    let timestamp = Double(timestampString),
-                    let bookUniqueID = postInfo["bookUniqueKey"] as? String,
-                    let title = postInfo["title"] as? String,
-                    let reviewID = postInfo["reviewID"] as? String
-                    else {print("error downloading postInfo"); return}
+                guard let snapshotValue = snapshot.value as? [String: Any] else { print("download all posts error"); completion(nil); return }
                 
-                if userUniqueID == userUniqueKey {
-                    let post = BookPosted(bookUniqueID: bookUniqueID, rating: rating, comment: comment, imageLink: imageLink, timestamp: timestamp, userUniqueKey: userUniqueID, reviewID: reviewID, title: title)
-                    postsArray.append(post)
+                for snap in snapshotValue {
+                    
+                    guard
+                        let postInfo = snap.value as? [String: Any],
+                        let comment = postInfo["comment"] as? String,
+                        let imageLink = postInfo["imageLink"] as? String,
+                        let rating = postInfo["rating"] as? String,
+                        let userUniqueID = postInfo["userUniqueID"] as? String,
+                        let timestampString = postInfo["timestamp"] as? String,
+                        let timestamp = Double(timestampString),
+                        let bookUniqueID = postInfo["bookUniqueKey"] as? String,
+                        let title = postInfo["title"] as? String,
+                        let reviewID = postInfo["reviewID"] as? String
+                        else {print("error downloading postInfo"); return}
+                    
+                    if userUniqueID == userUniqueKey {
+                        let post = BookPosted(bookUniqueID: bookUniqueID, rating: rating, comment: comment, imageLink: imageLink, timestamp: timestamp, userUniqueKey: userUniqueID, reviewID: reviewID, title: title)
+                        postsArray.append(post)
+                    }
                 }
+                
+                postsArray.sort(by: { (first, second) -> Bool in
+                    return first.timestamp > second.timestamp
+                })
+                
+                completion(postsArray)
+                
+                
             }
-            
-            postsArray.sort(by: { (first, second) -> Bool in
-                return first.timestamp > second.timestamp
-            })
-            
-            completion(postsArray)
-            
         })
     }
     

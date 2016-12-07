@@ -62,7 +62,7 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         
         guard let currentUserID = FIRAuth.auth()?.currentUser?.uid else { return }
         PostsFirebaseMethods.downloadUsersBookPostsArray(with: currentUserID) { (booksPosted) in
-            self.userPosts = booksPosted
+            self.userPosts = booksPosted ?? []
             self.postsCollectionView.reloadData()
         }
         
@@ -83,7 +83,7 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         }
         
         PostsFirebaseMethods.downloadUsersBookPostsArray(with: currentUserID) { (booksPosted) in
-            self.userPosts = booksPosted
+            self.userPosts = booksPosted ?? []
             self.postsCollectionView.reloadData()
         }
         

@@ -23,7 +23,7 @@ class UserPostListTableViewController: UITableViewController {
         print("PASSED ID: \(passedUserUniqueID)")
         
         PostsFirebaseMethods.downloadUsersBookPostsArray(with: passedUserUniqueID) { (posts) in
-            self.userPosts = posts
+            self.userPosts = posts ?? []
             self.tableView.reloadData()
         }
     }

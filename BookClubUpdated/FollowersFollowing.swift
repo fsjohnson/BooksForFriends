@@ -109,10 +109,14 @@ extension FollowersFollowing {
     func populateFollowersLabel() {
         UserFirebaseMethods.checkIfFollowerUsersIsEmpty { (isEmpty) in
             if isEmpty ==  true {
-                self.followersButtonOutlet.setTitle("0", for: .normal)
+                DispatchQueue.main.async {
+                    self.followersButtonOutlet.setTitle("0", for: .normal)
+                }
             } else {
                 UserFirebaseMethods.retriveFollowers { (users) in
-                    self.followersButtonOutlet.setTitle(String(users.count), for: .normal)
+                    DispatchQueue.main.async {
+                        self.followersButtonOutlet.setTitle(String(users.count), for: .normal)
+                    }
                 }
             }
         }
@@ -122,10 +126,15 @@ extension FollowersFollowing {
     func populateFollowingLabel() {
         UserFirebaseMethods.checkIfFollowingUsersIsEmpty { (isEmpty) in
             if isEmpty == true {
-                self.followingButtonOutlet.setTitle("0", for: .normal)
+                DispatchQueue.main.async {
+                    self.followingButtonOutlet.setTitle("0", for: .normal)
+                }
+                
             } else {
                 UserFirebaseMethods.retriveFollowingUsers { (users) in
-                    self.followingButtonOutlet.setTitle(String(users.count), for: .normal)
+                    DispatchQueue.main.async {
+                        self.followingButtonOutlet.setTitle(String(users.count), for: .normal)
+                    }
                 }
             }
         }
@@ -133,21 +142,23 @@ extension FollowersFollowing {
     }
     
     func populatePostsLabel() {
+        booksPostedButton.setTitle(nil, for: .normal)
+        booksPostedButton.alpha = 0.0
         
         guard let currentUserID = FIRAuth.auth()?.currentUser?.uid else { return }
-        PostsFirebaseMethods.checkIfAnyBookPostsExist { (postsExist) in
-            if postsExist == true {
-                PostsFirebaseMethods.downloadUsersBookPostsArray(with: currentUserID) { (booksPosted) in
-                    self.booksPostedButton.setTitle(String(booksPosted.count), for: .normal)
-                }
-            } else {
-                self.booksPostedButton.setTitle("0", for: .normal)
+        
+        PostsFirebaseMethods.downloadUsersBookPostsArray(with: currentUserID) { [unowned self] booksPosted in
+            
+            DispatchQueue.main.async {
+                
+                let title = booksPosted != nil ? String(booksPosted!.count) : "0"
+                self.booksPostedButton.setTitle(title, for: .normal)
+
+                UIView.animate(withDuration: 0.8, animations: {
+                    self.booksPostedButton.alpha = 1.0
+                })
             }
         }
-        
-        
-        
-        
     }
     
     func populateProfilePic() {
@@ -159,11 +170,10 @@ extension FollowersFollowing {
                 self.profilePic.contentMode = .scaleAspectFit
             } else {
                 if let profileImageURL = currentUser?.profileImageURL {
-                    OperationQueue.main.addOperation {
+                    DispatchQueue.main.async {
                         self.profilePic.contentMode = .scaleAspectFill
                         self.profilePic.loadImageUsingCacheWithURLString(urlString: profileImageURL)
                     }
-                    
                 }
             }
         }
