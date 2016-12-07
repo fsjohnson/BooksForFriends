@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import SDWebImage
 
 class GoogleBooksAPI {
     
@@ -64,26 +63,26 @@ class GoogleBooksAPI {
         }
     }
     
-    class func downloadBookImage(with urlString: String, with completion: @escaping (UIImage) -> Void) {
-        
-        let searchCoverURL = URL(string: urlString)
-        var imageToPass = UIImage()
-        
-        SDWebImageDownloader.shared().downloadImage(with: searchCoverURL, options: .lowPriority, progress: { (receivedSize, expectedSize) in
-            print("received: \(receivedSize) vs. expected: \(expectedSize)")
-            
-        }) { (image, data, error, finished) in
-            if (image != nil && finished) {
-                guard let image = image else { return }
-                imageToPass = image
-            } else if (image == nil && finished) {
-                
-                imageToPass = UIImage(named: "BFFLogo")!
-            }
-            
-            completion(imageToPass)
-        }
-    }
+//    class func downloadBookImage(with urlString: String, with completion: @escaping (UIImage) -> Void) {
+//        
+//        let searchCoverURL = URL(string: urlString)
+//        var imageToPass = UIImage()
+//        
+//        SDWebImageDownloader.shared().downloadImage(with: searchCoverURL, options: .lowPriority, progress: { (receivedSize, expectedSize) in
+//            print("received: \(receivedSize) vs. expected: \(expectedSize)")
+//            
+//        }) { (image, data, error, finished) in
+//            if (image != nil && finished) {
+//                guard let image = image else { return }
+//                imageToPass = image
+//            } else if (image == nil && finished) {
+//                
+//                imageToPass = UIImage(named: "BFFLogo")!
+//            }
+//            
+//            completion(imageToPass)
+//        }
+//    }
 }
 
 

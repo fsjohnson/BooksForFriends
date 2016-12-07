@@ -7,7 +7,6 @@
 //
 
 import UIKit
-//import SDWebImage
 
 protocol BookPostDelegate: class {
     func canDisplayImage(sender: PostsView) -> Bool
@@ -34,7 +33,6 @@ class PostsView: UIView {
             titleLabel.text = bookPost.title
             updateViewToReflectUsername()
             updateStars()
-            
         }
     }
     
@@ -57,14 +55,55 @@ class PostsView: UIView {
         self.contentView.layer.borderColor = UIColor.themeWhite.cgColor
         self.contentView.layer.borderWidth = 4.0
         
+        // Username Config
+        
+        usernameLabel.translatesAutoresizingMaskIntoConstraints = false
         usernameLabel.font = UIFont.themeMediumBold
         usernameLabel.textColor = UIColor.themeOrange
         
+        usernameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: contentView.frame.width.multiplied(by: 0.1)).isActive = true
+        usernameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: contentView.frame.height.multiplied(by: 0.1)).isActive = true
+        usernameLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.4).isActive = true
+        
+//        usernameLabel.trailingAnchor.constraint(equalTo: , constant: contentView.frame.width.multiplied(by: 0.4)).isActive = true
+        
+        
+        // Book Title Config
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = UIFont.themeTinyBold
         titleLabel.textColor = UIColor.themeDarkGrey
         
+        titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: contentView.frame.width.multiplied(by: 0.1)).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: contentView.frame.height.multiplied(by: 0.1)).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: bookImage.leadingAnchor, constant: bookImage.frame.width.multiplied(by: 0.1)).isActive = true
+        
+        // Star Config
+        
+        starView.translatesAutoresizingMaskIntoConstraints = false
+        starView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: contentView.frame.width.multiplied(by: 0.1)).isActive = true
+        starView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8).isActive = true
+        star = StarReview(frame: CGRect(x: 0.2, y: 0, width: starView.bounds.width, height: starView.bounds.height))
+        star.starCount = 5
+        star.allowEdit = false
+        starView.addSubview(star)
+        star.allowAccruteStars = false
+        star.starFillColor = UIColor.themeLightBlue
+        star.starBackgroundColor = UIColor.themeDarkBlue
+        star.starMarginScale = 0.1
+        
+        
+        // Comment Label Config
+        commentLabel.translatesAutoresizingMaskIntoConstraints = false
         commentLabel.font = UIFont.themeSmallLight
         commentLabel.textColor = UIColor.themeDarkGrey
+        
+        commentLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: contentView.frame.width.multiplied(by: 0.1)).isActive = true
+        commentLabel.topAnchor.constraint(equalTo: star.bottomAnchor, constant: 8).isActive = true
+
+        // Flag Config
+        flagButtonOutlet.translatesAutoresizingMaskIntoConstraints = false
+        flagButtonOutlet.leadingAnchor.constraint(equalTo: bookImage.trailingAnchor, constant: bookImage.frame.width.multiplied(by: 0.1)).isActive = true
+        flagButtonOutlet.trailingAnchor.constraint(equalTo: bookImage.trailingAnchor, constant: contentView.frame.width.multiplied(by: 0.1)).isActive = true
 
     }
 }
@@ -87,23 +126,14 @@ extension PostsView {
     fileprivate func updateViewToReflectBookImage() {
         
         guard bookPost.bookCover == nil else { bookImage.image = bookPost.bookCover; return }
-
+        
         if bookPost.imageLink == "" {
             bookPost.bookCover = UIImage(named: "BFFLogo")
             bookImage.image = bookPost.bookCover
-        
         } else {
-            
-            let image = bookImage.loadImageUsingCacheWithURLString(urlString: bookPost.imageLink)
-            
-            DispatchQueue.main.async {
-                
-                self.bookPost.bookCover = self.bookImage.image
-                
+            OperationQueue.main.addOperation {
                 if self.delegate.canDisplayImage(sender: self) {
-                    
-                    self.bookImage.image = self.bookPost.bookCover
-                    
+                    self.bookImage.loadImageUsingCacheWithURLString(urlString: self.bookPost.imageLink)
                 }
             }
         }
@@ -123,19 +153,8 @@ extension PostsView {
     fileprivate func updateStars() {
         
         if starView.subviews.isEmpty {
-            star = StarReview(frame: CGRect(x: 0.2, y: 0, width: starView.bounds.width, height: starView.bounds.height))
-            star.starCount = 5
-            star.allowEdit = false
-            starView.addSubview(star)
-            
-            
             guard let rating = Float(bookPost.rating) else {return}
             star.value = rating
-            star.allowAccruteStars = false
-            star.starFillColor = UIColor.themeLightBlue
-            star.starBackgroundColor = UIColor.themeDarkBlue
-            star.starMarginScale = 0.1
-            
         }
     }
 

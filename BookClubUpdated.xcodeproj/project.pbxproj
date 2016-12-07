@@ -85,7 +85,6 @@
 		B5302D881DEDC81B007848B2 /* SearchResultsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsView.swift; sourceTree = "<group>"; };
 		B5302D8A1DEDC82D007848B2 /* SearchResultsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultsView.xib; sourceTree = "<group>"; };
 		B5302D9C1DEE4376007848B2 /* UserPostCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPostCollectionViewCell.swift; sourceTree = "<group>"; };
-		B558296D1DF76FB400ACF191 /* BookClubUpdated-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BookClubUpdated-Bridging-Header.h"; sourceTree = "<group>"; };
 		B57955CD1DF07296000A030A /* StarReview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarReview.swift; sourceTree = "<group>"; };
 		B57ABBBB1DE7F22B00722B83 /* FollowingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowingTableViewCell.swift; sourceTree = "<group>"; };
 		B58291BA1DB96C300017FF58 /* BookClubUpdated.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookClubUpdated.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -230,7 +229,6 @@
 			children = (
 				B52472501DE45DDF00BE95FA /* Constants.swift */,
 				B58291BD1DB96C300017FF58 /* AppDelegate.swift */,
-				B558296D1DF76FB400ACF191 /* BookClubUpdated-Bridging-Header.h */,
 				B50E74451DF331AA00F2DC4A /* Extensions */,
 			);
 			name = Other;
@@ -567,6 +565,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -608,6 +608,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -624,7 +626,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.FJ.BookClubUpdated;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "BookClubUpdated/BookClubUpdated-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
@@ -641,7 +643,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.FJ.BookClubUpdated;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "BookClubUpdated/BookClubUpdated-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
