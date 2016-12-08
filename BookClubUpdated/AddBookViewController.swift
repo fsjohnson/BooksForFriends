@@ -297,14 +297,12 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
                 trimmedCodeNoZero = String(trimmedCodeString.characters.dropFirst())
                 GoogleBooksAPI.apiSearchBarCode(with: trimmedCodeNoZero, completion: { (searchResult) in
                     let book = SearchedBook(dict: searchResult)
-                    
-                    // PRESENT BOOK???
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "BarCodeNotification"), object: nil, userInfo: searchResult)
                 })
             } else {
                 GoogleBooksAPI.apiSearchBarCode(with: trimmedCodeString, completion: { (searchResult) in
                     let book = SearchedBook(dict: searchResult)
-                    
-                    // PRESENT BOOK???
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "BarCodeNotification"), object: nil, userInfo: searchResult)
                 })
             }
             

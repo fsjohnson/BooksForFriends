@@ -29,6 +29,10 @@ class AddCommentAndRatingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(setImage), name: NSNotification.Name(rawValue: "BarCodeNotification"), object: nil)
+        
+        //NotificationCenter.default.addObserver(self, forKeyPath: "setImage", options: NSNotification.Name(rawValue: "BarCodeNotification"), object: nil)
+        
         DispatchQueue.main.async {
             self.bookCoverImageView.loadImageUsingCacheWithURLString(urlString: self.passedImageLink)
         }
@@ -54,6 +58,13 @@ class AddCommentAndRatingViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func setImage() {
+        DispatchQueue.main.async {
+            
+            guard let link = self.searchedBook.finalBookCoverLink else { print("couldn't get bar code image"); return }
+            self.bookCoverImageView.loadImageUsingCacheWithURLString(urlString: link)
+        }
+    }
     
     func keyboardWillShow(notification: NSNotification) {
         
@@ -111,8 +122,7 @@ class AddCommentAndRatingViewController: UIViewController {
                     
                     let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
-                        
-                        //                    self.dismiss(animated: true, completion: nil)
+                        //self.dismiss(animated: true, completion: nil)
                     }))
                     
                     self.commentsTextField.text = ""
@@ -146,8 +156,7 @@ class AddCommentAndRatingViewController: UIViewController {
                             BooksFirebaseMethods.getBookIDFor(userBook: bookToAdd, completion: { (bookID) in
                                 BooksFirebaseMethods.checkIfCurrentUsersBooksChildIsEmpty(with: { (isEmpty) in
                                     if isEmpty == true {
-                                        
-                                        
+                                
                                         let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
                                         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
                                             //                                        self.dismiss(animated: true, completion: nil)
