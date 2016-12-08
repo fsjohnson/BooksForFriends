@@ -167,7 +167,7 @@ extension FollowersFollowing {
         UserFirebaseMethods.retrieveSpecificUser(with: currentUserID) { (currentUser) in
             print("LINK: \(currentUser?.profileImageURL)")
             if currentUser?.profileImageURL == "no image" {
-                self.profilePic.image = UIImage(named: "BFFLogo")
+                self.profilePic.image = UIImage(named: "Camera")
                 self.profilePic.contentMode = .scaleAspectFit
                 
                 UIView.animate(withDuration: 0.8, animations: {

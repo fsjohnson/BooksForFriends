@@ -10,6 +10,7 @@ import UIKit
 
 class UserPostListTableViewController: UITableViewController {
 
+    @IBOutlet weak var doneButton: UIBarButtonItem!
     
     var userPosts = [BookPosted]()
     var passedUserUniqueID = String()
@@ -22,6 +23,9 @@ class UserPostListTableViewController: UITableViewController {
         
         let navBarAttributesDictionary = [ NSForegroundColorAttributeName: UIColor.themeDarkBlue,NSFontAttributeName: UIFont.themeMediumThin]
         navigationController?.navigationBar.titleTextAttributes = navBarAttributesDictionary
+        
+        let doneButtonAttributesDictionary = [NSFontAttributeName: UIFont.themeSmallBold]
+        doneButton.setTitleTextAttributes(doneButtonAttributesDictionary, for: .normal)
         
         print("PASSED ID: \(passedUserUniqueID)")
         

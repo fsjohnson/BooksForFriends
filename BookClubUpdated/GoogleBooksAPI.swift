@@ -17,11 +17,11 @@ class GoogleBooksAPI {
         
         BookDataStore.shared.generateProperSearch(with: searchTitle, authorQuery: authorName) { (title, author) in
             
-            if author == "" {
+            if title != "" && author == "" {
                 //urlToPass = "https://www.googleapis.com/books/v1/volumes?q=intitle:\(title)&langRestrict:en&printType=books&orderBy=newest&key=\(Constants.apiKey)"
                 urlToPass = "https://www.googleapis.com/books/v1/volumes?q=intitle:\(title)&langRestrict:en&printType=books&key=\(Constants.apiKey)"
                 
-            } else {
+            } else if title != "" && author != "" {
                 //urlToPass = "https://www.googleapis.com/books/v1/volumes?q=intitle:\(title)+inauthor:\(author)&langRestrict:en&printType=books&orderBy=newest&key=\(Constants.apiKey)"
                 urlToPass = "https://www.googleapis.com/books/v1/volumes?q=intitle:\(title)+inauthor:\(author)&langRestrict:en&printType=books&key=\(Constants.apiKey)"
             }

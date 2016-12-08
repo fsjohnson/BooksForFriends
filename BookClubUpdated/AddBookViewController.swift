@@ -65,10 +65,7 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         searchButton.translatesAutoresizingMaskIntoConstraints = false
         searchButton.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         searchButton.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        searchButton.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
         searchButton.topAnchor.constraint(equalTo: (segmentedController.bottomAnchor)).isActive = true
-        searchButton.heightAnchor.constraint(equalToConstant: 50).isActive = true 
-        //        searchButton.backgroundColor = UIColor.themeOrange
         
         //TableView
         
