@@ -22,6 +22,8 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
     let searchStackView = UIStackView()
     var session: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
+    var instructionsLabel = UILabel()
+    var titleSearch = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,13 +44,10 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         searchOptionsView.topAnchor.constraint(equalTo: (view.topAnchor), constant:(navigationBarHeight + 20)).isActive = true
         searchOptionsView.backgroundColor = UIColor.themeOrange
         
+        configInitialView()
         configSearchTitleView()
         configSearchTitleAuthorView()
-        
-        // Add search title bar to search opations view
-        // Add search title auther bar to search opations view
-        // Add search direction text to search options view
-        
+        configBarScanner()
         configSegmentedControl()
         
         //Search message button
@@ -82,8 +81,6 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     override func viewWillAppear(_ animated: Bool) {
-        //        searchAuthor.text = ""
-        //        searchTitle.text = ""
         tableView.reloadData()
     }
     
@@ -102,17 +99,24 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
     func searchButtonFunc(sender: UIButton!) {
         
         indicator.startAnimating()
-//        BookDataStore.shared.getBookResults(with: searchTitle.text!, authorQuery: searchAuthor.text!) { (success) in
-//            
-//            if success == true {
-//                OperationQueue.main.addOperation {
-//                    self.tableView.reloadData()
-//                    self.indicator.stopAnimating()
-//                    self.indicator.hidesWhenStopped = true
-//                    
-//                }
-//            }
-//        }
+        
+        if searchTitleBar.text != "" {
+            titleSearch = searchTitleBar.text!
+        } else if secondSearchTitleBar.text != "" {
+            titleSearch = secondSearchTitleBar.text!
+        }
+        
+        BookDataStore.shared.getBookResults(with: titleSearch, authorQuery: searchAuthorBar.text!) { (success) in
+            
+            if success == true {
+                OperationQueue.main.addOperation {
+                    self.tableView.reloadData()
+                    self.indicator.stopAnimating()
+                    self.indicator.hidesWhenStopped = true
+                    
+                }
+            }
+        }
     
     }
     
@@ -130,12 +134,33 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
     func segmentedControlSegues(sender: UISegmentedControl!) {
         
         if sender.selectedSegmentIndex == 0 {
-            self.searchStackView.isHidden = true
-            self.searchTitleBar.isHidden = false
+            instructionsLabel.isHidden = true
+            searchStackView.isHidden = true
+            searchTitleBar.isHidden = false
+            secondSearchTitleBar.text = ""
+            searchAuthorBar.text = ""
         } else if sender.selectedSegmentIndex == 1 {
-            self.searchStackView.isHidden = false
-            self.searchTitleBar.isHidden = true
+            searchTitleBar.text = ""
+            searchStackView.isHidden = false
+            searchTitleBar.isHidden = true
+            instructionsLabel.isHidden = true
         }
+    }
+    
+    func configInitialView() {
+        instructionsLabel.font = UIFont.themeTinyBold
+        instructionsLabel.textColor = UIColor.themeDarkBlue
+        instructionsLabel.lineBreakMode = .byWordWrapping
+        instructionsLabel.numberOfLines = 0
+        instructionsLabel.textAlignment = .center
+        instructionsLabel.text = "Find books by searching either the book's title, title and author, or by scanning the book's barcode. Select the correct book to add a comment and rating. Happy searching!"
+        
+        searchOptionsView.addSubview(instructionsLabel)
+        instructionsLabel.translatesAutoresizingMaskIntoConstraints = false
+        instructionsLabel.centerXAnchor.constraint(equalTo: searchOptionsView.centerXAnchor).isActive = true
+        instructionsLabel.centerYAnchor.constraint(equalTo: searchOptionsView.centerYAnchor).isActive = true
+        instructionsLabel.widthAnchor.constraint(equalTo: searchOptionsView.widthAnchor, multiplier: 0.9).isActive = true
+        instructionsLabel.heightAnchor.constraint(equalTo: searchOptionsView.heightAnchor, multiplier: 0.9).isActive = true
     }
     
     func configSearchTitleView() {
@@ -192,8 +217,20 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         } catch {
             return
         }
+        
+        if (session.canAddInput(videoInput)) {
+            session.addInput(videoInput)
+        } else {
+            scanningNotPossible()
+        }
     }
     
+    func scanningNotPossible() {
+        let alert = UIAlertController(title: "Oops!", message: "Please try to scan with a device equipped with a camera", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+        session = nil
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
