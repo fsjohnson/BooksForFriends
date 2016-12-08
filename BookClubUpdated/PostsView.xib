@@ -40,9 +40,9 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="left" translatesAutoresizingMaskIntoConstraints="NO" id="TWE-6B-K6Y">
-                    <rect key="frame" x="10" y="35" width="92" height="29.5"/>
+                    <rect key="frame" x="10" y="35" width="92" height="25"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="29.5" id="HPm-GQ-lnt"/>
+                        <constraint firstAttribute="height" constant="25" id="HPm-GQ-lnt"/>
                         <constraint firstAttribute="width" constant="92" id="KD5-ao-bQ1"/>
                     </constraints>
                 </view>
@@ -51,13 +51,13 @@
                     <state key="normal" image="Flag"/>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UserName" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ak-5O-Yh3">
-                    <rect key="frame" x="10" y="88.5" width="163" height="21"/>
+                    <rect key="frame" x="10" y="121" width="163" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="This is a comment. The quick brown fox jumps over the lazy dog." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5du-DY-Uv1">
-                    <rect key="frame" x="10" y="72.5" width="163" height="16"/>
+                    <rect key="frame" x="10" y="65" width="163" height="72"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
@@ -69,19 +69,19 @@
                 <constraint firstItem="iX1-aw-Mnv" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" constant="-20" id="4B4-AQ-i2I"/>
                 <constraint firstItem="9ak-5O-Yh3" firstAttribute="leading" secondItem="5du-DY-Uv1" secondAttribute="leading" id="7JH-8j-gOz"/>
                 <constraint firstItem="9ak-5O-Yh3" firstAttribute="width" secondItem="tuW-7h-xqh" secondAttribute="width" id="CsN-OA-2GC"/>
-                <constraint firstItem="5du-DY-Uv1" firstAttribute="top" secondItem="TWE-6B-K6Y" secondAttribute="bottom" constant="8" id="GxO-eV-ezA"/>
+                <constraint firstItem="5du-DY-Uv1" firstAttribute="top" secondItem="TWE-6B-K6Y" secondAttribute="bottom" constant="5" id="GxO-eV-ezA"/>
                 <constraint firstItem="5du-DY-Uv1" firstAttribute="leading" secondItem="TWE-6B-K6Y" secondAttribute="leading" id="K3n-S6-gN9"/>
                 <constraint firstAttribute="trailing" secondItem="iX1-aw-Mnv" secondAttribute="trailing" constant="8" id="MVQ-mn-39T"/>
                 <constraint firstItem="TWE-6B-K6Y" firstAttribute="top" secondItem="tuW-7h-xqh" secondAttribute="bottom" constant="5" id="Mhw-ai-hO3"/>
                 <constraint firstItem="tuW-7h-xqh" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="NfW-j9-Oko"/>
-                <constraint firstItem="5du-DY-Uv1" firstAttribute="height" secondItem="tuW-7h-xqh" secondAttribute="height" multiplier="0.8" id="UJH-L6-BmH"/>
+                <constraint firstItem="9ak-5O-Yh3" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" constant="-8" id="SR1-Le-MVs"/>
                 <constraint firstItem="5du-DY-Uv1" firstAttribute="width" secondItem="tuW-7h-xqh" secondAttribute="width" id="UgD-g8-649"/>
                 <constraint firstItem="tuW-7h-xqh" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.5" id="VXf-t0-Wzm"/>
                 <constraint firstItem="iX1-aw-Mnv" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="dev-lj-NuN"/>
+                <constraint firstItem="5du-DY-Uv1" firstAttribute="bottom" secondItem="9ak-5O-Yh3" secondAttribute="bottom" constant="-5" id="oqa-BE-dCe"/>
                 <constraint firstAttribute="trailing" secondItem="vxm-ot-HVL" secondAttribute="trailing" constant="5" id="uWq-AR-OUo"/>
                 <constraint firstItem="9ak-5O-Yh3" firstAttribute="leading" secondItem="TWE-6B-K6Y" secondAttribute="leading" id="wg7-xA-1vZ"/>
                 <constraint firstItem="tuW-7h-xqh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="wuY-b9-PNn"/>
-                <constraint firstItem="9ak-5O-Yh3" firstAttribute="top" secondItem="5du-DY-Uv1" secondAttribute="bottom" id="zgT-9r-fJk"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
