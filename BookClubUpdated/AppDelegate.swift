@@ -22,10 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         DropDown.startListeningToKeyboard()
         FIRApp.configure()
+        var userAuthenticated = false
+        FIRAuth.auth()?.addStateDidChangeListener { _, user in userAuthenticated = (user != nil) }
         
-        let currentUser = FIRAuth.auth()?.currentUser?.email
-        
-        if currentUser != nil {
+        if userAuthenticated == true {
             
             self.window?.rootViewController = self.storyboard.instantiateViewController(withIdentifier: "UITabBarController")
         }
