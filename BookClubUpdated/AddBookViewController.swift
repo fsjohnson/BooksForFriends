@@ -54,8 +54,6 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         configSegmentedControl()
         configSearchTitleView()
         configSearchTitleAuthorView()
-        configBarScanner()
-        configBarScanner()
         
         
         //TableView
@@ -68,11 +66,15 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabBarHeight).isActive = true
         
         activityIndicator()
-        hideKeyboardWhenTappedAround(isActive: true)
+        
         
     }
     
     // TRY: Search bar delegate
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        hideKeyboardWhenTappedAround(isActive: true)
+    }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         print("search button clicked")
@@ -105,8 +107,6 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
-        hideKeyboardWhenTappedAround(isActive: true)
-        
     }
     
     
@@ -177,6 +177,7 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
             
         } else if sender.selectedSegmentIndex == 2 {
+            configBarScanner()
 //            if (session?.isRunning == false) {
 //                session.startRunning()
 //            }
