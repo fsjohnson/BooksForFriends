@@ -62,13 +62,13 @@ class GoogleBooksAPI {
     }
     
     
-    class func apiSearchBarCode(with barCode: String, completion: @escaping ([String: Any]) -> Void) {
+    class func apiSearchBarCode(with barCode: String, completion: @escaping ([[String: Any]]) -> Void) {
         
         let isbnURL = "https://www.googleapis.com/books/v1/volumes?q=isbn:\(barCode)&key=\(Constants.apiKey)"
         let session = URLSession.shared
         let url = URL(string: isbnURL)
         guard let unwrappedURL = url else {return}
-        
+        print("BAR CODE URL: \(isbnURL)")
         let task = session.dataTask(with: unwrappedURL) { (data, response, error) in
             if error != nil {
                 guard let error = error?.localizedDescription else { return }
@@ -81,7 +81,8 @@ class GoogleBooksAPI {
                     do {
                         let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [String: Any]
                     
-                        guard let bookInfo = responseJSON["items"] as? [String: Any] else {return}
+                        print("BOOK BAR CODE RESPONSE: \(responseJSON)")
+                        guard let bookInfo = responseJSON["items"] as? [[String: Any]] else {print("error returning bar code dictionary"); return}
                         
                         completion(bookInfo)
                         

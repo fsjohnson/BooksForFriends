@@ -24,6 +24,8 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
     var previewLayer: AVCaptureVideoPreviewLayer!
     var instructionsLabel = UILabel()
     var titleSearch = String()
+    var invisibleView: UIView!
+    var searchedBookLink: String? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,14 +69,36 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         activityIndicator()
         
+        setupInvisibleView()
+    }
+    
+    func setupInvisibleView() {
+        invisibleView = UIView(frame: view.frame)
+        invisibleView.backgroundColor = UIColor.clear
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissTheKeyboard))
+        
+        tapGesture.numberOfTapsRequired = 1
+        
+        view.addSubview(invisibleView)
+        invisibleView.addGestureRecognizer(tapGesture)
+        
+        invisibleView.isHidden = false
         
     }
     
-    // TRY: Search bar delegate
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        hideKeyboardWhenTappedAround(isActive: true)
+    func dismissTheKeyboard() {
+        view.endEditing(true)
+        invisibleView.isHidden = true
     }
+    
+    
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        invisibleView.isHidden = false
+    }
+    
+    // TRY: Search bar delegate
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         print("search button clicked")
@@ -84,14 +108,14 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
             print("search title bar search button")
             searchButtonFunc()
             searchTitleBar.resignFirstResponder()
-            hideKeyboardWhenTappedAround(isActive: false)
+            dismissTheKeyboard()
             
         case secondSearchTitleBar, searchAuthorBar:
             print("second search title bar, search author bar search button")
             if secondSearchTitleBar.text != "" && searchAuthorBar.text != "" {
                 searchButtonFunc()
                 searchTitleBar.resignFirstResponder()
-                hideKeyboardWhenTappedAround(isActive: false)
+                dismissTheKeyboard()
 
             } else {
                 let alert = UIAlertController(title: "Oops!", message: "Please enter book's author to search", preferredStyle: .alert)
@@ -178,9 +202,6 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
             
         } else if sender.selectedSegmentIndex == 2 {
             configBarScanner()
-//            if (session?.isRunning == false) {
-//                session.startRunning()
-//            }
         }
     }
     
@@ -298,17 +319,30 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
             if trimmedCodeString.hasPrefix("0") && trimmedCodeString.characters.count > 1 {
                 trimmedCodeNoZero = String(trimmedCodeString.characters.dropFirst())
                 GoogleBooksAPI.apiSearchBarCode(with: trimmedCodeNoZero, completion: { (searchResult) in
-                    let book = SearchedBook(dict: searchResult)
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "BarCodeNotification"), object: nil, userInfo: searchResult)
+                    for result in searchResult {
+                        let result = SearchedBook(dict: result)
+                        guard let link = result.finalBookCoverLink else { print("no image  bar code"); return}
+                        self.searchedBookLink = link
+                    }
+                    OperationQueue.main.addOperation {
+                        self.performSegue(withIdentifier: "addRatingAndComment", sender: self)
+                        print("FOUND BAR CODE BOOK: \(self.searchedBookLink)")
+                    }
                 })
             } else {
                 GoogleBooksAPI.apiSearchBarCode(with: trimmedCodeString, completion: { (searchResult) in
-                    let book = SearchedBook(dict: searchResult)
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "BarCodeNotification"), object: nil, userInfo: searchResult)
+                    for result in searchResult {
+                        let result = SearchedBook(dict: result)
+                        guard let link = result.finalBookCoverLink else { print("no image  bar code"); return}
+                        self.searchedBookLink = link
+                    }
+                    OperationQueue.main.addOperation {
+                        self.performSegue(withIdentifier: "addRatingAndComment", sender: self)
+                        print("FOUND BAR CODE BOOK: \(self.searchedBookLink)")
+                    }
+                    
                 })
             }
-            
-            self.navigationController?.popViewController(animated: true)
         }))
         
         self.present(alert, animated: true, completion: nil)
@@ -344,25 +378,37 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
             let targetController = segue.destination as! AddCommentAndRatingViewController
             var synopsis = String()
             var author = String()
-            if let indexPath = tableView.indexPathForSelectedRow {
+            
+            if searchedBookLink != nil {
+                guard let link = self.searchedBookLink else { print("error sending image link bar code"); return }
+                targetController.passedImageLink = link
+                searchedBookLink = nil
                 
-                let titleToPass = BookDataStore.shared.bookArray[indexPath.row].title
-                guard let imageLinkToPass = BookDataStore.shared.bookArray[indexPath.row].finalBookCoverLink else {print("no image"); return}
-                if let authorToPass = BookDataStore.shared.bookArray[indexPath.row].author {
-                    author = authorToPass
-                } else {
-                    author = "no author available"
+            } else {
+                
+                if let indexPath = tableView.indexPathForSelectedRow {
+                    
+                    let titleToPass = BookDataStore.shared.bookArray[indexPath.row].title
+                    guard let imageLinkToPass = BookDataStore.shared.bookArray[indexPath.row].finalBookCoverLink else {print("no image"); return}
+                    if let authorToPass = BookDataStore.shared.bookArray[indexPath.row].author {
+                        author = authorToPass
+                    } else {
+                        author = "no author available"
+                    }
+                    if let downloadedSynopsis = BookDataStore.shared.bookArray[indexPath.row].synopsis {
+                        synopsis = downloadedSynopsis
+                    } else {
+                        synopsis = "Synopsis not available"
+                    }
+                    targetController.passedTitle = titleToPass
+                    targetController.passedAuthor = author
+                    targetController.passedImageLink = imageLinkToPass
+                    targetController.passedSynopsis = synopsis
+                    //targetController.searchedBook = searchedBook
                 }
-                if let downloadedSynopsis = BookDataStore.shared.bookArray[indexPath.row].synopsis {
-                    synopsis = downloadedSynopsis
-                } else {
-                    synopsis = "Synopsis not available"
-                }
-                targetController.passedTitle = titleToPass
-                targetController.passedAuthor = author
-                targetController.passedImageLink = imageLinkToPass
-                targetController.passedSynopsis = synopsis
+                
             }
+
         }
     }
 }

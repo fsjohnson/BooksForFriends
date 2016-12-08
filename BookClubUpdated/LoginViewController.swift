@@ -55,6 +55,7 @@ class LoginViewController: UIViewController {
         loadViews()
         setPositions()
         emailTextField.becomeFirstResponder()
+        hideKeyboardWhenTappedAround(isActive: true)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -302,13 +303,8 @@ extension LoginViewController {
             self.newuserButton.isUserInteractionEnabled = true
             self.cancelButton.isUserInteractionEnabled = true
         }
-        
     }
-    
-    
 }
-
-
 
 
 //MARK: -Setup buttons
@@ -341,7 +337,6 @@ extension LoginViewController {
         let borderWidth: CGFloat = 2
         let borderColor = UIColor.themeOrange.cgColor
         
-        //nameTextField = UITextField(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width * 0.6, height: self.view.frame.size.height * 0.06)) as! CustomTextField
         nameTextField = CustomTextField(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width * 0.6, height: self.view.frame.size.height * 0.06))
         nameTextField.layer.cornerRadius = 7
         nameTextField.layer.borderWidth = borderWidth
@@ -352,7 +347,6 @@ extension LoginViewController {
         nameTextField.attributedPlaceholder = NSAttributedString(string: " Enter name")
         self.view.addSubview(nameTextField)
         
-        //usernameTextField = UITextField(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width * 0.6, height: self.view.frame.size.height * 0.06)) as! CustomTextField
         usernameTextField = CustomTextField(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width * 0.6, height: self.view.frame.size.height * 0.06))
         usernameTextField.layer.cornerRadius = 7
         usernameTextField.layer.borderWidth = borderWidth
@@ -363,7 +357,6 @@ extension LoginViewController {
         usernameTextField.attributedPlaceholder = NSAttributedString(string: " Enter desired username")
         self.view.addSubview(usernameTextField)
         
-        //emailTextField = UITextField(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width * 0.6, height: self.view.frame.size.height * 0.06)) as! CustomTextField
         emailTextField = CustomTextField(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width * 0.6, height: self.view.frame.size.height * 0.06))
         emailTextField.backgroundColor = UIColor.themeWhite
         emailTextField.font = UIFont.themeSmallBold
@@ -375,7 +368,6 @@ extension LoginViewController {
         emailTextField.attributedPlaceholder = NSAttributedString(string: " Enter email")
         self.view.addSubview(emailTextField)
         
-        //passwordTextField = UITextField(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width * 0.6, height: self.view.frame.size.height * 0.06)) as! CustomTextField
         passwordTextField = CustomTextField(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width * 0.6, height: self.view.frame.size.height * 0.06))
         passwordTextField.layer.cornerRadius = 7
         passwordTextField.font = UIFont.themeSmallBold

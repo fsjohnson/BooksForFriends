@@ -47,7 +47,8 @@ class AddCommentAndRatingViewController: UIViewController {
         
         commentsTextField.font = UIFont.themeSmallThin
         commentsTextField.textColor = UIColor.themeDarkBlue
-        NotificationCenter.default.addObserver(self, selector: #selector(setImage), name: NSNotification.Name(rawValue: "BarCodeNotification"), object: nil)
+        
+        print("PASSED BAR CODE IMAGE: \(passedImageLink)")
         
         DispatchQueue.main.async {
             self.bookCoverImageView.loadImageUsingCacheWithURLString(urlString: self.passedImageLink)
@@ -71,14 +72,6 @@ class AddCommentAndRatingViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    func setImage() {
-        DispatchQueue.main.async {
-            
-            guard let link = self.searchedBook.finalBookCoverLink else { print("couldn't get bar code image"); return }
-            self.bookCoverImageView.loadImageUsingCacheWithURLString(urlString: link)
-        }
     }
     
     func keyboardWillShow(notification: NSNotification) {
