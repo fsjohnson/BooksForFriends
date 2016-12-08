@@ -11,14 +11,29 @@ import UIKit
 class BookDetailsViewController: UIViewController {
     
     @IBOutlet weak var bookImageView: UIImageView!
-    
     @IBOutlet weak var bookSynopsis: UITextView!
     
+    @IBOutlet weak var synopsisLabel: UILabel!
+    @IBOutlet weak var addBookButton: UIButton!
     var passedUniqueID = String()
     var passedImageLink = String()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let navBarAttributesDictionary = [ NSForegroundColorAttributeName: UIColor.themeDarkBlue,NSFontAttributeName: UIFont.themeMediumThin]
+        navigationController?.navigationBar.titleTextAttributes = navBarAttributesDictionary
+        
+        addBookButton.layer.borderColor = UIColor.themeOrange.cgColor
+        addBookButton.layer.borderWidth = 4.0
+        addBookButton.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
+        addBookButton.layer.cornerRadius = 4.0
+        addBookButton.setTitleColor(UIColor.themeOrange, for: .normal)
+        addBookButton.titleLabel?.font = UIFont.themeSmallBold
+        
+        synopsisLabel.font = UIFont.themeSmallBold
+        synopsisLabel.textColor = UIColor.themeOrange
+        
         print("PASSED IMAGE LINK: \(passedImageLink)")
         bookImageView.loadImageUsingCacheWithURLString(urlString: passedImageLink)
         

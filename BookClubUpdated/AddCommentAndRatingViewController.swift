@@ -11,27 +11,41 @@ import Firebase
 
 class AddCommentAndRatingViewController: UIViewController {
     
+    @IBOutlet weak var addBookButton: UIButton!
+    @IBOutlet weak var starView: UIView!
+    @IBOutlet weak var ratingLabel: UILabel!
+    @IBOutlet weak var commentsLabel: UILabel!
+    @IBOutlet weak var bookCoverImageView: UIImageView!
+    @IBOutlet weak var commentsTextField: UITextField!
+    
     var passedTitle = String()
     var passedAuthor = String()
     var passedImageLink = String()
     var passedSynopsis = String()
-    
-    @IBOutlet weak var starView: UIView!
     var star = StarReview()
-    
     weak var searchedBook: SearchedBook!
-    
-    @IBOutlet weak var bookCoverImageView: UIImageView!
-    @IBOutlet weak var ratingSlider: UISlider!
-    @IBOutlet weak var commentsTextField: UITextField!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(setImage), name: NSNotification.Name(rawValue: "BarCodeNotification"), object: nil)
+        let navBarAttributesDictionary = [ NSForegroundColorAttributeName: UIColor.themeDarkBlue,NSFontAttributeName: UIFont.themeMediumThin]
+        navigationController?.navigationBar.titleTextAttributes = navBarAttributesDictionary
         
-        //NotificationCenter.default.addObserver(self, forKeyPath: "setImage", options: NSNotification.Name(rawValue: "BarCodeNotification"), object: nil)
+        addBookButton.layer.borderColor = UIColor.themeOrange.cgColor
+        addBookButton.layer.borderWidth = 4.0
+        addBookButton.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
+        addBookButton.layer.cornerRadius = 4.0
+        addBookButton.setTitleColor(UIColor.themeOrange, for: .normal)
+        addBookButton.titleLabel?.font = UIFont.themeSmallBold
+        
+        ratingLabel.font = UIFont.themeSmallBold
+        ratingLabel.textColor = UIColor.themeOrange
+        
+        commentsLabel.font = UIFont.themeSmallBold
+        commentsLabel.textColor = UIColor.themeOrange
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(setImage), name: NSNotification.Name(rawValue: "BarCodeNotification"), object: nil)
         
         DispatchQueue.main.async {
             self.bookCoverImageView.loadImageUsingCacheWithURLString(urlString: self.passedImageLink)
@@ -42,8 +56,8 @@ class AddCommentAndRatingViewController: UIViewController {
         star.starCount = 5
         star.value = 1
         star.allowAccruteStars = false
-        star.starFillColor = UIColor.themeLightBlue
-        star.starBackgroundColor = UIColor.themeDarkBlue
+        star.starFillColor = UIColor.themeDarkBlue
+        star.starBackgroundColor = UIColor.themeLightBlue
         star.starMarginScale = 0.3
         starView.addSubview(star)
         
@@ -69,7 +83,7 @@ class AddCommentAndRatingViewController: UIViewController {
     func keyboardWillShow(notification: NSNotification) {
         
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0{
+            if self.view.frame.origin.y == 0 {
                 self.view.frame.origin.y -= keyboardSize.height
             }
         }
@@ -77,7 +91,7 @@ class AddCommentAndRatingViewController: UIViewController {
     
     func keyboardWillHide(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y != 0{
+            if self.view.frame.origin.y != 0 {
                 self.view.frame.origin.y += keyboardSize.height
             }
         }

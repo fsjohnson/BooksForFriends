@@ -10,6 +10,7 @@ import UIKit
 
 class FollowersTableViewController: UITableViewController {
 
+    @IBOutlet weak var blockUserButton: UIBarButtonItem!
     
     var followersArray = [User]()
     var deleteButtonSelected = false
@@ -17,6 +18,12 @@ class FollowersTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let navBarAttributesDictionary = [ NSForegroundColorAttributeName: UIColor.themeDarkBlue,NSFontAttributeName: UIFont.themeMediumThin]
+        navigationController?.navigationBar.titleTextAttributes = navBarAttributesDictionary
+        
+        let blockUserAttributesDictionary = [NSFontAttributeName: UIFont.themeSmallBold]
+        blockUserButton.setTitleTextAttributes(blockUserAttributesDictionary, for: .normal)
+        
         UserFirebaseMethods.retriveFollowers { (users) in
             guard let array = users else { return }
             for user in array {

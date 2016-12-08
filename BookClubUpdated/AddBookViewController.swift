@@ -31,6 +31,9 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         let navigationBarHeight: CGFloat = self.navigationController!.navigationBar.frame.height
         let tabBarHeight: CGFloat = (self.tabBarController?.tabBar.frame.height)!
         
+        let navBarAttributesDictionary = [ NSForegroundColorAttributeName: UIColor.themeDarkBlue,NSFontAttributeName: UIFont.themeMediumThin]
+        navigationController?.navigationBar.titleTextAttributes = navBarAttributesDictionary
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(SearchBookResultsTableViewCell.self, forCellReuseIdentifier: "bookResult")
@@ -45,7 +48,7 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         searchOptionsView.backgroundColor = UIColor.themeOrange
         
         configSegmentedControl()
-        configInitialView()
+        // configInitialView()
         configSearchTitleView()
         configSearchTitleAuthorView()
         configBarScanner()
@@ -64,6 +67,7 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         searchButton.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         searchButton.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
         searchButton.topAnchor.constraint(equalTo: (segmentedController.bottomAnchor)).isActive = true
+        searchButton.heightAnchor.constraint(equalToConstant: 50).isActive = true 
         //        searchButton.backgroundColor = UIColor.themeOrange
         
         //TableView
@@ -131,6 +135,7 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         segmentedController.addTarget(self, action: #selector(segmentedControlSegues), for: .valueChanged)
         segmentedController.setTitleTextAttributes([NSForegroundColorAttributeName : UIColor.themeDarkBlue], for: .normal)
         segmentedController.tintColor = UIColor.themeDarkBlue
+        segmentedController.selectedSegmentIndex = 1
         
     }
     
@@ -218,9 +223,7 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         searchStackView.widthAnchor.constraint(equalTo: searchOptionsView.widthAnchor).isActive = true
         searchStackView.heightAnchor.constraint(equalTo: searchOptionsView.heightAnchor).isActive = true
         searchStackView.centerXAnchor.constraint(equalTo: searchOptionsView.centerXAnchor).isActive = true
-        searchStackView.centerYAnchor.constraint(equalTo: searchOptionsView.centerYAnchor).isActive = true
-        searchStackView.isHidden = true
-        
+        searchStackView.centerYAnchor.constraint(equalTo: searchOptionsView.centerYAnchor).isActive = true        
     }
     
     

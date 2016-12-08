@@ -20,6 +20,9 @@ class BooksFriendsReadTableViewController: UITableViewController {
         self.navigationController?.navigationBar.barTintColor = UIColor.themeOrange
         self.tabBarController?.tabBar.barTintColor = UIColor.themeDarkBlue
         
+        let navBarAttributesDictionary = [ NSForegroundColorAttributeName: UIColor.themeDarkBlue,NSFontAttributeName: UIFont.themeMediumThin]
+        navigationController?.navigationBar.titleTextAttributes = navBarAttributesDictionary
+        
         PostsFirebaseMethods.downloadFollowingPosts { (postsArray) in
             self.postsArray = postsArray
             self.tableView.reloadData()
@@ -31,7 +34,6 @@ class BooksFriendsReadTableViewController: UITableViewController {
             self.postsArray = postsArray
             self.tableView.reloadData()
         }
-        
     }
     
     override func didReceiveMemoryWarning() {

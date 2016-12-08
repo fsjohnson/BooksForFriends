@@ -29,7 +29,7 @@ class PostsView: UIView {
     weak var bookPost: BookPosted! {
         didSet {
             updateViewToReflectBookImage()
-            commentLabel.text = "'\(bookPost.comment)'"
+            commentLabel.text = "\"\(bookPost.comment)\""
             titleLabel.text = bookPost.title
             updateViewToReflectUsername()
             updateStars()
@@ -123,8 +123,8 @@ extension PostsView {
         star.allowEdit = false
         starView.addSubview(star)
         star.allowAccruteStars = false
-        star.starFillColor = UIColor.themeLightBlue
-        star.starBackgroundColor = UIColor.themeDarkBlue
+        star.starFillColor = UIColor.themeDarkBlue
+        star.starBackgroundColor = UIColor.themeLightBlue
         star.starMarginScale = 0.1
         
         if starView.subviews.isEmpty {

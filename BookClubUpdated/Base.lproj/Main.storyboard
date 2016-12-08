@@ -11,7 +11,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Book My Friends Read-->
+        <!--Books My Friends Read-->
         <scene sceneID="N82-hX-4KN">
             <objects>
                 <tableViewController storyboardIdentifier="BooksFriendsReadTableViewController" id="SJ6-Q4-3V9" customClass="BooksFriendsReadTableViewController" customModule="BookClubUpdated" customModuleProvider="target" sceneMemberID="viewController">
@@ -49,7 +49,7 @@
                             <outlet property="delegate" destination="SJ6-Q4-3V9" id="AIg-zR-9fO"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Book My Friends Read" id="iGf-4p-RD9">
+                    <navigationItem key="navigationItem" title="Books My Friends Read" id="iGf-4p-RD9">
                         <barButtonItem key="rightBarButtonItem" image="AddBook" id="yfQ-J4-dYc">
                             <color key="tintColor" red="0.57222074270000001" green="0.57267004249999998" blue="0.57229036089999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
@@ -225,8 +225,11 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mcv-RE-mR6">
-                                <rect key="frame" x="133" y="587" width="108" height="30"/>
-                                <state key="normal" title="Add to book list"/>
+                                <rect key="frame" x="122.5" y="554" width="130" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="130" id="FFt-sM-NZd"/>
+                                </constraints>
+                                <state key="normal" title="Add Book"/>
                                 <connections>
                                     <action selector="addToFutureReads:" destination="Jcl-oe-RQx" eventType="touchUpInside" id="QkM-bZ-cRp"/>
                                 </connections>
@@ -234,7 +237,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="mcv-RE-mR6" firstAttribute="top" secondItem="ydl-aU-MlQ" secondAttribute="bottom" multiplier="1.1" id="271-6j-EmE"/>
+                            <constraint firstItem="mcv-RE-mR6" firstAttribute="top" secondItem="ydl-aU-MlQ" secondAttribute="bottom" constant="20" id="271-6j-EmE"/>
                             <constraint firstItem="ydl-aU-MlQ" firstAttribute="centerX" secondItem="z5t-Vc-kyO" secondAttribute="centerX" id="KBn-kF-ShY"/>
                             <constraint firstItem="mcv-RE-mR6" firstAttribute="centerX" secondItem="z5t-Vc-kyO" secondAttribute="centerX" id="MNN-1A-cz1"/>
                             <constraint firstItem="ydl-aU-MlQ" firstAttribute="height" secondItem="z5t-Vc-kyO" secondAttribute="height" multiplier="0.4" id="U69-FX-aa0"/>
@@ -247,13 +250,15 @@
                     </view>
                     <navigationItem key="navigationItem" title="Add Book" id="1up-7y-CU0"/>
                     <connections>
+                        <outlet property="addBookButton" destination="mcv-RE-mR6" id="tVq-v9-3kf"/>
                         <outlet property="bookImageView" destination="cnb-m1-AcH" id="cfw-h6-ZEB"/>
                         <outlet property="bookSynopsis" destination="vOT-Tt-8Iy" id="rlv-TI-Ozb"/>
+                        <outlet property="synopsisLabel" destination="LGU-Zm-Yyq" id="GFt-9j-g5X"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UBm-Ei-XNE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2753" y="-820"/>
+            <point key="canvasLocation" x="2752.8000000000002" y="-820.83958020989508"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="PzW-hz-Due">
@@ -511,6 +516,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="blockUserButton" destination="Rp6-AK-ghV" id="TpR-T2-Hwk"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ukb-KX-C9l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -597,7 +605,10 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="60P-Jn-3pe">
-                                <rect key="frame" x="154" y="572" width="67" height="30"/>
+                                <rect key="frame" x="122.5" y="572" width="130" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="130" id="fpk-xM-hQZ"/>
+                                </constraints>
                                 <state key="normal" title="Add Book"/>
                                 <connections>
                                     <action selector="addBookButton:" destination="p49-83-rhL" eventType="touchUpInside" id="8eQ-Cr-m2n"/>
@@ -623,8 +634,11 @@
                     </view>
                     <navigationItem key="navigationItem" title="Add Book and Comments" id="N78-Sz-aLY"/>
                     <connections>
+                        <outlet property="addBookButton" destination="60P-Jn-3pe" id="fpZ-2c-xMb"/>
                         <outlet property="bookCoverImageView" destination="Nth-Md-Eeu" id="v4v-wv-txC"/>
+                        <outlet property="commentsLabel" destination="9qy-h1-RC7" id="v49-5b-bEj"/>
                         <outlet property="commentsTextField" destination="aG7-jC-Ghi" id="gcI-7U-1Lt"/>
+                        <outlet property="ratingLabel" destination="L6w-8s-4Mb" id="EeF-3A-o4W"/>
                         <outlet property="starView" destination="kZH-hT-Ax4" id="qgA-Fu-2er"/>
                     </connections>
                 </viewController>

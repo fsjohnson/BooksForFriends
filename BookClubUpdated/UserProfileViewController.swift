@@ -39,6 +39,9 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         self.navigationController?.navigationBar.barTintColor = UIColor.themeOrange
         self.tabBarController?.tabBar.barTintColor = UIColor.themeDarkBlue
         
+        let navBarAttributesDictionary = [ NSForegroundColorAttributeName: UIColor.themeDarkBlue,NSFontAttributeName: UIFont.themeMediumThin]
+        navigationController?.navigationBar.titleTextAttributes = navBarAttributesDictionary
+        
         configFollowersFollowingView()
         configFirebaseData()
         configSegmentedControl()
@@ -79,7 +82,7 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         
         UserFirebaseMethods.retrieveSpecificUser(with: currentUserID) { (returnedUser) in
             guard let username = returnedUser?.username else { print("no username"); return }
-            self.navigationItem.title = username
+            self.navigationItem.title = "\(username)'s Posts"
         }
         
         PostsFirebaseMethods.downloadUsersBookPostsArray(with: currentUserID) { (booksPosted) in

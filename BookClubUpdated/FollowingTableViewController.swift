@@ -18,6 +18,10 @@ class FollowingTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let navBarAttributesDictionary = [ NSForegroundColorAttributeName: UIColor.themeDarkBlue,NSFontAttributeName: UIFont.themeMediumThin]
+        navigationController?.navigationBar.titleTextAttributes = navBarAttributesDictionary
+        
+        
         UserFirebaseMethods.retriveFollowingUsers { (users) in
             print("USERS: \(users)")
             self.followingArray = users ?? []
