@@ -49,8 +49,8 @@ class PostsView: UIView {
     
     private func commonInit() {
         Bundle.main.loadNibNamed("PostsView", owner: self, options: nil)
-        contentView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(contentView)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.constrainEdges(to: self)
         self.contentView.layer.borderColor = UIColor.themeWhite.cgColor
         self.contentView.layer.borderWidth = 4.0

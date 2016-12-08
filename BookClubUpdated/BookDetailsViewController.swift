@@ -34,6 +34,9 @@ class BookDetailsViewController: UIViewController {
         synopsisLabel.font = UIFont.themeSmallBold
         synopsisLabel.textColor = UIColor.themeOrange
         
+        bookSynopsis.font = UIFont.themeSmallThin
+        bookSynopsis.textColor = UIColor.themeDarkBlue
+        
         print("PASSED IMAGE LINK: \(passedImageLink)")
         bookImageView.loadImageUsingCacheWithURLString(urlString: passedImageLink)
         

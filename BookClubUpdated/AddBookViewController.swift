@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, AVCaptureMetadataOutputObjectsDelegate {
+class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, AVCaptureMetadataOutputObjectsDelegate, UISearchBarDelegate {
     
     @IBOutlet weak var searchOptionsView: UIView!
     var tableView = UITableView()
@@ -39,7 +39,11 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.register(SearchBookResultsTableViewCell.self, forCellReuseIdentifier: "bookResult")
         tableView.rowHeight = 100
         
-        //Search Options View
+        //Search Options View & Search Bar Delegate
+        
+        searchTitleBar.delegate = self
+        searchAuthorBar.delegate = self
+        secondSearchTitleBar.delegate = self
         
         searchOptionsView.translatesAutoresizingMaskIntoConstraints = false
         searchOptionsView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.15).isActive = true
@@ -48,45 +52,60 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         searchOptionsView.backgroundColor = UIColor.themeOrange
         
         configSegmentedControl()
-        // configInitialView()
         configSearchTitleView()
         configSearchTitleAuthorView()
         configBarScanner()
         configBarScanner()
         
-        //Search message button
-        
-        self.view.addSubview(searchButton)
-        searchButton.layer.borderWidth = 2.0
-        searchButton.layer.borderColor = UIColor.black.cgColor
-        searchButton.setImage(#imageLiteral(resourceName: "Search"), for: .normal)
-        searchButton.addTarget(self, action: #selector(searchButtonFunc), for: .touchUpInside)
-        
-        searchButton.translatesAutoresizingMaskIntoConstraints = false
-        searchButton.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        searchButton.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        searchButton.topAnchor.constraint(equalTo: (segmentedController.bottomAnchor)).isActive = true
         
         //TableView
         
         self.view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: searchButton.bottomAnchor, constant: 8).isActive = true
+        tableView.topAnchor.constraint(equalTo: segmentedController.bottomAnchor, constant: 8).isActive = true
         tableView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1.0).isActive = true
         tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabBarHeight).isActive = true
         
         activityIndicator()
+        hideKeyboardWhenTappedAround(isActive: true)
         
+    }
+    
+    // TRY: Search bar delegate
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        print("search button clicked")
+        
+        switch searchBar {
+        case searchTitleBar:
+            print("search title bar search button")
+            searchButtonFunc()
+            searchTitleBar.resignFirstResponder()
+            hideKeyboardWhenTappedAround(isActive: false)
+            
+        case secondSearchTitleBar, searchAuthorBar:
+            print("second search title bar, search author bar search button")
+            if secondSearchTitleBar.text != "" && searchAuthorBar.text != "" {
+                searchButtonFunc()
+                searchTitleBar.resignFirstResponder()
+                hideKeyboardWhenTappedAround(isActive: false)
+
+            } else {
+                let alert = UIAlertController(title: "Oops!", message: "Please enter book's author to search", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                present(alert, animated: true, completion: nil)
+            }
+            
+        default:
+            break
+        }
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
-        
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
+        hideKeyboardWhenTappedAround(isActive: true)
         
     }
     
@@ -99,10 +118,8 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         indicator.center = self.view.center
         self.view.addSubview(indicator)
     }
-    
-    
-    
-    func searchButtonFunc(sender: UIButton!) {
+
+    func searchButtonFunc() {
         
         indicator.startAnimating()
         
@@ -166,22 +183,6 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    func configInitialView() {
-        instructionsLabel.font = UIFont.themeTinyBold
-        instructionsLabel.textColor = UIColor.themeDarkBlue
-        instructionsLabel.lineBreakMode = .byWordWrapping
-        instructionsLabel.numberOfLines = 0
-        instructionsLabel.textAlignment = .center
-        instructionsLabel.text = "Find books by searching either the book's title, title and author, or by scanning the book's barcode. Select the correct book to add a comment and rating. Happy searching!"
-        
-        searchOptionsView.addSubview(instructionsLabel)
-        instructionsLabel.translatesAutoresizingMaskIntoConstraints = false
-        instructionsLabel.centerXAnchor.constraint(equalTo: searchOptionsView.centerXAnchor).isActive = true
-        instructionsLabel.centerYAnchor.constraint(equalTo: searchOptionsView.centerYAnchor).isActive = true
-        instructionsLabel.widthAnchor.constraint(equalTo: searchOptionsView.widthAnchor, multiplier: 0.9).isActive = true
-        instructionsLabel.heightAnchor.constraint(equalTo: searchOptionsView.heightAnchor, multiplier: 0.9).isActive = true
-    }
-    
     func configSearchTitleView() {
         
         searchOptionsView.addSubview(searchTitleBar)
@@ -193,7 +194,7 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         searchTitleBar.tintColor = UIColor.themeOrange
         searchTitleBar.barTintColor = UIColor.themeOrange
         searchTitleBar.isHidden = true
-        searchTitleBar.enablesReturnKeyAutomatically = false
+        searchTitleBar.enablesReturnKeyAutomatically = true // TRY: delegate
     }
     
     func configSearchTitleAuthorView() {
@@ -206,14 +207,14 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         secondSearchTitleBar.tintColor = UIColor.themeOrange
         secondSearchTitleBar.tintColor = UIColor.themeOrange
         secondSearchTitleBar.barTintColor = UIColor.themeOrange
-        secondSearchTitleBar.enablesReturnKeyAutomatically = false
+        secondSearchTitleBar.enablesReturnKeyAutomatically = true // TRY: delegate
         
         searchStackView.addArrangedSubview(searchAuthorBar)
         searchAuthorBar.placeholder = "Search Author"
         searchAuthorBar.tintColor = UIColor.themeOrange
         searchAuthorBar.tintColor = UIColor.themeOrange
         searchAuthorBar.barTintColor = UIColor.themeOrange
-        searchAuthorBar.enablesReturnKeyAutomatically = false
+        searchAuthorBar.enablesReturnKeyAutomatically = true // TRY: delegate
         
         searchOptionsView.addSubview(searchStackView)
         searchStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -399,12 +400,23 @@ extension AddBookViewController: SearchResultDelegate {
         return books.contains(sender.searchedBook)
         
     }
-    
-    
 }
 
 
-
+extension UIViewController {
+    func hideKeyboardWhenTappedAround(isActive: Bool) {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        if isActive == true {
+            view.addGestureRecognizer(tap)
+        } else {
+            view.removeGestureRecognizer(tap)
+        }
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
 
 
 

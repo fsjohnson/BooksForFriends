@@ -45,6 +45,8 @@ class AddCommentAndRatingViewController: UIViewController {
         commentsLabel.font = UIFont.themeSmallBold
         commentsLabel.textColor = UIColor.themeOrange
         
+        commentsTextField.font = UIFont.themeSmallThin
+        commentsTextField.textColor = UIColor.themeDarkBlue
         NotificationCenter.default.addObserver(self, selector: #selector(setImage), name: NSNotification.Name(rawValue: "BarCodeNotification"), object: nil)
         
         DispatchQueue.main.async {
@@ -60,7 +62,6 @@ class AddCommentAndRatingViewController: UIViewController {
         star.starBackgroundColor = UIColor.themeLightBlue
         star.starMarginScale = 0.3
         starView.addSubview(star)
-        
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)

@@ -76,6 +76,8 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
     }
     
     
+
+    
     func configFirebaseData() {
         
         guard let currentUserID = FIRAuth.auth()?.currentUser?.uid else { return }
@@ -153,6 +155,7 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
     func logoutButton() {
         do {
             try FIRAuth.auth()?.signOut()
+            
         } catch {
             print(error)
         }

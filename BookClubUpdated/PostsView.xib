@@ -57,7 +57,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="This is a comment. The quick brown fox jumps over the lazy dog." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5du-DY-Uv1">
-                    <rect key="frame" x="10" y="65" width="163" height="72"/>
+                    <rect key="frame" x="10" y="65" width="163" height="51"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
@@ -78,9 +78,8 @@
                 <constraint firstItem="5du-DY-Uv1" firstAttribute="width" secondItem="tuW-7h-xqh" secondAttribute="width" id="UgD-g8-649"/>
                 <constraint firstItem="tuW-7h-xqh" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.5" id="VXf-t0-Wzm"/>
                 <constraint firstItem="iX1-aw-Mnv" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="dev-lj-NuN"/>
-                <constraint firstItem="5du-DY-Uv1" firstAttribute="bottom" secondItem="9ak-5O-Yh3" secondAttribute="bottom" constant="-5" id="oqa-BE-dCe"/>
+                <constraint firstItem="5du-DY-Uv1" firstAttribute="bottom" secondItem="9ak-5O-Yh3" secondAttribute="top" constant="-5" id="oqa-BE-dCe"/>
                 <constraint firstAttribute="trailing" secondItem="vxm-ot-HVL" secondAttribute="trailing" constant="5" id="uWq-AR-OUo"/>
-                <constraint firstItem="9ak-5O-Yh3" firstAttribute="leading" secondItem="TWE-6B-K6Y" secondAttribute="leading" id="wg7-xA-1vZ"/>
                 <constraint firstItem="tuW-7h-xqh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="wuY-b9-PNn"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
