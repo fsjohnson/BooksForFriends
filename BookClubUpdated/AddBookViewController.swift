@@ -44,11 +44,12 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         searchOptionsView.topAnchor.constraint(equalTo: (view.topAnchor), constant:(navigationBarHeight + 20)).isActive = true
         searchOptionsView.backgroundColor = UIColor.themeOrange
         
+        configSegmentedControl()
         configInitialView()
         configSearchTitleView()
         configSearchTitleAuthorView()
         configBarScanner()
-        configSegmentedControl()
+        configBarScanner()
         
         //Search message button
         
@@ -74,7 +75,6 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabBarHeight).isActive = true
         
-        
         activityIndicator()
         
     }
@@ -82,6 +82,11 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
     }
     
     
@@ -113,17 +118,15 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
                     self.tableView.reloadData()
                     self.indicator.stopAnimating()
                     self.indicator.hidesWhenStopped = true
-                    
                 }
             }
         }
-    
     }
     
     func configSegmentedControl() {
         view.addSubview(segmentedController)
         segmentedController.translatesAutoresizingMaskIntoConstraints = false
-        segmentedController.topAnchor.constraint(equalTo: searchOptionsView.bottomAnchor, constant: 8).isActive = true
+        segmentedController.topAnchor.constraint(equalTo: searchOptionsView.bottomAnchor).isActive = true
         segmentedController.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
         segmentedController.addTarget(self, action: #selector(segmentedControlSegues), for: .valueChanged)
         segmentedController.setTitleTextAttributes([NSForegroundColorAttributeName : UIColor.themeDarkBlue], for: .normal)
@@ -139,11 +142,25 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
             searchTitleBar.isHidden = false
             secondSearchTitleBar.text = ""
             searchAuthorBar.text = ""
+            
+            if (session?.isRunning == true) {
+                session.stopRunning()
+            }
+            
         } else if sender.selectedSegmentIndex == 1 {
             searchTitleBar.text = ""
             searchStackView.isHidden = false
             searchTitleBar.isHidden = true
             instructionsLabel.isHidden = true
+            
+            if (session?.isRunning == true) {
+                session.stopRunning()
+            }
+            
+        } else if sender.selectedSegmentIndex == 2 {
+//            if (session?.isRunning == false) {
+//                session.startRunning()
+//            }
         }
     }
     
@@ -174,11 +191,10 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         searchTitleBar.tintColor = UIColor.themeOrange
         searchTitleBar.barTintColor = UIColor.themeOrange
         searchTitleBar.isHidden = true
-        
+        searchTitleBar.enablesReturnKeyAutomatically = false
     }
     
     func configSearchTitleAuthorView() {
-        
         
         searchStackView.axis = UILayoutConstraintAxis.vertical
         searchStackView.distribution = UIStackViewDistribution.fillEqually
@@ -188,12 +204,14 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         secondSearchTitleBar.tintColor = UIColor.themeOrange
         secondSearchTitleBar.tintColor = UIColor.themeOrange
         secondSearchTitleBar.barTintColor = UIColor.themeOrange
+        secondSearchTitleBar.enablesReturnKeyAutomatically = false
         
         searchStackView.addArrangedSubview(searchAuthorBar)
         searchAuthorBar.placeholder = "Search Author"
         searchAuthorBar.tintColor = UIColor.themeOrange
         searchAuthorBar.tintColor = UIColor.themeOrange
         searchAuthorBar.barTintColor = UIColor.themeOrange
+        searchAuthorBar.enablesReturnKeyAutomatically = false
         
         searchOptionsView.addSubview(searchStackView)
         searchStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -208,6 +226,7 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func configBarScanner() {
         
+        print("CONFIG BAR SCANNER RUNNING")
         session = AVCaptureSession()
         let videoCaptureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
         let videoInput: AVCaptureDeviceInput?
@@ -223,13 +242,77 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         } else {
             scanningNotPossible()
         }
+        
+        
+        let metadataOutput = AVCaptureMetadataOutput()
+        
+        if (session.canAddOutput(metadataOutput)) {
+            session.addOutput(metadataOutput)
+            
+            metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
+            metadataOutput.metadataObjectTypes = [AVMetadataObjectTypeEAN13Code]
+        } else {
+            scanningNotPossible()
+        }
+        
+        previewLayer = AVCaptureVideoPreviewLayer(session: session)
+        previewLayer.frame = view.layer.bounds
+        previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+        view.layer.addSublayer(previewLayer)
+        session.startRunning()
+        
     }
     
     func scanningNotPossible() {
+        
         let alert = UIAlertController(title: "Oops!", message: "Please try to scan with a device equipped with a camera", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
         session = nil
+    }
+    
+    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
+        
+        if let barcodeData = metadataObjects.first {
+            let barcodeReadable = barcodeData as? AVMetadataMachineReadableCodeObject
+            if let readableCode = barcodeReadable {
+                barcodeDetected(code: readableCode.stringValue)
+            }
+            
+            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+            
+            session.stopRunning()
+        }
+    }
+    
+    func barcodeDetected(code: String) {
+        let alert = UIAlertController(title: "Barcode found", message: code, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Search", style: .destructive, handler: { action in
+            let trimmedCode = code.trimmingCharacters(in: NSCharacterSet.whitespaces)
+            
+            let trimmedCodeString = "\(trimmedCode)"
+            let trimmedCodeNoZero: String
+            
+            if trimmedCodeString.hasPrefix("0") && trimmedCodeString.characters.count > 1 {
+                trimmedCodeNoZero = String(trimmedCodeString.characters.dropFirst())
+                GoogleBooksAPI.apiSearchBarCode(with: trimmedCodeNoZero, completion: { (searchResult) in
+                    let book = SearchedBook(dict: searchResult)
+                    
+                    // PRESENT BOOK???
+                })
+            } else {
+                GoogleBooksAPI.apiSearchBarCode(with: trimmedCodeString, completion: { (searchResult) in
+                    let book = SearchedBook(dict: searchResult)
+                    
+                    // PRESENT BOOK???
+                })
+            }
+            
+            self.navigationController?.popViewController(animated: true)
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -282,7 +365,6 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
     }
-    
 }
 
 // MARK: - Presentation Methods
