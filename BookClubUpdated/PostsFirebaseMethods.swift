@@ -78,8 +78,8 @@ class PostsFirebaseMethods {
         var followingUniqueIDArray = [String]()
         
         UserFirebaseMethods.retriveFollowingUsers { (followingArray) in
-            
-            for user in followingArray {
+            guard let array = followingArray else { return }
+            for user in array {
                 followingUniqueIDArray.append(user.uniqueKey)
             }
             

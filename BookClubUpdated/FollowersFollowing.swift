@@ -107,38 +107,39 @@ extension FollowersFollowing {
     }
     
     func populateFollowersLabel() {
-        UserFirebaseMethods.checkIfFollowerUsersIsEmpty { (isEmpty) in
-            if isEmpty ==  true {
-                DispatchQueue.main.async {
-                    self.followersButtonOutlet.setTitle("0", for: .normal)
-                }
-            } else {
-                UserFirebaseMethods.retriveFollowers { (users) in
-                    DispatchQueue.main.async {
-                        self.followersButtonOutlet.setTitle(String(users.count), for: .normal)
-                    }
-                }
+        followersButtonOutlet.setTitle(nil, for: .normal)
+        followersButtonOutlet.alpha = 0.0
+        
+        UserFirebaseMethods.retriveFollowers { [unowned self] users in
+            
+            DispatchQueue.main.async {
+                
+                let title = users != nil ? String(users!.count) : "0"
+                self.followersButtonOutlet.setTitle(title, for: .normal)
+                
+                UIView.animate(withDuration: 0.8, animations: {
+                    self.followersButtonOutlet.alpha = 1.0
+                })
             }
         }
-        
     }
     
     func populateFollowingLabel() {
-        UserFirebaseMethods.checkIfFollowingUsersIsEmpty { (isEmpty) in
-            if isEmpty == true {
-                DispatchQueue.main.async {
-                    self.followingButtonOutlet.setTitle("0", for: .normal)
-                }
+        followingButtonOutlet.setTitle(nil, for: .normal)
+        followingButtonOutlet.alpha = 0.0
+        
+        UserFirebaseMethods.retriveFollowingUsers { [unowned self] users in
+            
+            DispatchQueue.main.async {
                 
-            } else {
-                UserFirebaseMethods.retriveFollowingUsers { (users) in
-                    DispatchQueue.main.async {
-                        self.followingButtonOutlet.setTitle(String(users.count), for: .normal)
-                    }
-                }
+                let title = users != nil ? String(users!.count) : "0"
+                self.followingButtonOutlet.setTitle(title, for: .normal)
+                
+                UIView.animate(withDuration: 0.8, animations: {
+                    self.followingButtonOutlet.alpha = 1.0
+                })
             }
         }
-        
     }
     
     func populatePostsLabel() {
@@ -168,11 +169,20 @@ extension FollowersFollowing {
             if currentUser?.profileImageURL == "no image" {
                 self.profilePic.image = UIImage(named: "BFFLogo")
                 self.profilePic.contentMode = .scaleAspectFit
+                
+                UIView.animate(withDuration: 0.8, animations: {
+                    self.booksPostedButton.alpha = 1.0
+                })
+                
             } else {
                 if let profileImageURL = currentUser?.profileImageURL {
                     DispatchQueue.main.async {
                         self.profilePic.contentMode = .scaleAspectFill
                         self.profilePic.loadImageUsingCacheWithURLString(urlString: profileImageURL)
+                        
+                        UIView.animate(withDuration: 0.8, animations: {
+                            self.booksPostedButton.alpha = 1.0
+                        })
                     }
                 }
             }

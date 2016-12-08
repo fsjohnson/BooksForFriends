@@ -77,7 +77,7 @@ class UserFirebaseMethods {
                     else { print("\n\n\n\n\n\(userRawInfo)\n\n\n\n"); return }
                 
                 if uniqueKey != currentUser {
-                 
+                    
                     
                     let user = User(name: name, email: email, uniqueKey: uniqueKey, username: username, profileImageURL: profileImageURL)
                     usersArray.append(user)
@@ -205,7 +205,7 @@ class UserFirebaseMethods {
     
     
     
-    static func retriveFollowingUsers(with completion: @escaping ([User]) -> Void) {
+    static func retriveFollowingUsers(with completion: @escaping ([User]?) -> Void) {
         
         guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
         let ref = FIRDatabase.database().reference().child("users").child(currentUser).child("following")
@@ -213,22 +213,24 @@ class UserFirebaseMethods {
         var followingUserIDArray = [String]()
         
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
-            print(snapshot)
-            guard let snapshotValue = snapshot.value as? [String: Any] else {return}
-            print(snapshotValue)
             
-            for snap in snapshotValue {
-                followingUserIDArray.append(snap.key)
-            }
-            
-            for id in followingUserIDArray {
-                UserFirebaseMethods.retrieveSpecificUser(with: id, completion: { (user) in
-                    followingUserArray.append(user!)
-                    
-                    if followingUserIDArray.count == followingUserArray.count {
-                        completion(followingUserArray)
-                    }
-                })
+            DispatchQueue.main.async {
+                
+                guard let snapshotValue = snapshot.value as? [String: Any] else { print("download followers posts error"); completion(nil); return }
+                
+                for snap in snapshotValue {
+                    followingUserIDArray.append(snap.key)
+                }
+                
+                for id in followingUserIDArray {
+                    UserFirebaseMethods.retrieveSpecificUser(with: id, completion: { (user) in
+                        followingUserArray.append(user!)
+                        
+                        if followingUserIDArray.count == followingUserArray.count {
+                            completion(followingUserArray)
+                        }
+                    })
+                }
             }
         })
     }
@@ -254,7 +256,7 @@ class UserFirebaseMethods {
     }
     
     
-    static func retriveFollowers(with completion: @escaping ([User]) -> Void) {
+    static func retriveFollowers(with completion: @escaping ([User]?) -> Void) {
         
         guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
         let ref = FIRDatabase.database().reference().child("users").child(currentUser).child("followers").child("notBlocked")
@@ -262,22 +264,25 @@ class UserFirebaseMethods {
         var followersUserIDArray = [String]()
         
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
-            print(snapshot)
-            guard let snapshotValue = snapshot.value as? [String: Any] else {return}
-            print(snapshotValue)
             
-            for snap in snapshotValue {
-                followersUserIDArray.append(snap.key)
-            }
-            
-            for id in followersUserIDArray {
-                UserFirebaseMethods.retrieveSpecificUser(with: id, completion: { (user) in
-                    followersUserArray.append(user!)
-                    
-                    if followersUserIDArray.count == followersUserArray.count {
-                        completion(followersUserArray)
-                    }
-                })
+            DispatchQueue.main.async {
+                
+                guard let snapshotValue = snapshot.value as? [String: Any] else { print("download followers posts error"); completion(nil); return }
+                
+                
+                for snap in snapshotValue {
+                    followersUserIDArray.append(snap.key)
+                }
+                
+                for id in followersUserIDArray {
+                    UserFirebaseMethods.retrieveSpecificUser(with: id, completion: { (user) in
+                        followersUserArray.append(user!)
+                        
+                        if followersUserIDArray.count == followersUserArray.count {
+                            completion(followersUserArray)
+                        }
+                    })
+                }
             }
         })
     }

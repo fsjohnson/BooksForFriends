@@ -20,7 +20,7 @@ class FollowingTableViewController: UITableViewController {
         
         UserFirebaseMethods.retriveFollowingUsers { (users) in
             print("USERS: \(users)")
-            self.followingArray = users
+            self.followingArray = users ?? []
             self.tableView.reloadData()
         }
         

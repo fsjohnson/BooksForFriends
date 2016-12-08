@@ -51,6 +51,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Book My Friends Read" id="iGf-4p-RD9">
                         <barButtonItem key="rightBarButtonItem" image="AddBook" id="yfQ-J4-dYc">
+                            <color key="tintColor" red="0.57222074270000001" green="0.57267004249999998" blue="0.57229036089999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <segue destination="Usx-En-JRb" kind="show" identifier="findFriends" id="t49-p0-bcd"/>
                             </connections>
@@ -91,7 +92,9 @@
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bit-yc-2h9">
                                             <rect key="frame" x="325" y="1" width="30" height="43"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                            <state key="normal" title="+"/>
+                                            <state key="normal" title="+">
+                                                <color key="titleColor" red="0.57222074270000001" green="0.57267004249999998" blue="0.57229036089999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
                                         </button>
                                     </subviews>
                                     <constraints>
@@ -169,6 +172,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Previous Posts" id="nkt-cx-nbN">
                         <barButtonItem key="leftBarButtonItem" systemItem="done" id="ahK-sx-OdM">
+                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="doneButton:" destination="FOg-i2-afo" id="TVR-T0-SIM"/>
                             </connections>
@@ -301,6 +305,7 @@
                     </collectionView>
                     <navigationItem key="navigationItem" title="Books I Want to Read" id="65A-aa-fwH">
                         <barButtonItem key="rightBarButtonItem" systemItem="trash" id="LBY-Mx-t60">
+                            <color key="tintColor" red="0.57222074270000001" green="0.57267004249999998" blue="0.57229036089999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="removeBook:" destination="3KZ-Be-9wS" id="cbU-t7-K4K"/>
                             </connections>
@@ -353,11 +358,13 @@
                     </view>
                     <navigationItem key="navigationItem" title="Books I've Read" id="U7c-UA-MJp">
                         <barButtonItem key="leftBarButtonItem" image="Settings" id="Og6-nl-bsk">
+                            <color key="tintColor" red="0.57222074270248413" green="0.57267004251480103" blue="0.57229036092758179" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="dropDown:" destination="WjS-Mn-Kr9" id="u4o-EK-khG"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="AddBook" style="plain" id="oSm-xK-zeT">
+                            <color key="tintColor" red="0.57222074270000001" green="0.57267004249999998" blue="0.57229036089999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="addBookBtn:" destination="WjS-Mn-Kr9" id="h3T-hz-T87"/>
                             </connections>
@@ -416,6 +423,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Previous Posts" id="CUA-ks-9dR">
                         <barButtonItem key="leftBarButtonItem" systemItem="done" id="dKV-pI-kKd">
+                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="backButton:" destination="oGp-Qo-8Xg" id="ZqH-pr-CBP"/>
                             </connections>
@@ -445,7 +453,9 @@
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="smt-Ob-UIl">
                                             <rect key="frame" x="319" y="0.0" width="30" height="44"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="32"/>
-                                            <state key="normal" title="-"/>
+                                            <state key="normal" title="-">
+                                                <color key="titleColor" red="0.57222074270000001" green="0.57267004249999998" blue="0.57229036089999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
                                         </button>
                                     </subviews>
                                     <constraints>
@@ -495,6 +505,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Followers" id="TX9-ic-kih">
                         <barButtonItem key="rightBarButtonItem" title="Block" id="Rp6-AK-ghV">
+                            <color key="tintColor" red="0.57222074270000001" green="0.57267004249999998" blue="0.57229036089999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="blockUser:" destination="rcH-At-f36" id="0Z1-pv-hsA"/>
                             </connections>

@@ -18,7 +18,8 @@ class FollowersTableViewController: UITableViewController {
         super.viewDidLoad()
 
         UserFirebaseMethods.retriveFollowers { (users) in
-            for user in users {
+            guard let array = users else { return }
+            for user in array {
                 self.followersArray.append(user)
             }
             self.tableView.reloadData()
