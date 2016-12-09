@@ -47,7 +47,11 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vxm-ot-HVL">
-                    <rect key="frame" x="292" y="2" width="29" height="29"/>
+                    <rect key="frame" x="306" y="2" width="15" height="15"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="15" id="6lv-MW-veI"/>
+                        <constraint firstAttribute="width" constant="15" id="eX3-nS-hHz"/>
+                    </constraints>
                     <state key="normal" image="Flag"/>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UserName" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ak-5O-Yh3">
