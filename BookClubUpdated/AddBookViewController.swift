@@ -25,7 +25,8 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
     var instructionsLabel = UILabel()
     var titleSearch = String()
     var invisibleView: UIView!
-    var searchedBookLink: String? = nil
+    var barCodeBookLink: String? = nil
+    var barCodeBookTitle: String? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -322,11 +323,13 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
                     for result in searchResult {
                         let result = SearchedBook(dict: result)
                         guard let link = result.finalBookCoverLink else { print("no image  bar code"); return}
-                        self.searchedBookLink = link
+                        
+                        self.barCodeBookLink = link
+                        self.barCodeBookTitle = result.title
+                        print("FOUND BAR CODE BOOK: \(self.barCodeBookTitle)")
                     }
                     OperationQueue.main.addOperation {
                         self.performSegue(withIdentifier: "addRatingAndComment", sender: self)
-                        print("FOUND BAR CODE BOOK: \(self.searchedBookLink)")
                     }
                 })
             } else {
@@ -334,11 +337,12 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
                     for result in searchResult {
                         let result = SearchedBook(dict: result)
                         guard let link = result.finalBookCoverLink else { print("no image  bar code"); return}
-                        self.searchedBookLink = link
+                        self.barCodeBookLink = link
+                        self.barCodeBookTitle = result.title
                     }
                     OperationQueue.main.addOperation {
                         self.performSegue(withIdentifier: "addRatingAndComment", sender: self)
-                        print("FOUND BAR CODE BOOK: \(self.searchedBookLink)")
+                        print("FOUND BAR CODE BOOK: \(self.barCodeBookTitle)")
                     }
                     
                 })
@@ -379,10 +383,13 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
             var synopsis = String()
             var author = String()
             
-            if searchedBookLink != nil {
-                guard let link = self.searchedBookLink else { print("error sending image link bar code"); return }
+            if barCodeBookLink != nil && barCodeBookTitle != nil {
+                guard let link = self.barCodeBookLink else { print("error sending image link bar code"); return }
+                guard let title = self.barCodeBookTitle else { print("error sending image link bar code"); return }
                 targetController.passedImageLink = link
-                searchedBookLink = nil
+                targetController.passedTitle = title
+                barCodeBookLink = nil
+                barCodeBookTitle = nil
                 
             } else {
                 

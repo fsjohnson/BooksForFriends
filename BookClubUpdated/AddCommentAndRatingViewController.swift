@@ -55,7 +55,7 @@ class AddCommentAndRatingViewController: UIViewController {
         }
         
         
-        star = StarReview(frame: CGRect(x: 0, y: 0, width: starView.bounds.width, height: starView.bounds.height))
+        star = StarReview(frame: CGRect(x: 0, y: 0, width: starView.bounds.width.multiplied(by: 0.8), height: starView.bounds.height))
         star.starCount = 5
         star.value = 1
         star.allowAccruteStars = false

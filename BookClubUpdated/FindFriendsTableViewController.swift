@@ -185,6 +185,7 @@ class FindFriendsTableViewController: UITableViewController, UISearchBarDelegate
             
             if let indexPath = tableView.indexPathForSelectedRow {
                target.passedUserUniqueID = usersArray[indexPath.row].uniqueKey
+                print("target id: \(target.passedUserUniqueID)")
             }
         }
         
