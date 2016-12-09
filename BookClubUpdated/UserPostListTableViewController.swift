@@ -23,9 +23,7 @@ class UserPostListTableViewController: UITableViewController {
         
         let navBarAttributesDictionary = [ NSForegroundColorAttributeName: UIColor.themeDarkBlue,NSFontAttributeName: UIFont.themeMediumThin]
         navigationController?.navigationBar.titleTextAttributes = navBarAttributesDictionary
-        
-        print("PASSED ID: \(passedUserUniqueID)")
-        
+                
         PostsFirebaseMethods.downloadUsersBookPostsArray(with: passedUserUniqueID) { (posts) in
             self.userPosts = posts ?? []
             self.tableView.reloadData()

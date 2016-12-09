@@ -319,30 +319,50 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             if trimmedCodeString.hasPrefix("0") && trimmedCodeString.characters.count > 1 {
                 trimmedCodeNoZero = String(trimmedCodeString.characters.dropFirst())
-                GoogleBooksAPI.apiSearchBarCode(with: trimmedCodeNoZero, completion: { (searchResult) in
-                    for result in searchResult {
-                        let result = SearchedBook(dict: result)
-                        guard let link = result.finalBookCoverLink else { print("no image  bar code"); return}
-                        
-                        self.barCodeBookLink = link
-                        self.barCodeBookTitle = result.title
-                        print("FOUND BAR CODE BOOK: \(self.barCodeBookTitle)")
+                GoogleBooksAPI.apiSearchBarCode(with: trimmedCodeNoZero, completion: { (searchResult, success) in
+                    if success == true {
+                        guard let searchResult = searchResult else { print("error unwrapped bar code search result dictionary"); return }
+                        for result in searchResult {
+                            let result = SearchedBook(dict: result)
+                            guard let link = result.finalBookCoverLink else { print("no image  bar code"); return}
+                            
+                            self.barCodeBookLink = link
+                            self.barCodeBookTitle = result.title
+                            print("FOUND BAR CODE BOOK: \(self.barCodeBookTitle)")
+                        }
+                        OperationQueue.main.addOperation {
+                            self.performSegue(withIdentifier: "addRatingAndComment", sender: self)
+                        }
+                    } else {
+                        OperationQueue.main.addOperation {
+                            let alert = UIAlertController(title: "Oops!", message: "Error reading barcode", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                            self.present(alert, animated: true, completion: nil)
+                        }
                     }
-                    OperationQueue.main.addOperation {
-                        self.performSegue(withIdentifier: "addRatingAndComment", sender: self)
-                    }
+                    
                 })
             } else {
-                GoogleBooksAPI.apiSearchBarCode(with: trimmedCodeString, completion: { (searchResult) in
-                    for result in searchResult {
-                        let result = SearchedBook(dict: result)
-                        guard let link = result.finalBookCoverLink else { print("no image  bar code"); return}
-                        self.barCodeBookLink = link
-                        self.barCodeBookTitle = result.title
-                    }
-                    OperationQueue.main.addOperation {
-                        self.performSegue(withIdentifier: "addRatingAndComment", sender: self)
-                        print("FOUND BAR CODE BOOK: \(self.barCodeBookTitle)")
+                GoogleBooksAPI.apiSearchBarCode(with: trimmedCodeString, completion: { (searchResult, success) in
+                    if success == true {
+                        guard let searchResult = searchResult else { print("error unwrapped bar code search result dictionary"); return }
+                        for result in searchResult {
+                            let result = SearchedBook(dict: result)
+                            guard let link = result.finalBookCoverLink else { print("no image  bar code"); return}
+                            
+                            self.barCodeBookLink = link
+                            self.barCodeBookTitle = result.title
+                            print("FOUND BAR CODE BOOK: \(self.barCodeBookTitle)")
+                        }
+                        OperationQueue.main.addOperation {
+                            self.performSegue(withIdentifier: "addRatingAndComment", sender: self)
+                        }
+                    } else {
+                        OperationQueue.main.addOperation {
+                            let alert = UIAlertController(title: "Oops!", message: "Error reading barcode", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                            self.present(alert, animated: true, completion: nil)
+                        }
                     }
                     
                 })
