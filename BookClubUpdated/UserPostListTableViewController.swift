@@ -53,9 +53,35 @@ class UserPostListTableViewController: UITableViewController {
         print(cell.postView)
         if cell.postView.delegate == nil { cell.postView.delegate = self }
         cell.postView.bookPost = userPosts[indexPath.row]
+        cell.postView.flagButtonOutlet.addTarget(self, action: #selector(flagButtonTouched), for: .touchUpInside)
 
         return cell
     }
+    
+    func flagButtonTouched(sender: UIButton) {
+        
+        print("button touched")
+        
+        let index = sender.tag
+        
+        let flaggedPost = userPosts[index]
+        
+        PostsFirebaseMethods.flagPostsWith(book: flaggedPost) {
+            let alert = UIAlertController(title: "Are you sure?", message: "Do you want to flag this comment?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+                self.userPosts.remove(at: index)
+                self.tableView.reloadData()
+                
+            }))
+            
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+                
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
     
     
     @IBAction func backButton(_ sender: Any) {

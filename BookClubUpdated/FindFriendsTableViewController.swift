@@ -62,7 +62,7 @@ class FindFriendsTableViewController: UITableViewController, UISearchBarDelegate
         if searchController.isActive && self.searchController.searchBar.text != "" {
             return filteredUsers.count
         }
-        return usersArray.count
+        return empty.count
     }
     
     
@@ -184,7 +184,7 @@ class FindFriendsTableViewController: UITableViewController, UISearchBarDelegate
             let target = dest.topViewController as! UserPostListTableViewController
             
             if let indexPath = tableView.indexPathForSelectedRow {
-               target.passedUserUniqueID = usersArray[indexPath.row].uniqueKey
+               target.passedUserUniqueID = filteredUsers[indexPath.row].uniqueKey
             }
         }
         

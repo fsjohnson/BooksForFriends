@@ -70,6 +70,8 @@ class PostsView: UIView {
 
 
     }
+    
+    
 }
 
 // MARK: - UIView Extension

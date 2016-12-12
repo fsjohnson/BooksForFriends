@@ -338,9 +338,8 @@ extension LoginViewController {
         
         let borderWidth: CGFloat = 2
         let borderColor = UIColor.themeOrange.cgColor
-        
-//        logoImage = UIImageView(frame: CGRect(x: self.view.frame.size.width * 0.25, y: self.view.frame.size.height * 0.02, width: self.view.frame.size.width * 0.25, height: self.view.frame.size.height * 0.25))
-        logoImage = UIImageView(frame: CGRect(x: self.view.frame.size.width * 0.35, y: self.view.frame.size.height * 0.05, width: 90, height: 90))
+
+        logoImage = UIImageView(frame: CGRect(x: self.view.frame.size.width * 0.36, y: self.view.frame.size.height * 0.05, width: 90, height: 90))
         logoImage.image = UIImage(named: "BFFLogin")
         self.view.addSubview(logoImage)
         
