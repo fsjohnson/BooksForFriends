@@ -1,4 +1,4 @@
-# booksWithFriends
+# BooksForFriends ("BFF")
 
 ## Overview
 Tired of asking your friends for book recommendations and then forgetting to write the titles down? BooksForFriends ("BFF") allows you to follow your friends and see what they're reading. The comments and ratings your friends give each book will guide you towards choosing a great next read! Don't forget to return the favor and post your own book recommendations!
