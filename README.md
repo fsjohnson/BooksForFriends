@@ -4,7 +4,8 @@
 Tired of asking your friends for book recommendations and then forgetting to write the titles down? BooksForFriends ("BFF") allows you to follow your friends and see what they're reading. The comments and ratings your friends give each book will guide you towards choosing a great next read! Don't forget to return the favor and post your own book recommendations!
 
 
-![5 5infriendsposts](https://cloud.githubusercontent.com/assets/20174612/21110345/d8604456-c06a-11e6-958a-8883684257f0.png=100x20)
+
+<img src="https://cloud.githubusercontent.com/assets/20174612/21110345/d8604456-c06a-11e6-958a-8883684257f0.png" width = "200">
 
 ![5 5infuturereads](https://cloud.githubusercontent.com/assets/20174612/21110347/d86552ca-c06a-11e6-827b-fec38e1e080d.png)
 
