@@ -11,10 +11,10 @@ import UIKit
 class FindFriendsTableViewController: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
     
     let searchController = UISearchController(searchResultsController: nil)
-    
     var filteredUsers = [User]()
     var usersArray = [User]()
     var usernamesArray = [String]()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,7 +58,7 @@ class FindFriendsTableViewController: UITableViewController, UISearchBarDelegate
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+        let empty = [String]()
         if searchController.isActive && self.searchController.searchBar.text != "" {
             return filteredUsers.count
         }

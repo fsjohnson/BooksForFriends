@@ -99,18 +99,19 @@ class BooksFriendsReadTableViewController: UITableViewController {
         let flaggedPost = postsArray[index]
         
         PostsFirebaseMethods.flagPostsWith(book: flaggedPost) {
-            let alert = UIAlertController(title: "Success!", message: "You have flagged this comment for review", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                
+            let alert = UIAlertController(title: "Are you sure?", message: "Do you want to flag this comment?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
                 self.postsArray.remove(at: index)
                 self.tableView.reloadData()
                 
             }))
             
-            self.present(alert, animated: true, completion: nil)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+                
+            }))
             
+            self.present(alert, animated: true, completion: nil)
         }
-        
     }
     
     

@@ -4,7 +4,6 @@
 target 'BookClubUpdated' do
   # Comment this line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
-
   pod 'Firebase'
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
@@ -12,7 +11,6 @@ target 'BookClubUpdated' do
   pod 'Bolts'
   pod 'FBSDKCoreKit'
   pod 'FBSDKLoginKit'
-  use_frameworks!
   pod 'DropDown'
 
 end

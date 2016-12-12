@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "FinalBooksForFriends.png",
+      "filename" : "Icon-App-57x57@1x.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "FinalBooksForFriends@2x.png",
+      "filename" : "Icon-App-57x57@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "FinalBooksForFriends@3x.png",
+      "filename" : "Icon-App-60x60@1x.png",
       "scale" : "3x"
     }
   ],

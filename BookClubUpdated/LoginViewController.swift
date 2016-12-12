@@ -46,6 +46,8 @@ class LoginViewController: UIViewController {
     var signupButton: UIButton!
     var cancelButton: UIButton!
     
+    var logoImage: UIImageView!
+    
     var signupButtonState = false
     
     override func viewDidLoad() {
@@ -336,6 +338,11 @@ extension LoginViewController {
         
         let borderWidth: CGFloat = 2
         let borderColor = UIColor.themeOrange.cgColor
+        
+//        logoImage = UIImageView(frame: CGRect(x: self.view.frame.size.width * 0.25, y: self.view.frame.size.height * 0.02, width: self.view.frame.size.width * 0.25, height: self.view.frame.size.height * 0.25))
+        logoImage = UIImageView(frame: CGRect(x: self.view.frame.size.width * 0.35, y: self.view.frame.size.height * 0.05, width: 90, height: 90))
+        logoImage.image = UIImage(named: "BFFLogin")
+        self.view.addSubview(logoImage)
         
         nameTextField = CustomTextField(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width * 0.6, height: self.view.frame.size.height * 0.06))
         nameTextField.layer.cornerRadius = 7

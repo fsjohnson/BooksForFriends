@@ -28,19 +28,19 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iX1-aw-Mnv">
-                    <rect key="frame" x="187.5" y="10" width="130.5" height="130"/>
+                    <rect key="frame" x="188" y="10" width="130" height="130"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="iX1-aw-Mnv" secondAttribute="height" multiplier="1:1" id="INJ-OU-p4w"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tuW-7h-xqh">
-                    <rect key="frame" x="10" y="10" width="163" height="20"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tuW-7h-xqh">
+                    <rect key="frame" x="10" y="10" width="163" height="0.0"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                     <color key="textColor" red="0.10588236149999999" green="0.98823535439999999" blue="0.039215687659999998" alpha="1" colorSpace="deviceRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="left" translatesAutoresizingMaskIntoConstraints="NO" id="TWE-6B-K6Y">
-                    <rect key="frame" x="10" y="35" width="92" height="25"/>
+                    <rect key="frame" x="10" y="15" width="92" height="25"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="25" id="HPm-GQ-lnt"/>
                         <constraint firstAttribute="width" constant="92" id="KD5-ao-bQ1"/>
@@ -54,14 +54,14 @@
                     </constraints>
                     <state key="normal" image="Flag"/>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UserName" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ak-5O-Yh3">
-                    <rect key="frame" x="10" y="121" width="163" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ak-5O-Yh3">
+                    <rect key="frame" x="10" y="142" width="163" height="0.0"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="This is a comment. The quick brown fox jumps over the lazy dog." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5du-DY-Uv1">
-                    <rect key="frame" x="10" y="65" width="163" height="51"/>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5du-DY-Uv1">
+                    <rect key="frame" x="10" y="45" width="163" height="92"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
