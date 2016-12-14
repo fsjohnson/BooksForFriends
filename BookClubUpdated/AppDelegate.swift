@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 import Firebase
 import DropDown
+import Mixpanel
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         DropDown.startListeningToKeyboard()
         FIRApp.configure()
+        Mixpanel.initialize(token: Constants.mixpanelToken)
         
         let currentUser = FIRAuth.auth()?.currentUser?.email
         

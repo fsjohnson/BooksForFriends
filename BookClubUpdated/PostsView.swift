@@ -90,7 +90,7 @@ extension UIView {
 extension PostsView {
     
     fileprivate func updateViewToReflectBookImage() {
-        
+    
         guard bookPost.bookCover == nil else { bookImage.image = bookPost.bookCover; return }
         
         if bookPost.imageLink == "" {

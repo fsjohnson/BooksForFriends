@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Mixpanel
 
 struct LoginViewPosition {
     
@@ -87,6 +88,8 @@ class LoginViewController: UIViewController {
 extension LoginViewController {
     
     func loginButtonAction() {
+        
+        Mixpanel.mainInstance().track(event: "User Login")
         guard let email = emailTextField.text else {return}
         guard let password = passwordTextField.text else {return}
         
@@ -124,6 +127,8 @@ extension LoginViewController {
     }
     
     func signupButtonAction(_ sender: UIButton) {
+        
+        Mixpanel.mainInstance().track(event: "New User")
         guard let email = emailTextField.text else {return}
         guard let password = passwordTextField.text else {return}
         guard let name = nameTextField.text else {return}

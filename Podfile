@@ -12,6 +12,7 @@ target 'BookClubUpdated' do
   pod 'FBSDKCoreKit'
   pod 'FBSDKLoginKit'
   pod 'DropDown'
+  pod 'Mixpanel-swift'
 
 end
 

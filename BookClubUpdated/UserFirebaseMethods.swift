@@ -345,6 +345,7 @@ class UserFirebaseMethods {
     
     // MARK: - Comments for BFF
     
+
     static func sendFeedbackToBFF(with comment: String) {
         
         let ref = FIRDatabase.database().reference().child("userFeedback")

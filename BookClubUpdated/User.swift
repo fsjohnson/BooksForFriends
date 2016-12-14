@@ -11,7 +11,6 @@ import Firebase
 
 class User {
     
-    
     var name: String
     var uniqueKey: String
     var email: String

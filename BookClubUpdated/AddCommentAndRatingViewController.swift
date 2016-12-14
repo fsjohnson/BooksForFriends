@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import Mixpanel
 
 class AddCommentAndRatingViewController: UIViewController {
     
@@ -94,6 +95,7 @@ class AddCommentAndRatingViewController: UIViewController {
     
     @IBAction func addBookButton(_ sender: Any) {
         
+        Mixpanel.mainInstance().track(event: "Post Book")
         let bookToAdd = UserBook(title: passedTitle, author: passedAuthor, synopsis: passedSynopsis, bookUniqueKey: nil, finalBookCoverLink: passedImageLink)
         guard let userUniqueKey = FIRAuth.auth()?.currentUser?.uid else {return}
         let ratingString = String(star.value)

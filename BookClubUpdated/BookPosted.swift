@@ -24,7 +24,6 @@ class BookPosted {
     let reviewID: String
     let title: String
     
-    
     init(bookUniqueID: String, rating: String, comment: String, imageLink: String, timestamp: Double, userUniqueKey: String, reviewID: String, title: String) {
         self.bookUniqueID = bookUniqueID
         self.rating = rating
@@ -36,27 +35,6 @@ class BookPosted {
         self.userUniqueKey = userUniqueKey
         self.reviewID = reviewID
         self.title = title
-    }
-    
-    func convertTimestampIntoDate(with timestamp: String, completion: (Date) -> Void) {
-        
-        let dateTimeStamp = NSDate(timeIntervalSince1970:Double(timestamp)!/1000)  //UTC time
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeZone = NSTimeZone.local //Edit
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        dateFormatter.dateStyle = DateFormatter.Style.full
-        dateFormatter.timeStyle = DateFormatter.Style.short
-        
-        
-        let strDateSelect = dateFormatter.string(from: dateTimeStamp as Date)
-        print(strDateSelect) //Local time
-        let dateFormatter2 = DateFormatter()
-        dateFormatter2.timeZone = NSTimeZone.local
-        dateFormatter2.dateFormat = "yyyy-MM-dd"
-        
-        guard let date3 = dateFormatter.date(from: strDateSelect) else { print("coulnd't convert timestamp to date"); return }
-        
-        completion(date3)
     }
 }
 

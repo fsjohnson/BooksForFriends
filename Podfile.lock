@@ -57,6 +57,7 @@ PODS:
     - GoogleToolboxForMac/NSString+URLArguments (= 2.1.0)
   - GoogleToolboxForMac/NSString+URLArguments (2.1.0)
   - GTMSessionFetcher/Core (1.1.7)
+  - Mixpanel-swift (2.1.1)
 
 DEPENDENCIES:
   - Bolts
@@ -67,6 +68,7 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Database
   - Firebase/Storage
+  - Mixpanel-swift
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
@@ -84,7 +86,8 @@ SPEC CHECKSUMS:
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
   GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
   GTMSessionFetcher: a1f8ed39e4fe21c68957daed472c7afbcdf29166
+  Mixpanel-swift: 49966d4beec714aee3a026d39085b62b26eca081
 
-PODFILE CHECKSUM: 680beb141fec13d1cabe8d99a61c27ba0e71974e
+PODFILE CHECKSUM: 973ecfaab23de6cf59f339648d4a36def3ad63ca
 
 COCOAPODS: 1.0.1

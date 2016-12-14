@@ -92,7 +92,6 @@ class FollowersFollowing: UIView {
         self.followingButtonOutlet.titleLabel?.font = UIFont.themeSmallBold
         
     }
-    
 }
 
 
