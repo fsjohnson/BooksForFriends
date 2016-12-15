@@ -44,7 +44,6 @@ class BooksFirebaseMethods {
         
         usersBookRef.observeSingleEvent(of: .value, with: { (snapshot) in
             if !snapshot.hasChildren() {
-                
                 boolToReturn = true
             } else {
                 
@@ -55,7 +54,7 @@ class BooksFirebaseMethods {
         })
         
     }
-
+    
     
     // MARK: - Download books from Firebase
     
@@ -95,9 +94,6 @@ class BooksFirebaseMethods {
             
             
             for snap in snapshotValue {
-                
-                print(snap)
-                
                 guard let value = snap.value as? [String: Any] else {return}
                 print(value)
                 guard
@@ -121,38 +117,40 @@ class BooksFirebaseMethods {
     
     
     
-    static func downloadPreviousReadsIDArrayForSpecific(user uniqueID: String, completion: @escaping ([String]) -> Void) {
+    static func downloadPreviousReadsIDArrayForSpecific(user uniqueID: String, completion: @escaping ([String]?) -> Void) {
         
         let userBookRef = FIRDatabase.database().reference().child("users").child(uniqueID).child("previousReads")
         var previousReadsBookIDArray = [String]()
         
         
         userBookRef.observeSingleEvent(of: .value, with: { (snapshot) in
-            
-            guard let snapshotValue = snapshot.value as? [String: Any] else {print("Couldn't download \(snapshot.value)");return}
-            
-            for snap in snapshotValue {
-                previousReadsBookIDArray.append(snap.key)
+            if !snapshot.hasChildren() {
+                completion(nil)
+            } else {
+                guard let snapshotValue = snapshot.value as? [String: Any] else {print("Couldn't download \(snapshot.value)");return}
+                
+                for snap in snapshotValue {
+                    previousReadsBookIDArray.append(snap.key)
+                }
+                
+                completion(previousReadsBookIDArray)
             }
-            
-            completion(previousReadsBookIDArray)
         })
     }
-
+    
     
     static func getBookIDFor(userBook book: UserBook, completion: @escaping (String) -> Void) {
         
         var bookIDToPass = String()
-
+        
         BooksFirebaseMethods.downloadAllBooksOnFirebase { (userBookArray) in
             for userBook in userBookArray {
-                print(userBook)
                 
                 if (userBook.title == book.title && userBook.author == book.author! && userBook.synopsis == book.synopsis!) {
                     bookIDToPass = userBook.bookUniqueKey!
                 }
                 if bookIDToPass != "" {
-
+                    
                     completion(bookIDToPass)
                     
                 }
@@ -208,55 +206,57 @@ class BooksFirebaseMethods {
         var completionToPass = false
         
         BooksFirebaseMethods.downloadPreviousReadsIDArrayForSpecific(user: userUniqueID) { (bookUniqueIDs) in
-            if bookUniqueIDs.contains(bookID) {
+            
+            guard let bookUniqueIDArray = bookUniqueIDs else {print("error checking if user already posted"); completion(false); return }
+            if bookUniqueIDArray.contains(bookID) {
                 completionToPass = true
             } else {
                 
                 completionToPass = false
             }
-
+            
             completion(completionToPass)
         }
     }
-
+    
     
     // MARK: - Add book to previous reads
     
-    static func addToPreviousReadsWith(userBook: UserBook, comment: String, rating: String, userUniqueID: String, imageLink: String, completion: @escaping (Bool) -> Void) {
+    static func addToPrevious(userBook: UserBook, comment: String, rating: String, userUniqueID: String, imageLink: String, completion: @escaping (Bool) -> Void) {
         
         let userRef = FIRDatabase.database().reference().child("users").child(userUniqueID).child("previousReads")
         let bookRef = FIRDatabase.database().reference().child("books")
         let postRef = FIRDatabase.database().reference().child("posts").child("visible")
         let postUniqueKey = FIRDatabase.database().reference().childByAutoId().key
-        
-        
         var boolToSend = false
         
-        BooksFirebaseMethods.getBookIDFor(userBook: userBook, completion: { (bookID) in
+        postRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            if !snapshot.hasChildren() {
+                completion(false)
+            } else {
+                
+                BooksFirebaseMethods.getBookIDFor(userBook: userBook, completion: { (bookID) in
+                    BooksFirebaseMethods.checkIfCurrentUserAlreadyPosted(previousRead: bookID, userUniqueID: userUniqueID, completion: { (doesExist) in
+                        
+                        if doesExist == false {
+                            
+                            userRef.updateChildValues([bookID: ["rating": rating, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "isFlagged": false]])
+                            
+                            bookRef.child(bookID).child("readByUsers").updateChildValues([userUniqueID: true])
+                            
+                            postRef.updateChildValues([postUniqueKey: ["rating": rating, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "userUniqueID": userUniqueID, "isFlagged": false, "bookUniqueKey": bookID, "reviewID": postUniqueKey, "title": userBook.title]])
+                            boolToSend = false
+                            
+                        } else {
+                            
+                            boolToSend = true
+                        }
+                        completion(boolToSend)
+                    })
+                })
+                
+            }
             
-            BooksFirebaseMethods.checkIfCurrentUserAlreadyPosted(previousRead: bookID, userUniqueID: userUniqueID, completion: { (doesExist) in
-                
-                if doesExist == false {
-                    
-                    userRef.updateChildValues([bookID: ["rating": rating, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "isFlagged": false]])
-                    
-                    bookRef.child(bookID).child("readByUsers").updateChildValues([userUniqueID: true])
-                    
-                    postRef.updateChildValues([postUniqueKey: ["rating": rating, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "userUniqueID": userUniqueID, "isFlagged": false, "bookUniqueKey": bookID, "reviewID": postUniqueKey, "title": userBook.title]])
-                    
-                    boolToSend = false
-                    
-                } else {
-                    
-                    boolToSend = true
-                    
-                }
-                
-                completion(boolToSend)
-            })
         })
-        
     }
-    
-    
 }
