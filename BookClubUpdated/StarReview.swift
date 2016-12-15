@@ -2,18 +2,18 @@
 
 import UIKit
 public final class StarReview: UIControl {
-   public var starCount:Int = 5{
+   public var starCount:Int = 5 {
         didSet{
             maxmunValue = Float(starCount)
             setNeedsDisplay()
         }
     }
-    public var starFillColor:UIColor = UIColor.blue{
+    public var starFillColor:UIColor = UIColor.blue {
         didSet{
             setNeedsDisplay()
         }
     }
-  public var starBackgroundColor:UIColor = UIColor.gray{
+  public var starBackgroundColor:UIColor = UIColor.gray {
         didSet{
             setNeedsDisplay()
         }
@@ -24,7 +24,7 @@ public final class StarReview: UIControl {
             setNeedsDisplay()
         }
     }
- public    var starMarginScale:Float = 0.3{
+ public var starMarginScale:Float = 0.3{
         didSet{
             if starMarginScale > 0.9
             {
@@ -38,7 +38,7 @@ public final class StarReview: UIControl {
     }
    public var value:Float {
         get{
-            if allowAccruteStars{
+            if allowAccruteStars {
                 let index = getStarIndex()
                 if index.0 != -1{
                     let a = Float((1 + starMarginScale) * Float(starRadius) * (Float(index.0) - 1))
@@ -54,15 +54,14 @@ public final class StarReview: UIControl {
             }
         }
         set{
-            if newValue > Float(starCount){
+            if newValue > Float(starCount) {
                 starPixelValue  = Float(starCount)
             }
             else  if newValue < 0{
                 starPixelValue  = 0
             }
             else{
-                if allowAccruteStars{
-                    //starValue  = CGFloat(newValue - 0.08)
+                if allowAccruteStars {
                     
                     let intPart = Int(newValue)
                     
@@ -79,7 +78,7 @@ public final class StarReview: UIControl {
 
         }
     }
-   public var maxmunValue:Float = 5{
+   public var maxmunValue:Float = 5 {
         didSet{
             setNeedsDisplay()
         }
@@ -97,38 +96,37 @@ public final class StarReview: UIControl {
     
     fileprivate var offsetX:Float{
         get{
-        //    return ratio > startReviewWidthScale ? Float(self.frame.width) / 2 - startReviewWidthScale / 2 * Float(self.frame.height) + Float(layer.borderWidth) : Float(layer.borderWidth) 
             return ratio > startReviewWidthScale ? Float(self.frame.width) / 2 - startReviewWidthScale / 2 * Float(self.frame.height)  : 0.0
         }
     }
     
-    fileprivate var offsetY:Float{
+    fileprivate var offsetY:Float {
         get{
             return ratio < startReviewWidthScale ? (Float(self.frame.height)  - starRadius) / 2 : 0.0
         }
     }
     
-    fileprivate var ratio:Float{
+    fileprivate var ratio:Float {
         get{
             return Float(self.frame.width) / Float(self.frame.height)
         }
     }
-    fileprivate var startReviewWidthScale:Float{
+    fileprivate var startReviewWidthScale:Float {
         get {
             return Float(starCount) + Float((starCount - 1)) * starMarginScale
         }
     }
     
-    fileprivate var starPixelValue:Float = 0.0{
+    fileprivate var starPixelValue:Float = 0.0 {
         didSet{
-            if starPixelValue > Float(starCount){
+            if starPixelValue > Float(starCount) {
                 starPixelValue = Float(starCount)
             }
-            if starPixelValue < 0{
+            if starPixelValue < 0 {
                 starPixelValue = 0
             }
             setNeedsDisplay()
-            if target != nil && event != nil{
+            if target != nil && event != nil {
                 if event == UIControlEvents.valueChanged{
                     self.sendAction(selector!, to: target, for: nil)
                 }
@@ -169,15 +167,13 @@ public final class StarReview: UIControl {
         if ratio < startReviewWidthScale{
             starRadius = Float(self.frame.width) / startReviewWidthScale - Float(layer.borderWidth * 2)
         }
-//        print("startReviewWidthScale\(startReviewWidthScale)")
-//        print("offsetX:\(offsetX)")
-//        print("offsetY:\(offsetY)")
+
         let ctx = UIGraphicsGetCurrentContext()
-        for s in 0...(starCount-1){
+        for s in 0...(starCount-1) {
             let x = starMarginScale * Float(s) * starRadius + starRadius * (0.5 + Float(s))
             var starCenter = CGPoint(x: CGFloat(x), y: (self.frame.height) / 2)
             if ratio > startReviewWidthScale{
-                starCenter = CGPoint(x: CGFloat(x)+CGFloat(offsetX), y: self.frame.height / 2)
+                starCenter = CGPoint(x: CGFloat(x), y: self.frame.height / 2)
             }
             let radius = starRadius / 2
             

@@ -120,7 +120,7 @@ extension PostsView {
         
         starView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: contentView.frame.width.multiplied(by: 0.1)).isActive = true
         starView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8).isActive = true
-        star = StarReview(frame: CGRect(x: 0.2, y: 0, width: starView.bounds.width, height: starView.bounds.height))
+        star = StarReview(frame: CGRect(x: 0, y: 0, width: starView.bounds.width, height: starView.bounds.height))
         star.starCount = 5
         star.allowEdit = false
         starView.addSubview(star)

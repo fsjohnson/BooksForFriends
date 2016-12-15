@@ -51,7 +51,7 @@ class UserPostListTableViewController: UITableViewController {
         if cell.postView.delegate == nil { cell.postView.delegate = self }
         cell.postView.bookPost = userPosts[indexPath.row]
         cell.postView.flagButtonOutlet.addTarget(self, action: #selector(flagButtonTouched), for: .touchUpInside)
-        cell.isUserInteractionEnabled = false
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
         return cell
     }
     

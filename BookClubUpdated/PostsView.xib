@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -33,17 +33,16 @@
                         <constraint firstAttribute="width" secondItem="iX1-aw-Mnv" secondAttribute="height" multiplier="1:1" id="INJ-OU-p4w"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tuW-7h-xqh">
-                    <rect key="frame" x="10" y="10" width="163" height="0.0"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tuW-7h-xqh">
+                    <rect key="frame" x="10" y="10" width="170" height="0.0"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                    <color key="textColor" red="0.10588236149999999" green="0.98823535439999999" blue="0.039215687659999998" alpha="1" colorSpace="deviceRGB"/>
+                    <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="left" translatesAutoresizingMaskIntoConstraints="NO" id="TWE-6B-K6Y">
-                    <rect key="frame" x="10" y="15" width="92" height="25"/>
+                    <rect key="frame" x="10" y="15" width="92" height="12"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="25" id="HPm-GQ-lnt"/>
-                        <constraint firstAttribute="width" constant="92" id="KD5-ao-bQ1"/>
+                        <constraint firstAttribute="height" constant="12" id="HPm-GQ-lnt"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vxm-ot-HVL">
@@ -55,20 +54,19 @@
                     <state key="normal" image="Flag"/>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ak-5O-Yh3">
-                    <rect key="frame" x="10" y="142" width="163" height="0.0"/>
+                    <rect key="frame" x="10" y="130" width="170" height="12"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5du-DY-Uv1">
-                    <rect key="frame" x="10" y="45" width="163" height="92"/>
+                    <rect key="frame" x="10" y="32" width="170" height="93"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="TWE-6B-K6Y" firstAttribute="leading" secondItem="tuW-7h-xqh" secondAttribute="leading" id="1n7-Yy-dWR"/>
                 <constraint firstItem="vxm-ot-HVL" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="2" id="39k-RI-S4g"/>
                 <constraint firstItem="iX1-aw-Mnv" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" constant="-20" id="4B4-AQ-i2I"/>
                 <constraint firstItem="9ak-5O-Yh3" firstAttribute="leading" secondItem="5du-DY-Uv1" secondAttribute="leading" id="7JH-8j-gOz"/>
@@ -78,17 +76,20 @@
                 <constraint firstAttribute="trailing" secondItem="iX1-aw-Mnv" secondAttribute="trailing" constant="8" id="MVQ-mn-39T"/>
                 <constraint firstItem="TWE-6B-K6Y" firstAttribute="top" secondItem="tuW-7h-xqh" secondAttribute="bottom" constant="5" id="Mhw-ai-hO3"/>
                 <constraint firstItem="tuW-7h-xqh" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="NfW-j9-Oko"/>
+                <constraint firstItem="TWE-6B-K6Y" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="O9Q-Jt-Tmw"/>
                 <constraint firstItem="9ak-5O-Yh3" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" constant="-8" id="SR1-Le-MVs"/>
                 <constraint firstItem="5du-DY-Uv1" firstAttribute="width" secondItem="tuW-7h-xqh" secondAttribute="width" id="UgD-g8-649"/>
-                <constraint firstItem="tuW-7h-xqh" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.5" id="VXf-t0-Wzm"/>
+                <constraint firstItem="9ak-5O-Yh3" firstAttribute="height" secondItem="TWE-6B-K6Y" secondAttribute="height" id="b8Y-d4-hZz"/>
+                <constraint firstItem="TWE-6B-K6Y" firstAttribute="width" secondItem="tuW-7h-xqh" secondAttribute="width" multiplier="0.3" constant="41.100000000000001" id="bAe-nv-81a"/>
                 <constraint firstItem="iX1-aw-Mnv" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="dev-lj-NuN"/>
                 <constraint firstItem="5du-DY-Uv1" firstAttribute="bottom" secondItem="9ak-5O-Yh3" secondAttribute="top" constant="-5" id="oqa-BE-dCe"/>
                 <constraint firstAttribute="trailing" secondItem="vxm-ot-HVL" secondAttribute="trailing" constant="5" id="uWq-AR-OUo"/>
                 <constraint firstItem="tuW-7h-xqh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="wuY-b9-PNn"/>
+                <constraint firstItem="tuW-7h-xqh" firstAttribute="trailing" secondItem="iX1-aw-Mnv" secondAttribute="leading" constant="-8" id="zWP-wS-ffD"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-9" y="-182.5"/>
+            <point key="canvasLocation" x="-9" y="-183"/>
         </view>
     </objects>
     <resources>

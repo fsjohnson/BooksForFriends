@@ -365,7 +365,7 @@ extension LoginViewController {
         usernameTextField.autocorrectionType = .no
         usernameTextField.backgroundColor = UIColor.themeWhite
         usernameTextField.font = UIFont.themeSmallBold
-        usernameTextField.attributedPlaceholder = NSAttributedString(string: " Enter desired username")
+        usernameTextField.attributedPlaceholder = NSAttributedString(string: " Enter username")
         self.view.addSubview(usernameTextField)
         
         emailTextField = CustomTextField(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width * 0.6, height: self.view.frame.size.height * 0.06))

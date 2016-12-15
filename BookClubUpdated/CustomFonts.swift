@@ -12,16 +12,16 @@ import UIKit
 extension UIFont {
     
     // Tiny Fonts
-    public static let themeTinyThin = UIFont(name: "HelveticaNeue-Thin", size: 12)
-    public static let themeTinyLight = UIFont(name: "HelveticaNeue-Light", size: 12)
-    public static let themeTinyRegular = UIFont(name: "HelveticaNeue", size: 12)
-    public static let themeTinyBold = UIFont(name: "HelveticaNeue-Bold", size: 12)
+    public static let themeTinyThin = UIFont(name: "HelveticaNeue-Thin", size: 11)
+    public static let themeTinyLight = UIFont(name: "HelveticaNeue-Light", size: 11)
+    public static let themeTinyRegular = UIFont(name: "HelveticaNeue", size: 11)
+    public static let themeTinyBold = UIFont(name: "HelveticaNeue-Bold", size: 11)
     
     // Small Fonts
-    public static let themeSmallThin = UIFont(name: "HelveticaNeue-Thin", size: 16)
-    public static let themeSmallLight = UIFont(name: "HelveticaNeue-Light", size: 16)
-    public static let themeSmallRegular = UIFont(name: "HelveticaNeue", size: 16)
-    public static let themeSmallBold = UIFont(name: "HelveticaNeue-Bold", size: 16)
+    public static let themeSmallThin = UIFont(name: "HelveticaNeue-Thin", size: 15)
+    public static let themeSmallLight = UIFont(name: "HelveticaNeue-Light", size: 15)
+    public static let themeSmallRegular = UIFont(name: "HelveticaNeue", size: 15)
+    public static let themeSmallBold = UIFont(name: "HelveticaNeue-Bold", size: 15)
     
     // Medium Fonts
     public static let themeMediumThin = UIFont(name: "HelveticaNeue-Thin", size: 24)

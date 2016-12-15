@@ -140,22 +140,18 @@ class BooksFirebaseMethods {
     
     
     static func getBookIDFor(userBook book: UserBook, completion: @escaping (String) -> Void) {
-        
-        var bookIDToPass = String()
-        
+                
         BooksFirebaseMethods.downloadAllBooksOnFirebase { (userBookArray) in
+            
+            var ID = String()
+            
             for userBook in userBookArray {
-                
                 if (userBook.title == book.title && userBook.author == book.author! && userBook.synopsis == book.synopsis!) {
-                    bookIDToPass = userBook.bookUniqueKey!
+                    ID = userBook.bookUniqueKey!
                 }
-                if bookIDToPass != "" {
-                    
-                    completion(bookIDToPass)
-                    
-                }
-                
             }
+            
+            completion(ID)
         }
     }
     
@@ -194,6 +190,7 @@ class BooksFirebaseMethods {
                 boolToReturn = false
             }
             
+            print("DOES EXIST ON FIREBASE CHECK: \(boolToReturn)")
             completion(boolToReturn)
             
         }
@@ -206,7 +203,6 @@ class BooksFirebaseMethods {
         var completionToPass = false
         
         BooksFirebaseMethods.downloadPreviousReadsIDArrayForSpecific(user: userUniqueID) { (bookUniqueIDs) in
-            
             guard let bookUniqueIDArray = bookUniqueIDs else {print("error checking if user already posted"); completion(false); return }
             if bookUniqueIDArray.contains(bookID) {
                 completionToPass = true
@@ -222,41 +218,35 @@ class BooksFirebaseMethods {
     
     // MARK: - Add book to previous reads
     
-    static func addToPrevious(userBook: UserBook, comment: String, rating: String, userUniqueID: String, imageLink: String, completion: @escaping (Bool) -> Void) {
+    static func addToPrevious(userBook: UserBook, comment: String, rating: String, userUniqueID: String, imageLink: String, bookID: String, completion: @escaping () -> Void) {
         
         let userRef = FIRDatabase.database().reference().child("users").child(userUniqueID).child("previousReads")
         let bookRef = FIRDatabase.database().reference().child("books")
         let postRef = FIRDatabase.database().reference().child("posts").child("visible")
         let postUniqueKey = FIRDatabase.database().reference().childByAutoId().key
-        var boolToSend = false
+        let bookUniqueKey = FIRDatabase.database().reference().childByAutoId().key
+        guard let synopsis = userBook.synopsis else {return}
+        guard let author = userBook.author else {return}
+        guard let imageLink = userBook.finalBookCoverLink else {print("Couldn't download imageLink: \(userBook.finalBookCoverLink)"); return}
         
         postRef.observeSingleEvent(of: .value, with: { (snapshot) in
-            if !snapshot.hasChildren() {
-                completion(false)
-            } else {
-                
-                BooksFirebaseMethods.getBookIDFor(userBook: userBook, completion: { (bookID) in
-                    BooksFirebaseMethods.checkIfCurrentUserAlreadyPosted(previousRead: bookID, userUniqueID: userUniqueID, completion: { (doesExist) in
-                        
-                        if doesExist == false {
-                            
-                            userRef.updateChildValues([bookID: ["rating": rating, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "isFlagged": false]])
-                            
-                            bookRef.child(bookID).child("readByUsers").updateChildValues([userUniqueID: true])
-                            
-                            postRef.updateChildValues([postUniqueKey: ["rating": rating, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "userUniqueID": userUniqueID, "isFlagged": false, "bookUniqueKey": bookID, "reviewID": postUniqueKey, "title": userBook.title]])
-                            boolToSend = false
-                            
-                        } else {
-                            
-                            boolToSend = true
-                        }
-                        completion(boolToSend)
-                    })
-                })
-                
-            }
+            
+            BooksFirebaseMethods.checkIfBookExistsOnFirebaseWith(userBook: userBook, completion: { (doesExist) in
+                if doesExist == false {
+                    
+                    userRef.updateChildValues([bookUniqueKey: ["rating": rating, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "isFlagged": false]])
+                    bookRef.updateChildValues([bookUniqueKey: ["title": userBook.title, "author": author, "synopsis": synopsis, "readByUsers": [userUniqueID: true], "bookUniqueKey": bookUniqueKey, "imageLink": imageLink]])
+                    postRef.updateChildValues([postUniqueKey: ["rating": rating, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "userUniqueID": userUniqueID, "isFlagged": false, "bookUniqueKey": bookUniqueKey, "reviewID": postUniqueKey, "title": userBook.title]])
+                } else {
+                    
+                    userRef.updateChildValues([bookID: ["rating": rating, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "isFlagged": false]])
+                    bookRef.child(bookID).child("readByUsers").updateChildValues([userUniqueID: true])
+                    postRef.updateChildValues([postUniqueKey: ["rating": rating, "comment": comment, "timestamp": String(describing: Date().timeIntervalSince1970), "imageLink": imageLink, "userUniqueID": userUniqueID, "isFlagged": false, "bookUniqueKey": bookID, "reviewID": postUniqueKey, "title": userBook.title]])
+                }
+                completion()
+            })
             
         })
+        
     }
 }

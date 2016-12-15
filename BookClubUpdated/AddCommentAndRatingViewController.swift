@@ -23,12 +23,17 @@ class AddCommentAndRatingViewController: UIViewController {
     var passedAuthor = String()
     var passedImageLink = String()
     var passedSynopsis = String()
+    var passedBookID = String()
     var star = StarReview()
     weak var searchedBook: SearchedBook!
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        configAddButton()
+        
         
         let navBarAttributesDictionary = [ NSForegroundColorAttributeName: UIColor.themeDarkBlue,NSFontAttributeName: UIFont.themeMediumThin]
         navigationController?.navigationBar.titleTextAttributes = navBarAttributesDictionary
@@ -49,12 +54,9 @@ class AddCommentAndRatingViewController: UIViewController {
         commentsTextField.font = UIFont.themeSmallThin
         commentsTextField.textColor = UIColor.themeDarkBlue
         
-        print("PASSED BAR CODE IMAGE: \(passedImageLink)")
-        
         DispatchQueue.main.async {
             self.bookCoverImageView.loadImageUsingCacheWithURLString(urlString: self.passedImageLink)
         }
-        
         
         star = StarReview(frame: CGRect(x: 0, y: 0, width: starView.bounds.width.multiplied(by: 0.8), height: starView.bounds.height))
         star.starCount = 5
@@ -73,6 +75,21 @@ class AddCommentAndRatingViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func configAddButton() {
+        let bookToAdd = UserBook(title: passedTitle, author: passedAuthor, synopsis: passedSynopsis, bookUniqueKey: nil, finalBookCoverLink: passedImageLink)
+        guard let userUniqueKey = FIRAuth.auth()?.currentUser?.uid else {return}
+        BooksFirebaseMethods.getBookIDFor(userBook: bookToAdd) { (bookID) in
+            self.passedBookID = bookID
+            BooksFirebaseMethods.checkIfCurrentUserAlreadyPosted(previousRead: bookID, userUniqueID: userUniqueKey) { (alreadyPosted) in
+                if alreadyPosted == false {
+                    self.addBookButton.isHidden = false
+                } else {
+                    self.addBookButton.isHidden = true
+                }
+            }
+        }
     }
     
     func keyboardWillShow(notification: NSNotification) {
@@ -96,10 +113,11 @@ class AddCommentAndRatingViewController: UIViewController {
     @IBAction func addBookButton(_ sender: Any) {
         
         Mixpanel.mainInstance().track(event: "Post Book")
-        let bookToAdd = UserBook(title: passedTitle, author: passedAuthor, synopsis: passedSynopsis, bookUniqueKey: nil, finalBookCoverLink: passedImageLink)
+        
         guard let userUniqueKey = FIRAuth.auth()?.currentUser?.uid else {return}
         let ratingString = String(star.value)
         guard let comment = commentsTextField.text else { print("no comment"); return }
+        let bookToAdd = UserBook(title: passedTitle, author: passedAuthor, synopsis: passedSynopsis, bookUniqueKey: nil, finalBookCoverLink: passedImageLink)
         
         if commentsTextField.text == "" {
             
@@ -111,9 +129,8 @@ class AddCommentAndRatingViewController: UIViewController {
             
         } else {
             
-            BooksFirebaseMethods.addToPrevious(userBook: bookToAdd, comment: comment, rating: ratingString, userUniqueID: userUniqueKey, imageLink: passedImageLink, completion: { (doesExist) in
-                
-                if doesExist == false {
+            BooksFirebaseMethods.addToPrevious(userBook: bookToAdd, comment: comment, rating: ratingString, userUniqueID: userUniqueKey, imageLink: passedImageLink, bookID: passedBookID, completion: {
+            
                     let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
                         //self.dismiss(animated: true, completion: nil)
@@ -122,18 +139,6 @@ class AddCommentAndRatingViewController: UIViewController {
                     self.commentsTextField.text = ""
                     self.commentsTextField.resignFirstResponder()
                     self.present(alert, animated: true, completion: nil)
-                } else {
-                    let alert = UIAlertController(title: "Oops!", message: "You have already posted \(self.passedTitle)", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
-                        //                                                self.dismiss(animated: true, completion: nil)
-                        
-                    }))
-                    
-                    self.commentsTextField.text = ""
-                    self.commentsTextField.resignFirstResponder()
-                    
-                    self.present(alert, animated: true, completion: nil)
-                }
             })
         }
     }
