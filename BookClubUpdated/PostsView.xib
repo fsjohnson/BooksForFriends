@@ -54,13 +54,13 @@
                     <state key="normal" image="Flag"/>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ak-5O-Yh3">
-                    <rect key="frame" x="10" y="130" width="170" height="12"/>
+                    <rect key="frame" x="10" y="128" width="170" height="12"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5du-DY-Uv1">
-                    <rect key="frame" x="10" y="32" width="170" height="93"/>
+                    <rect key="frame" x="10" y="32" width="170" height="91"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
@@ -77,7 +77,7 @@
                 <constraint firstItem="TWE-6B-K6Y" firstAttribute="top" secondItem="tuW-7h-xqh" secondAttribute="bottom" constant="5" id="Mhw-ai-hO3"/>
                 <constraint firstItem="tuW-7h-xqh" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="NfW-j9-Oko"/>
                 <constraint firstItem="TWE-6B-K6Y" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="O9Q-Jt-Tmw"/>
-                <constraint firstItem="9ak-5O-Yh3" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" constant="-8" id="SR1-Le-MVs"/>
+                <constraint firstItem="9ak-5O-Yh3" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" constant="-10" id="SR1-Le-MVs"/>
                 <constraint firstItem="5du-DY-Uv1" firstAttribute="width" secondItem="tuW-7h-xqh" secondAttribute="width" id="UgD-g8-649"/>
                 <constraint firstItem="9ak-5O-Yh3" firstAttribute="height" secondItem="TWE-6B-K6Y" secondAttribute="height" id="b8Y-d4-hZz"/>
                 <constraint firstItem="TWE-6B-K6Y" firstAttribute="width" secondItem="tuW-7h-xqh" secondAttribute="width" multiplier="0.3" constant="41.100000000000001" id="bAe-nv-81a"/>

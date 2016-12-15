@@ -17,7 +17,7 @@ class AddCommentAndRatingViewController: UIViewController {
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var commentsLabel: UILabel!
     @IBOutlet weak var bookCoverImageView: UIImageView!
-    @IBOutlet weak var commentsTextField: UITextField!
+    @IBOutlet weak var commentsTextView: UITextView!
     
     var passedTitle = String()
     var passedAuthor = String()
@@ -27,45 +27,21 @@ class AddCommentAndRatingViewController: UIViewController {
     var star = StarReview()
     weak var searchedBook: SearchedBook!
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configAddButton()
-        
-        
+        config()
+    
         let navBarAttributesDictionary = [ NSForegroundColorAttributeName: UIColor.themeDarkBlue,NSFontAttributeName: UIFont.themeMediumThin]
         navigationController?.navigationBar.titleTextAttributes = navBarAttributesDictionary
         
-        addBookButton.layer.borderColor = UIColor.themeOrange.cgColor
-        addBookButton.layer.borderWidth = 4.0
-        addBookButton.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
-        addBookButton.layer.cornerRadius = 4.0
-        addBookButton.setTitleColor(UIColor.themeOrange, for: .normal)
-        addBookButton.titleLabel?.font = UIFont.themeSmallBold
         
-        ratingLabel.font = UIFont.themeSmallBold
-        ratingLabel.textColor = UIColor.themeOrange
-        
-        commentsLabel.font = UIFont.themeSmallBold
-        commentsLabel.textColor = UIColor.themeOrange
-        
-        commentsTextField.font = UIFont.themeSmallThin
-        commentsTextField.textColor = UIColor.themeDarkBlue
         
         DispatchQueue.main.async {
             self.bookCoverImageView.loadImageUsingCacheWithURLString(urlString: self.passedImageLink)
         }
         
-        star = StarReview(frame: CGRect(x: 0, y: 0, width: starView.bounds.width.multiplied(by: 0.8), height: starView.bounds.height))
-        star.starCount = 5
-        star.value = 1
-        star.allowAccruteStars = false
-        star.starFillColor = UIColor.themeDarkBlue
-        star.starBackgroundColor = UIColor.themeLightBlue
-        star.starMarginScale = 0.3
-        starView.addSubview(star)
+        
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -77,7 +53,7 @@ class AddCommentAndRatingViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func configAddButton() {
+    func config() {
         let bookToAdd = UserBook(title: passedTitle, author: passedAuthor, synopsis: passedSynopsis, bookUniqueKey: nil, finalBookCoverLink: passedImageLink)
         guard let userUniqueKey = FIRAuth.auth()?.currentUser?.uid else {return}
         BooksFirebaseMethods.getBookIDFor(userBook: bookToAdd) { (bookID) in
@@ -90,6 +66,41 @@ class AddCommentAndRatingViewController: UIViewController {
                 }
             }
         }
+        
+        // Mark: - Button config
+        addBookButton.layer.borderColor = UIColor.themeOrange.cgColor
+        addBookButton.layer.borderWidth = 4.0
+        addBookButton.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
+        addBookButton.layer.cornerRadius = 4.0
+        addBookButton.setTitleColor(UIColor.themeOrange, for: .normal)
+        addBookButton.titleLabel?.font = UIFont.themeSmallBold
+        
+        // Mark: - Rating label config
+        ratingLabel.font = UIFont.themeSmallBold
+        ratingLabel.textColor = UIColor.themeOrange
+        
+        // Mark: - Comment label config
+        commentsLabel.font = UIFont.themeSmallBold
+        commentsLabel.textColor = UIColor.themeOrange
+        
+        // Mark: - Comment textfield config
+        commentsTextView.font = UIFont.themeSmallThin
+        commentsTextView.textColor = UIColor.themeDarkBlue
+        commentsTextView.textContainer.lineBreakMode = .byWordWrapping
+        commentsTextView.layer.borderWidth = 0.5
+        commentsTextView.layer.borderColor = UIColor.themeLightGrey.cgColor
+        
+        
+        // Mark: - Star config
+        star = StarReview(frame: CGRect(x: 0, y: 0, width: starView.bounds.width.multiplied(by: 0.8), height: starView.bounds.height))
+        star.starCount = 5
+        star.value = 1
+        star.allowAccruteStars = false
+        star.starFillColor = UIColor.themeDarkBlue
+        star.starBackgroundColor = UIColor.themeLightBlue
+        star.starMarginScale = 0.3
+        starView.addSubview(star)
+
     }
     
     func keyboardWillShow(notification: NSNotification) {
@@ -116,10 +127,10 @@ class AddCommentAndRatingViewController: UIViewController {
         
         guard let userUniqueKey = FIRAuth.auth()?.currentUser?.uid else {return}
         let ratingString = String(star.value)
-        guard let comment = commentsTextField.text else { print("no comment"); return }
+        guard let comment = commentsTextView.text else { print("no comment"); return }
         let bookToAdd = UserBook(title: passedTitle, author: passedAuthor, synopsis: passedSynopsis, bookUniqueKey: nil, finalBookCoverLink: passedImageLink)
         
-        if commentsTextField.text == "" {
+        if commentsTextView.text == "" {
             
             let alert = UIAlertController(title: "Oops!", message: "Must write a comment before you can submit a post", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
@@ -133,11 +144,10 @@ class AddCommentAndRatingViewController: UIViewController {
             
                     let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
-                        //self.dismiss(animated: true, completion: nil)
                     }))
                     
-                    self.commentsTextField.text = ""
-                    self.commentsTextField.resignFirstResponder()
+                    self.commentsTextView.text = ""
+                    self.commentsTextView.resignFirstResponder()
                     self.present(alert, animated: true, completion: nil)
             })
         }
