@@ -44,7 +44,6 @@ class UserPostCollectionViewCell: UICollectionViewCell {
     
     
     func configureCell(book: BookPosted) {
-        print("IMAGE LINK IN USER COLLECTION VIEW CELL: \(book.imageLink)")
         if book.imageLink == "" {
             imageView.image = UIImage(named: "BFFLogo")
         } else {

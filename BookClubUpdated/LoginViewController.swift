@@ -370,6 +370,7 @@ extension LoginViewController {
         
         emailTextField = CustomTextField(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width * 0.6, height: self.view.frame.size.height * 0.06))
         emailTextField.backgroundColor = UIColor.themeWhite
+        emailTextField.keyboardType = .emailAddress
         emailTextField.font = UIFont.themeSmallBold
         emailTextField.layer.cornerRadius = 7
         emailTextField.layer.borderWidth = borderWidth
