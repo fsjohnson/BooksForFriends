@@ -64,7 +64,6 @@ class BooksFriendsReadTableViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "booksPosted", for: indexPath) as! FriendsBooksPostedTableViewCell
         
-        
         if cell.postView.delegate == nil { cell.postView.delegate = self }
         cell.postView.bookPost = postsArray[indexPath.row]
         cell.postView.flagButtonOutlet.tag = indexPath.row
@@ -78,7 +77,6 @@ class BooksFriendsReadTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "getBookDetails", sender: self)
     }
-    
     
     func canDisplayImage(sender: BookPosted) -> Bool {
         
