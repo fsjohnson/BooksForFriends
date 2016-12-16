@@ -51,7 +51,6 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
         PostsFirebaseMethods.downloadUsersFutureReadsBookLinkIDArray { (bookLinkArray, bookIDArray) in
             self.futureBooksArray = bookLinkArray
             self.bookIDArray = bookIDArray
-            print("COUNT: \(self.futureBooksArray.count)")
             self.collectionView?.reloadData()
         }
         
