@@ -74,10 +74,7 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         followersFollowingView.populateFollowersLabel()
         followersFollowingView.populateFollowingLabel()
     }
-    
-    
 
-    
     func configFirebaseData() {
         
         guard let currentUserID = FIRAuth.auth()?.currentUser?.uid else { return }
@@ -129,7 +126,7 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
     func dropdownMenuConfig() {
         
         dropDown.anchorView = dropDownOutlet
-        dropDown.dataSource = ["Contact BFF", "Logout"]
+        dropDown.dataSource = ["Change username","Contact BFF", "Logout"]
         dropDown.width = 200
         dropDown.direction = .any
         
@@ -143,10 +140,10 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             
             if index == 0 {
-                self.contactBFFAlert()
-                
+                self.changeUsername()
             } else if index == 1 {
-                
+                self.contactBFFAlert()
+            } else if index == 2 {
                 self.logoutButton()
             }
         }
@@ -173,7 +170,6 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         guard (FIRAuth.auth()?.currentUser?.uid) != nil else { return }
         
         let alert = UIAlertController(title: "Feedback for BFF?", message: "Type your comments or questions here!", preferredStyle: UIAlertControllerStyle.alert)
-        
         alert.addTextField { (reviewTextField) in
             reviewTextField.text = "" }
         
@@ -191,6 +187,38 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         self.present(alert, animated: true, completion: nil)
     }
     
+    func changeUsername() {
+        
+        guard let userID = FIRAuth.auth()?.currentUser?.uid else { return }
+        let alert = UIAlertController(title: "Want to change your username?", message: "Type new username here!", preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addTextField { (usernameTextField) in
+            usernameTextField.text = "" }
+        
+        alert.addAction(UIAlertAction(title: "Submit", style: UIAlertActionStyle.default, handler: { (_) in
+            let usernameTextField = alert.textFields![0]
+            
+            UserFirebaseMethods.changeUsername(with: userID, username: usernameTextField.text!, completion: {
+                let alert = UIAlertController(title: "Success!", message: "You have updated your username", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
+                    UserFirebaseMethods.retrieveSpecificUser(with: userID) { (returnedUser) in
+                        guard let username = returnedUser?.username else { print("no username"); return }
+                        self.navigationItem.title = "\(username)'s Posts"
+                    }
+                    
+                }))
+
+                self.present(alert, animated: true, completion: nil)
+            })
+            
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+            
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
     
     
     func cellConfig() {

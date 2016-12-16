@@ -311,7 +311,6 @@ class UserFirebaseMethods {
     
     // Mark: - Check if blocked
     
-    
     static func checkIfBlocked(with userUniqueKey: String, completion: @escaping (Bool) -> Void) {
         
         let blockedRef = FIRDatabase.database().reference().child("users").child(userUniqueKey).child("followers").child("blocked")
@@ -321,15 +320,11 @@ class UserFirebaseMethods {
         var isBlocked = false
         var blockedUsers = [String]()
         
-        
         blockedRef.observeSingleEvent(of: .value, with: { (snapshot) in
-            
             if !snapshot.hasChildren() {
                 isBlocked = false
             } else {
-                
                 guard let snapshotValue = snapshot.value as? [String: Any] else { print("error returning blocked users"); return }
-                
                 for snap in snapshotValue {
                     blockedUsers.append(snap.key)
                 }
@@ -344,15 +339,21 @@ class UserFirebaseMethods {
     }
     
     // MARK: - Comments for BFF
-    
 
     static func sendFeedbackToBFF(with comment: String) {
-        
         let ref = FIRDatabase.database().reference().child("userFeedback")
         let commentUniqueID = FIRDatabase.database().reference().childByAutoId().key
         guard let currentUser = FIRAuth.auth()?.currentUser?.uid else { return }
         
         ref.updateChildValues([commentUniqueID: ["userUniqueID": currentUser, "comment": comment]])
+    }
+    
+    // MARK: - Change username
+    
+    static func changeUsername(with userUniqueID: String, username: String, completion: () -> Void) {
+        let userRef = FIRDatabase.database().reference().child("users").child(userUniqueID)
+        userRef.updateChildValues(["username":username])
+        completion()
     }
     
 }
