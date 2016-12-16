@@ -283,7 +283,6 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "bookPost", for: indexPath) as! UserPostCollectionViewCell
-        
         let currentPost = userPosts[indexPath.row]
         cell.configureCell(book: currentPost)
         

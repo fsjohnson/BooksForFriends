@@ -64,6 +64,7 @@ class BooksFriendsReadTableViewController: UITableViewController {
         if cell.postView.delegate == nil { cell.postView.delegate = self }
         cell.postView.bookPost = postsArray[indexPath.row]
         cell.postView.flagButtonOutlet.tag = indexPath.row
+        cell.postView.starView.isUserInteractionEnabled = false
         cell.postView.flagButtonOutlet.addTarget(self, action: #selector(flagButtonTouched), for: .touchUpInside)
         
         return cell

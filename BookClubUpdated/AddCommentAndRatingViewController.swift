@@ -96,6 +96,7 @@ class AddCommentAndRatingViewController: UIViewController {
         star.starCount = 5
         star.value = 1
         star.allowAccruteStars = false
+        star.allowEdit = true
         star.starFillColor = UIColor.themeDarkBlue
         star.starBackgroundColor = UIColor.themeLightBlue
         star.starMarginScale = 0.3

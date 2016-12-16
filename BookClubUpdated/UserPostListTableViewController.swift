@@ -52,6 +52,7 @@ class UserPostListTableViewController: UITableViewController {
         cell.postView.bookPost = userPosts[indexPath.row]
         cell.postView.flagButtonOutlet.addTarget(self, action: #selector(flagButtonTouched), for: .touchUpInside)
         cell.selectionStyle = UITableViewCellSelectionStyle.none
+        cell.postView.starView.isUserInteractionEnabled = false 
         return cell
     }
     

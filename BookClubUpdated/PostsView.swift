@@ -67,8 +67,8 @@ class PostsView: UIView {
         // Comment Label Config
         commentLabel.font = UIFont.themeSmallLight
         commentLabel.textColor = UIColor.themeDarkGrey
-
-
+        
+        
     }
     
     
@@ -90,7 +90,7 @@ extension UIView {
 extension PostsView {
     
     fileprivate func updateViewToReflectBookImage() {
-    
+        
         guard bookPost.bookCover == nil else { bookImage.image = bookPost.bookCover; return }
         
         if bookPost.imageLink == "" {
@@ -110,7 +110,6 @@ extension PostsView {
         
         UserFirebaseMethods.retrieveSpecificUser(with: bookPost.userUniqueKey, completion: { (user) in
             guard let user = user else { return }
-            
             self.usernameLabel.text = "- \(user.username)"
         })
     }
@@ -121,19 +120,17 @@ extension PostsView {
         starView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: contentView.frame.width.multiplied(by: 0.1)).isActive = true
         starView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8).isActive = true
         star = StarReview(frame: CGRect(x: 0, y: 0, width: starView.bounds.width, height: starView.bounds.height))
-        star.starCount = 5
-        star.allowEdit = false
-        starView.addSubview(star)
         star.allowAccruteStars = false
-        star.starFillColor = UIColor.themeDarkBlue
-        star.starBackgroundColor = UIColor.themeLightBlue
         star.starMarginScale = 0.1
         
         if starView.subviews.isEmpty {
             guard let rating = Float(bookPost.rating) else {return}
             star.value = rating
+            star.starFillColor = UIColor.themeDarkBlue
+            star.starBackgroundColor = UIColor.themeLightBlue
+            starView.addSubview(star)
         }
     }
-
+    
 }
 
