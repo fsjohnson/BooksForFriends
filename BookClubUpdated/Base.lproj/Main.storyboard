@@ -25,7 +25,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jEc-gT-Gli" id="XTB-2m-cEg">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="grV-Tl-UCl" customClass="PostsView" customModule="BookClubUpdated" customModuleProvider="target">
@@ -84,7 +84,7 @@
                                 <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iRT-mi-YS3" id="9ez-cm-Hoe">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bit-yc-2h9">
@@ -103,7 +103,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="addFollowing" destination="Bit-yc-2h9" id="QZE-jx-ZlA"/>
-                                    <segue destination="ocx-i4-yFK" kind="show" identifier="userPostDetail" id="A3K-cR-Hge"/>
+                                    <segue destination="6Qm-o4-8lE" kind="show" identifier="userProfile" id="Jba-Ds-Zg5"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -130,56 +130,94 @@
             </objects>
             <point key="canvasLocation" x="1572" y="-600.44977511244383"/>
         </scene>
-        <!--Previous Posts-->
-        <scene sceneID="kkZ-dn-DZm">
+        <!--Friends Profile View Controller-->
+        <scene sceneID="KxL-GU-OuR">
             <objects>
-                <tableViewController storyboardIdentifier="UserPostListTableViewController" id="FOg-i2-afo" customClass="UserPostListTableViewController" customModule="BookClubUpdated" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="150" sectionHeaderHeight="28" sectionFooterHeight="28" id="rjn-dW-GJN">
+                <viewController id="6Qm-o4-8lE" customClass="FriendsProfileViewController" customModule="BookClubUpdated" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Qvb-cC-AMO"/>
+                        <viewControllerLayoutGuide type="bottom" id="byl-ap-rLr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="P4w-w1-wgR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="tLv-MN-xK5">
+                                <rect key="frame" x="119" y="353" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="oKd-1T-dng">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="bookPost" id="kDE-QI-LuN" customClass="UserPostCollectionViewCell" customModule="BookClubUpdated" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="postsCollectionView" destination="tLv-MN-xK5" id="JAY-lK-wH1"/>
+                        <segue destination="TRS-PQ-DGN" kind="show" identifier="viewList" id="YoC-Qg-Jyd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7ad-vO-uOc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2950" y="-600"/>
+        </scene>
+        <!--User Post List Table View Controller-->
+        <scene sceneID="Kxv-tG-Ill">
+            <objects>
+                <tableViewController id="TRS-PQ-DGN" customClass="UserPostListTableViewController" customModule="BookClubUpdated" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="150" sectionHeaderHeight="28" sectionFooterHeight="28" id="Fg4-fJ-PGA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="userPost" rowHeight="150" id="if0-0U-hAt" customClass="UserPostListTableViewCell" customModule="BookClubUpdated" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="userPost" rowHeight="150" id="rkp-dS-acT" customClass="UserPostListTableViewCell" customModule="BookClubUpdated" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="if0-0U-hAt" id="6dK-FH-TRl">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rkp-dS-acT" id="cxN-0T-Dmb">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Hn-JB-gNc" customClass="PostsView" customModule="BookClubUpdated" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IHr-6u-04s" customClass="PostsView" customModule="BookClubUpdated" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="149.5"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="6Hn-JB-gNc" secondAttribute="trailing" id="HES-1n-CbG"/>
-                                        <constraint firstItem="6Hn-JB-gNc" firstAttribute="leading" secondItem="6dK-FH-TRl" secondAttribute="leading" id="HuB-mn-WdB"/>
-                                        <constraint firstAttribute="bottom" secondItem="6Hn-JB-gNc" secondAttribute="bottom" id="Ooh-HZ-Lwe"/>
-                                        <constraint firstItem="6Hn-JB-gNc" firstAttribute="top" secondItem="6dK-FH-TRl" secondAttribute="top" id="Z1Q-xn-FNF"/>
+                                        <constraint firstItem="IHr-6u-04s" firstAttribute="top" secondItem="cxN-0T-Dmb" secondAttribute="top" id="06p-Md-fqD"/>
+                                        <constraint firstAttribute="trailing" secondItem="IHr-6u-04s" secondAttribute="trailing" id="1yl-uo-vG0"/>
+                                        <constraint firstItem="IHr-6u-04s" firstAttribute="leading" secondItem="cxN-0T-Dmb" secondAttribute="leading" id="Dxw-0M-dfe"/>
+                                        <constraint firstAttribute="bottom" secondItem="IHr-6u-04s" secondAttribute="bottom" id="HNe-Hv-Xob"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="postView" destination="6Hn-JB-gNc" id="hyo-n8-eBp"/>
+                                    <outlet property="postView" destination="IHr-6u-04s" id="r5G-2R-GIw"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="FOg-i2-afo" id="U7d-cO-fbV"/>
-                            <outlet property="delegate" destination="FOg-i2-afo" id="W2L-jR-Ves"/>
+                            <outlet property="dataSource" destination="TRS-PQ-DGN" id="KH0-EI-Tte"/>
+                            <outlet property="delegate" destination="TRS-PQ-DGN" id="y3t-CA-oqO"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Previous Posts" id="nkt-cx-nbN">
-                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="ahK-sx-OdM">
-                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="doneButton:" destination="FOg-i2-afo" id="TVR-T0-SIM"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="NTc-I0-OV5"/>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="G6H-Sd-ErX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8IT-uq-5f9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3212" y="-600.44977511244383"/>
+            <point key="canvasLocation" x="3879" y="-600"/>
         </scene>
         <!--Add Book-->
         <scene sceneID="2Y0-R8-f7n">
@@ -400,7 +438,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tNj-xA-Xwn" id="tgv-6c-hzE">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ztr-rn-GHw" customClass="PostsView" customModule="BookClubUpdated" customModuleProvider="target">
@@ -454,7 +492,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LHg-b6-Go7" id="SuF-oX-Skp">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="smt-Ob-UIl">
@@ -500,7 +538,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xQv-SE-uxd" id="skZ-HR-6gC">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -749,24 +787,6 @@
             </objects>
             <point key="canvasLocation" x="2273" y="1300"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="WGp-O1-VqF">
-            <objects>
-                <navigationController storyboardIdentifier="UINavigationController" automaticallyAdjustsScrollViewInsets="NO" id="ocx-i4-yFK" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Oyz-n5-d2s">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="FOg-i2-afo" kind="relationship" relationship="rootViewController" id="OWy-5V-dfj"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wsv-Ca-ATi" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2460" y="-600.44977511244383"/>
-        </scene>
         <!--Friends-->
         <scene sceneID="fyI-ud-LvT">
             <objects>
@@ -785,6 +805,23 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tNt-zA-l1h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="632.79999999999995" y="-600.44977511244383"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="gUm-Ru-eqc">
+            <objects>
+                <viewController id="ndi-R4-lkJ" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WhP-Cn-v5T"/>
+                        <viewControllerLayoutGuide type="bottom" id="Aej-WK-ViI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xAe-fD-nfo">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="X45-2b-REG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
         </scene>
     </scenes>
     <resources>

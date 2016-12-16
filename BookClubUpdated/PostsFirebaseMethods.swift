@@ -70,14 +70,14 @@ class PostsFirebaseMethods {
     }
     
     
-    static func downloadFollowingPosts(with completion: @escaping ([BookPosted]) -> Void) {
+    static func downloadFollowingPosts(with userUniqueID: String, completion: @escaping ([BookPosted]) -> Void) {
         
         let postRef = FIRDatabase.database().reference().child("posts").child("visible")
         
         var postsArray = [BookPosted]()
         var followingUniqueIDArray = [String]()
         
-        UserFirebaseMethods.retriveFollowingUsers { (followingArray) in
+        UserFirebaseMethods.retriveFollowingUsers(with: userUniqueID) { (followingArray) in
             guard let array = followingArray else { return }
             for user in array {
                 followingUniqueIDArray.append(user.uniqueKey)
@@ -118,8 +118,8 @@ class PostsFirebaseMethods {
                 }
             })
         }
-        
     }
+    
     
     
     // MARK: - Add & remove books to book list

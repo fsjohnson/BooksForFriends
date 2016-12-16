@@ -22,23 +22,23 @@ class FollowersFollowing: UIView {
     @IBOutlet weak var followingButtonOutlet: UIButton!
     @IBOutlet weak var profilePic: UIImageView!
     
-    
+    var user: User? {
+        didSet {
+            populatePostsLabel()
+            populateFollowersLabel()
+            populateFollowingLabel()
+            populateProfilePic()
+        }
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
-        populatePostsLabel()
-        populateFollowersLabel()
-        populateFollowingLabel()
-        populateProfilePic()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
-        populatePostsLabel()
-        populateFollowersLabel()
-        populateFollowingLabel()
-        populateProfilePic()
     }
     
     
@@ -108,8 +108,8 @@ extension FollowersFollowing {
     func populateFollowersLabel() {
         followersButtonOutlet.setTitle(nil, for: .normal)
         followersButtonOutlet.alpha = 0.0
-        
-        UserFirebaseMethods.retriveFollowers { [unowned self] users in
+        guard let user = user else { print("problem getting user from delegate"); return }
+        UserFirebaseMethods.retriveFollowers(with: user.uniqueKey) { [unowned self] users in
             
             DispatchQueue.main.async {
                 
@@ -126,8 +126,8 @@ extension FollowersFollowing {
     func populateFollowingLabel() {
         followingButtonOutlet.setTitle(nil, for: .normal)
         followingButtonOutlet.alpha = 0.0
-        
-        UserFirebaseMethods.retriveFollowingUsers { [unowned self] users in
+        guard let user = user else { print("problem getting user from delegate"); return }
+        UserFirebaseMethods.retriveFollowingUsers(with: user.uniqueKey) { [unowned self] users in
             
             DispatchQueue.main.async {
                 
@@ -144,16 +144,14 @@ extension FollowersFollowing {
     func populatePostsLabel() {
         booksPostedButton.setTitle(nil, for: .normal)
         booksPostedButton.alpha = 0.0
-        
-        guard let currentUserID = FIRAuth.auth()?.currentUser?.uid else { return }
-        
-        PostsFirebaseMethods.downloadUsersBookPostsArray(with: currentUserID) { [unowned self] booksPosted in
+        guard let user = user else { print("problem getting user from delegate"); return }
+        PostsFirebaseMethods.downloadUsersBookPostsArray(with: user.uniqueKey) { [unowned self] booksPosted in
             
             DispatchQueue.main.async {
                 
                 let title = booksPosted != nil ? String(booksPosted!.count) : "0"
                 self.booksPostedButton.setTitle(title, for: .normal)
-
+                
                 UIView.animate(withDuration: 0.8, animations: {
                     self.booksPostedButton.alpha = 1.0
                 })
@@ -162,8 +160,8 @@ extension FollowersFollowing {
     }
     
     func populateProfilePic() {
-        guard let currentUserID = FIRAuth.auth()?.currentUser?.uid else { return }
-        UserFirebaseMethods.retrieveSpecificUser(with: currentUserID) { (currentUser) in
+        guard let user = user else { print("problem getting user from delegate"); return }
+        UserFirebaseMethods.retrieveSpecificUser(with: user.uniqueKey) { (currentUser) in
             print("LINK: \(currentUser?.profileImageURL)")
             if currentUser?.profileImageURL == "no image" {
                 self.profilePic.image = UIImage(named: "Camera")

@@ -11,7 +11,6 @@ import UIKit
 class UserPostCollectionViewCell: UICollectionViewCell {
     
     var imageView: UIImageView!
-    
     var book: BookPosted!
     
     
@@ -45,6 +44,7 @@ class UserPostCollectionViewCell: UICollectionViewCell {
     
     
     func configureCell(book: BookPosted) {
+        print("IMAGE LINK IN USER COLLECTION VIEW CELL: \(book.imageLink)")
         if book.imageLink == "" {
             imageView.image = UIImage(named: "BFFLogo")
         } else {

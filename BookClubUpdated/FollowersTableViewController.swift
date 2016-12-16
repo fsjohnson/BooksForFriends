@@ -14,6 +14,7 @@ class FollowersTableViewController: UITableViewController {
     
     var followersArray = [User]()
     var deleteButtonSelected = false
+    var passedUserID = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +25,7 @@ class FollowersTableViewController: UITableViewController {
         let blockUserAttributesDictionary = [NSFontAttributeName: UIFont.themeSmallBold]
         blockUserButton.setTitleTextAttributes(blockUserAttributesDictionary, for: .normal)
         
-        UserFirebaseMethods.retriveFollowers { (users) in
+        UserFirebaseMethods.retriveFollowers(with: passedUserID) { (users) in
             guard let array = users else { return }
             for user in array {
                 self.followersArray.append(user)

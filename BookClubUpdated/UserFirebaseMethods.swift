@@ -187,28 +187,27 @@ class UserFirebaseMethods {
     
     //MARK: - Retrive following
     
-    static func checkIfFollowingUsersIsEmpty(with completion: @escaping (Bool) -> Void) {
-        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
-        let ref = FIRDatabase.database().reference().child("users").child(currentUser).child("following")
-        var isEmpty = false
+//    static func checkIfFollowingUsersIsEmpty(with completion: @escaping (Bool) -> Void) {
+//        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
+//        let ref = FIRDatabase.database().reference().child("users").child(currentUser).child("following")
+//        var isEmpty = false
+//        
+//        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+//            if !snapshot.hasChildren() {
+//                isEmpty = true
+//            } else {
+//                isEmpty = false
+//            }
+//            
+//            completion(isEmpty)
+//        })
+//    }
+    
+    
+    
+    static func retriveFollowingUsers(with userID: String, completion: @escaping ([User]?) -> Void) {
         
-        ref.observeSingleEvent(of: .value, with: { (snapshot) in
-            if !snapshot.hasChildren() {
-                isEmpty = true
-            } else {
-                isEmpty = false
-            }
-            
-            completion(isEmpty)
-        })
-    }
-    
-    
-    
-    static func retriveFollowingUsers(with completion: @escaping ([User]?) -> Void) {
-        
-        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
-        let ref = FIRDatabase.database().reference().child("users").child(currentUser).child("following")
+        let ref = FIRDatabase.database().reference().child("users").child(userID).child("following")
         var followingUserArray = [User]()
         var followingUserIDArray = [String]()
         
@@ -238,28 +237,27 @@ class UserFirebaseMethods {
     
     //MARK: - Retrieve followers
     
+//    
+//    static func checkIfFollowerUsersIsEmpty(with completion: @escaping (Bool) -> Void) {
+//        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
+//        let ref = FIRDatabase.database().reference().child("users").child(currentUser).child("followers").child("notBlocked")
+//        var isEmpty = false
+//        
+//        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+//            if !snapshot.hasChildren() {
+//                isEmpty = true
+//            } else {
+//                isEmpty = false
+//            }
+//            
+//            completion(isEmpty)
+//        })
+//    }
     
-    static func checkIfFollowerUsersIsEmpty(with completion: @escaping (Bool) -> Void) {
-        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
-        let ref = FIRDatabase.database().reference().child("users").child(currentUser).child("followers").child("notBlocked")
-        var isEmpty = false
+    
+    static func retriveFollowers(with userID: String, completion: @escaping ([User]?) -> Void) {
         
-        ref.observeSingleEvent(of: .value, with: { (snapshot) in
-            if !snapshot.hasChildren() {
-                isEmpty = true
-            } else {
-                isEmpty = false
-            }
-            
-            completion(isEmpty)
-        })
-    }
-    
-    
-    static func retriveFollowers(with completion: @escaping ([User]?) -> Void) {
-        
-        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
-        let ref = FIRDatabase.database().reference().child("users").child(currentUser).child("followers").child("notBlocked")
+        let ref = FIRDatabase.database().reference().child("users").child(userID).child("followers").child("notBlocked")
         var followersUserArray = [User]()
         var followersUserIDArray = [String]()
         

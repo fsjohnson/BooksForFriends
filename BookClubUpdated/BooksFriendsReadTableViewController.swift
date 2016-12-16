@@ -7,12 +7,12 @@
 //
 
 import UIKit
+import Firebase
 
 class BooksFriendsReadTableViewController: UITableViewController {
     
     
     var postsArray = [BookPosted]()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,17 +23,21 @@ class BooksFriendsReadTableViewController: UITableViewController {
         let navBarAttributesDictionary = [ NSForegroundColorAttributeName: UIColor.themeDarkBlue,NSFontAttributeName: UIFont.themeMediumThin]
         navigationController?.navigationBar.titleTextAttributes = navBarAttributesDictionary
         
-        PostsFirebaseMethods.downloadFollowingPosts { (postsArray) in
+        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else { return }
+        PostsFirebaseMethods.downloadFollowingPosts(with: currentUser) { (postsArray) in
             self.postsArray = postsArray
             self.tableView.reloadData()
         }
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        PostsFirebaseMethods.downloadFollowingPosts { (postsArray) in
+        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else { return }
+        PostsFirebaseMethods.downloadFollowingPosts(with: currentUser) { (postsArray) in
             self.postsArray = postsArray
             self.tableView.reloadData()
         }
+
     }
     
 
@@ -170,8 +174,6 @@ class BooksFriendsReadTableViewController: UITableViewController {
             }
         }
     }
-    
-    
 }
 
 

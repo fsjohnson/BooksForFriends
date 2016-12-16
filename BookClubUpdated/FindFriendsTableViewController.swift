@@ -182,12 +182,12 @@ class FindFriendsTableViewController: UITableViewController, UISearchBarDelegate
 
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "userPostDetail" {
-            let dest = segue.destination as! UINavigationController
-            let target = dest.topViewController as! UserPostListTableViewController
+        if segue.identifier == "userProfile" {
+            //let dest = segue.destination as! UINavigationController
+            let target = segue.destination as! FriendsProfileViewController
             
             if let indexPath = tableView.indexPathForSelectedRow {
-               target.passedUserUniqueID = filteredUsers[indexPath.row].uniqueKey
+               target.passedUserID = filteredUsers[indexPath.row].uniqueKey
             }
         }
         

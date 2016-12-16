@@ -14,6 +14,7 @@ class FollowingTableViewController: UITableViewController {
     var array = [User]()
     var uniqueUserIDs = [String]()
     var deleteButtonSelected = false
+    var passedUserID = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,13 +22,11 @@ class FollowingTableViewController: UITableViewController {
         let navBarAttributesDictionary = [ NSForegroundColorAttributeName: UIColor.themeDarkBlue,NSFontAttributeName: UIFont.themeMediumThin]
         navigationController?.navigationBar.titleTextAttributes = navBarAttributesDictionary
         
-        
-        UserFirebaseMethods.retriveFollowingUsers { (users) in
+        UserFirebaseMethods.retriveFollowingUsers(with: passedUserID) { (users) in
             print("USERS: \(users)")
             self.followingArray = users ?? []
             self.tableView.reloadData()
         }
-        
     }
     
     override func didReceiveMemoryWarning() {

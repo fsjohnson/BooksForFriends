@@ -35,6 +35,7 @@
 		B5302D8B1DEDC82D007848B2 /* SearchResultsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5302D8A1DEDC82D007848B2 /* SearchResultsView.xib */; };
 		B5302D9D1DEE4376007848B2 /* UserPostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5302D9C1DEE4376007848B2 /* UserPostCollectionViewCell.swift */; };
 		B544F8261DF9DF9900888B73 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B544F8251DF9DF9800888B73 /* CustomTextField.swift */; };
+		B57376861E03817700096A5D /* FriendsProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57376851E03817700096A5D /* FriendsProfileViewController.swift */; };
 		B57955CE1DF07296000A030A /* StarReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57955CD1DF07296000A030A /* StarReview.swift */; };
 		B57ABBBC1DE7F22B00722B83 /* FollowingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57ABBBB1DE7F22B00722B83 /* FollowingTableViewCell.swift */; };
 		B58291BE1DB96C300017FF58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58291BD1DB96C300017FF58 /* AppDelegate.swift */; };
@@ -88,6 +89,7 @@
 		B5302D9C1DEE4376007848B2 /* UserPostCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPostCollectionViewCell.swift; sourceTree = "<group>"; };
 		B544F8241DF9B90800888B73 /* BookClubUpdated.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BookClubUpdated.entitlements; sourceTree = "<group>"; };
 		B544F8251DF9DF9800888B73 /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		B57376851E03817700096A5D /* FriendsProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsProfileViewController.swift; sourceTree = "<group>"; };
 		B57955CD1DF07296000A030A /* StarReview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarReview.swift; sourceTree = "<group>"; };
 		B57ABBBB1DE7F22B00722B83 /* FollowingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowingTableViewCell.swift; sourceTree = "<group>"; };
 		B58291BA1DB96C300017FF58 /* BookClubUpdated.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookClubUpdated.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -244,6 +246,7 @@
 				B58291D21DB96C710017FF58 /* BooksUserWantsToReadCollectionViewController.swift */,
 				B51F9F841DEA4796006921D3 /* FutureReadsCollectionViewCell.swift */,
 				B52494591DE5EB9C00D837C4 /* UserProfileViewController.swift */,
+				B57376851E03817700096A5D /* FriendsProfileViewController.swift */,
 				B5302D9C1DEE4376007848B2 /* UserPostCollectionViewCell.swift */,
 				B51E7EB01DF469D300F3369F /* UserPostListTableViewController.swift */,
 				B51E7EB21DF469F100F3369F /* UserPostListTableViewCell.swift */,
@@ -499,6 +502,7 @@
 				B5A8818F1DE7A81200D90B07 /* SearchFriendsTableViewCell.swift in Sources */,
 				B52494601DE6356800D837C4 /* UserBook.swift in Sources */,
 				B50E74491DF3321100F2DC4A /* CustomFonts.swift in Sources */,
+				B57376861E03817700096A5D /* FriendsProfileViewController.swift in Sources */,
 				B51F9F7E1DE9E663006921D3 /* PostsFirebaseMethods.swift in Sources */,
 				B51F9F811DEA09D8006921D3 /* BookDetailsViewController.swift in Sources */,
 				B58291D31DB96C710017FF58 /* BooksUserWantsToReadCollectionViewController.swift in Sources */,
