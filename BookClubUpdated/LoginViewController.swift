@@ -8,6 +8,7 @@
 
 import UIKit
 import Mixpanel
+import Firebase
 
 struct LoginViewPosition {
     
@@ -20,6 +21,7 @@ struct LoginViewPosition {
     static let newuserPosition = CGPoint(x: UIScreen.main.bounds.width * 0.5, y: UIScreen.main.bounds.height * 0.65)
     static let signupPosition = CGPoint(x: UIScreen.main.bounds.width * 0.5, y: UIScreen.main.bounds.height * 0.65)
     static let cancelPosition = CGPoint(x: UIScreen.main.bounds.width * 0.5, y: UIScreen.main.bounds.height * 0.65)
+    static let forgotPasswordPosition = CGPoint(x: UIScreen.main.bounds.width * 0.5, y: UIScreen.main.bounds.height * 0.70)
 }
 
 struct NewUserViewPosition {
@@ -48,6 +50,7 @@ class LoginViewController: UIViewController {
     var cancelButton: UIButton!
     
     var logoImage: UIImageView!
+    var forgotPasswordButton: UIButton!
     
     var signupButtonState = false
     
@@ -180,7 +183,49 @@ extension LoginViewController {
         
     }
     
-    
+    func forgotPasswordAction(_sender: UIButton) {
+        let alertController = UIAlertController(title: "Enter E-Mail", message: "We'll send you a password reset e-mail", preferredStyle: .alert)
+        
+        let submitAction = UIAlertAction(title: "Send", style: .default) { (action) in
+            let emailField = alertController.textFields![0]
+            if let email = emailField.text {
+                
+                FIRAuth.auth()?.sendPasswordReset(withEmail: email, completion: { (error) in
+                    // Handle error
+                    if let error = error {
+                        
+                        let alertController = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+                            self.dismiss(animated: true, completion: nil)
+                        })
+                        alertController.addAction(okAction)
+                        self.present(alertController, animated: true, completion: nil)
+                        // Success
+                    } else {
+                        let alertController = UIAlertController(title: "Success", message: "Password reset e-mail sent", preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+                            self.dismiss(animated: true, completion: nil)
+                        })
+                        alertController.addAction(okAction)
+                        
+                        self.present(alertController, animated: true, completion: nil)
+                    }
+                })
+            }
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (action) in
+            self.dismiss(animated: true, completion: nil)
+        }
+        
+        alertController.addAction(submitAction)
+        alertController.addAction(cancelAction)
+        alertController.addTextField { (textfield) in
+            textfield.placeholder = "Enter E-mail"
+        }
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
     
 }
 
@@ -193,6 +238,7 @@ extension LoginViewController {
         self.usernameTextField.isHidden = false
         self.signupButton.isHidden = false
         self.cancelButton.isHidden = false
+        self.forgotPasswordButton.isHidden = true
         self.newuserButton.isUserInteractionEnabled = false
         self.cancelButton.isUserInteractionEnabled = false
         UIView.animateKeyframes(withDuration: 0.2, delay: 0.0, options: [.allowUserInteraction, .calculationModeCubic], animations: {
@@ -256,6 +302,7 @@ extension LoginViewController {
         self.newuserButton.isHidden = false
         self.newuserButton.isUserInteractionEnabled = false
         self.cancelButton.isUserInteractionEnabled = false
+        self.forgotPasswordButton.isHidden = false
         UIView.animateKeyframes(withDuration: 0.2, delay: 0.0, options: [.allowUserInteraction, .calculationModeCubic], animations: {
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1, animations: {
                 self.emailTextField.center = LoginViewPosition.emailPosition
@@ -267,6 +314,7 @@ extension LoginViewController {
                 self.newuserButton.center = LoginViewPosition.newuserPosition
                 self.signupButton.center = LoginViewPosition.signupPosition
                 self.cancelButton.center = LoginViewPosition.cancelPosition
+                self.forgotPasswordButton.center = LoginViewPosition.forgotPasswordPosition
                 
             })
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.33, animations: {
@@ -322,6 +370,7 @@ extension LoginViewController {
         passwordTextField.center = LoginViewPosition.passwordPosition
         nameTextField.center = LoginViewPosition.firstnamePosition
         usernameTextField.center = LoginViewPosition.lastnamePosition
+        forgotPasswordButton.center = LoginViewPosition.forgotPasswordPosition
         
         nameTextField.transform = CGAffineTransform.init(scaleX: 0.0, y: 1)
         usernameTextField.transform = CGAffineTransform.init(scaleX: 0.0, y: 1)
@@ -343,7 +392,7 @@ extension LoginViewController {
         
         let borderWidth: CGFloat = 2
         let borderColor = UIColor.themeOrange.cgColor
-
+        
         logoImage = UIImageView(frame: CGRect(x: self.view.frame.size.width * 0.36, y: self.view.frame.size.height * 0.05, width: 90, height: 90))
         logoImage.image = UIImage(named: "BFFLogin")
         self.view.addSubview(logoImage)
@@ -436,6 +485,13 @@ extension LoginViewController {
         cancelButton.titleLabel?.font = UIFont.themeSmallBold
         cancelButton.setTitleColor(UIColor.themeDarkBlue, for: .normal)
         cancelButton.addTarget(self, action: #selector(cancelButtonAction), for: .touchUpInside)
+        
+        forgotPasswordButton = UIButton(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width * 0.4, height: self.view.frame.size.height * 0.06))
+        self.view.addSubview(forgotPasswordButton)
+        forgotPasswordButton.setTitle("Forgot Password", for: .normal)
+        forgotPasswordButton.titleLabel?.font = UIFont.themeTinyBold
+        forgotPasswordButton.setTitleColor(UIColor.themeDarkBlue, for: .normal)
+        forgotPasswordButton.addTarget(self, action: #selector(forgotPasswordAction), for: .touchUpInside)
         
     }
 }
