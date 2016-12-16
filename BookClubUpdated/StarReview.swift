@@ -169,7 +169,7 @@ public final class StarReview: UIControl {
             let x = starMarginScale * Float(s) * starRadius + starRadius * (0.5 + Float(s))
             var starCenter = CGPoint(x: CGFloat(x), y: (self.frame.height) / 2)
             if ratio > startReviewWidthScale{
-                starCenter = CGPoint(x: CGFloat(x)+CGFloat(offsetX), y: self.frame.height / 2)
+                starCenter = CGPoint(x: CGFloat(x), y: self.frame.height / 2)
             }
             
             let radius = starRadius / 2
