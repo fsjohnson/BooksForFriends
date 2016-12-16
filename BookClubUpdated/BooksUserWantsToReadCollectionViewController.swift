@@ -11,9 +11,7 @@ import UIKit
 class BooksUserWantsToReadCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     
-    var futureBooksArray = [String]()
-    var bookIDArray = [String]()
-    
+    var futureBooksArray = [BookPosted]()
     var sectionInsets: UIEdgeInsets!
     var itemSize: CGSize!
     var referenceSize: CGSize!
@@ -23,8 +21,6 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
     var insetSpacing: CGFloat!
     var minimumInterItemSpacing: CGFloat!
     var minimumLineSpacing: CGFloat!
-    
-    
     var deleteButtonSelected = false
     
     
@@ -38,19 +34,16 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
         
         let navBarAttributesDictionary = [ NSForegroundColorAttributeName: UIColor.themeDarkBlue,NSFontAttributeName: UIFont.themeMediumThin]
         navigationController?.navigationBar.titleTextAttributes = navBarAttributesDictionary
-
-        PostsFirebaseMethods.downloadUsersFutureReadsBookLinkIDArray { (bookLinkArray, bookIDArray) in
-            self.futureBooksArray = bookLinkArray
-            self.bookIDArray = bookIDArray
+        
+        PostsFirebaseMethods.userFutureReadsBooks { (futureReads) in
+            self.futureBooksArray = futureReads
             self.collectionView?.reloadData()
         }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        PostsFirebaseMethods.downloadUsersFutureReadsBookLinkIDArray { (bookLinkArray, bookIDArray) in
-            self.futureBooksArray = bookLinkArray
-            self.bookIDArray = bookIDArray
+        PostsFirebaseMethods.userFutureReadsBooks { (futureReads) in
+            self.futureBooksArray = futureReads
             self.collectionView?.reloadData()
         }
         
@@ -77,9 +70,9 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath) as! FutureReadsCollectionViewCell
-
         
-        let imageLink = futureBooksArray[indexPath.item]
+        
+        let imageLink = futureBooksArray[indexPath.item].imageLink
         let imageURL = URL(string: imageLink)
         guard let data = try? Data(contentsOf: imageURL!) else {
             cell.bookCoverImageView.image = UIImage(named: "BFFLogo")
@@ -139,23 +132,19 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
     @IBAction func removeBook(_ sender: Any) {
         deleteButtonSelected = true
     }
-
+    
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let cell = collectionView.cellForItem(at: indexPath)
-
+        
         if deleteButtonSelected == true {
             let alert = UIAlertController(title: "Are you sure?", message: "Do you want to delete this book", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
                 self.deleteBook(at: indexPath)
-                
             }))
-            
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
-                
             }))
-            
             self.present(alert, animated: true, completion: nil)
         }
     }
@@ -163,23 +152,37 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
     
     func deleteBook(at indexPath: IndexPath) {
         
-        let bookToRemove = bookIDArray[indexPath.item]
-        
-        PostsFirebaseMethods.removeBookFromFutureReadsWith(book: bookToRemove, completion: {
+        let bookToRemove = futureBooksArray[indexPath.item].bookUniqueID
+        PostsFirebaseMethods.removeBookFromFutureReads(with: bookToRemove, completion: {
             let alert = UIAlertController(title: "Success!", message: "You have updated your reading list", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
                 self.futureBooksArray.remove(at: indexPath.row)
                 self.deleteButtonSelected = false
                 self.collectionView?.reloadData()
-                
             }))
-            
             self.present(alert, animated: true, completion: nil)
-            
         })
     }
     
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "futureReadsDetails" && deleteButtonSelected == false {
+            return true
+        } else {
+            return false
+        }
+    }
     
-    
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "futureReadsDetails" {
+            let dest = segue.destination as! FutureReadsDetailsViewController
+            if let indexPaths = collectionView?.indexPathsForSelectedItems {
+                for indexPath in indexPaths {
+                    let link = futureBooksArray[indexPath.item].imageLink
+                    let id = futureBooksArray[indexPath.item].bookUniqueID
+                    dest.passedImageLink = link
+                    dest.passedUniqueID = id
+                }
+            }
+        }
+    }
 }

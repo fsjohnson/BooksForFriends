@@ -173,7 +173,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7ad-vO-uOc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2950" y="-600"/>
+            <point key="canvasLocation" x="2433" y="-600"/>
         </scene>
         <!--User Post List Table View Controller-->
         <scene sceneID="Kxv-tG-Ill">
@@ -188,7 +188,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rkp-dS-acT" id="cxN-0T-Dmb">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IHr-6u-04s" customClass="PostsView" customModule="BookClubUpdated" customModuleProvider="target">
@@ -217,7 +217,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8IT-uq-5f9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3879" y="-600"/>
+            <point key="canvasLocation" x="3220" y="-600"/>
         </scene>
         <!--Add Book-->
         <scene sceneID="2Y0-R8-f7n">
@@ -294,7 +294,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UBm-Ei-XNE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2628" y="-1352"/>
+            <point key="canvasLocation" x="2100" y="-1597"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="PzW-hz-Due">
@@ -338,6 +338,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </view>
+                                <connections>
+                                    <segue destination="lyy-WQ-aO2" kind="show" identifier="futureReadsDetails" id="rWS-QC-HCV"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -477,7 +480,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Az8-kR-zCK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3214" y="1278"/>
+            <point key="canvasLocation" x="3220" y="1515"/>
         </scene>
         <!--Following-->
         <scene sceneID="wCp-fN-FMw">
@@ -592,7 +595,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="puW-bP-Nhn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2273" y="567"/>
+            <point key="canvasLocation" x="2273" y="806"/>
         </scene>
         <!--Post Book-->
         <scene sceneID="rDg-PD-EXd">
@@ -689,7 +692,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LHq-FN-bfx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3175" y="566"/>
+            <point key="canvasLocation" x="3220" y="806"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="XKA-Ec-pZP">
@@ -785,7 +788,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uy8-UC-R9E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2273" y="1300"/>
+            <point key="canvasLocation" x="2273" y="1516"/>
         </scene>
         <!--Friends-->
         <scene sceneID="fyI-ud-LvT">
@@ -806,22 +809,67 @@
             </objects>
             <point key="canvasLocation" x="632.79999999999995" y="-600.44977511244383"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="gUm-Ru-eqc">
+        <!--Future Reads Details View Controller-->
+        <scene sceneID="1Mm-th-qyt">
             <objects>
-                <viewController id="ndi-R4-lkJ" sceneMemberID="viewController">
+                <viewController id="lyy-WQ-aO2" customClass="FutureReadsDetailsViewController" customModule="BookClubUpdated" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="WhP-Cn-v5T"/>
-                        <viewControllerLayoutGuide type="bottom" id="Aej-WK-ViI"/>
+                        <viewControllerLayoutGuide type="top" id="D5s-zI-XH2"/>
+                        <viewControllerLayoutGuide type="bottom" id="Gtt-qH-ZnH"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="xAe-fD-nfo">
+                    <view key="view" contentMode="scaleToFill" id="o7U-Dl-HLQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pMz-Kx-plw">
+                                <rect key="frame" x="112" y="92" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="pMz-Kx-plw" secondAttribute="height" multiplier="1:1" id="M5E-VS-yHO"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iD8-91-NHM">
+                                <rect key="frame" x="18.5" y="266.5" width="338" height="267"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Synopsis:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="is0-qs-Glv">
+                                        <rect key="frame" x="0.0" y="0.0" width="338" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="YGb-7p-c7C">
+                                        <rect key="frame" x="0.0" y="0.0" width="338" height="267"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="YGb-7p-c7C" firstAttribute="leading" secondItem="iD8-91-NHM" secondAttribute="leading" id="GXL-fN-lga"/>
+                                    <constraint firstItem="YGb-7p-c7C" firstAttribute="top" secondItem="is0-qs-Glv" secondAttribute="bottom" id="bky-2Q-rYS"/>
+                                    <constraint firstItem="is0-qs-Glv" firstAttribute="leading" secondItem="iD8-91-NHM" secondAttribute="leading" id="xzF-4a-2yU"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="pMz-Kx-plw" firstAttribute="centerX" secondItem="o7U-Dl-HLQ" secondAttribute="centerX" id="Doy-ag-L5B"/>
+                            <constraint firstItem="iD8-91-NHM" firstAttribute="centerY" secondItem="o7U-Dl-HLQ" secondAttribute="centerY" multiplier="1.2" id="WVB-po-uOL"/>
+                            <constraint firstItem="pMz-Kx-plw" firstAttribute="centerY" secondItem="o7U-Dl-HLQ" secondAttribute="centerY" multiplier="0.5" id="mjT-Nw-CmB"/>
+                            <constraint firstItem="iD8-91-NHM" firstAttribute="width" secondItem="o7U-Dl-HLQ" secondAttribute="width" multiplier="0.9" id="nug-vk-fUZ"/>
+                            <constraint firstItem="pMz-Kx-plw" firstAttribute="width" secondItem="o7U-Dl-HLQ" secondAttribute="width" multiplier="0.4" id="wb4-qa-7Hf"/>
+                            <constraint firstItem="iD8-91-NHM" firstAttribute="height" secondItem="o7U-Dl-HLQ" secondAttribute="height" multiplier="0.4" id="xFQ-c6-Z4V"/>
+                            <constraint firstItem="iD8-91-NHM" firstAttribute="centerX" secondItem="o7U-Dl-HLQ" secondAttribute="centerX" id="xVV-wK-UhV"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="bookImageView" destination="pMz-Kx-plw" id="qb0-Ah-GFz"/>
+                        <outlet property="bookSynopsis" destination="YGb-7p-c7C" id="MFb-ep-YBM"/>
+                        <outlet property="synopsisLabel" destination="is0-qs-Glv" id="LDg-xZ-8KD"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="X45-2b-REG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ctM-zU-eBh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="2433" y="100"/>
         </scene>
     </scenes>
     <resources>

@@ -134,12 +134,12 @@ class PostsFirebaseMethods {
         completion()
     }
     
-    static func removeBookFromFutureReadsWith(book uniqueID: String, completion: () -> Void) {
+    static func removeBookFromFutureReads(with bookUniqueID: String, completion: () -> Void) {
         
         guard let userUniqueID = FIRAuth.auth()?.currentUser?.uid else {return}
         let userRef = FIRDatabase.database().reference().child("users").child(userUniqueID).child("futureReads")
         
-        userRef.child(uniqueID).removeValue()
+        userRef.child(bookUniqueID).removeValue()
         completion()
         
     }
@@ -192,47 +192,42 @@ class PostsFirebaseMethods {
             }
             completion(boolToReturn)
         })
-        
     }
     
-    static func downloadUsersFutureReadsBookLinkIDArray(with completion: @escaping ([String], [String]) -> Void) {
+    static func userFutureReadsBooks(with completion: @escaping ([BookPosted]) -> Void) {
+        var futureReads = [BookPosted]()
         
         guard let userUniqueID = FIRAuth.auth()?.currentUser?.uid else {return}
         let userRef = FIRDatabase.database().reference().child("users").child(userUniqueID).child("futureReads")
-        var bookLinkIDArray = [String]()
         var bookIDArray = [String]()
         
         userRef.observeSingleEvent(of: .value, with: { (snapshot) in
             
             guard let snapshotValue = snapshot.value as? [String: Any] else {return}
-            print(snapshotValue)
             for snap in snapshotValue {
-                
-                print(snap)
-                
-                guard
-                    let postInfo = snap.value as? [String: Any],
-                    let imageLink = postInfo["imageLink"] as? String
-                    else { print("error downloading image link"); return}
-                
-                bookLinkIDArray.append(imageLink)
                 bookIDArray.append(snap.key)
-                
             }
-            print(bookLinkIDArray.count)
-            completion(bookLinkIDArray, bookIDArray)
+            print(bookIDArray)
+            
+            PostsFirebaseMethods.downloadAllPosts { (booksArray) in
+                for book in booksArray {
+                    if ((bookIDArray.contains(book.bookUniqueID)) && !(futureReads.contains(book))) {
+                        futureReads.append(book)
+                    }
+                }
+                print(futureReads.count)
+                completion(futureReads)
+            }
         })
     }
     
     
     static func checkIfAnyBookPostsExist(with completion: @escaping (Bool) -> Void) {
         let postRef = FIRDatabase.database().reference().child("posts").child("visible")
-        var postsExist = false
         
         postRef.observeSingleEvent(of: .value, with: { (snapshot) in
             
             DispatchQueue.main.async {
-                
                 completion(snapshot.hasChildren())
                 
             }
