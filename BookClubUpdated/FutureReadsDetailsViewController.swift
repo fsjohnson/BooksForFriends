@@ -12,15 +12,14 @@ class FutureReadsDetailsViewController: UIViewController {
     
     @IBOutlet weak var bookImageView: UIImageView!
     @IBOutlet weak var bookSynopsis: UITextView!
-    
     @IBOutlet weak var postBookOutlet: UIButton!
     @IBOutlet weak var deleteBookOutlet: UIButton!
-    
     
     @IBOutlet weak var synopsisLabel: UILabel!
     var passedUniqueID = String()
     var passedImageLink = String()
     var passedTitle = String()
+    var bookAuthor = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,9 +41,9 @@ class FutureReadsDetailsViewController: UIViewController {
         deleteBookOutlet.setTitleColor(UIColor.themeDarkGrey, for: .normal)
         deleteBookOutlet.titleLabel?.font = UIFont.themeTinyBold
         
-        PostsFirebaseMethods.downloadSynopsisOfBookWith(book: passedUniqueID) { (synopsis) in
-            print(synopsis)
+        PostsFirebaseMethods.downloadSynopsisAndAuthorOfBookWith(book: passedUniqueID) { (synopsis, author) in
             self.bookSynopsis.text = synopsis
+            self.bookAuthor = author
         }
     }
     
@@ -82,6 +81,9 @@ class FutureReadsDetailsViewController: UIViewController {
             dest.passedBookID = passedUniqueID
             dest.passedImageLink = passedImageLink
             dest.passedTitle = passedTitle
+            dest.passedAuthor = bookAuthor
+            dest.passedSynopsis = synopsisLabel.text!
+            dest.fromFutureReads = true
         }
     }
     

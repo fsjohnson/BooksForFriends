@@ -37,11 +37,9 @@ class BookDetailsViewController: UIViewController {
         bookSynopsis.font = UIFont.themeSmallThin
         bookSynopsis.textColor = UIColor.themeDarkBlue
         
-        print("PASSED IMAGE LINK: \(passedImageLink)")
         bookImageView.loadImageUsingCacheWithURLString(urlString: passedImageLink)
         
-        PostsFirebaseMethods.downloadSynopsisOfBookWith(book: passedUniqueID) { (synopsis) in
-            print(synopsis)
+        PostsFirebaseMethods.downloadSynopsisAndAuthorOfBookWith(book: passedUniqueID) { (synopsis, author) in
             self.bookSynopsis.text = synopsis
         }
     }

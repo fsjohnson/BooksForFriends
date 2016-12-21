@@ -26,23 +26,20 @@ class AddCommentAndRatingViewController: UIViewController {
     var passedBookID = String()
     var star = StarReview()
     weak var searchedBook: SearchedBook!
+    var fromFutureReads: Bool? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         config()
-    
+        
         let navBarAttributesDictionary = [ NSForegroundColorAttributeName: UIColor.themeDarkBlue,NSFontAttributeName: UIFont.themeMediumThin]
         navigationController?.navigationBar.titleTextAttributes = navBarAttributesDictionary
-        
-        
         
         DispatchQueue.main.async {
             self.bookCoverImageView.loadImageUsingCacheWithURLString(urlString: self.passedImageLink)
         }
-        
-        
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
@@ -101,7 +98,6 @@ class AddCommentAndRatingViewController: UIViewController {
         star.starBackgroundColor = UIColor.themeLightBlue
         star.starMarginScale = 0.3
         starView.addSubview(star)
-
     }
     
     func keyboardWillShow(notification: NSNotification) {
@@ -142,29 +138,19 @@ class AddCommentAndRatingViewController: UIViewController {
         } else {
             
             BooksFirebaseMethods.addToPrevious(userBook: bookToAdd, comment: comment, rating: ratingString, userUniqueID: userUniqueKey, imageLink: passedImageLink, bookID: passedBookID, completion: {
-            
-                    let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
-                    }))
-                    
-                    self.commentsTextView.text = ""
-                    self.commentsTextView.resignFirstResponder()
-                    self.present(alert, animated: true, completion: nil)
+                
+                let alert = UIAlertController(title: "Success!", message: "You have added \(self.passedTitle) to your previously read list", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
+                }))
+                
+                if self.fromFutureReads == true {
+                    PostsFirebaseMethods.removeBookFromFutureReads(with: self.passedBookID, completion: {})
+                }
+                
+                self.commentsTextView.text = ""
+                self.commentsTextView.resignFirstResponder()
+                self.present(alert, animated: true, completion: nil)
             })
         }
     }
-
-
-
-
-/*
- // MARK: - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
- // Get the new view controller using segue.destinationViewController.
- // Pass the selected object to the new view controller.
- }
- */
-
 }

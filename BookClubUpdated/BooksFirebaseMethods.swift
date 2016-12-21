@@ -145,11 +145,10 @@ class BooksFirebaseMethods {
             var ID = String()
             
             for userBook in userBookArray {
-                if (userBook.title == book.title && userBook.author == book.author! && userBook.synopsis == book.synopsis!) {
+                if (userBook.title == book.title && userBook.author == book.author!) {
                     ID = userBook.bookUniqueKey!
                 }
             }
-            
             completion(ID)
         }
     }

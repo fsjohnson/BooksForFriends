@@ -342,14 +342,7 @@
                             <outlet property="delegate" destination="3KZ-Be-9wS" id="kGs-kh-Mcq"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Books I Want to Read" id="65A-aa-fwH">
-                        <barButtonItem key="rightBarButtonItem" systemItem="trash" id="LBY-Mx-t60">
-                            <color key="tintColor" red="0.57222074270000001" green="0.57267004249999998" blue="0.57229036089999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <action selector="removeBook:" destination="3KZ-Be-9wS" id="cbU-t7-K4K"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Books I Want to Read" id="65A-aa-fwH"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wEy-dj-7Mq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -844,17 +837,17 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="dwj-Kr-XsW" userLabel="Button Stack View">
-                                <rect key="frame" x="145.5" y="544" width="84" height="60"/>
+                                <rect key="frame" x="122" y="544" width="131" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NeC-Mb-NRi">
-                                        <rect key="frame" x="0.0" y="0.0" width="84" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="131" height="30"/>
                                         <state key="normal" title="Post Book"/>
                                         <connections>
                                             <segue destination="p49-83-rhL" kind="show" identifier="addBook" id="4gw-RC-rJt"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VJ3-km-UsT">
-                                        <rect key="frame" x="0.0" y="30" width="84" height="30"/>
+                                        <rect key="frame" x="0.0" y="30" width="131" height="30"/>
                                         <state key="normal" title="Delete Book"/>
                                         <connections>
                                             <action selector="deleteBookAction:" destination="lyy-WQ-aO2" eventType="touchUpInside" id="rHS-gK-BxH"/>
@@ -875,6 +868,7 @@
                             <constraint firstItem="pMz-Kx-plw" firstAttribute="width" secondItem="o7U-Dl-HLQ" secondAttribute="width" multiplier="0.4" id="wb4-qa-7Hf"/>
                             <constraint firstItem="iD8-91-NHM" firstAttribute="height" secondItem="o7U-Dl-HLQ" secondAttribute="height" multiplier="0.4" id="xFQ-c6-Z4V"/>
                             <constraint firstItem="iD8-91-NHM" firstAttribute="centerX" secondItem="o7U-Dl-HLQ" secondAttribute="centerX" id="xVV-wK-UhV"/>
+                            <constraint firstItem="dwj-Kr-XsW" firstAttribute="width" secondItem="o7U-Dl-HLQ" secondAttribute="width" multiplier="0.35" id="zQm-MV-cKC"/>
                         </constraints>
                     </view>
                     <connections>

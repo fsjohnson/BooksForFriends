@@ -57,7 +57,7 @@ class PostsFirebaseMethods {
     }
     
     
-    static func downloadSynopsisOfBookWith(book uniqueID: String, completion: @escaping (String) -> Void) {
+    static func downloadSynopsisAndAuthorOfBookWith(book uniqueID: String, completion: @escaping (String, String) -> Void) {
         
         let bookRef = FIRDatabase.database().reference().child("books").child(uniqueID)
         
@@ -65,7 +65,8 @@ class PostsFirebaseMethods {
             guard let snapshotValue = snapshot.value as? [String: Any] else {return}
             
             guard let synopsis = snapshotValue["synopsis"] as? String else {print("error downloading synopsis"); return}
-            completion(synopsis)
+            guard let author = snapshotValue["author"] as? String else {print("error downloading author"); return}
+            completion(synopsis, author)
         })
     }
     
