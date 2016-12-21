@@ -122,7 +122,6 @@ class BooksFirebaseMethods {
         let userBookRef = FIRDatabase.database().reference().child("users").child(uniqueID).child("previousReads")
         var previousReadsBookIDArray = [String]()
         
-        
         userBookRef.observeSingleEvent(of: .value, with: { (snapshot) in
             if !snapshot.hasChildren() {
                 completion(nil)
@@ -190,7 +189,6 @@ class BooksFirebaseMethods {
                 boolToReturn = false
             }
             
-            print("DOES EXIST ON FIREBASE CHECK: \(boolToReturn)")
             completion(boolToReturn)
             
         }

@@ -25,7 +25,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jEc-gT-Gli" id="XTB-2m-cEg">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="grV-Tl-UCl" customClass="PostsView" customModule="BookClubUpdated" customModuleProvider="target">
@@ -78,7 +78,7 @@
                                 <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iRT-mi-YS3" id="9ez-cm-Hoe">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bit-yc-2h9">
@@ -182,7 +182,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rkp-dS-acT" id="cxN-0T-Dmb">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IHr-6u-04s" customClass="PostsView" customModule="BookClubUpdated" customModuleProvider="target">
@@ -435,7 +435,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tNj-xA-Xwn" id="tgv-6c-hzE">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ztr-rn-GHw" customClass="PostsView" customModule="BookClubUpdated" customModuleProvider="target">
@@ -489,7 +489,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LHg-b6-Go7" id="SuF-oX-Skp">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="smt-Ob-UIl">
@@ -535,7 +535,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xQv-SE-uxd" id="skZ-HR-6gC">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -594,7 +594,7 @@
         <!--Post Book-->
         <scene sceneID="rDg-PD-EXd">
             <objects>
-                <viewController id="p49-83-rhL" customClass="AddCommentAndRatingViewController" customModule="BookClubUpdated" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddCommentAndRatingViewController" id="p49-83-rhL" customClass="AddCommentAndRatingViewController" customModule="BookClubUpdated" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MT0-Wa-yuA"/>
                         <viewControllerLayoutGuide type="bottom" id="BU1-II-5By"/>
@@ -822,7 +822,7 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iD8-91-NHM">
-                                <rect key="frame" x="18.5" y="266.5" width="338" height="267"/>
+                                <rect key="frame" x="19" y="267" width="338" height="267"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Synopsis:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="is0-qs-Glv">
                                         <rect key="frame" x="0.0" y="0.0" width="338" height="0.0"/>
@@ -843,11 +843,33 @@
                                     <constraint firstItem="is0-qs-Glv" firstAttribute="leading" secondItem="iD8-91-NHM" secondAttribute="leading" id="xzF-4a-2yU"/>
                                 </constraints>
                             </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="dwj-Kr-XsW" userLabel="Button Stack View">
+                                <rect key="frame" x="145.5" y="544" width="84" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NeC-Mb-NRi">
+                                        <rect key="frame" x="0.0" y="0.0" width="84" height="30"/>
+                                        <state key="normal" title="Post Book"/>
+                                        <connections>
+                                            <segue destination="p49-83-rhL" kind="show" identifier="addBook" id="4gw-RC-rJt"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VJ3-km-UsT">
+                                        <rect key="frame" x="0.0" y="30" width="84" height="30"/>
+                                        <state key="normal" title="Delete Book"/>
+                                        <connections>
+                                            <action selector="deleteBookAction:" destination="lyy-WQ-aO2" eventType="touchUpInside" id="rHS-gK-BxH"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="pMz-Kx-plw" firstAttribute="centerX" secondItem="o7U-Dl-HLQ" secondAttribute="centerX" id="Doy-ag-L5B"/>
+                            <constraint firstItem="YGb-7p-c7C" firstAttribute="centerX" secondItem="o7U-Dl-HLQ" secondAttribute="centerX" id="KAl-FS-q8r"/>
+                            <constraint firstItem="dwj-Kr-XsW" firstAttribute="centerX" secondItem="o7U-Dl-HLQ" secondAttribute="centerX" id="Rjr-LA-gMM"/>
                             <constraint firstItem="iD8-91-NHM" firstAttribute="centerY" secondItem="o7U-Dl-HLQ" secondAttribute="centerY" multiplier="1.2" id="WVB-po-uOL"/>
+                            <constraint firstItem="dwj-Kr-XsW" firstAttribute="top" secondItem="iD8-91-NHM" secondAttribute="bottom" constant="10" id="ino-LC-NRq"/>
                             <constraint firstItem="pMz-Kx-plw" firstAttribute="centerY" secondItem="o7U-Dl-HLQ" secondAttribute="centerY" multiplier="0.5" id="mjT-Nw-CmB"/>
                             <constraint firstItem="iD8-91-NHM" firstAttribute="width" secondItem="o7U-Dl-HLQ" secondAttribute="width" multiplier="0.9" id="nug-vk-fUZ"/>
                             <constraint firstItem="pMz-Kx-plw" firstAttribute="width" secondItem="o7U-Dl-HLQ" secondAttribute="width" multiplier="0.4" id="wb4-qa-7Hf"/>
@@ -858,6 +880,8 @@
                     <connections>
                         <outlet property="bookImageView" destination="pMz-Kx-plw" id="qb0-Ah-GFz"/>
                         <outlet property="bookSynopsis" destination="YGb-7p-c7C" id="MFb-ep-YBM"/>
+                        <outlet property="deleteBookOutlet" destination="VJ3-km-UsT" id="lGI-bg-qUD"/>
+                        <outlet property="postBookOutlet" destination="NeC-Mb-NRi" id="VOC-ak-lvs"/>
                         <outlet property="synopsisLabel" destination="is0-qs-Glv" id="LDg-xZ-8KD"/>
                     </connections>
                 </viewController>
@@ -874,4 +898,7 @@
         <image name="Search" width="29" height="29"/>
         <image name="Settings" width="29" height="29"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="4gw-RC-rJt"/>
+    </inferredMetricsTieBreakers>
 </document>

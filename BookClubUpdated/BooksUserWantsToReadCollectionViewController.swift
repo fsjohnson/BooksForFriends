@@ -21,7 +21,7 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
     var insetSpacing: CGFloat!
     var minimumInterItemSpacing: CGFloat!
     var minimumLineSpacing: CGFloat!
-    var deleteButtonSelected = false
+    //var deleteButtonSelected = false
     
     
     override func viewDidLoad() {
@@ -70,7 +70,6 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath) as! FutureReadsCollectionViewCell
-        
         
         let imageLink = futureBooksArray[indexPath.item].imageLink
         let imageURL = URL(string: imageLink)
@@ -130,47 +129,47 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
     
     
     @IBAction func removeBook(_ sender: Any) {
-        deleteButtonSelected = true
+        // deleteButtonSelected = true
     }
     
     
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        let cell = collectionView.cellForItem(at: indexPath)
-        
-        if deleteButtonSelected == true {
-            let alert = UIAlertController(title: "Are you sure?", message: "Do you want to delete this book", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
-                self.deleteBook(at: indexPath)
-            }))
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
-            }))
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
-    
-    
-    func deleteBook(at indexPath: IndexPath) {
-        
-        let bookToRemove = futureBooksArray[indexPath.item].bookUniqueID
-        PostsFirebaseMethods.removeBookFromFutureReads(with: bookToRemove, completion: {
-            let alert = UIAlertController(title: "Success!", message: "You have updated your reading list", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
-                self.futureBooksArray.remove(at: indexPath.row)
-                self.deleteButtonSelected = false
-                self.collectionView?.reloadData()
-            }))
-            self.present(alert, animated: true, completion: nil)
-        })
-    }
-    
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if identifier == "futureReadsDetails" && deleteButtonSelected == false {
-            return true
-        } else {
-            return false
-        }
-    }
+//    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        
+//        let cell = collectionView.cellForItem(at: indexPath)
+//        
+//        if deleteButtonSelected == true {
+//            let alert = UIAlertController(title: "Are you sure?", message: "Do you want to delete this book", preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+//                self.deleteBook(at: indexPath)
+//            }))
+//            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+//            }))
+//            self.present(alert, animated: true, completion: nil)
+//        }
+//    }
+//    
+//    
+//    func deleteBook(at indexPath: IndexPath) {
+//        
+//        let bookToRemove = futureBooksArray[indexPath.item].bookUniqueID
+//        PostsFirebaseMethods.removeBookFromFutureReads(with: bookToRemove, completion: {
+//            let alert = UIAlertController(title: "Success!", message: "You have updated your reading list", preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
+//                self.futureBooksArray.remove(at: indexPath.row)
+//                self.deleteButtonSelected = false
+//                self.collectionView?.reloadData()
+//            }))
+//            self.present(alert, animated: true, completion: nil)
+//        })
+//    }
+//
+//    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+//        if identifier == "futureReadsDetails" && deleteButtonSelected == false {
+//            return true
+//        } else {
+//            return false
+//        }
+//    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "futureReadsDetails" {
@@ -179,8 +178,10 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
                 for indexPath in indexPaths {
                     let link = futureBooksArray[indexPath.item].imageLink
                     let id = futureBooksArray[indexPath.item].bookUniqueID
+                    let title = futureBooksArray[indexPath.item].title
                     dest.passedImageLink = link
                     dest.passedUniqueID = id
+                    dest.passedTitle = title
                 }
             }
         }

@@ -14,11 +14,9 @@ class UserBook {
     
     let title: String
     let author: String?
-//    var bookCover: UIImage?
     let finalBookCoverLink: String?
     let synopsis: String?
     let comments: String = "No comment posted"
-//    let rating: String?
     let bookUniqueKey: String?
     
     
