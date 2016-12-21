@@ -185,7 +185,6 @@ class FriendsProfileViewController: UIViewController, UICollectionViewDelegateFl
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "bookPost", for: indexPath) as! UserPostCollectionViewCell
         let currentPost = userPosts[indexPath.row]
-        print("Cureent post: \(currentPost)")
         cell.configureCell(book: currentPost)
         
         return cell

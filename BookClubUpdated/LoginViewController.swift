@@ -140,7 +140,7 @@ extension LoginViewController {
         if email != "" && password != "" && name != "" && username != "" {
             
             if password.characters.count < 6 {
-                let alert = self.createAlertWith(title: "Couldn't Signup", message: "Email must be at least 6 characters.")
+                let alert = self.createAlertWith(title: "Couldn't Signup", message: "Password must be at least 6 characters.")
                 self.present(alert, animated: true, completion: {
                     
                 })
