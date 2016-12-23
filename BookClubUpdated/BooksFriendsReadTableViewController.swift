@@ -8,10 +8,11 @@
 
 import UIKit
 import Firebase
+import CoreData
 
 class BooksFriendsReadTableViewController: UITableViewController {
     
-    
+    var store = BookClubUpdated.sharedInstance
     var postsArray = [BookPosted]()
     
     override func viewDidLoad() {
@@ -28,7 +29,14 @@ class BooksFriendsReadTableViewController: UITableViewController {
             self.postsArray = postsArray
             self.tableView.reloadData()
         }
-
+        
+        savePostsData()
+        
+        if postsArray.isEmpty {
+            store.fetchData()
+            postsArray = store.posts
+            tableView.reloadData()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,14 +45,32 @@ class BooksFriendsReadTableViewController: UITableViewController {
             self.postsArray = postsArray
             self.tableView.reloadData()
         }
-
+        
+        savePostsData()
+        if postsArray.isEmpty {
+            store.fetchData()
+            postsArray = store.posts
+            tableView.reloadData()
+        }
     }
     
-
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func savePostsData() {
+        let managedContext = BookClubUpdated.sharedInstance.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: "Post", in: managedContext)
+        
+        if let unwrappedEntity = entity {
+            let newPost = NSManagedObject(entity: unwrappedEntity, insertInto: managedContext) as! Post
+            PostsFirebaseMethods.downloadFollowingPosts(with: currentUser) { (postsArray) in
+                for item in postsArray {
+                    newPost.bookTitle = item.title
+                    newPost.comment = item.comment
+                    newPost.imageLink = item.imageLink
+                    newPost.rating = item.rating
+                    newPost.userName = item.username
+                    store.saveContext()
+                }
+            }
+        }
     }
     
     // MARK: - Table view data source
@@ -90,10 +116,7 @@ class BooksFriendsReadTableViewController: UITableViewController {
     
     func flagButtonTouched(sender: UIButton) {
         
-        print("button touched")
-        
         let index = sender.tag
-        
         let flaggedPost = postsArray[index]
         
         PostsFirebaseMethods.flagPostsWith(book: flaggedPost) {
@@ -139,22 +162,13 @@ extension BooksFriendsReadTableViewController: BookPostDelegate {
     func canDisplayImage(sender: PostsView) -> Bool {
         
         guard let viewableIndexPaths = tableView.indexPathsForVisibleRows else { return false }
-        
         var books: Set<BookPosted> = []
-        
         for indexPath in viewableIndexPaths {
-            
             let currentBook = postsArray[indexPath.row]
-            
             books.insert(currentBook)
-            
         }
-        
         return books.contains(sender.bookPost)
-        
     }
-    
-    
 }
 
 

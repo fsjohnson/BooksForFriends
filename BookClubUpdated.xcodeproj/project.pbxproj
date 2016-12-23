@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		41F3C4A800CFBA298B99EF12 /* Pods_BookClubUpdated.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63A8FB12FE87389506DB4C67 /* Pods_BookClubUpdated.framework */; };
+		B50DBB071E0D010C00A9D3B2 /* BFFCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50DBB061E0D010C00A9D3B2 /* BFFCoreData.swift */; };
 		B50E74471DF331EF00F2DC4A /* CustomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50E74461DF331EE00F2DC4A /* CustomColor.swift */; };
 		B50E74491DF3321100F2DC4A /* CustomFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50E74481DF3321100F2DC4A /* CustomFonts.swift */; };
 		B50F8A211DE320E7003954F8 /* GoogleBooksAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50F8A201DE320E6003954F8 /* GoogleBooksAPI.swift */; };
@@ -41,7 +42,7 @@
 		B57ABBBC1DE7F22B00722B83 /* FollowingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57ABBBB1DE7F22B00722B83 /* FollowingTableViewCell.swift */; };
 		B58291BE1DB96C300017FF58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58291BD1DB96C300017FF58 /* AppDelegate.swift */; };
 		B58291C31DB96C300017FF58 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B58291C11DB96C300017FF58 /* Main.storyboard */; };
-		B58291C61DB96C300017FF58 /* BookClubUpdated.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B58291C41DB96C300017FF58 /* BookClubUpdated.xcdatamodeld */; };
+		B58291C61DB96C300017FF58 /* BFFCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B58291C41DB96C300017FF58 /* BFFCoreData.xcdatamodeld */; };
 		B58291C81DB96C300017FF58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B58291C71DB96C300017FF58 /* Assets.xcassets */; };
 		B58291CB1DB96C300017FF58 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B58291C91DB96C300017FF58 /* LaunchScreen.storyboard */; };
 		B58291D31DB96C710017FF58 /* BooksUserWantsToReadCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58291D21DB96C710017FF58 /* BooksUserWantsToReadCollectionViewController.swift */; };
@@ -62,6 +63,7 @@
 		564182B88FA5B39804202925 /* Pods-BookClubUpdated.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookClubUpdated.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BookClubUpdated/Pods-BookClubUpdated.debug.xcconfig"; sourceTree = "<group>"; };
 		63A8FB12FE87389506DB4C67 /* Pods_BookClubUpdated.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookClubUpdated.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		72BBA813D17FAAE43B1ECE5C /* Pods-BookClubUpdated.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookClubUpdated.release.xcconfig"; path = "Pods/Target Support Files/Pods-BookClubUpdated/Pods-BookClubUpdated.release.xcconfig"; sourceTree = "<group>"; };
+		B50DBB061E0D010C00A9D3B2 /* BFFCoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BFFCoreData.swift; sourceTree = "<group>"; };
 		B50E74461DF331EE00F2DC4A /* CustomColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomColor.swift; sourceTree = "<group>"; };
 		B50E74481DF3321100F2DC4A /* CustomFonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomFonts.swift; sourceTree = "<group>"; };
 		B50F8A201DE320E6003954F8 /* GoogleBooksAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleBooksAPI.swift; sourceTree = "<group>"; };
@@ -97,7 +99,7 @@
 		B58291BA1DB96C300017FF58 /* BookClubUpdated.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookClubUpdated.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B58291BD1DB96C300017FF58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B58291C21DB96C300017FF58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		B58291C51DB96C300017FF58 /* BookClubUpdated.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BookClubUpdated.xcdatamodel; sourceTree = "<group>"; };
+		B58291C51DB96C300017FF58 /* BFFCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BFFCoreData.xcdatamodel; sourceTree = "<group>"; };
 		B58291C71DB96C300017FF58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B58291CA1DB96C300017FF58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B58291CC1DB96C300017FF58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 			children = (
 				B52472501DE45DDF00BE95FA /* Constants.swift */,
 				B58291BD1DB96C300017FF58 /* AppDelegate.swift */,
+				B50DBB061E0D010C00A9D3B2 /* BFFCoreData.swift */,
 				B50E74451DF331AA00F2DC4A /* Extensions */,
 			);
 			name = Other;
@@ -313,7 +316,7 @@
 				B58291C91DB96C300017FF58 /* LaunchScreen.storyboard */,
 				B58291CC1DB96C300017FF58 /* Info.plist */,
 				B5A06E771DE5333D003438A4 /* GoogleService-Info.plist */,
-				B58291C41DB96C300017FF58 /* BookClubUpdated.xcdatamodeld */,
+				B58291C41DB96C300017FF58 /* BFFCoreData.xcdatamodeld */,
 			);
 			path = BookClubUpdated;
 			sourceTree = "<group>";
@@ -486,13 +489,14 @@
 				B51480DB1DE8DD2800DD7523 /* BooksFirebaseMethods.swift in Sources */,
 				B58291D71DB973F10017FF58 /* LoginViewController.swift in Sources */,
 				B5302D891DEDC81B007848B2 /* SearchResultsView.swift in Sources */,
-				B58291C61DB96C300017FF58 /* BookClubUpdated.xcdatamodeld in Sources */,
+				B58291C61DB96C300017FF58 /* BFFCoreData.xcdatamodeld in Sources */,
 				B52235F81E043C7000C27E6F /* FutureReadsDetailsViewController.swift in Sources */,
 				B5A8818B1DE77C1B00D90B07 /* UserFirebaseMethods.swift in Sources */,
 				B5A8817F1DE7712800D90B07 /* FollowersTableViewController.swift in Sources */,
 				B50F8A211DE320E7003954F8 /* GoogleBooksAPI.swift in Sources */,
 				B58291D91DB977950017FF58 /* User.swift in Sources */,
 				B5A881781DE76DFE00D90B07 /* FollowersFollowing.swift in Sources */,
+				B50DBB071E0D010C00A9D3B2 /* BFFCoreData.swift in Sources */,
 				B51E7EB11DF469D300F3369F /* UserPostListTableViewController.swift in Sources */,
 				B51480D61DE87AB900DD7523 /* FriendsBooksPostedTableViewCell.swift in Sources */,
 				B52494561DE5C30400D837C4 /* AddCommentAndRatingViewController.swift in Sources */,
@@ -700,13 +704,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		B58291C41DB96C300017FF58 /* BookClubUpdated.xcdatamodeld */ = {
+		B58291C41DB96C300017FF58 /* BFFCoreData.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				B58291C51DB96C300017FF58 /* BookClubUpdated.xcdatamodel */,
+				B58291C51DB96C300017FF58 /* BFFCoreData.xcdatamodel */,
 			);
-			currentVersion = B58291C51DB96C300017FF58 /* BookClubUpdated.xcdatamodel */;
-			path = BookClubUpdated.xcdatamodeld;
+			currentVersion = B58291C51DB96C300017FF58 /* BFFCoreData.xcdatamodel */;
+			path = BFFCoreData.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
