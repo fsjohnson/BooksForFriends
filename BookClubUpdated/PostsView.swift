@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 protocol BookPostDelegate: class {
     func canDisplayImage(sender: PostsView) -> Bool
@@ -22,9 +23,7 @@ class PostsView: UIView {
     @IBOutlet var contentView: UIView!
     @IBOutlet weak var starView: UIView!
     var star: StarReview!
-    
     weak var delegate: BookPostDelegate!
-    
     
     weak var bookPost: BookPosted! {
         didSet {
@@ -35,7 +34,6 @@ class PostsView: UIView {
             updateStars()
         }
     }
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -108,9 +106,18 @@ extension PostsView {
     
     fileprivate func updateViewToReflectUsername() {
         
+        let managedContext = BFFCoreData.sharedInstance.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: "Post", in: managedContext)
+        
         UserFirebaseMethods.retrieveSpecificUser(with: bookPost.userUniqueKey, completion: { (user) in
             guard let user = user else { return }
             self.usernameLabel.text = "- \(user.username)"
+            
+//            if let unwrappedEntity = entity {
+//                let newPost = NSManagedObject(entity: unwrappedEntity, insertInto: managedContext) as! Post
+//                newPost.userName = user.username
+//                BFFCoreData.sharedInstance.saveContext()
+//            }
         })
     }
     

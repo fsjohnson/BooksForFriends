@@ -9,10 +9,11 @@
 import UIKit
 import Firebase
 import CoreData
+import SystemConfiguration
 
 class BooksFriendsReadTableViewController: UITableViewController {
     
-    var store = BookClubUpdated.sharedInstance
+    var store = BFFCoreData.sharedInstance
     var postsArray = [BookPosted]()
     
     override func viewDidLoad() {
@@ -24,51 +25,63 @@ class BooksFriendsReadTableViewController: UITableViewController {
         let navBarAttributesDictionary = [ NSForegroundColorAttributeName: UIColor.themeDarkBlue,NSFontAttributeName: UIFont.themeMediumThin]
         navigationController?.navigationBar.titleTextAttributes = navBarAttributesDictionary
         
-        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else { return }
-        PostsFirebaseMethods.downloadFollowingPosts(with: currentUser) { (postsArray) in
-            self.postsArray = postsArray
-            self.tableView.reloadData()
-        }
-        
-        savePostsData()
-        
-        if postsArray.isEmpty {
+        if Reachability.isConnectedToNetwork() == true {
+            print("STORE COUNT: \(self.store.posts.count)")
+            self.store.deleteData()
+            guard let currentUser = FIRAuth.auth()?.currentUser?.uid else { return }
+            PostsFirebaseMethods.downloadFollowingPosts(with: currentUser) { (postsArray) in
+                self.postsArray = postsArray
+                self.savePostsData(with: currentUser, postsArray: postsArray)
+                self.tableView.reloadData()
+                print("SECOND STORE COUNT: \(self.store.posts.count)")
+            }
+        } else {
+            self.postsArray.removeAll()
             store.fetchData()
-            postsArray = store.posts
-            tableView.reloadData()
+            for post in store.posts {
+                guard let bookUniqueID = post.bookUniqueID else { let bookUniqueID = "no id";return }
+                guard let comment = post.comment else { return }
+                guard let imageLink = post.imageLink else { return }
+                guard let reviewID = post.reviewID else { return }
+                guard let userUniqueKey = post.userUniqueKey else { return }
+                guard let bookTitle = post.bookTitle else { return }
+                
+                let newBook = BookPosted(bookUniqueID: bookUniqueID, rating: String(post.rating), comment: comment, imageLink: imageLink, timestamp: post.timestamp, userUniqueKey: userUniqueKey, reviewID: reviewID, title: bookTitle)
+                postsArray.append(newBook)
+                tableView.reloadData()
+            }
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else { return }
-        PostsFirebaseMethods.downloadFollowingPosts(with: currentUser) { (postsArray) in
-            self.postsArray = postsArray
-            self.tableView.reloadData()
-        }
-        
-        savePostsData()
-        if postsArray.isEmpty {
-            store.fetchData()
-            postsArray = store.posts
-            tableView.reloadData()
+        if Reachability.isConnectedToNetwork() == true  {
+            self.store.deleteData()
+            guard let currentUser = FIRAuth.auth()?.currentUser?.uid else { return }
+            PostsFirebaseMethods.downloadFollowingPosts(with: currentUser) { (postsArray) in
+                self.postsArray = postsArray
+                self.tableView.reloadData()
+            }
         }
     }
     
-    func savePostsData() {
-        let managedContext = BookClubUpdated.sharedInstance.persistentContainer.viewContext
+    func savePostsData(with currentUser: String, postsArray: [BookPosted]) {
+        let managedContext = BFFCoreData.sharedInstance.persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "Post", in: managedContext)
         
         if let unwrappedEntity = entity {
-            let newPost = NSManagedObject(entity: unwrappedEntity, insertInto: managedContext) as! Post
-            PostsFirebaseMethods.downloadFollowingPosts(with: currentUser) { (postsArray) in
-                for item in postsArray {
-                    newPost.bookTitle = item.title
-                    newPost.comment = item.comment
-                    newPost.imageLink = item.imageLink
-                    newPost.rating = item.rating
-                    newPost.userName = item.username
-                    store.saveContext()
-                }
+            
+            for item in postsArray {
+                let newPost = NSManagedObject(entity: unwrappedEntity, insertInto: managedContext) as! Post
+                newPost.bookTitle = item.title
+                newPost.comment = item.comment
+                newPost.imageLink = item.imageLink
+                newPost.rating = Float(item.rating)!
+                //newPost.userName = item.username
+                newPost.bookUniqueID = item.bookUniqueID
+                newPost.reviewID = item.reviewID
+                newPost.timestamp = item.timestamp
+                newPost.userUniqueKey = item.userUniqueKey
+                self.store.saveContext()
             }
         }
     }
@@ -81,8 +94,8 @@ class BooksFriendsReadTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return postsArray.count
+        
     }
     
     
@@ -102,15 +115,10 @@ class BooksFriendsReadTableViewController: UITableViewController {
     func canDisplayImage(sender: BookPosted) -> Bool {
         
         let viewableCells = tableView.visibleCells as! [FriendsBooksPostedTableViewCell]
-        
         for cell in viewableCells {
-            
             if cell.bookID == sender.bookUniqueID { return true }
-            
         }
-        
         return false
-        
     }
     
     
@@ -168,6 +176,31 @@ extension BooksFriendsReadTableViewController: BookPostDelegate {
             books.insert(currentBook)
         }
         return books.contains(sender.bookPost)
+    }
+}
+
+public class Reachability {
+    class func isConnectedToNetwork() -> Bool {
+        
+        var zeroAddress = sockaddr_in(sin_len: 0, sin_family: 0, sin_port: 0, sin_addr: in_addr(s_addr: 0), sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
+        zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
+        zeroAddress.sin_family = sa_family_t(AF_INET)
+        
+        let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
+            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {zeroSockAddress in
+                SCNetworkReachabilityCreateWithAddress(nil, zeroSockAddress)
+            }
+        }
+        
+        var flags: SCNetworkReachabilityFlags = SCNetworkReachabilityFlags(rawValue: 0)
+        if SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) == false {
+            return false
+        }
+        
+        let isReachable = flags == .reachable
+        let needsConnection = flags == .connectionRequired
+        
+        return isReachable && !needsConnection
     }
 }
 

@@ -60,8 +60,6 @@ class FriendsProfileViewController: UIViewController, UICollectionViewDelegateFl
     override func viewWillAppear(_ animated: Bool) {
     
         PostsFirebaseMethods.downloadUsersBookPostsArray(with: passedUserID) { (booksPosted) in
-            print("PASSED ID: \(self.passedUserID)")
-            print("books count: \(booksPosted?.count)")
             self.userPosts = booksPosted ?? []
             self.postsCollectionView.reloadData()
         }

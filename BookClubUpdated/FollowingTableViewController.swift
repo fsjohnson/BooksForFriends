@@ -23,7 +23,6 @@ class FollowingTableViewController: UITableViewController {
         navigationController?.navigationBar.titleTextAttributes = navBarAttributesDictionary
         
         UserFirebaseMethods.retriveFollowingUsers(with: passedUserID) { (users) in
-            print("USERS: \(users)")
             self.followingArray = users ?? []
             self.tableView.reloadData()
         }

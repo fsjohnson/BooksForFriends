@@ -45,7 +45,6 @@ class FindFriendsTableViewController: UITableViewController, UISearchBarDelegate
     func filterContentForSearchText(searchText: String) {
         
         filteredUsers = usersArray.filter { user in
-            print("USER: \(user.username)")
             return user.username.lowercased().contains(searchText.lowercased())
         }
         
@@ -88,9 +87,6 @@ class FindFriendsTableViewController: UITableViewController, UISearchBarDelegate
     
     func addFollowingButton(sender: UIButton) {
         _ = sender.tag
-        
-        print("BUTTON TAPPED")
-        
         let cellContent = sender.superview!
         let cell = cellContent.superview! as! UITableViewCell
         guard let indexPath = self.tableView.indexPath(for: cell) else {return}
@@ -201,7 +197,6 @@ class FindFriendsTableViewController: UITableViewController, UISearchBarDelegate
 extension FindFriendsTableViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchText: searchController.searchBar.text!)
-        print(searchController.searchBar.text!)
     }
 }
 

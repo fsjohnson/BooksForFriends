@@ -102,17 +102,13 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
     // TRY: Search bar delegate
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        print("search button clicked")
-        
         switch searchBar {
         case searchTitleBar:
-            print("search title bar search button")
             searchButtonFunc()
             searchTitleBar.resignFirstResponder()
             dismissTheKeyboard()
             
         case secondSearchTitleBar, searchAuthorBar:
-            print("second search title bar, search author bar search button")
             if secondSearchTitleBar.text != "" && searchAuthorBar.text != "" {
                 searchButtonFunc()
                 searchTitleBar.resignFirstResponder()
@@ -249,8 +245,6 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     func configBarScanner() {
-        
-        print("CONFIG BAR SCANNER RUNNING")
         session = AVCaptureSession()
         let videoCaptureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
         let videoInput: AVCaptureDeviceInput?
@@ -328,7 +322,6 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
                             
                             self.barCodeBookLink = link
                             self.barCodeBookTitle = result.title
-                            print("FOUND BAR CODE BOOK: \(self.barCodeBookTitle)")
                         }
                         OperationQueue.main.addOperation {
                             self.performSegue(withIdentifier: "addRatingAndComment", sender: self)
@@ -352,7 +345,6 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
                             
                             self.barCodeBookLink = link
                             self.barCodeBookTitle = result.title
-                            print("FOUND BAR CODE BOOK: \(self.barCodeBookTitle)")
                         }
                         OperationQueue.main.addOperation {
                             self.performSegue(withIdentifier: "addRatingAndComment", sender: self)

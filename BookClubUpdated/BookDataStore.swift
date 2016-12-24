@@ -25,8 +25,6 @@ class BookDataStore {
         self.searchTitle = searchQuery.replacingOccurrences(of: " ", with: "+")
         let authorArray = authorQuery.components(separatedBy: " ")
         self.searchAuthor = String(describing: authorArray.last!)
-        print(searchTitle)
-        print(searchAuthor)
         completion(searchTitle, searchAuthor)
     }
     

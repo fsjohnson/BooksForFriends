@@ -162,7 +162,6 @@ extension FollowersFollowing {
     func populateProfilePic() {
         guard let user = user else { print("problem getting user from delegate"); return }
         UserFirebaseMethods.retrieveSpecificUser(with: user.uniqueKey) { (currentUser) in
-            print("LINK: \(currentUser?.profileImageURL)")
             if currentUser?.profileImageURL == "no image" {
                 self.profilePic.image = UIImage(named: "Camera")
                 self.profilePic.contentMode = .scaleAspectFit

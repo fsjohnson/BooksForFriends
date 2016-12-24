@@ -68,7 +68,6 @@ class GoogleBooksAPI {
         let session = URLSession.shared
         let url = URL(string: isbnURL)
         guard let unwrappedURL = url else {return}
-        print("BAR CODE URL: \(isbnURL)")
         let task = session.dataTask(with: unwrappedURL) { (data, response, error) in
             if error != nil {
                 guard let error = error?.localizedDescription else { return }
@@ -80,8 +79,6 @@ class GoogleBooksAPI {
                 if let unwrappedData = data {
                     do {
                         let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [String: Any]
-                    
-                        print("BOOK BAR CODE RESPONSE: \(responseJSON)")
                         guard let bookInfo = responseJSON["items"] as? [[String: Any]] else {print("error returning bar code dictionary"); completion(nil, false); return}
                         
                         completion(bookInfo, true)
