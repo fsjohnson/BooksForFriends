@@ -15,6 +15,8 @@ class BooksFriendsReadTableViewController: UITableViewController {
     
     var store = BFFCoreData.sharedInstance
     var postsArray = [BookPosted]()
+    var noDataView: NoDataView!
+    var followersArray = [User]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,10 +26,11 @@ class BooksFriendsReadTableViewController: UITableViewController {
         
         let navBarAttributesDictionary = [ NSForegroundColorAttributeName: UIColor.themeDarkBlue,NSFontAttributeName: UIFont.themeMediumThin]
         navigationController?.navigationBar.titleTextAttributes = navBarAttributesDictionary
+        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else { return }
+        
         
         if Reachability.isConnectedToNetwork() == true {
             self.store.deleteData()
-            guard let currentUser = FIRAuth.auth()?.currentUser?.uid else { return }
             PostsFirebaseMethods.downloadFollowingPosts(with: currentUser) { (postsArray) in
                 self.postsArray = postsArray
                 self.savePostsData(with: currentUser, postsArray: postsArray)
@@ -48,6 +51,16 @@ class BooksFriendsReadTableViewController: UITableViewController {
                 postsArray.append(newBook)
                 tableView.reloadData()
             }
+        }
+        
+        UserFirebaseMethods.retriveFollowers(with: currentUser) { (followers) in
+            guard let unwrappedFollowers = followers else { return }
+            self.followersArray = unwrappedFollowers
+        }
+        
+        if followersArray.count == 0 {
+            self.noDataView = NoDataView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+            self.view.addSubview(self.noDataView)
         }
     }
     
