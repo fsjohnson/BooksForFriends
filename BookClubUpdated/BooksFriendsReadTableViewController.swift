@@ -59,15 +59,27 @@ class BooksFriendsReadTableViewController: UITableViewController {
         }
         
         if followersArray.count == 0 {
-            self.noDataView = NoDataView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+            guard let navBarHeight = self.navigationController?.navigationBar.frame.height else { print("no nav bar height"); return }
+            self.noDataView = NoDataView(frame: CGRect(x: 0, y: -navBarHeight, width: self.view.frame.width, height: self.view.frame.height))
             self.view.addSubview(self.noDataView)
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else { return }
+        
+        UserFirebaseMethods.retriveFollowers(with: currentUser) { (followers) in
+            guard let unwrappedFollowers = followers else { return }
+            self.followersArray = unwrappedFollowers
+            if self.followersArray.count > 0 {
+                guard let navBarHeight = self.navigationController?.navigationBar.frame.height else { print("no nav bar height"); return }
+                self.noDataView = NoDataView(frame: CGRect(x: 0, y: -navBarHeight, width: self.view.frame.width, height: self.view.frame.height))
+                self.noDataView.removeFromSuperview()
+            }
+        }
+
         if Reachability.isConnectedToNetwork() == true  {
             self.store.deleteData()
-            guard let currentUser = FIRAuth.auth()?.currentUser?.uid else { return }
             PostsFirebaseMethods.downloadFollowingPosts(with: currentUser) { (postsArray) in
                 self.postsArray = postsArray
                 self.tableView.reloadData()

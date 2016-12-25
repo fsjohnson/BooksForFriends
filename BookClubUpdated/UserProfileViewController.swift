@@ -110,7 +110,7 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         guard let navBarHeight = self.navigationController?.navigationBar.frame.height else { print("no nav bar height"); return }
         let viewWidth = view.frame.width
         let followersFollowingViewHeight = view.frame.height.multiplied(by: 0.15)
-        followersFollowingView = FollowersFollowing(frame: CGRect(x: 0, y: navBarHeight.multiplied(by: 1.5), width: viewWidth, height: followersFollowingViewHeight))
+        followersFollowingView = FollowersFollowing(frame: CGRect(x: 0, y: -navBarHeight, width: viewWidth, height: followersFollowingViewHeight))
         view.addSubview(followersFollowingView)
         followersFollowingView.profilePic.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectProfileImageView)))
         followersFollowingView.followersButtonOutlet.addTarget(self, action: #selector(segueToFollowers), for: .touchDown)
