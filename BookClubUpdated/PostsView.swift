@@ -31,6 +31,7 @@ class PostsView: UIView {
             commentLabel.text = "\"\(bookPost.comment)\""
             titleLabel.text = bookPost.title
             updateViewToReflectUsername()
+            print("USERNAME IN POST: \(bookPost.username)")
             updateStars()
         }
     }
@@ -65,11 +66,8 @@ class PostsView: UIView {
         // Comment Label Config
         commentLabel.font = UIFont.themeSmallLight
         commentLabel.textColor = UIColor.themeDarkGrey
-        
-        
-    }
-    
-    
+
+    }  
 }
 
 // MARK: - UIView Extension
@@ -105,7 +103,6 @@ extension PostsView {
     
     
     fileprivate func updateViewToReflectUsername() {
-        
         let managedContext = BFFCoreData.sharedInstance.persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "Post", in: managedContext)
         
@@ -113,12 +110,23 @@ extension PostsView {
             guard let user = user else { return }
             self.usernameLabel.text = "- \(user.username)"
             
-//            if let unwrappedEntity = entity {
-//                let newPost = NSManagedObject(entity: unwrappedEntity, insertInto: managedContext) as! Post
-//                newPost.userName = user.username
-//                BFFCoreData.sharedInstance.saveContext()
-//            }
+            if let unwrappedEntity = entity {
+                let batchRequestUpdate = NSBatchUpdateRequest(entity: unwrappedEntity)
+                batchRequestUpdate.propertiesToUpdate = ["userName": user.username]
+                do {
+                    try managedContext.execute(batchRequestUpdate)
+                } catch {}
+            }
         })
+        
+        if Reachability.isConnectedToNetwork() == false {
+            for book in BFFCoreData.sharedInstance.posts {
+                if (book.bookTitle == bookPost.title) && (book.bookUniqueID == bookPost.bookUniqueID) && (book.userUniqueKey == bookPost.userUniqueKey) {
+                    guard let username = book.userName else { return }
+                    self.usernameLabel.text = "- \(username)"
+                }
+            }
+        }
     }
     
     

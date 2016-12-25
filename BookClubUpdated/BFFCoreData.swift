@@ -58,11 +58,9 @@ class BFFCoreData {
         let fetchRequest = NSFetchRequest<Post>(entityName: "Post")
         do {
             self.posts = try context.fetch(fetchRequest)
-            print("PRE DELETE: \(self.posts.count)")
             for object in posts {
                 context.delete(object)
                 try context.save()
-                print("posts count after: \(posts.count)")
             }
         } catch {}
     }

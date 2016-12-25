@@ -26,14 +26,12 @@ class BooksFriendsReadTableViewController: UITableViewController {
         navigationController?.navigationBar.titleTextAttributes = navBarAttributesDictionary
         
         if Reachability.isConnectedToNetwork() == true {
-            print("STORE COUNT: \(self.store.posts.count)")
             self.store.deleteData()
             guard let currentUser = FIRAuth.auth()?.currentUser?.uid else { return }
             PostsFirebaseMethods.downloadFollowingPosts(with: currentUser) { (postsArray) in
                 self.postsArray = postsArray
                 self.savePostsData(with: currentUser, postsArray: postsArray)
                 self.tableView.reloadData()
-                print("SECOND STORE COUNT: \(self.store.posts.count)")
             }
         } else {
             self.postsArray.removeAll()
@@ -69,14 +67,13 @@ class BooksFriendsReadTableViewController: UITableViewController {
         let entity = NSEntityDescription.entity(forEntityName: "Post", in: managedContext)
         
         if let unwrappedEntity = entity {
-            
             for item in postsArray {
                 let newPost = NSManagedObject(entity: unwrappedEntity, insertInto: managedContext) as! Post
                 newPost.bookTitle = item.title
                 newPost.comment = item.comment
                 newPost.imageLink = item.imageLink
                 newPost.rating = Float(item.rating)!
-                //newPost.userName = item.username
+                newPost.userName = item.username
                 newPost.bookUniqueID = item.bookUniqueID
                 newPost.reviewID = item.reviewID
                 newPost.timestamp = item.timestamp
@@ -95,9 +92,7 @@ class BooksFriendsReadTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return postsArray.count
-        
     }
-    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -105,6 +100,7 @@ class BooksFriendsReadTableViewController: UITableViewController {
         
         if cell.postView.delegate == nil { cell.postView.delegate = self }
         cell.postView.bookPost = postsArray[indexPath.row]
+        print("USERNAME IN CELL: \(postsArray[indexPath.row].username)")
         cell.postView.flagButtonOutlet.tag = indexPath.row
         cell.postView.starView.isUserInteractionEnabled = false
         cell.postView.flagButtonOutlet.addTarget(self, action: #selector(flagButtonTouched), for: .touchUpInside)
