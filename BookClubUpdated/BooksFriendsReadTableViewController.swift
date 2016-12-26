@@ -20,6 +20,8 @@ class BooksFriendsReadTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("VIEW DID LOAD")
+        
         self.navigationController?.navigationBar.barTintColor = UIColor.themeOrange
         self.tabBarController?.tabBar.barTintColor = UIColor.themeDarkBlue
         
@@ -52,10 +54,6 @@ class BooksFriendsReadTableViewController: UITableViewController {
                 postsArray.append(newBook)
                 tableView.reloadData()
             }
-            
-            if store.posts.count == 0 {
-                self.view.addSubview(self.noDataView)
-            }
         }
         
         UserFirebaseMethods.checkIfFollowingUsersIsEmpty { (isEmpty) in
@@ -66,32 +64,17 @@ class BooksFriendsReadTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        print("VIEW WILL APPEAR")
         guard let currentUser = FIRAuth.auth()?.currentUser?.uid else { return }
         
         if Reachability.isConnectedToNetwork() == true  {
             self.store.deleteData()
             PostsFirebaseMethods.downloadFollowingPosts(with: currentUser) { (postsArray) in
+                if self.postsArray.count != postsArray.count {
+                    self.savePostsData(with: currentUser, postsArray: postsArray)
+                }
                 self.postsArray = postsArray
                 self.tableView.reloadData()
-            }
-        } else {
-            self.postsArray.removeAll()
-            store.fetchData()
-            for post in store.posts {
-                guard let bookUniqueID = post.bookUniqueID else { let bookUniqueID = "no id";return }
-                guard let comment = post.comment else { return }
-                guard let imageLink = post.imageLink else { return }
-                guard let reviewID = post.reviewID else { return }
-                guard let userUniqueKey = post.userUniqueKey else { return }
-                guard let bookTitle = post.bookTitle else { return }
-                
-                let newBook = BookPosted(bookUniqueID: bookUniqueID, rating: String(post.rating), comment: comment, imageLink: imageLink, timestamp: post.timestamp, userUniqueKey: userUniqueKey, reviewID: reviewID, title: bookTitle)
-                postsArray.append(newBook)
-                tableView.reloadData()
-            }
-            
-            if store.posts.count == 0 {
-                self.view.addSubview(self.noDataView)
             }
         }
         
@@ -99,7 +82,6 @@ class BooksFriendsReadTableViewController: UITableViewController {
             if isEmpty == true {
                 self.view.addSubview(self.noDataView)
             } else {
-                print("IS EMPTY: \(isEmpty)")
                 if self.view.subviews.contains(self.noDataView) {
                     self.noDataView.removeFromSuperview()
                 }
@@ -145,7 +127,6 @@ class BooksFriendsReadTableViewController: UITableViewController {
         
         if cell.postView.delegate == nil { cell.postView.delegate = self }
         cell.postView.bookPost = postsArray[indexPath.row]
-        print("USERNAME IN CELL: \(postsArray[indexPath.row].username)")
         cell.postView.flagButtonOutlet.tag = indexPath.row
         cell.postView.starView.isUserInteractionEnabled = false
         cell.postView.flagButtonOutlet.addTarget(self, action: #selector(flagButtonTouched), for: .touchUpInside)
