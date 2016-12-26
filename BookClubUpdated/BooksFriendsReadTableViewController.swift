@@ -16,7 +16,6 @@ class BooksFriendsReadTableViewController: UITableViewController {
     var store = BFFCoreData.sharedInstance
     var postsArray = [BookPosted]()
     var noDataView: NoDataView!
-    var followersArray = [User]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,37 +52,49 @@ class BooksFriendsReadTableViewController: UITableViewController {
             }
         }
         
-        UserFirebaseMethods.retriveFollowers(with: currentUser) { (followers) in
-            guard let unwrappedFollowers = followers else { return }
-            self.followersArray = unwrappedFollowers
-        }
-        
-        if followersArray.count == 0 {
-            guard let navBarHeight = self.navigationController?.navigationBar.frame.height else { print("no nav bar height"); return }
-            self.noDataView = NoDataView(frame: CGRect(x: 0, y: -navBarHeight, width: self.view.frame.width, height: self.view.frame.height))
-            self.view.addSubview(self.noDataView)
+        UserFirebaseMethods.checkIfFollowingUsersIsEmpty { (isEmpty) in
+            if isEmpty == true {
+                guard let navBarHeight = self.navigationController?.navigationBar.frame.height else { print("no nav bar height"); return }
+                self.noDataView = NoDataView(frame: CGRect(x: 0, y: -navBarHeight, width: self.view.frame.width, height: self.view.frame.height))
+                self.view.addSubview(self.noDataView)
+            }
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         guard let currentUser = FIRAuth.auth()?.currentUser?.uid else { return }
         
-        UserFirebaseMethods.retriveFollowers(with: currentUser) { (followers) in
-            guard let unwrappedFollowers = followers else { return }
-            self.followersArray = unwrappedFollowers
-            if self.followersArray.count > 0 {
-                guard let navBarHeight = self.navigationController?.navigationBar.frame.height else { print("no nav bar height"); return }
-                self.noDataView = NoDataView(frame: CGRect(x: 0, y: -navBarHeight, width: self.view.frame.width, height: self.view.frame.height))
-                self.noDataView.removeFromSuperview()
-            }
-        }
-
         if Reachability.isConnectedToNetwork() == true  {
             self.store.deleteData()
             PostsFirebaseMethods.downloadFollowingPosts(with: currentUser) { (postsArray) in
                 self.postsArray = postsArray
                 self.tableView.reloadData()
             }
+        }
+        
+        UserFirebaseMethods.checkIfFollowingUsersIsEmpty { (isEmpty) in
+            if isEmpty == true {
+                guard let navBarHeight = self.navigationController?.navigationBar.frame.height else { print("no nav bar height"); return }
+                self.noDataView = NoDataView(frame: CGRect(x: 0, y: -navBarHeight, width: self.view.frame.width, height: self.view.frame.height))
+                self.view.addSubview(self.noDataView)
+            } else {
+                guard let navBarHeight = self.navigationController?.navigationBar.frame.height else { print("no nav bar height"); return }
+                self.noDataView = NoDataView(frame: CGRect(x: 0, y: -navBarHeight, width: self.view.frame.width, height: self.view.frame.height))
+                if self.view.subviews.contains(self.noDataView) {
+                    self.noDataView.removeFromSuperview()
+                }
+            }
+            
+//            else {
+//                guard let navBarHeight = self.navigationController?.navigationBar.frame.height else { print("no nav bar height"); return }
+//                self.noDataView = NoDataView(frame: CGRect(x: 0, y: -navBarHeight, width: self.view.frame.width, height: self.view.frame.height))
+//                self.noDataView.removeFromSuperview()
+//                
+//                PostsFirebaseMethods.downloadFollowingPosts(with: currentUser) { (postsArray) in
+//                    self.postsArray = postsArray
+//                    self.tableView.reloadData()
+//                }
+//            }
         }
     }
     

@@ -6,36 +6,19 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NoDataView" customModule="BookClubUpdated" customModuleProvider="target">
             <connections>
                 <outlet property="contentView" destination="iN0-l3-epB" id="r2W-zi-Ec6"/>
-                <outlet property="welcomeLabel" destination="lqL-ET-aNj" id="nWc-zL-NGI"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lqL-ET-aNj">
-                    <rect key="frame" x="8" y="8" width="359" height="651"/>
-                    <string key="text">Welcome to BFF! Here is where you will see the books your friends have posted. You can select the post to read the book's synopsis and to add it to your list of future reads. Find friends to follow on the "Search Friends" tab. Check out your profile and post your own recent reads on the "Profile" tab. Happy reading &amp; sharing!</string>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-            </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-            <constraints>
-                <constraint firstAttribute="bottomMargin" secondItem="lqL-ET-aNj" secondAttribute="bottom" id="38k-jS-oeg"/>
-                <constraint firstItem="lqL-ET-aNj" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" id="8VA-b1-sej"/>
-                <constraint firstAttribute="trailingMargin" secondItem="lqL-ET-aNj" secondAttribute="trailing" id="EO7-zc-X9x"/>
-                <constraint firstItem="lqL-ET-aNj" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="Hgg-AZ-3Jz"/>
-            </constraints>
             <point key="canvasLocation" x="55.5" y="55.5"/>
         </view>
     </objects>

@@ -187,23 +187,21 @@ class UserFirebaseMethods {
     
     //MARK: - Retrive following
     
-//    static func checkIfFollowingUsersIsEmpty(with completion: @escaping (Bool) -> Void) {
-//        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
-//        let ref = FIRDatabase.database().reference().child("users").child(currentUser).child("following")
-//        var isEmpty = false
-//        
-//        ref.observeSingleEvent(of: .value, with: { (snapshot) in
-//            if !snapshot.hasChildren() {
-//                isEmpty = true
-//            } else {
-//                isEmpty = false
-//            }
-//            
-//            completion(isEmpty)
-//        })
-//    }
-    
-    
+    static func checkIfFollowingUsersIsEmpty(with completion: @escaping (Bool) -> Void) {
+        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
+        let ref = FIRDatabase.database().reference().child("users").child(currentUser).child("following")
+        var isEmpty = false
+        
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            if !snapshot.hasChildren() {
+                isEmpty = true
+            } else {
+                isEmpty = false
+            }
+            
+            completion(isEmpty)
+        })
+    }
     
     static func retriveFollowingUsers(with userID: String, completion: @escaping ([User]?) -> Void) {
         
@@ -236,24 +234,6 @@ class UserFirebaseMethods {
     
     
     //MARK: - Retrieve followers
-    
-//    
-//    static func checkIfFollowerUsersIsEmpty(with completion: @escaping (Bool) -> Void) {
-//        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
-//        let ref = FIRDatabase.database().reference().child("users").child(currentUser).child("followers").child("notBlocked")
-//        var isEmpty = false
-//        
-//        ref.observeSingleEvent(of: .value, with: { (snapshot) in
-//            if !snapshot.hasChildren() {
-//                isEmpty = true
-//            } else {
-//                isEmpty = false
-//            }
-//            
-//            completion(isEmpty)
-//        })
-//    }
-    
     
     static func retriveFollowers(with userID: String, completion: @escaping ([User]?) -> Void) {
         

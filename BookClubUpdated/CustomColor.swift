@@ -18,3 +18,25 @@ extension UIColor {
     public static let themeDarkBlue = UIColor(red: 1 / 255, green: 13 / 255, blue: 38 / 255, alpha: 1)
     public static let themeLightBlue = UIColor(red: 143 / 255, green: 159 / 255, blue: 191 / 255, alpha: 1)
 }
+
+// MARK: Gradients
+extension CAGradientLayer {
+    convenience init(_ colors: [UIColor]) {
+        self.init()
+        
+        self.colors = colors.map { $0.cgColor }
+    }
+}
+
+extension CALayer {
+    public static func makeGradient(firstColor: UIColor, secondColor: UIColor) -> CAGradientLayer {
+        let backgroundGradient = CAGradientLayer()
+        
+        backgroundGradient.colors = [firstColor.cgColor, secondColor.cgColor]
+        backgroundGradient.locations = [0, 1]
+        backgroundGradient.startPoint = CGPoint(x: 0, y: 0)
+        backgroundGradient.endPoint = CGPoint(x: 0, y: 1)
+        
+        return backgroundGradient
+    }
+}
