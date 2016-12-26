@@ -25,6 +25,8 @@ class BooksFriendsReadTableViewController: UITableViewController {
         
         let navBarAttributesDictionary = [ NSForegroundColorAttributeName: UIColor.themeDarkBlue,NSFontAttributeName: UIFont.themeMediumThin]
         navigationController?.navigationBar.titleTextAttributes = navBarAttributesDictionary
+        guard let navBarHeight = self.navigationController?.navigationBar.frame.height else { print("no nav bar height"); return }
+        self.noDataView = NoDataView(frame: CGRect(x: 0, y: -navBarHeight, width: self.view.frame.width, height: self.view.frame.height))
         guard let currentUser = FIRAuth.auth()?.currentUser?.uid else { return }
         
         
@@ -50,12 +52,14 @@ class BooksFriendsReadTableViewController: UITableViewController {
                 postsArray.append(newBook)
                 tableView.reloadData()
             }
+            
+            if store.posts.count == 0 {
+                self.view.addSubview(self.noDataView)
+            }
         }
         
         UserFirebaseMethods.checkIfFollowingUsersIsEmpty { (isEmpty) in
             if isEmpty == true {
-                guard let navBarHeight = self.navigationController?.navigationBar.frame.height else { print("no nav bar height"); return }
-                self.noDataView = NoDataView(frame: CGRect(x: 0, y: -navBarHeight, width: self.view.frame.width, height: self.view.frame.height))
                 self.view.addSubview(self.noDataView)
             }
         }
@@ -70,31 +74,36 @@ class BooksFriendsReadTableViewController: UITableViewController {
                 self.postsArray = postsArray
                 self.tableView.reloadData()
             }
+        } else {
+            self.postsArray.removeAll()
+            store.fetchData()
+            for post in store.posts {
+                guard let bookUniqueID = post.bookUniqueID else { let bookUniqueID = "no id";return }
+                guard let comment = post.comment else { return }
+                guard let imageLink = post.imageLink else { return }
+                guard let reviewID = post.reviewID else { return }
+                guard let userUniqueKey = post.userUniqueKey else { return }
+                guard let bookTitle = post.bookTitle else { return }
+                
+                let newBook = BookPosted(bookUniqueID: bookUniqueID, rating: String(post.rating), comment: comment, imageLink: imageLink, timestamp: post.timestamp, userUniqueKey: userUniqueKey, reviewID: reviewID, title: bookTitle)
+                postsArray.append(newBook)
+                tableView.reloadData()
+            }
+            
+            if store.posts.count == 0 {
+                self.view.addSubview(self.noDataView)
+            }
         }
         
         UserFirebaseMethods.checkIfFollowingUsersIsEmpty { (isEmpty) in
             if isEmpty == true {
-                guard let navBarHeight = self.navigationController?.navigationBar.frame.height else { print("no nav bar height"); return }
-                self.noDataView = NoDataView(frame: CGRect(x: 0, y: -navBarHeight, width: self.view.frame.width, height: self.view.frame.height))
                 self.view.addSubview(self.noDataView)
             } else {
-                guard let navBarHeight = self.navigationController?.navigationBar.frame.height else { print("no nav bar height"); return }
-                self.noDataView = NoDataView(frame: CGRect(x: 0, y: -navBarHeight, width: self.view.frame.width, height: self.view.frame.height))
+                print("IS EMPTY: \(isEmpty)")
                 if self.view.subviews.contains(self.noDataView) {
                     self.noDataView.removeFromSuperview()
                 }
             }
-            
-//            else {
-//                guard let navBarHeight = self.navigationController?.navigationBar.frame.height else { print("no nav bar height"); return }
-//                self.noDataView = NoDataView(frame: CGRect(x: 0, y: -navBarHeight, width: self.view.frame.width, height: self.view.frame.height))
-//                self.noDataView.removeFromSuperview()
-//                
-//                PostsFirebaseMethods.downloadFollowingPosts(with: currentUser) { (postsArray) in
-//                    self.postsArray = postsArray
-//                    self.tableView.reloadData()
-//                }
-//            }
         }
     }
     

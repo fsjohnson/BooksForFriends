@@ -127,6 +127,7 @@ class UserFirebaseMethods {
                 
                 let followedRef = FIRDatabase.database().reference().child("users").child(userUniqueKey).child("followers").child("notBlocked")
                 followedRef.updateChildValues([currentUser:true])
+                BFFCoreData.sharedInstance.saveContext()
                 boolToReturn = true
                 
             } else {
@@ -148,6 +149,7 @@ class UserFirebaseMethods {
         
         let followedRef = FIRDatabase.database().reference().child("users").child(userUniqueKey).child("followers").child("notBlocked")
         followedRef.child(currentUser).removeValue()
+        //BFFCoreData.sharedInstance.deleteFollowingData(with: userUniqueKey)
         
         completion()
     }
