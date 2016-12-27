@@ -19,9 +19,7 @@ class BooksFriendsReadTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print("VIEW DID LOAD")
-        
+
         self.navigationController?.navigationBar.barTintColor = UIColor.themeOrange
         self.tabBarController?.tabBar.barTintColor = UIColor.themeDarkBlue
         
@@ -52,6 +50,9 @@ class BooksFriendsReadTableViewController: UITableViewController {
                 
                 let newBook = BookPosted(bookUniqueID: bookUniqueID, rating: String(post.rating), comment: comment, imageLink: imageLink, timestamp: post.timestamp, userUniqueKey: userUniqueKey, reviewID: reviewID, title: bookTitle)
                 postsArray.append(newBook)
+                postsArray.sort(by: { (bookOne, bookTwo) -> Bool in
+                    bookOne.timestamp > bookTwo.timestamp
+                })
                 tableView.reloadData()
             }
         }
@@ -64,7 +65,6 @@ class BooksFriendsReadTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print("VIEW WILL APPEAR")
         guard let currentUser = FIRAuth.auth()?.currentUser?.uid else { return }
         
         if Reachability.isConnectedToNetwork() == true  {
@@ -95,17 +95,20 @@ class BooksFriendsReadTableViewController: UITableViewController {
         
         if let unwrappedEntity = entity {
             for item in postsArray {
-                let newPost = NSManagedObject(entity: unwrappedEntity, insertInto: managedContext) as! Post
-                newPost.bookTitle = item.title
-                newPost.comment = item.comment
-                newPost.imageLink = item.imageLink
-                newPost.rating = Float(item.rating)!
-                newPost.userName = item.username
-                newPost.bookUniqueID = item.bookUniqueID
-                newPost.reviewID = item.reviewID
-                newPost.timestamp = item.timestamp
-                newPost.userUniqueKey = item.userUniqueKey
-                self.store.saveContext()
+                UserFirebaseMethods.retrieveSpecificUser(with: item.userUniqueKey, completion: { (user) in
+                    guard let username = user?.username else { return }
+                    let newPost = NSManagedObject(entity: unwrappedEntity, insertInto: managedContext) as! Post
+                    newPost.bookTitle = item.title
+                    newPost.comment = item.comment
+                    newPost.imageLink = item.imageLink
+                    newPost.rating = Float(item.rating)!
+                    newPost.bookUniqueID = item.bookUniqueID
+                    newPost.reviewID = item.reviewID
+                    newPost.timestamp = item.timestamp
+                    newPost.userUniqueKey = item.userUniqueKey
+                    newPost.userName = username
+                    self.store.saveContext()
+                })
             }
         }
     }
@@ -165,9 +168,7 @@ class BooksFriendsReadTableViewController: UITableViewController {
         }
     }
     
-    
     // MARK: - Navigation
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "getBookDetails" {
@@ -178,7 +179,6 @@ class BooksFriendsReadTableViewController: UITableViewController {
                 let imageLinkToPass = postsArray[indexPath.row].imageLink
                 targetController.passedUniqueID = bookUniqueID
                 targetController.passedImageLink = imageLinkToPass
-                
             }
         }
     }

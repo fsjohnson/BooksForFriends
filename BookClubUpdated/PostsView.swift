@@ -31,7 +31,6 @@ class PostsView: UIView {
             commentLabel.text = "\"\(bookPost.comment)\""
             titleLabel.text = bookPost.title
             updateViewToReflectUsername()
-            print("USERNAME IN POST: \(bookPost.username)")
             updateStars()
         }
     }
@@ -109,19 +108,11 @@ extension PostsView {
         UserFirebaseMethods.retrieveSpecificUser(with: bookPost.userUniqueKey, completion: { (user) in
             guard let user = user else { return }
             self.usernameLabel.text = "- \(user.username)"
-            
-            if let unwrappedEntity = entity {
-                let batchRequestUpdate = NSBatchUpdateRequest(entity: unwrappedEntity)
-                batchRequestUpdate.propertiesToUpdate = ["userName": user.username]
-                do {
-                    try managedContext.execute(batchRequestUpdate)
-                } catch {}
-            }
         })
         
         if Reachability.isConnectedToNetwork() == false {
             for book in BFFCoreData.sharedInstance.posts {
-                if (book.bookTitle == bookPost.title) && (book.bookUniqueID == bookPost.bookUniqueID) && (book.userUniqueKey == bookPost.userUniqueKey) {
+                if (book.bookTitle! == bookPost.title) && (book.bookUniqueID! == bookPost.bookUniqueID) && (book.userUniqueKey! == bookPost.userUniqueKey) {
                     guard let username = book.userName else { return }
                     self.usernameLabel.text = "- \(username)"
                 }
@@ -131,7 +122,6 @@ extension PostsView {
     
     
     fileprivate func updateStars() {
-        
         starView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: contentView.frame.width.multiplied(by: 0.1)).isActive = true
         starView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8).isActive = true
         star = StarReview(frame: CGRect(x: 0, y: 0, width: starView.bounds.width, height: starView.bounds.height))
