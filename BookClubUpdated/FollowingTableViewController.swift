@@ -11,7 +11,7 @@ import UIKit
 class FollowingTableViewController: UITableViewController {
     
     var followingArray = [User]()
-    var array = [User]()
+    //var array = [User]()
     var uniqueUserIDs = [String]()
     var deleteButtonSelected = false
     var passedUserID = String()
@@ -24,6 +24,7 @@ class FollowingTableViewController: UITableViewController {
         
         UserFirebaseMethods.retriveFollowingUsers(with: passedUserID) { (users) in
             self.followingArray = users ?? []
+            print("COUNT: \(self.followingArray.count)")
             self.tableView.reloadData()
         }
     }
@@ -50,34 +51,21 @@ class FollowingTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "followingCell", for: indexPath) as! FollowingTableViewCell
         
         cell.textLabel?.text = followingArray[indexPath.row].username
-        cell.unfollow.tag = indexPath.row
-        cell.unfollow.addTarget(self, action: #selector(unFollowButton), for: .touchUpInside)
-        cell.contentView.bringSubview(toFront: cell.unfollow)
-        
         return cell
     }
     
-    func unFollowButton(sender: UIButton) {
-        print("BUTTON TAPPED")
-        let indexPath = sender.tag
-        deleteButtonSelected = true
-        let friend = followingArray[indexPath].username
-        
-        if deleteButtonSelected == true {
-            let alert = UIAlertController(title: "Are you sure?", message: "Do you want to unfollow \(friend)", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
-                self.unfollowFriend(at: indexPath)
-                
-            }))
-            
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
-                
-            }))
-            
-            self.present(alert, animated: true, completion: nil)
-        }
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            self.unfollowFriend(at: indexPath.row)
+            followingArray.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } 
     }
     
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
     
     func unfollowFriend(at indexPath: Int) {
         let userUniqueKey = followingArray[indexPath].uniqueKey
@@ -102,16 +90,6 @@ class FollowingTableViewController: UITableViewController {
         self.dismiss(animated: true, completion: nil)
         
     }
-    
-    
-    
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
     
     /*
      // Override to support editing the table view.

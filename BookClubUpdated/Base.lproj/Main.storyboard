@@ -25,7 +25,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jEc-gT-Gli" id="XTB-2m-cEg">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="grV-Tl-UCl" customClass="PostsView" customModule="BookClubUpdated" customModuleProvider="target">
@@ -78,25 +78,21 @@
                                 <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iRT-mi-YS3" id="9ez-cm-Hoe">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bit-yc-2h9">
-                                            <rect key="frame" x="325" y="1" width="30" height="43"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                            <state key="normal" title="+">
-                                                <color key="titleColor" red="0.57222074270000001" green="0.57267004249999998" blue="0.57229036089999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </state>
+                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t03-4y-s8t">
+                                            <rect key="frame" x="305" y="8" width="46" height="30"/>
+                                            <state key="normal" title="+"/>
                                         </button>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="Bit-yc-2h9" secondAttribute="trailing" constant="20" id="5Fi-0y-g4c"/>
-                                        <constraint firstItem="Bit-yc-2h9" firstAttribute="centerY" secondItem="9ez-cm-Hoe" secondAttribute="centerY" id="Bz6-En-x7p"/>
-                                        <constraint firstItem="Bit-yc-2h9" firstAttribute="height" secondItem="9ez-cm-Hoe" secondAttribute="height" id="wUk-7D-5qV"/>
+                                        <constraint firstItem="t03-4y-s8t" firstAttribute="centerY" secondItem="9ez-cm-Hoe" secondAttribute="centerY" id="Tyf-Ov-hMK"/>
+                                        <constraint firstAttribute="trailing" secondItem="t03-4y-s8t" secondAttribute="trailing" constant="8" id="pEd-Qc-t1e"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="addFollowing" destination="Bit-yc-2h9" id="QZE-jx-ZlA"/>
+                                    <outlet property="addFollowing" destination="t03-4y-s8t" id="3nh-HQ-1hy"/>
                                     <segue destination="6Qm-o4-8lE" kind="show" identifier="userProfile" id="Jba-Ds-Zg5"/>
                                 </connections>
                             </tableViewCell>
@@ -182,7 +178,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rkp-dS-acT" id="cxN-0T-Dmb">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IHr-6u-04s" customClass="PostsView" customModule="BookClubUpdated" customModuleProvider="target">
@@ -428,7 +424,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tNj-xA-Xwn" id="tgv-6c-hzE">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ztr-rn-GHw" customClass="PostsView" customModule="BookClubUpdated" customModuleProvider="target">
@@ -482,26 +478,9 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LHg-b6-Go7" id="SuF-oX-Skp">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="smt-Ob-UIl">
-                                            <rect key="frame" x="319" y="0.0" width="30" height="44"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="32"/>
-                                            <state key="normal" title="-">
-                                                <color key="titleColor" red="0.57222074270000001" green="0.57267004249999998" blue="0.57229036089999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </state>
-                                        </button>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="smt-Ob-UIl" firstAttribute="height" secondItem="SuF-oX-Skp" secondAttribute="height" id="MIR-lY-eaj"/>
-                                        <constraint firstItem="smt-Ob-UIl" firstAttribute="centerY" secondItem="SuF-oX-Skp" secondAttribute="centerY" id="sef-3k-VHb"/>
-                                        <constraint firstAttribute="trailing" secondItem="smt-Ob-UIl" secondAttribute="trailing" constant="26" id="vmA-lD-bv0"/>
-                                    </constraints>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="unfollow" destination="smt-Ob-UIl" id="nDk-H2-xn8"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -528,7 +507,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xQv-SE-uxd" id="skZ-HR-6gC">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -538,17 +517,7 @@
                             <outlet property="delegate" destination="rcH-At-f36" id="Qz4-5m-5S4"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Followers" id="TX9-ic-kih">
-                        <barButtonItem key="rightBarButtonItem" title="Block" id="Rp6-AK-ghV">
-                            <color key="tintColor" red="0.57222074270000001" green="0.57267004249999998" blue="0.57229036089999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <action selector="blockUser:" destination="rcH-At-f36" id="0Z1-pv-hsA"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="blockUserButton" destination="Rp6-AK-ghV" id="TpR-T2-Hwk"/>
-                    </connections>
+                    <navigationItem key="navigationItem" title="Followers" id="TX9-ic-kih"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ukb-KX-C9l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
