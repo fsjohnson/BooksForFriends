@@ -15,6 +15,8 @@
 		B50F8A231DE323EC003954F8 /* AddBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50F8A221DE323EC003954F8 /* AddBookViewController.swift */; };
 		B50F8A291DE36A24003954F8 /* BookDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50F8A281DE36A24003954F8 /* BookDataStore.swift */; };
 		B50F8A301DE375FE003954F8 /* SearchBookResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50F8A2F1DE375FE003954F8 /* SearchBookResultsTableViewCell.swift */; };
+		B511D34D1E12E1E6002EAA6A /* NoInternetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B511D34C1E12E1E6002EAA6A /* NoInternetView.xib */; };
+		B511D34F1E12E215002EAA6A /* NoInternetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B511D34E1E12E215002EAA6A /* NoInternetView.swift */; };
 		B51480D61DE87AB900DD7523 /* FriendsBooksPostedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51480D51DE87AB900DD7523 /* FriendsBooksPostedTableViewCell.swift */; };
 		B51480DB1DE8DD2800DD7523 /* BooksFirebaseMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51480DA1DE8DD2800DD7523 /* BooksFirebaseMethods.swift */; };
 		B51E7EB11DF469D300F3369F /* UserPostListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51E7EB01DF469D300F3369F /* UserPostListTableViewController.swift */; };
@@ -72,6 +74,8 @@
 		B50F8A221DE323EC003954F8 /* AddBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddBookViewController.swift; sourceTree = "<group>"; };
 		B50F8A281DE36A24003954F8 /* BookDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDataStore.swift; sourceTree = "<group>"; };
 		B50F8A2F1DE375FE003954F8 /* SearchBookResultsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBookResultsTableViewCell.swift; sourceTree = "<group>"; };
+		B511D34C1E12E1E6002EAA6A /* NoInternetView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoInternetView.xib; sourceTree = "<group>"; };
+		B511D34E1E12E215002EAA6A /* NoInternetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoInternetView.swift; sourceTree = "<group>"; };
 		B51480D51DE87AB900DD7523 /* FriendsBooksPostedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsBooksPostedTableViewCell.swift; sourceTree = "<group>"; };
 		B51480DA1DE8DD2800DD7523 /* BooksFirebaseMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooksFirebaseMethods.swift; sourceTree = "<group>"; };
 		B51E7EB01DF469D300F3369F /* UserPostListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPostListTableViewController.swift; sourceTree = "<group>"; };
@@ -280,6 +284,8 @@
 				B5253F9E1DECF6A000553344 /* PostsView.xib */,
 				B5253FA01DECF6BE00553344 /* PostsView.swift */,
 				B567DBED1E10631E005CD03D /* NoDataView.xib */,
+				B511D34C1E12E1E6002EAA6A /* NoInternetView.xib */,
+				B511D34E1E12E215002EAA6A /* NoInternetView.swift */,
 				B567DBEB1E1062FF005CD03D /* NoDataView.swift */,
 				B5302D8A1DEDC82D007848B2 /* SearchResultsView.xib */,
 				B5302D881DEDC81B007848B2 /* SearchResultsView.swift */,
@@ -417,6 +423,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B511D34D1E12E1E6002EAA6A /* NoInternetView.xib in Resources */,
 				B5302D8B1DEDC82D007848B2 /* SearchResultsView.xib in Resources */,
 				B567DBEE1E10631E005CD03D /* NoDataView.xib in Resources */,
 				B5A06E781DE5333D003438A4 /* GoogleService-Info.plist in Resources */,
@@ -519,6 +526,7 @@
 				B52494601DE6356800D837C4 /* UserBook.swift in Sources */,
 				B50E74491DF3321100F2DC4A /* CustomFonts.swift in Sources */,
 				B57376861E03817700096A5D /* FriendsProfileViewController.swift in Sources */,
+				B511D34F1E12E215002EAA6A /* NoInternetView.swift in Sources */,
 				B51F9F7E1DE9E663006921D3 /* PostsFirebaseMethods.swift in Sources */,
 				B51F9F811DEA09D8006921D3 /* BookDetailsViewController.swift in Sources */,
 				B58291D31DB96C710017FF58 /* BooksUserWantsToReadCollectionViewController.swift in Sources */,

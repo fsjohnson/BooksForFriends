@@ -37,6 +37,7 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
     var segmentedControl = UISegmentedControl(items: ["Icons", "List"])
     var followersFollowingView: FollowersFollowing!
     var currentUser: User!
+    var noInternetView: NoInternetView!
     
     
     override func viewDidLoad() {
@@ -47,27 +48,38 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         
         let navBarAttributesDictionary = [ NSForegroundColorAttributeName: UIColor.themeDarkBlue,NSFontAttributeName: UIFont.themeMediumThin]
         navigationController?.navigationBar.titleTextAttributes = navBarAttributesDictionary
+        guard let navBarHeight = self.navigationController?.navigationBar.frame.height else { print("no nav bar height"); return }
+        self.noInternetView = NoInternetView(frame: CGRect(x: 0, y: -navBarHeight, width: self.view.frame.width, height: self.view.frame.height))
 
         configFirebaseData()
         configFollowersFollowingView()
         configSegmentedControl()
         dropdownMenuConfig()
         self.cellConfig()
-        
-        postsCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        postsCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        postsCollectionView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: segmentedControl.bounds.height.multiplied(by: 0.1)).isActive = true
-        postsCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        postsCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        
-        postsCollectionView.register(UserPostCollectionViewCell.self, forCellWithReuseIdentifier: "bookPost")
-        
-        view.addSubview(postsCollectionView)
-        
+
+        if Reachability.isConnectedToNetwork() {
+            
+            postsCollectionView.translatesAutoresizingMaskIntoConstraints = false
+            postsCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+            postsCollectionView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: segmentedControl.bounds.height.multiplied(by: 0.1)).isActive = true
+            postsCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+            postsCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+            postsCollectionView.register(UserPostCollectionViewCell.self, forCellWithReuseIdentifier: "bookPost")
+            view.addSubview(postsCollectionView)
+            
+        } else {
+            self.view.addSubview(self.noInternetView)
+        }
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        if Reachability.isConnectedToNetwork() == true {
+            if self.view.subviews.contains(self.noInternetView) {
+                self.noInternetView.removeFromSuperview()
+            }
+        }
         
         guard let currentUserID = FIRAuth.auth()?.currentUser?.uid else { return }
         PostsFirebaseMethods.downloadUsersBookPostsArray(with: currentUserID) { (booksPosted) in
