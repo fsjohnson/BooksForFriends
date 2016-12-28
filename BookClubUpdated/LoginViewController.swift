@@ -157,13 +157,11 @@ extension LoginViewController {
                             } else {
                                 let alert = self.createAlertWith(title: "Couldn't Signup", message: "This email is already being used.")
                                 self.present(alert, animated: true, completion: {
-                                    
                                 })
                             }
                         }
                     }
                 }
-                
             })
         } else {
             let alert = self.createAlertWith(title: "Oops", message: "Please fill in all the fields.")
@@ -171,7 +169,6 @@ extension LoginViewController {
             })
         }
     }
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "landingSegue" {
@@ -181,9 +178,7 @@ extension LoginViewController {
     
     
     func cancelButtonAction(_ sender: UIButton) {
-        
         animateForLogin()
-        
     }
     
     func forgotPasswordAction(_sender: UIButton) {
