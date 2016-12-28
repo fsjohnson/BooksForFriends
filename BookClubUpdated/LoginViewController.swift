@@ -139,40 +139,43 @@ extension LoginViewController {
         
         if email != "" && password != "" && name != "" && username != "" {
             
-            if password.characters.count < 6 {
-                let alert = self.createAlertWith(title: "Couldn't Signup", message: "Password must be at least 6 characters.")
-                self.present(alert, animated: true, completion: {
-                    
-                })
-                
-            } else {
-                
-                UserFirebaseMethods.signUpButton(email: email, password: password, name: name, username: username) { success in
-                    
-                    if success {
-                        self.performSegue(withIdentifier: "landingSegue", sender: self)
-                    } else {
-                        let alert = self.createAlertWith(title: "Couldn't Signup", message: "This email is already being used.")
+            UserFirebaseMethods.checkIfUsernameExists(with: username, completion: { (usernameExists) in
+                print("USERNAME EXISTS: \(usernameExists)")
+                if usernameExists == true {
+                    let alert = self.createAlertWith(title: "Couldn't Signup", message: "Username is already in use.")
+                    self.present(alert, animated: true, completion: {
+                    })
+                } else {
+                    if password.characters.count < 6 {
+                        let alert = self.createAlertWith(title: "Couldn't Signup", message: "Password must be at least 6 characters.")
                         self.present(alert, animated: true, completion: {
-                            
                         })
+                    } else {
+                        UserFirebaseMethods.signUpButton(email: email, password: password, name: name, username: username) { success in
+                            if success {
+                                self.performSegue(withIdentifier: "landingSegue", sender: self)
+                            } else {
+                                let alert = self.createAlertWith(title: "Couldn't Signup", message: "This email is already being used.")
+                                self.present(alert, animated: true, completion: {
+                                    
+                                })
+                            }
+                        }
                     }
                 }
-            }
+                
+            })
         } else {
             let alert = self.createAlertWith(title: "Oops", message: "Please fill in all the fields.")
             self.present(alert, animated: true, completion: {
-                
             })
         }
-        
     }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "landingSegue" {
             _ = segue.destination as! UITabBarController
-            
         }
     }
     
@@ -226,7 +229,6 @@ extension LoginViewController {
         
         self.present(alertController, animated: true, completion: nil)
     }
-    
 }
 
 

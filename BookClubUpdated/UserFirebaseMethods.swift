@@ -90,8 +90,6 @@ class UserFirebaseMethods {
     static func retrieveSpecificUser(with uniqueID: String, completion: @escaping (User?)-> Void) {
         
         let userRef = FIRDatabase.database().reference().child("users").child(uniqueID)
-        
-        
         userRef.observeSingleEvent(of: .value, with: { (snapshot) in
             let userInfoRaw = snapshot.value as? [String:Any]
             
@@ -127,7 +125,6 @@ class UserFirebaseMethods {
                 
                 let followedRef = FIRDatabase.database().reference().child("users").child(userUniqueKey).child("followers").child("notBlocked")
                 followedRef.updateChildValues([currentUser:true])
-                //BFFCoreData.sharedInstance.saveContext()
                 boolToReturn = true
             } else {
                 boolToReturn = false
@@ -136,7 +133,6 @@ class UserFirebaseMethods {
             completion(boolToReturn)
         }
     }
-    
     
     static func removeFollowing(with userUniqueKey: String, completion: () -> Void) {
         
@@ -334,4 +330,30 @@ class UserFirebaseMethods {
         completion()
     }
     
+    // MARK: - Prevent username duplicates 
+    
+    static func checkIfUsernameExists(with desiredUsername: String, completion: @escaping (Bool) -> Void) {
+        let userRef = FIRDatabase.database().reference().child("users")
+        var usernames = [String]()
+        userRef.observeSingleEvent(of: .value, with: { (snapshot) in
+        guard let userInfoRaw = snapshot.value as? [String:Any] else { return }
+            print("SNAP: \(userInfoRaw)")
+            for user in userInfoRaw {
+                guard
+                    let unwrappedUser = user.value as? [String: Any],
+                    let username = unwrappedUser["username"] as? String
+                    else { return }
+                    print("username: \(username)")
+                    usernames.append(username)
+            }
+
+            if usernames.contains(desiredUsername) {
+                print("DESIRED: \(desiredUsername)")
+                print("usernames: \(usernames)")
+                completion(true)
+            } else {
+                completion(false)
+            }
+        })
+    }
 }
