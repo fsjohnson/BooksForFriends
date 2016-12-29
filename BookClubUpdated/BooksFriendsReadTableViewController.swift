@@ -31,7 +31,7 @@ class BooksFriendsReadTableViewController: UITableViewController {
         
         
         if Reachability.isConnectedToNetwork() == true {
-            self.store.deleteData()
+            self.store.deletePostsData()
             PostsFirebaseMethods.downloadFollowingPosts(with: currentUser) { (postsArray) in
                 self.postsArray = postsArray
                 self.savePostsData(with: currentUser, postsArray: postsArray)
@@ -39,7 +39,7 @@ class BooksFriendsReadTableViewController: UITableViewController {
             }
         } else {
             self.postsArray.removeAll()
-            store.fetchData()
+            store.fetchPostsData()
             for post in store.posts {
                 guard let bookUniqueID = post.bookUniqueID else { let bookUniqueID = "no id";return }
                 guard let comment = post.comment else { return }
@@ -68,7 +68,7 @@ class BooksFriendsReadTableViewController: UITableViewController {
         guard let currentUser = FIRAuth.auth()?.currentUser?.uid else { return }
         
         if Reachability.isConnectedToNetwork() == true  {
-            self.store.deleteData()
+            self.store.deletePostsData()
             PostsFirebaseMethods.downloadFollowingPosts(with: currentUser) { (postsArray) in
                 if self.postsArray.count != postsArray.count {
                     self.savePostsData(with: currentUser, postsArray: postsArray)
@@ -179,6 +179,7 @@ class BooksFriendsReadTableViewController: UITableViewController {
                 let imageLinkToPass = postsArray[indexPath.row].imageLink
                 targetController.passedUniqueID = bookUniqueID
                 targetController.passedImageLink = imageLinkToPass
+                targetController.passedTitle = postsArray[indexPath.row].title
             }
         }
     }

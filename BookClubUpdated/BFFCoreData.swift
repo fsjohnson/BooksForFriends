@@ -14,6 +14,7 @@ class BFFCoreData {
     static let sharedInstance = BFFCoreData()
     private let name = "BFFCoreData"
     var posts = [Post]()
+    var bookPost = Book()
     
     private init() {}
     
@@ -45,7 +46,7 @@ class BFFCoreData {
         }
     }
     
-    func fetchData() {
+    func fetchPostsData() {
         let managedContext = persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<Post>(entityName: "Post")
         do {
@@ -53,7 +54,7 @@ class BFFCoreData {
         } catch {}
     }
     
-    func deleteData() {
+    func deletePostsData() {
         let context = persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<Post>(entityName: "Post")
         do {
@@ -72,7 +73,6 @@ class BFFCoreData {
             self.posts = try context.fetch(fetchRequest)
             for object in posts {
                 if followingID == object.userUniqueKey {
-                    print("ID VS UNIQUE KEY: \(followingID) vs. \(object.userUniqueKey)")
                     context.delete(object)
                     try context.save()
                 }

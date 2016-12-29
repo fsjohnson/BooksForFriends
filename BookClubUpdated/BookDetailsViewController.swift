@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class BookDetailsViewController: UIViewController {
     
@@ -17,12 +18,17 @@ class BookDetailsViewController: UIViewController {
     @IBOutlet weak var addBookButton: UIButton!
     var passedUniqueID = String()
     var passedImageLink = String()
+    var passedTitle = String()
+    var noInternetView: NoInternetView!
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let navBarAttributesDictionary = [ NSForegroundColorAttributeName: UIColor.themeDarkBlue,NSFontAttributeName: UIFont.themeMediumThin]
         navigationController?.navigationBar.titleTextAttributes = navBarAttributesDictionary
+        guard let navBarHeight = self.navigationController?.navigationBar.frame.height else { print("no nav bar height"); return }
+        self.noInternetView = NoInternetView(frame: CGRect(x: 0, y: -navBarHeight, width: self.view.frame.width, height: self.view.frame.height))
         
         addBookButton.layer.borderColor = UIColor.themeOrange.cgColor
         addBookButton.layer.borderWidth = 4.0
@@ -36,19 +42,24 @@ class BookDetailsViewController: UIViewController {
         
         bookSynopsis.font = UIFont.themeSmallThin
         bookSynopsis.textColor = UIColor.themeDarkBlue
-        
         bookImageView.loadImageUsingCacheWithURLString(urlString: passedImageLink)
         
-        PostsFirebaseMethods.downloadSynopsisAndAuthorOfBookWith(book: passedUniqueID) { (synopsis, author) in
-            self.bookSynopsis.text = synopsis
+        if Reachability.isConnectedToNetwork() == true {
+            PostsFirebaseMethods.downloadSynopsisAndAuthorOfBookWith(book: passedUniqueID) { (synopsis, author) in
+                self.bookSynopsis.text = synopsis
+            }
+        } else {
+            self.view.addSubview(self.noInternetView)
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if Reachability.isConnectedToNetwork() == true {
+            if self.view.subviews.contains(self.noInternetView) {
+                self.noInternetView.removeFromSuperview()
+            }
+        }
+    }
     
     @IBAction func addToFutureReads(_ sender: Any) {
         
@@ -69,44 +80,23 @@ class BookDetailsViewController: UIViewController {
                 
                 PostsFirebaseMethods.checkIfAlreadyAddedBookToFutureReadsWith(book: self.passedUniqueID, completion: { (doesExist) in
                     if doesExist == false {
-
-                        
                         PostsFirebaseMethods.addBookToFutureReadsWith(book: self.passedUniqueID, imageLink: self.passedImageLink, completion: {
                             let alert = UIAlertController(title: "Success!", message: "You have updated your book list", preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
 //                                self.dismiss(animated: true, completion: nil)
                             }))
                             self.present(alert, animated: true, completion: nil)
-                            
                         })
                         
                     } else {
-                        
                         let alert = UIAlertController(title: "Oops!", message: "You have already added this to your book list", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
 //                            self.dismiss(animated: true, completion: nil)
                         }))
                         self.present(alert, animated: true, completion: nil)
-                        
                     }
                 })
-                
-                
             }
         }
-        
     }
-    
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
