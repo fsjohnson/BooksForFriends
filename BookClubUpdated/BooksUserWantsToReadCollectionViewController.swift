@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import CoreData
 
 class BooksUserWantsToReadCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     var futureBooksArray = [BookPosted]()
+    var coreDataBooks = [FutureRead]()
     var sectionInsets: UIEdgeInsets!
     var itemSize: CGSize!
     var referenceSize: CGSize!
@@ -32,25 +34,35 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
         let navBarAttributesDictionary = [ NSForegroundColorAttributeName: UIColor.themeDarkBlue,NSFontAttributeName: UIFont.themeMediumThin]
         navigationController?.navigationBar.titleTextAttributes = navBarAttributesDictionary
         
-        PostsFirebaseMethods.userFutureReadsBooks { (futureReads) in
-            self.futureBooksArray = futureReads
+        if Reachability.isConnectedToNetwork() == true {
+            PostsFirebaseMethods.userFutureReadsBooks { (futureReads) in
+                self.futureBooksArray = futureReads
+                self.collectionView?.reloadData()
+            }
+        } else {
+            BFFCoreData.sharedInstance.fetchFutureReads()
+            self.coreDataBooks = BFFCoreData.sharedInstance.futureReads
             self.collectionView?.reloadData()
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        PostsFirebaseMethods.userFutureReadsBooks { (futureReads) in
-            self.futureBooksArray = futureReads
+        if Reachability.isConnectedToNetwork() == true {
+            PostsFirebaseMethods.userFutureReadsBooks { (futureReads) in
+                self.futureBooksArray = futureReads
+                self.collectionView?.reloadData()
+            }
+        } else {
+            BFFCoreData.sharedInstance.fetchFutureReads()
+            self.coreDataBooks = BFFCoreData.sharedInstance.futureReads
             self.collectionView?.reloadData()
         }
         
         self.cellConfig()
     }
     
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func saveFutureRead() {
+           
     }
     
     // MARK: UICollectionViewDataSource
@@ -62,21 +74,33 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return futureBooksArray.count
+        if Reachability.isConnectedToNetwork() {
+            return futureBooksArray.count
+        } else {
+            return coreDataBooks.count
+        }
+        
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath) as! FutureReadsCollectionViewCell
+        var imageLink = String()
         
-        let imageLink = futureBooksArray[indexPath.item].imageLink
-        let imageURL = URL(string: imageLink)
-        guard let data = try? Data(contentsOf: imageURL!) else {
-            cell.bookCoverImageView.image = UIImage(named: "BFFLogo")
-            return cell
+        if Reachability.isConnectedToNetwork() {
+            imageLink = futureBooksArray[indexPath.item].imageLink
+            print("LINK REACHABLE: \(imageLink)")
+        } else {
+            imageLink = coreDataBooks[indexPath.item].imageLink!
+            print("LINK CORE DATA: \(imageLink)")
         }
-        
-        cell.bookCoverImageView.image = UIImage(data: data)
-        
+        print("FINAL LINK: \(imageLink)")
+
+        if imageLink == "" {
+            cell.bookCoverImageView.image = UIImage(named: "BFFLogo")
+        } else {
+            cell.bookCoverImageView.loadImageUsingCacheWithURLString(urlString: imageLink)
+        }
+
         return cell
     }
     

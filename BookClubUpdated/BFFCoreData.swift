@@ -14,7 +14,7 @@ class BFFCoreData {
     static let sharedInstance = BFFCoreData()
     private let name = "BFFCoreData"
     var posts = [Post]()
-    var bookPost = Book()
+    var futureReads = [FutureRead]()
     
     private init() {}
     
@@ -25,8 +25,6 @@ class BFFCoreData {
         let container = NSPersistentContainer(name: BFFCoreData.sharedInstance.name)
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
-                
-                fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
         return container
@@ -45,6 +43,8 @@ class BFFCoreData {
             }
         }
     }
+    
+    //MARK: - Posts Core Data
     
     func fetchPostsData() {
         let managedContext = persistentContainer.viewContext
@@ -77,6 +77,14 @@ class BFFCoreData {
                     try context.save()
                 }
             }
+        } catch {}
+    }
+    
+    func fetchFutureReads() {
+        let context = persistentContainer.viewContext
+        let fetch = NSFetchRequest<FutureRead>(entityName: "FutureRead")
+        do {
+            self.futureReads = try context.fetch(fetch)
         } catch {}
     }
 }
