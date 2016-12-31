@@ -20,7 +20,7 @@ class BookDetailsViewController: UIViewController {
     var passedImageLink = String()
     var passedTitle = String()
     var noInternetView: NoInternetView!
-    var futureRead: FutureRead!
+    //var futureRead: FutureRead!
     
     
     override func viewDidLoad() {
@@ -70,8 +70,6 @@ class BookDetailsViewController: UIViewController {
                 newRead.title = self.passedTitle
                 newRead.imageLink = self.passedImageLink
                 newRead.bookUniqueID = self.passedUniqueID
-//                guard let unwrappedAuthor = author as? String else { return }
-//                guard let unwrappedSynopsis = synopsis as? String else { return }
                 newRead.author = author
                 newRead.synopsis = synopsis
                 BFFCoreData.sharedInstance.saveContext()
@@ -84,7 +82,7 @@ class BookDetailsViewController: UIViewController {
             if isEmpty == true {
                 
                 PostsFirebaseMethods.addBookToFutureReadsWith(book: self.passedUniqueID, imageLink: self.passedImageLink, completion: {
-                    self.addPostToFutureReadCoreData()
+                    //self.addPostToFutureReadCoreData()
                     let alert = UIAlertController(title: "Success!", message: "You have updated your book list", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                         //                                self.dismiss(animated: true, completion: nil)
@@ -96,7 +94,7 @@ class BookDetailsViewController: UIViewController {
                 
                 PostsFirebaseMethods.checkIfAlreadyAddedBookToFutureReadsWith(book: self.passedUniqueID, completion: { (doesExist) in
                     if doesExist == false {
-                        self.addPostToFutureReadCoreData()
+                        //self.addPostToFutureReadCoreData()
                         PostsFirebaseMethods.addBookToFutureReadsWith(book: self.passedUniqueID, imageLink: self.passedImageLink, completion: {
                             let alert = UIAlertController(title: "Success!", message: "You have updated your book list", preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in

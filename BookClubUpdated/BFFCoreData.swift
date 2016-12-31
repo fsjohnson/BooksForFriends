@@ -87,4 +87,32 @@ class BFFCoreData {
             self.futureReads = try context.fetch(fetch)
         } catch {}
     }
+    
+    func deleteFutureReads() {
+        let context = persistentContainer.viewContext
+        let fetch = NSFetchRequest<FutureRead>(entityName: "FutureRead")
+        do {
+            self.futureReads = try context.fetch(fetch)
+            for object in futureReads {
+                context.delete(object)
+                try context.save()
+            }
+        } catch {}
+    }
+    
+    func deleteSpecificFutureReads(with bookID: String) {
+        let context = persistentContainer.viewContext
+        let fetch = NSFetchRequest<FutureRead>(entityName: "FutureRead")
+        do {
+            self.futureReads = try context.fetch(fetch)
+            for object in futureReads {
+                if object.bookUniqueID == bookID {
+                    context.delete(object)
+                    try context.save()
+                }
+            }
+        } catch {}
+    }
+    
+    
 }
