@@ -128,7 +128,6 @@ class AddCommentAndRatingViewController: UIViewController {
         let bookToAdd = UserBook(title: passedTitle, author: passedAuthor, synopsis: passedSynopsis, bookUniqueKey: nil, finalBookCoverLink: passedImageLink)
         
         if commentsTextView.text == "" {
-            
             let alert = UIAlertController(title: "Oops!", message: "Must write a comment before you can submit a post", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
             }))

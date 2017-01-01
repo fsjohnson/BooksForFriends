@@ -47,23 +47,22 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
         if Reachability.isConnectedToNetwork() == true {
             BFFCoreData.sharedInstance.deleteFutureReads()
             PostsFirebaseMethods.userFutureReadsBooks { (futureReads, success) in
-                print("SUCCESS: \(success)")
                 if success == false {
                     self.view.addSubview(self.noFutureReadsView)
                 } else {
+                    self.futureBooksArray = futureReads
                     self.collectionView?.reloadData()
                 }
             }
         } else {
             BFFCoreData.sharedInstance.fetchFutureReads()
+            self.view.addSubview(self.noFutureReadsView)
             self.coreDataBooks = BFFCoreData.sharedInstance.futureReads
-            if self.coreDataBooks.count == 0 {
-                self.view.addSubview(self.noFutureReadsView)
-            } else {
+            if self.coreDataBooks.count > 0 {
+                self.noFutureReadsView.removeFromSuperview()
                 self.collectionView?.reloadData()
             }
         }
-        
         self.cellConfig()
     }
     
@@ -81,10 +80,10 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
             }
         } else {
             BFFCoreData.sharedInstance.fetchFutureReads()
+            self.view.addSubview(self.noFutureReadsView)
             self.coreDataBooks = BFFCoreData.sharedInstance.futureReads
-            if self.coreDataBooks.count == 0 {
-                self.view.addSubview(self.noFutureReadsView)
-            } else {
+            if self.coreDataBooks.count > 0 {
+                self.noFutureReadsView.removeFromSuperview()
                 self.collectionView?.reloadData()
             }
         }
@@ -93,19 +92,16 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
     func savePostsData(with futureReadsArray: [BookPosted]) {
         let managedContext = BFFCoreData.sharedInstance.persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "FutureRead", in: managedContext)
-        
         if let unwrappedEntity = entity {
             for item in futureReadsArray {
                 PostsFirebaseMethods.downloadSynopsisAndAuthorOfBookWith(book: item.bookUniqueID, completion: { (synopsis, author) in
                     let newRead = NSManagedObject(entity: unwrappedEntity, insertInto: managedContext) as! FutureRead
                     let newPost = Post(context: managedContext)
-                    
                     newRead.title = item.title
                     newRead.bookUniqueID = item.bookUniqueID
                     newRead.imageLink = item.imageLink
                     newRead.synopsis = synopsis
                     newRead.author = author
-                    
                     newRead.addToPost(newPost)
                     BFFCoreData.sharedInstance.saveContext()
                 })
