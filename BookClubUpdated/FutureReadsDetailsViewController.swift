@@ -42,6 +42,9 @@ class FutureReadsDetailsViewController: UIViewController {
         deleteBookOutlet.setTitleColor(UIColor.themeDarkGrey, for: .normal)
         deleteBookOutlet.titleLabel?.font = UIFont.themeTinyBold
         
+        guard let navBarHeight = self.navigationController?.navigationBar.frame.height else { print("no nav bar height"); return }
+        self.noInternetView = NoInternetView(frame: CGRect(x: 0, y: -navBarHeight, width: self.view.frame.width, height: self.view.frame.height))
+        
         if Reachability.isConnectedToNetwork() == true {
             PostsFirebaseMethods.downloadSynopsisAndAuthorOfBookWith(book: passedUniqueID) { (synopsis, author) in
                 self.bookSynopsis.text = synopsis
