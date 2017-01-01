@@ -20,6 +20,7 @@ class FutureReadsDetailsViewController: UIViewController {
     var passedImageLink = String()
     var passedTitle = String()
     var bookAuthor = String()
+    var noInternetView: NoInternetView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,15 +42,22 @@ class FutureReadsDetailsViewController: UIViewController {
         deleteBookOutlet.setTitleColor(UIColor.themeDarkGrey, for: .normal)
         deleteBookOutlet.titleLabel?.font = UIFont.themeTinyBold
         
-        PostsFirebaseMethods.downloadSynopsisAndAuthorOfBookWith(book: passedUniqueID) { (synopsis, author) in
-            self.bookSynopsis.text = synopsis
-            self.bookAuthor = author
+        if Reachability.isConnectedToNetwork() == true {
+            PostsFirebaseMethods.downloadSynopsisAndAuthorOfBookWith(book: passedUniqueID) { (synopsis, author) in
+                self.bookSynopsis.text = synopsis
+                self.bookAuthor = author
+            }
+        } else {
+            self.view.addSubview(self.noInternetView)
         }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewWillAppear(_ animated: Bool) {
+        if Reachability.isConnectedToNetwork() == true {
+            if self.view.subviews.contains(self.noInternetView) {
+                self.noInternetView.removeFromSuperview()
+            }
+        }
     }
     
     @IBAction func deleteBookAction(_ sender: Any) {
@@ -62,8 +70,7 @@ class FutureReadsDetailsViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    
-    
+
     func deleteBook() {
         let bookToRemove = passedUniqueID
         PostsFirebaseMethods.removeBookFromFutureReads(with: bookToRemove, completion: {

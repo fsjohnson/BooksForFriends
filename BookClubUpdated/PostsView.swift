@@ -102,9 +102,6 @@ extension PostsView {
     
     
     fileprivate func updateViewToReflectUsername() {
-        let managedContext = BFFCoreData.sharedInstance.persistentContainer.viewContext
-        let entity = NSEntityDescription.entity(forEntityName: "Post", in: managedContext)
-        
         UserFirebaseMethods.retrieveSpecificUser(with: bookPost.userUniqueKey, completion: { (user) in
             guard let user = user else { return }
             self.usernameLabel.text = "- \(user.username)"

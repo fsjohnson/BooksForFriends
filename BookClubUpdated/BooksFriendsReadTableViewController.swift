@@ -16,6 +16,7 @@ class BooksFriendsReadTableViewController: UITableViewController {
     var store = BFFCoreData.sharedInstance
     var postsArray = [BookPosted]()
     var noDataView: NoDataView!
+    var futureRead: FutureRead!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +35,7 @@ class BooksFriendsReadTableViewController: UITableViewController {
             self.store.deletePostsData()
             PostsFirebaseMethods.downloadFollowingPosts(with: currentUser) { (postsArray) in
                 self.postsArray = postsArray
+                print("1 POSTS COUNT: \(postsArray.count)")
                 self.savePostsData(with: currentUser, postsArray: postsArray)
                 self.tableView.reloadData()
             }
@@ -53,6 +55,7 @@ class BooksFriendsReadTableViewController: UITableViewController {
                 postsArray.sort(by: { (bookOne, bookTwo) -> Bool in
                     bookOne.timestamp > bookTwo.timestamp
                 })
+                print("2 POSTS COUNT: \(postsArray.count)")
                 tableView.reloadData()
             }
         }
@@ -74,7 +77,27 @@ class BooksFriendsReadTableViewController: UITableViewController {
                     self.savePostsData(with: currentUser, postsArray: postsArray)
                 }
                 self.postsArray = postsArray
+                print("3 POSTS COUNT: \(postsArray.count)")
                 self.tableView.reloadData()
+            }
+        } else {
+            self.postsArray.removeAll()
+            store.fetchPostsData()
+            for post in store.posts {
+                guard let bookUniqueID = post.bookUniqueID else { let bookUniqueID = "no id";return }
+                guard let comment = post.comment else { return }
+                guard let imageLink = post.imageLink else { return }
+                guard let reviewID = post.reviewID else { return }
+                guard let userUniqueKey = post.userUniqueKey else { return }
+                guard let bookTitle = post.bookTitle else { return }
+                
+                let newBook = BookPosted(bookUniqueID: bookUniqueID, rating: String(post.rating), comment: comment, imageLink: imageLink, timestamp: post.timestamp, userUniqueKey: userUniqueKey, reviewID: reviewID, title: bookTitle)
+                postsArray.append(newBook)
+                postsArray.sort(by: { (bookOne, bookTwo) -> Bool in
+                    bookOne.timestamp > bookTwo.timestamp
+                })
+                print("4 POSTS COUNT: \(postsArray.count)")
+                tableView.reloadData()
             }
         }
         

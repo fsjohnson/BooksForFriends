@@ -22,8 +22,8 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
     var insetSpacing: CGFloat!
     var minimumInterItemSpacing: CGFloat!
     var minimumLineSpacing: CGFloat!
-    var futureReads: FutureRead!
-    var post: Post!
+    var futureRead: FutureRead!
+    var noFutureReadsView: NoFutureReadsView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,39 +35,58 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
         
         let navBarAttributesDictionary = [ NSForegroundColorAttributeName: UIColor.themeDarkBlue,NSFontAttributeName: UIFont.themeMediumThin]
         navigationController?.navigationBar.titleTextAttributes = navBarAttributesDictionary
+        guard let navBarHeight = self.navigationController?.navigationBar.frame.height else { print("no nav bar height"); return }
+
+        self.noFutureReadsView = NoFutureReadsView(frame: CGRect(x: 0, y: -navBarHeight, width: self.view.frame.width, height: self.view.frame.height))
         
-        if Reachability.isConnectedToNetwork() == true {
-            BFFCoreData.sharedInstance.deleteFutureReads()
-            PostsFirebaseMethods.userFutureReadsBooks { (futureReads) in
-                self.futureBooksArray = futureReads
-                self.savePostsData(with: futureReads)
-                print("FUTURE: \(self.futureBooksArray.count)")
-                self.collectionView?.reloadData()
-            }
-        } else {
-            BFFCoreData.sharedInstance.fetchFutureReads()
-            self.coreDataBooks = BFFCoreData.sharedInstance.futureReads
-            print("COUNT OF FUTURE: \(BFFCoreData.sharedInstance.futureReads.count)")
-            self.collectionView?.reloadData()
-        }
+        configData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
         if Reachability.isConnectedToNetwork() == true {
             BFFCoreData.sharedInstance.deleteFutureReads()
+            self.view.addSubview(self.noFutureReadsView)
             PostsFirebaseMethods.userFutureReadsBooks { (futureReads) in
-                print("FUTURE: \(self.futureBooksArray.count)")
-                self.futureBooksArray = futureReads
-                self.collectionView?.reloadData()
+                if self.futureBooksArray.count > 0 {
+                    self.noFutureReadsView.removeFromSuperview()
+                    self.collectionView?.reloadData()
+                }
             }
         } else {
             BFFCoreData.sharedInstance.fetchFutureReads()
             self.coreDataBooks = BFFCoreData.sharedInstance.futureReads
-            print("COUNT OF FUTURE: \(BFFCoreData.sharedInstance.futureReads.count)")
-            self.collectionView?.reloadData()
+            if self.coreDataBooks.count == 0 {
+                self.view.addSubview(self.noFutureReadsView)
+            } else {
+                self.collectionView?.reloadData()
+            }
         }
         
         self.cellConfig()
+    }
+    
+    func configData() {
+        if Reachability.isConnectedToNetwork() == true {
+            BFFCoreData.sharedInstance.deleteFutureReads()
+            self.view.addSubview(self.noFutureReadsView)
+            PostsFirebaseMethods.userFutureReadsBooks { (futureReads) in
+                self.futureBooksArray = futureReads
+                self.savePostsData(with: futureReads)
+                if self.futureBooksArray.count > 0 {
+                    self.noFutureReadsView.removeFromSuperview()
+                    self.collectionView?.reloadData()
+                }
+            }
+        } else {
+            BFFCoreData.sharedInstance.fetchFutureReads()
+            self.coreDataBooks = BFFCoreData.sharedInstance.futureReads
+            if self.coreDataBooks.count == 0 {
+                self.view.addSubview(self.noFutureReadsView)
+            } else {
+                self.collectionView?.reloadData()
+            }
+        }
     }
     
     func savePostsData(with futureReadsArray: [BookPosted]) {
@@ -78,36 +97,15 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
             for item in futureReadsArray {
                 PostsFirebaseMethods.downloadSynopsisAndAuthorOfBookWith(book: item.bookUniqueID, completion: { (synopsis, author) in
                     let newRead = NSManagedObject(entity: unwrappedEntity, insertInto: managedContext) as! FutureRead
+                    let newPost = Post(context: managedContext)
+                    
                     newRead.title = item.title
                     newRead.bookUniqueID = item.bookUniqueID
                     newRead.imageLink = item.imageLink
                     newRead.synopsis = synopsis
                     newRead.author = author
-                    newRead.post = Post(context: managedContext)
-//                    newRead.bookTitle = item.title
-//                    newRead.imageLink = item.imageLink
-//                    newRead.bookUniqueID = item.bookUniqueID
-//                    newRead.author = author
-//                    newRead.synopsis = synopsis
-//                    newRead.bookUniqueID = item.bookUniqueID
-//                    newRead.comment = item.comment
-//                    newRead.rating = Float(item.rating)!
-//                    newRead.userName = "no username"
-//                    newRead.reviewID = item.reviewID
-//                    newRead.timestamp = item.timestamp
-//                    newRead.userUniqueKey = item.userUniqueKey
-//                    print(newRead.bookTitle)
-//                    print(newRead.imageLink)
-//                    print(newRead.author)
-//                    print(newRead.synopsis)
-//                    print(newRead.bookUniqueID)
-//                    print(newRead.comment)
-//                    print(newRead.rating)
-//                    print(newRead.userName)
-//                    print(newRead.reviewID)
-//                    print(newRead.timestamp)
-//                    print(newRead.userUniqueKey)
-                    print(newRead)
+                    
+                    newRead.addToPost(newPost)
                     BFFCoreData.sharedInstance.saveContext()
                 })
             }

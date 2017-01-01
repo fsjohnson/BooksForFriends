@@ -20,9 +20,7 @@ class BookDetailsViewController: UIViewController {
     var passedImageLink = String()
     var passedTitle = String()
     var noInternetView: NoInternetView!
-    //var futureRead: FutureRead!
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -62,27 +60,12 @@ class BookDetailsViewController: UIViewController {
         }
     }
     
-    func addPostToFutureReadCoreData() {
-        let managedContext = BFFCoreData.sharedInstance.persistentContainer.viewContext
-        print("passedID: \(passedUniqueID)")
-            PostsFirebaseMethods.downloadSynopsisAndAuthorOfBookWith(book: passedUniqueID, completion: { (synopsis, author) in
-                let newRead = FutureRead(context: managedContext)
-                newRead.title = self.passedTitle
-                newRead.imageLink = self.passedImageLink
-                newRead.bookUniqueID = self.passedUniqueID
-                newRead.author = author
-                newRead.synopsis = synopsis
-                BFFCoreData.sharedInstance.saveContext()
-            })
-    }
-    
     @IBAction func addToFutureReads(_ sender: Any) {
         
         PostsFirebaseMethods.checkIfFutureReadsIsEmpty { (isEmpty) in
             if isEmpty == true {
                 
                 PostsFirebaseMethods.addBookToFutureReadsWith(book: self.passedUniqueID, imageLink: self.passedImageLink, completion: {
-                    //self.addPostToFutureReadCoreData()
                     let alert = UIAlertController(title: "Success!", message: "You have updated your book list", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                         //                                self.dismiss(animated: true, completion: nil)
@@ -94,7 +77,6 @@ class BookDetailsViewController: UIViewController {
                 
                 PostsFirebaseMethods.checkIfAlreadyAddedBookToFutureReadsWith(book: self.passedUniqueID, completion: { (doesExist) in
                     if doesExist == false {
-                        //self.addPostToFutureReadCoreData()
                         PostsFirebaseMethods.addBookToFutureReadsWith(book: self.passedUniqueID, imageLink: self.passedImageLink, completion: {
                             let alert = UIAlertController(title: "Success!", message: "You have updated your book list", preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in

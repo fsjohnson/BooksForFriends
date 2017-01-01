@@ -6,7 +6,7 @@
         <attribute name="imageLink" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="synopsis" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="post" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Post" inverseName="futureRead" inverseEntity="Post" syncable="YES"/>
+        <relationship name="post" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Post" inverseName="futureRead" inverseEntity="Post" syncable="YES"/>
     </entity>
     <entity name="Post" representedClassName="Post" syncable="YES" codeGenerationType="class">
         <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
@@ -20,10 +20,10 @@
         <attribute name="timestamp" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="userName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userUniqueKey" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="futureRead" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FutureRead" inverseName="post" inverseEntity="FutureRead" syncable="YES"/>
+        <relationship name="futureRead" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FutureRead" inverseName="post" inverseEntity="FutureRead" syncable="YES"/>
     </entity>
     <elements>
-        <element name="FutureRead" positionX="-63" positionY="54" width="128" height="135"/>
-        <element name="Post" positionX="-63" positionY="-18" width="128" height="225"/>
+        <element name="FutureRead" positionX="-63" positionY="54" width="128" height="133"/>
+        <element name="Post" positionX="268" positionY="99" width="128" height="223"/>
     </elements>
 </model>

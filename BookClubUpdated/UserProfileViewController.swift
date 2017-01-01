@@ -38,6 +38,7 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
     var followersFollowingView: FollowersFollowing!
     var currentUser: User!
     var noInternetView: NoInternetView!
+    var noPostsProfileView: NoPostsProfileView!
     
     
     override func viewDidLoad() {
@@ -50,13 +51,14 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         navigationController?.navigationBar.titleTextAttributes = navBarAttributesDictionary
         guard let navBarHeight = self.navigationController?.navigationBar.frame.height else { print("no nav bar height"); return }
         self.noInternetView = NoInternetView(frame: CGRect(x: 0, y: -navBarHeight, width: self.view.frame.width, height: self.view.frame.height))
-
-        configFirebaseData()
+        self.noPostsProfileView = NoPostsProfileView(frame: CGRect(x: 0, y: -navBarHeight, width: self.view.frame.width, height: self.view.frame.height))
+        
         configFollowersFollowingView()
         configSegmentedControl()
+        configFirebaseData()
         dropdownMenuConfig()
         self.cellConfig()
-
+        
         if Reachability.isConnectedToNetwork() {
             
             postsCollectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -71,7 +73,6 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
             self.view.addSubview(self.noInternetView)
         }
     }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         
@@ -105,12 +106,11 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
             self.currentUser = user
         }
         
-        
         PostsFirebaseMethods.downloadUsersBookPostsArray(with: currentUserID) { (booksPosted) in
             self.userPosts = booksPosted ?? []
             self.postsCollectionView.reloadData()
+            self.configNetwork()
         }
-        
     }
     
     func getUser(with user: User) {
@@ -127,7 +127,29 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         followersFollowingView.profilePic.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectProfileImageView)))
         followersFollowingView.followersButtonOutlet.addTarget(self, action: #selector(segueToFollowers), for: .touchDown)
         followersFollowingView.followingButtonOutlet.addTarget(self, action: #selector(segueToFollowing), for: .touchDown)
-        
+    }
+    
+    func configNetwork() {
+        if Reachability.isConnectedToNetwork() {
+            if userPosts.count == 0 {
+                view.addSubview(noPostsProfileView)
+                noPostsProfileView.translatesAutoresizingMaskIntoConstraints = false
+                noPostsProfileView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+                noPostsProfileView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: segmentedControl.bounds.height.multiplied(by: 0.1)).isActive = true
+                noPostsProfileView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+                noPostsProfileView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+            } else {
+                postsCollectionView.translatesAutoresizingMaskIntoConstraints = false
+                postsCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+                postsCollectionView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: segmentedControl.bounds.height.multiplied(by: 0.1)).isActive = true
+                postsCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+                postsCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+                postsCollectionView.register(UserPostCollectionViewCell.self, forCellWithReuseIdentifier: "bookPost")
+                view.addSubview(postsCollectionView)
+            }
+        } else {
+            self.view.addSubview(self.noInternetView)
+        }
     }
     
     
@@ -150,14 +172,11 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         dropDown.dataSource = ["Change username","Contact BFF", "Logout"]
         dropDown.width = 200
         dropDown.direction = .any
-        
         dropDown.textColor = UIColor.themeDarkBlue
         dropDown.textFont = UIFont.themeTinyBold!
         dropDown.backgroundColor = UIColor.themeWhite
         dropDown.selectionBackgroundColor = UIColor.themeLightBlue
         dropDown.cornerRadius = 5
-        
-        
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             
             if index == 0 {
@@ -182,7 +201,6 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
             let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
             self.present(loginVC, animated: false, completion: nil)
         }
-        
     }
     
     

@@ -53,6 +53,10 @@
 		B58291D51DB96CBF0017FF58 /* SearchedBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58291D41DB96CBF0017FF58 /* SearchedBook.swift */; };
 		B58291D71DB973F10017FF58 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58291D61DB973F10017FF58 /* LoginViewController.swift */; };
 		B58291D91DB977950017FF58 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58291D81DB977950017FF58 /* User.swift */; };
+		B58E92421E198803007DF5F5 /* NoPostsProfileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B58E92411E198803007DF5F5 /* NoPostsProfileView.xib */; };
+		B58E92441E198815007DF5F5 /* NoPostsProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58E92431E198815007DF5F5 /* NoPostsProfileView.swift */; };
+		B58E92461E1997BC007DF5F5 /* NoFutureReadsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B58E92451E1997BC007DF5F5 /* NoFutureReadsView.xib */; };
+		B58E92481E1997CB007DF5F5 /* NoFutureReadsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58E92471E1997CB007DF5F5 /* NoFutureReadsView.swift */; };
 		B5A06E781DE5333D003438A4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5A06E771DE5333D003438A4 /* GoogleService-Info.plist */; };
 		B5A881761DE76BF700D90B07 /* FollowersFollowing.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5A881751DE76BF700D90B07 /* FollowersFollowing.xib */; };
 		B5A881781DE76DFE00D90B07 /* FollowersFollowing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A881771DE76DFE00D90B07 /* FollowersFollowing.swift */; };
@@ -115,6 +119,10 @@
 		B58291D41DB96CBF0017FF58 /* SearchedBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchedBook.swift; sourceTree = "<group>"; };
 		B58291D61DB973F10017FF58 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B58291D81DB977950017FF58 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		B58E92411E198803007DF5F5 /* NoPostsProfileView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoPostsProfileView.xib; sourceTree = "<group>"; };
+		B58E92431E198815007DF5F5 /* NoPostsProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoPostsProfileView.swift; sourceTree = "<group>"; };
+		B58E92451E1997BC007DF5F5 /* NoFutureReadsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoFutureReadsView.xib; sourceTree = "<group>"; };
+		B58E92471E1997CB007DF5F5 /* NoFutureReadsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoFutureReadsView.swift; sourceTree = "<group>"; };
 		B5A06E771DE5333D003438A4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B5A881751DE76BF700D90B07 /* FollowersFollowing.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FollowersFollowing.xib; sourceTree = "<group>"; };
 		B5A881771DE76DFE00D90B07 /* FollowersFollowing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowersFollowing.swift; sourceTree = "<group>"; };
@@ -284,9 +292,13 @@
 				B5253F9E1DECF6A000553344 /* PostsView.xib */,
 				B5253FA01DECF6BE00553344 /* PostsView.swift */,
 				B567DBED1E10631E005CD03D /* NoDataView.xib */,
+				B567DBEB1E1062FF005CD03D /* NoDataView.swift */,
+				B58E92451E1997BC007DF5F5 /* NoFutureReadsView.xib */,
+				B58E92471E1997CB007DF5F5 /* NoFutureReadsView.swift */,
+				B58E92411E198803007DF5F5 /* NoPostsProfileView.xib */,
+				B58E92431E198815007DF5F5 /* NoPostsProfileView.swift */,
 				B511D34C1E12E1E6002EAA6A /* NoInternetView.xib */,
 				B511D34E1E12E215002EAA6A /* NoInternetView.swift */,
-				B567DBEB1E1062FF005CD03D /* NoDataView.swift */,
 				B5302D8A1DEDC82D007848B2 /* SearchResultsView.xib */,
 				B5302D881DEDC81B007848B2 /* SearchResultsView.swift */,
 				B5A881751DE76BF700D90B07 /* FollowersFollowing.xib */,
@@ -428,6 +440,8 @@
 				B567DBEE1E10631E005CD03D /* NoDataView.xib in Resources */,
 				B5A06E781DE5333D003438A4 /* GoogleService-Info.plist in Resources */,
 				B5A881761DE76BF700D90B07 /* FollowersFollowing.xib in Resources */,
+				B58E92461E1997BC007DF5F5 /* NoFutureReadsView.xib in Resources */,
+				B58E92421E198803007DF5F5 /* NoPostsProfileView.xib in Resources */,
 				B5253F9F1DECF6A000553344 /* PostsView.xib in Resources */,
 				B58291CB1DB96C300017FF58 /* LaunchScreen.storyboard in Resources */,
 				B58291C81DB96C300017FF58 /* Assets.xcassets in Resources */,
@@ -494,6 +508,7 @@
 				B524945D1DE5EEB700D837C4 /* BooksFriendsReadTableViewController.swift in Sources */,
 				B50F8A301DE375FE003954F8 /* SearchBookResultsTableViewCell.swift in Sources */,
 				B50E74471DF331EF00F2DC4A /* CustomColor.swift in Sources */,
+				B58E92481E1997CB007DF5F5 /* NoFutureReadsView.swift in Sources */,
 				B51F9F7C1DE9E004006921D3 /* BookPosted.swift in Sources */,
 				B5A8818D1DE78DFA00D90B07 /* FindFriendsTableViewController.swift in Sources */,
 				B524945A1DE5EB9C00D837C4 /* UserProfileViewController.swift in Sources */,
@@ -517,6 +532,7 @@
 				B52494561DE5C30400D837C4 /* AddCommentAndRatingViewController.swift in Sources */,
 				B58291BE1DB96C300017FF58 /* AppDelegate.swift in Sources */,
 				B51F9F851DEA4796006921D3 /* FutureReadsCollectionViewCell.swift in Sources */,
+				B58E92441E198815007DF5F5 /* NoPostsProfileView.swift in Sources */,
 				B5A8817D1DE7710200D90B07 /* FollowingTableViewController.swift in Sources */,
 				B50F8A291DE36A24003954F8 /* BookDataStore.swift in Sources */,
 				B57ABBBC1DE7F22B00722B83 /* FollowingTableViewCell.swift in Sources */,

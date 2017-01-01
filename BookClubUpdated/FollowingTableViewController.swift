@@ -24,32 +24,23 @@ class FollowingTableViewController: UITableViewController {
         
         UserFirebaseMethods.retriveFollowingUsers(with: passedUserID) { (users) in
             self.followingArray = users ?? []
-            print("COUNT: \(self.followingArray.count)")
             self.tableView.reloadData()
         }
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return followingArray.count
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "followingCell", for: indexPath) as! FollowingTableViewCell
-        
         cell.textLabel?.text = followingArray[indexPath.row].username
         return cell
     }
@@ -63,7 +54,6 @@ class FollowingTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
         return true
     }
     
@@ -74,8 +64,6 @@ class FollowingTableViewController: UITableViewController {
         UserFirebaseMethods.removeFollowing(with: userUniqueKey) {
             let alert = UIAlertController(title: "Success", message: "You have unfollowed \(username)", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                
-                self.followingArray.remove(at: indexPath)
                 self.deleteButtonSelected = false
                 self.tableView.reloadData()
             }))
