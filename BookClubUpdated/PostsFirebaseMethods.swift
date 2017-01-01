@@ -195,7 +195,7 @@ class PostsFirebaseMethods {
         })
     }
     
-    static func userFutureReadsBooks(with completion: @escaping ([BookPosted]) -> Void) {
+    static func userFutureReadsBooks(with completion: @escaping ([BookPosted], Bool) -> Void) {
         var futureReads = [BookPosted]()
         
         guard let userUniqueID = FIRAuth.auth()?.currentUser?.uid else {return}
@@ -204,7 +204,9 @@ class PostsFirebaseMethods {
         
         userRef.observeSingleEvent(of: .value, with: { (snapshot) in
             
-            guard let snapshotValue = snapshot.value as? [String: Any] else {return}
+            
+            guard let snapshotValue = snapshot.value as? [String: Any] else { print("no data"); completion(futureReads,false); return }
+            
             for snap in snapshotValue {
                 bookIDArray.append(snap.key)
             }
@@ -217,7 +219,7 @@ class PostsFirebaseMethods {
                     }
                 }
                 print(futureReads.count)
-                completion(futureReads)
+                completion(futureReads, true)
             }
         })
     }

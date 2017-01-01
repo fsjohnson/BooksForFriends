@@ -36,7 +36,7 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
         let navBarAttributesDictionary = [ NSForegroundColorAttributeName: UIColor.themeDarkBlue,NSFontAttributeName: UIFont.themeMediumThin]
         navigationController?.navigationBar.titleTextAttributes = navBarAttributesDictionary
         guard let navBarHeight = self.navigationController?.navigationBar.frame.height else { print("no nav bar height"); return }
-
+        
         self.noFutureReadsView = NoFutureReadsView(frame: CGRect(x: 0, y: -navBarHeight, width: self.view.frame.width, height: self.view.frame.height))
         
         configData()
@@ -46,10 +46,11 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
         
         if Reachability.isConnectedToNetwork() == true {
             BFFCoreData.sharedInstance.deleteFutureReads()
-            self.view.addSubview(self.noFutureReadsView)
-            PostsFirebaseMethods.userFutureReadsBooks { (futureReads) in
-                if self.futureBooksArray.count > 0 {
-                    self.noFutureReadsView.removeFromSuperview()
+            PostsFirebaseMethods.userFutureReadsBooks { (futureReads, success) in
+                print("SUCCESS: \(success)")
+                if success == false {
+                    self.view.addSubview(self.noFutureReadsView)
+                } else {
                     self.collectionView?.reloadData()
                 }
             }
@@ -69,12 +70,12 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
     func configData() {
         if Reachability.isConnectedToNetwork() == true {
             BFFCoreData.sharedInstance.deleteFutureReads()
-            self.view.addSubview(self.noFutureReadsView)
-            PostsFirebaseMethods.userFutureReadsBooks { (futureReads) in
-                self.futureBooksArray = futureReads
-                self.savePostsData(with: futureReads)
-                if self.futureBooksArray.count > 0 {
-                    self.noFutureReadsView.removeFromSuperview()
+            PostsFirebaseMethods.userFutureReadsBooks { (futureReads, success) in
+                if success == false {
+                    self.view.addSubview(self.noFutureReadsView)
+                } else {
+                    self.futureBooksArray = futureReads
+                    self.savePostsData(with: futureReads)
                     self.collectionView?.reloadData()
                 }
             }
