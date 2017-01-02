@@ -63,7 +63,7 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
             
             postsCollectionView.translatesAutoresizingMaskIntoConstraints = false
             postsCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-            postsCollectionView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: segmentedControl.bounds.height.multiplied(by: 0.1)).isActive = true
+            postsCollectionView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 8).isActive = true
             postsCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
             postsCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
             postsCollectionView.register(UserPostCollectionViewCell.self, forCellWithReuseIdentifier: "bookPost")
@@ -76,12 +76,6 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
     
     override func viewWillAppear(_ animated: Bool) {
         
-        if Reachability.isConnectedToNetwork() == true {
-            if self.view.subviews.contains(self.noInternetView) {
-                self.noInternetView.removeFromSuperview()
-            }
-        }
-        
         guard let currentUserID = FIRAuth.auth()?.currentUser?.uid else { return }
         PostsFirebaseMethods.downloadUsersBookPostsArray(with: currentUserID) { (booksPosted) in
             self.userPosts = booksPosted ?? []
@@ -92,6 +86,18 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         followersFollowingView.populatePostsLabel()
         followersFollowingView.populateFollowersLabel()
         followersFollowingView.populateFollowingLabel()
+        
+        if Reachability.isConnectedToNetwork() == true {
+            if self.view.subviews.contains(self.noInternetView) {
+                self.noInternetView.removeFromSuperview()
+                postsCollectionView.translatesAutoresizingMaskIntoConstraints = false
+                postsCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+                postsCollectionView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 8).isActive = true
+                postsCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+                postsCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+                self.cellConfig()
+            }
+        }
     }
 
     func configFirebaseData() {
@@ -100,7 +106,7 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
         
         UserFirebaseMethods.retrieveSpecificUser(with: currentUserID) { (returnedUser) in
             guard let username = returnedUser?.username else { print("no username"); return }
-            self.navigationItem.title = "\(username)'s Posts"
+            self.navigationItem.title = "\(username)"
             guard let user = returnedUser else { return }
             self.getUser(with: user)
             self.currentUser = user
@@ -141,7 +147,7 @@ class UserProfileViewController: UIViewController, UICollectionViewDelegateFlowL
             } else {
                 postsCollectionView.translatesAutoresizingMaskIntoConstraints = false
                 postsCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-                postsCollectionView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: segmentedControl.bounds.height.multiplied(by: 0.1)).isActive = true
+                postsCollectionView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 8).isActive = true
                 postsCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
                 postsCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
                 postsCollectionView.register(UserPostCollectionViewCell.self, forCellWithReuseIdentifier: "bookPost")

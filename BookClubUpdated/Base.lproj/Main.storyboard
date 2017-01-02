@@ -329,7 +329,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </view>
                                 <connections>
-                                    <segue destination="lyy-WQ-aO2" kind="show" identifier="futureReadsDetails" id="rWS-QC-HCV"/>
+                                    <segue destination="lyy-WQ-aO2" kind="show" identifier="futureReadsDetails" id="0s6-Zh-KN4"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>

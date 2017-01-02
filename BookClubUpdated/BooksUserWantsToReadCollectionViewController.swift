@@ -47,9 +47,12 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
         if Reachability.isConnectedToNetwork() == true {
             BFFCoreData.sharedInstance.deleteFutureReads()
             PostsFirebaseMethods.userFutureReadsBooks { (futureReads, success) in
-                if success == false {
+                if success == false || futureReads.count == 0 {
                     self.view.addSubview(self.noFutureReadsView)
                 } else {
+                    if self.view.subviews.contains(self.noFutureReadsView) {
+                        self.noFutureReadsView.removeFromSuperview()
+                    }
                     self.futureBooksArray = futureReads
                     self.collectionView?.reloadData()
                 }
@@ -58,6 +61,7 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
             BFFCoreData.sharedInstance.fetchFutureReads()
             self.view.addSubview(self.noFutureReadsView)
             self.coreDataBooks = BFFCoreData.sharedInstance.futureReads
+            print("CORE DATA COUNT: \(self.coreDataBooks.count)")
             if self.coreDataBooks.count > 0 {
                 self.noFutureReadsView.removeFromSuperview()
                 self.collectionView?.reloadData()
@@ -70,9 +74,10 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
         if Reachability.isConnectedToNetwork() == true {
             BFFCoreData.sharedInstance.deleteFutureReads()
             PostsFirebaseMethods.userFutureReadsBooks { (futureReads, success) in
-                if success == false {
+                if success == false || futureReads.count == 0 {
                     self.view.addSubview(self.noFutureReadsView)
                 } else {
+                    print("FUTURE READS COUNT: \(futureReads.count)")
                     self.futureBooksArray = futureReads
                     self.savePostsData(with: futureReads)
                     self.collectionView?.reloadData()
@@ -82,6 +87,7 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
             BFFCoreData.sharedInstance.fetchFutureReads()
             self.view.addSubview(self.noFutureReadsView)
             self.coreDataBooks = BFFCoreData.sharedInstance.futureReads
+            print("CORE DATA COUNT: \(self.coreDataBooks.count)")
             if self.coreDataBooks.count > 0 {
                 self.noFutureReadsView.removeFromSuperview()
                 self.collectionView?.reloadData()
@@ -144,7 +150,6 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
         return cell
     }
     
-    
     //MARK: Cell Layout Configuration
     
     func cellConfig() {
@@ -193,12 +198,21 @@ class BooksUserWantsToReadCollectionViewController: UICollectionViewController, 
             let dest = segue.destination as! FutureReadsDetailsViewController
             if let indexPaths = collectionView?.indexPathsForSelectedItems {
                 for indexPath in indexPaths {
-                    let link = futureBooksArray[indexPath.item].imageLink
-                    let id = futureBooksArray[indexPath.item].bookUniqueID
-                    let title = futureBooksArray[indexPath.item].title
-                    dest.passedImageLink = link
-                    dest.passedUniqueID = id
-                    dest.passedTitle = title
+                    if Reachability.isConnectedToNetwork() {
+                        let link = futureBooksArray[indexPath.item].imageLink
+                        let id = futureBooksArray[indexPath.item].bookUniqueID
+                        let title = futureBooksArray[indexPath.item].title
+                        dest.passedImageLink = link
+                        dest.passedUniqueID = id
+                        dest.passedTitle = title
+                    } else {
+                        guard let link = coreDataBooks[indexPath.item].imageLink else { return }
+                        guard let id = coreDataBooks[indexPath.item].bookUniqueID else { return }
+                        guard let title = coreDataBooks[indexPath.item].title else { return }
+                        dest.passedImageLink = link
+                        dest.passedUniqueID = id
+                        dest.passedTitle = title
+                    }
                 }
             }
         }
