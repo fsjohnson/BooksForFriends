@@ -27,6 +27,7 @@ class AddCommentAndRatingViewController: UIViewController {
     var star = StarReview()
     weak var searchedBook: SearchedBook!
     var fromFutureReads: Bool? = nil
+    var passedISBN = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +44,7 @@ class AddCommentAndRatingViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
+        print("PASSED ISBN: \(passedISBN)")
     }
     
     override func didReceiveMemoryWarning() {

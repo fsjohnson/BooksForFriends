@@ -19,10 +19,9 @@ class SearchedBook {
     var bookCoverLink: String?
     var bookCoverLinkDict: [String:String]?
     var finalBookCoverLink: String?
-    
-    
     let volume: [String: Any]
     var synopsis: String? = "Synopsis not available"
+    var isbn: String? = "ISBN not available"
     
     
     init(dict: [String: Any]) {
@@ -34,9 +33,12 @@ class SearchedBook {
         self.bookCoverLink = bookCoverLinkDict?["thumbnail"]
         self.finalBookCoverLink = bookCoverLink?.replacingOccurrences(of: "http", with: "https")
         self.synopsis = volume["description"] as? String
+        let isbnDict = volume["industryIdentifiers"] as? [[String: Any]]
+        let firstISBN = isbnDict?[0]
+        self.isbn = firstISBN?["identifier"] as? String
     }
     
-    init(volume: [String: Any], title: String, authorArray: [String]?, author: String, bookCoverLinkDict: [String: String]?, bookCoverLink: String?, finalBookCoverLink: String?, synopsis: String?) {
+    init(volume: [String: Any], title: String, authorArray: [String]?, author: String, bookCoverLinkDict: [String: String]?, bookCoverLink: String?, finalBookCoverLink: String?, synopsis: String?, isbn: String?) {
         
         self.volume = volume
         self.title = title
@@ -45,6 +47,7 @@ class SearchedBook {
         self.bookCoverLinkDict = bookCoverLinkDict
         self.bookCoverLink = bookCoverLink
         self.finalBookCoverLink = finalBookCoverLink
+        self.isbn = isbn
     }
 }
 

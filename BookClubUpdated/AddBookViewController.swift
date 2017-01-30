@@ -69,7 +69,6 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabBarHeight).isActive = true
         
         activityIndicator()
-        
         setupInvisibleView()
     }
     
@@ -83,7 +82,6 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         view.addSubview(invisibleView)
         invisibleView.addGestureRecognizer(tapGesture)
-        
         invisibleView.isHidden = false
         
     }
@@ -394,6 +392,7 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
             let targetController = segue.destination as! AddCommentAndRatingViewController
             var synopsis = String()
             var author = String()
+            var isbn = String()
             
             if barCodeBookLink != nil && barCodeBookTitle != nil {
                 guard let link = self.barCodeBookLink else { print("error sending image link bar code"); return }
@@ -419,11 +418,18 @@ class AddBookViewController: UIViewController, UITableViewDelegate, UITableViewD
                     } else {
                         synopsis = "Synopsis not available"
                     }
+                    if let downloadedISBN = BookDataStore.shared.bookArray[indexPath.row].isbn {
+                        isbn = downloadedISBN
+                    } else {
+                        isbn = "ISBN not available"
+                    }
+
                     targetController.passedTitle = titleToPass
                     targetController.passedAuthor = author
                     targetController.passedImageLink = imageLinkToPass
                     targetController.passedSynopsis = synopsis
-                    //targetController.searchedBook = searchedBook
+                    targetController.passedISBN = isbn
+                    
                 }
                 
             }
