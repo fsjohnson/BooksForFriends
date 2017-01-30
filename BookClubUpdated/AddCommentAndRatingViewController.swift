@@ -28,6 +28,7 @@ class AddCommentAndRatingViewController: UIViewController {
     weak var searchedBook: SearchedBook!
     var fromFutureReads: Bool? = nil
     var passedISBN = String()
+    var amazonLink = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +46,8 @@ class AddCommentAndRatingViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         print("PASSED ISBN: \(passedISBN)")
+        amazonLink = "https://www.amazon.com/gp/search?ie=UTF8&tag=fjoh-20&linkCode=ur2&linkId=843dbc767a8fd5beb8c8addbc0d75569&camp=1789&creative=9325&index=books&keywords=\(passedISBN)"
+        print("LINK: \(amazonLink)")
     }
     
     override func didReceiveMemoryWarning() {
