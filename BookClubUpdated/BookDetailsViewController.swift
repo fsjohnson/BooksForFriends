@@ -36,7 +36,10 @@ class BookDetailsViewController: UIViewController {
         addBookButton.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
         addBookButton.layer.cornerRadius = 4.0
         addBookButton.setTitleColor(UIColor.themeOrange, for: .normal)
-        addBookButton.titleLabel?.font = UIFont.themeSmallBold
+        addBookButton.titleLabel?.font = UIFont.themeTinyBold
+        addBookButton.titleLabel?.numberOfLines = 0
+        addBookButton.titleLabel?.lineBreakMode = .byWordWrapping
+        addBookButton.titleLabel?.textAlignment = .center
         
         synopsisLabel.font = UIFont.themeSmallBold
         synopsisLabel.textColor = UIColor.themeOrange
@@ -136,5 +139,4 @@ class BookDetailsViewController: UIViewController {
         webView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0).isActive = true
         webView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
     }
-    
 }

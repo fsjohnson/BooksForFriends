@@ -29,6 +29,7 @@ class AddCommentAndRatingViewController: UIViewController {
     var fromFutureReads: Bool? = nil
     var passedISBN = String()
     var amazonLink = String()
+    var webView = UIWebView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -157,4 +158,43 @@ class AddCommentAndRatingViewController: UIViewController {
             })
         }
     }
+    
+    func generateProperAmazonTitleSearch(with searchTitle: String) {
+        
+        let correctTitle = searchTitle.replacingOccurrences(of: " ", with: "+")
+        amazonLink = "https://www.amazon.com/gp/search?ie=UTF8&tag=fjoh-20&linkCode=ur2&linkId=843dbc767a8fd5beb8c8addbc0d75569&camp=1789&creative=9325&index=books&keywords=\(correctTitle)"
+        print("AMAZON LINK: \(amazonLink)")
+    }
+    
+    @IBAction func amazonPurchaseBook(_ sender: Any) {
+        generateProperAmazonTitleSearch(with: passedTitle)
+        let url = URL(string: "\(amazonLink)")
+        if let unwrappedURL = url {
+            
+            let request = URLRequest(url: unwrappedURL)
+            let session = URLSession.shared
+            
+            let task = session.dataTask(with: request) { (data, response, error) in
+                if error == nil {
+                    OperationQueue.main.addOperation {
+                        self.configWebView()
+                        self.webView.loadRequest(request)
+                    }
+                } else {
+                    print("ERROR: \(error)")
+                }
+            }
+            task.resume()
+        }
+    }
+    
+    func configWebView() {
+        self.view.addSubview(webView)
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        webView.topAnchor.constraint(equalTo: (navigationController?.navigationBar.bottomAnchor)!, constant: 0).isActive = true
+        webView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0).isActive = true
+        webView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0).isActive = true
+        webView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
+    }
+
 }
