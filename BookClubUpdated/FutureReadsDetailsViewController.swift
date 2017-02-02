@@ -83,6 +83,7 @@ class FutureReadsDetailsViewController: UIViewController {
     }
 
     @IBAction func amazonPurchaseButton(_ sender: Any) {
+        activityIndicator.startAnimating()
         generateProperAmazonTitleSearch(with: passedTitle)
         let url = URL(string: "\(amazonLink)")
         if let unwrappedURL = url {
@@ -93,6 +94,7 @@ class FutureReadsDetailsViewController: UIViewController {
             let task = session.dataTask(with: request) { (data, response, error) in
                 if error == nil {
                     OperationQueue.main.addOperation {
+                        self.activityIndicator.stopAnimating()
                         self.configWebView()
                         self.webView.loadRequest(request)
                     }
@@ -141,4 +143,13 @@ class FutureReadsDetailsViewController: UIViewController {
         }
     }
     
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let indicator: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x:0 ,y: 0, width: 50, height: 50))
+        indicator.color = UIColor .magenta
+        indicator.hidesWhenStopped = true
+        indicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        indicator.center = self.view.center
+        self.view.addSubview(indicator)
+        return indicator
+    }()
 }

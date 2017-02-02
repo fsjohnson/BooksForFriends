@@ -165,6 +165,7 @@ class AddCommentAndRatingViewController: UIViewController {
     }
     
     @IBAction func amazonPurchaseBook(_ sender: Any) {
+        activityIndicator.startAnimating()
         generateProperAmazonTitleSearch(with: passedTitle)
         let url = URL(string: "\(amazonLink)")
         if let unwrappedURL = url {
@@ -177,6 +178,7 @@ class AddCommentAndRatingViewController: UIViewController {
                 print("data: \(data)")
                 if error == nil {
                     OperationQueue.main.addOperation {
+                        self.activityIndicator.stopAnimating()
                         self.configWebView()
                         self.webView.loadRequest(request)
                     }
@@ -202,4 +204,13 @@ class AddCommentAndRatingViewController: UIViewController {
         webView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
     }
 
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let indicator: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x:0 ,y: 0, width: 50, height: 50))
+        indicator.color = UIColor .magenta
+        indicator.hidesWhenStopped = true
+        indicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        indicator.center = self.view.center
+        self.view.addSubview(indicator)
+        return indicator
+    }()
 }
