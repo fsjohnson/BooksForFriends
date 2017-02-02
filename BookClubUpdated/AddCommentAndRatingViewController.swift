@@ -12,6 +12,7 @@ import Mixpanel
 
 class AddCommentAndRatingViewController: UIViewController {
     
+    @IBOutlet weak var purchaseOnAmazonButton: UIButton!
     @IBOutlet weak var addBookButton: UIButton!
     @IBOutlet weak var starView: UIView!
     @IBOutlet weak var ratingLabel: UILabel!
@@ -45,10 +46,6 @@ class AddCommentAndRatingViewController: UIViewController {
 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        
-        print("PASSED ISBN: \(passedISBN)")
-        amazonLink = "https://www.amazon.com/gp/search?ie=UTF8&tag=fjoh-20&linkCode=ur2&linkId=843dbc767a8fd5beb8c8addbc0d75569&camp=1789&creative=9325&index=books&keywords=\(passedISBN)"
-        print("LINK: \(amazonLink)")
     }
     
     override func didReceiveMemoryWarning() {
@@ -64,8 +61,10 @@ class AddCommentAndRatingViewController: UIViewController {
             BooksFirebaseMethods.checkIfCurrentUserAlreadyPosted(previousRead: bookID, userUniqueID: userUniqueKey) { (alreadyPosted) in
                 if alreadyPosted == false {
                     self.addBookButton.isHidden = false
+                    self.purchaseOnAmazonButton.isHidden = false
                 } else {
                     self.addBookButton.isHidden = true
+                    self.purchaseOnAmazonButton.isHidden = true
                 }
             }
         }
@@ -163,7 +162,6 @@ class AddCommentAndRatingViewController: UIViewController {
         
         let correctTitle = searchTitle.replacingOccurrences(of: " ", with: "+")
         amazonLink = "https://www.amazon.com/gp/search?ie=UTF8&tag=fjoh-20&linkCode=ur2&linkId=843dbc767a8fd5beb8c8addbc0d75569&camp=1789&creative=9325&index=books&keywords=\(correctTitle)"
-        print("AMAZON LINK: \(amazonLink)")
     }
     
     @IBAction func amazonPurchaseBook(_ sender: Any) {

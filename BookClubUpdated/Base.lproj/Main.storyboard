@@ -638,6 +638,9 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LfC-lA-bo5">
                                         <rect key="frame" x="147.5" y="0.0" width="97.5" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="97.5" id="r8f-fz-55k"/>
+                                        </constraints>
                                         <state key="normal" title="Button" image="Amazon"/>
                                         <connections>
                                             <action selector="amazonPurchaseBook:" destination="p49-83-rhL" eventType="touchUpInside" id="eNO-uu-LaZ"/>
@@ -676,6 +679,7 @@
                         <outlet property="bookCoverImageView" destination="Nth-Md-Eeu" id="v4v-wv-txC"/>
                         <outlet property="commentsLabel" destination="9qy-h1-RC7" id="v49-5b-bEj"/>
                         <outlet property="commentsTextView" destination="Do7-Iy-d4h" id="ejF-Bj-sHq"/>
+                        <outlet property="purchaseOnAmazonButton" destination="LfC-lA-bo5" id="w7A-oS-ak2"/>
                         <outlet property="ratingLabel" destination="L6w-8s-4Mb" id="EeF-3A-o4W"/>
                         <outlet property="starView" destination="kZH-hT-Ax4" id="qgA-Fu-2er"/>
                     </connections>
