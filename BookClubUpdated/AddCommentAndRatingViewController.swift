@@ -173,6 +173,8 @@ class AddCommentAndRatingViewController: UIViewController {
             let session = URLSession.shared
             
             let task = session.dataTask(with: request) { (data, response, error) in
+                print("response: \(response)")
+                print("data: \(data)")
                 if error == nil {
                     OperationQueue.main.addOperation {
                         self.configWebView()
@@ -183,6 +185,11 @@ class AddCommentAndRatingViewController: UIViewController {
                 }
             }
             task.resume()
+        } else {
+            let alert = UIAlertController(title: "Oops!", message: "URL could not be found", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
+            }))
+            self.present(alert, animated: true, completion: nil)
         }
     }
     

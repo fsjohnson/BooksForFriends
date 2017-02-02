@@ -128,6 +128,11 @@ class BookDetailsViewController: UIViewController {
                 }
             }
             task.resume()
+        } else {
+            let alert = UIAlertController(title: "Oops!", message: "URL could not be found", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
+            }))
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
